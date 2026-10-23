@@ -1,0 +1,1195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="An interactive unit for ages 13 to 15 on how AI uses data from social media, browsing and shopping to influence behaviour, ending with an Algorithm Audit project.">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,'Segoe UI',sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>The Data Trail</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a long "investigation" in six parts plus a final project. Highlighter yellow marks anything that is DATA; teal marks the system acting on it. */
+:root{
+  --bg:#ECF0F3; --paper:#FFFFFF; --ink:#13202B; --muted:#55636F; --line:#CBD4DC;
+  --hi:#FFE14A; --hi-ink:#13202B; --teal:#0C6E7C; --teal-soft:#D5EEF1;
+  --good:#1E7A44; --good-soft:#DDF2E4; --bad:#B23A1C; --bad-soft:#F8E1DA;
+  --display:"Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E151B; --paper:#17212A; --ink:#E5ECF1; --muted:#9AA8B4; --line:#2C3A46;
+  --hi:#F2D032; --hi-ink:#13202B; --teal:#5CC4D2; --teal-soft:#183A40;
+  --good:#5BC98A; --good-soft:#163525; --bad:#F08A6C; --bad-soft:#3D2018; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E151B; --paper:#17212A; --ink:#E5ECF1; --muted:#9AA8B4; --line:#2C3A46;
+  --hi:#F2D032; --hi-ink:#13202B; --teal:#5CC4D2; --teal-soft:#183A40;
+  --good:#5BC98A; --good-soft:#163525; --bad:#F08A6C; --bad-soft:#3D2018; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);line-height:1.08;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.8rem,4.5vw,2.6rem);font-weight:800;letter-spacing:-.01em}
+h3{font-size:1.25rem;font-weight:700}
+p{margin:0}
+.prose{display:grid;gap:12px;max-width:68ch}
+.mark{background:linear-gradient(transparent 12%,var(--hi) 12%,var(--hi) 88%,transparent 88%);color:var(--hi-ink);padding:0 .2em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:600}
+.lede{color:var(--muted);max-width:64ch}
+button{font:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+a{color:var(--teal)}
+.small{font-size:.86rem;color:var(--muted)}
+
+/* nav */
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--ink);color:var(--bg)}
+nav.top .wrap{display:flex;align-items:center;gap:16px;padding-block:10px}
+nav.top .brand{font-family:var(--display);font-weight:800;white-space:nowrap}
+nav.top .links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;min-width:0}
+nav.top .links::-webkit-scrollbar{display:none}
+nav.top a{color:var(--bg);text-decoration:none;font-size:.88rem;padding:6px 10px;border-radius:99px;white-space:nowrap;opacity:.85}
+nav.top a:hover{opacity:1;background:color-mix(in srgb,var(--bg) 14%,transparent)}
+nav.top a.proj{background:var(--hi);color:var(--hi-ink);opacity:1;font-weight:700}
+
+/* hero */
+.hero{padding-block:48px 40px}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(2.6rem,8vw,5.2rem);font-weight:800;letter-spacing:-.025em}
+.hero p.lede{font-size:1.15rem;margin-top:18px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{font-family:var(--mono);font-size:.78rem;border:1px solid var(--line);border-radius:99px;padding:4px 10px;background:var(--paper);color:var(--muted)}
+.receipt{background:var(--paper);font-family:var(--mono);font-size:.82rem;padding:22px 20px 26px;box-shadow:0 10px 30px -18px rgba(0,0,0,.45);transform:rotate(1.2deg);
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat, radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) bottom/14px 10px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat, radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) bottom/14px 10px repeat-x}
+.receipt .rh{text-align:center;font-weight:600;letter-spacing:.1em;border-bottom:1px dashed var(--line);padding-bottom:10px;margin-bottom:10px}
+.receipt .row{display:flex;justify-content:space-between;gap:12px;padding:3px 0}
+.receipt .row span:last-child{color:var(--muted);white-space:nowrap}
+.receipt .tot{border-top:1px dashed var(--line);margin-top:10px;padding-top:10px;font-weight:600;display:flex;justify-content:space-between}
+.receipt .tot span:last-child{background:var(--hi);color:var(--hi-ink);padding:0 4px}
+
+/* route map */
+.route{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-top:8px}
+.route a{display:grid;gap:4px;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:.86rem}
+.route a:hover{border-color:var(--ink)}
+.route a b{font-family:var(--display);font-size:.98rem}
+.route a span{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.06em}
+.route a.p{background:var(--hi);color:var(--hi-ink);border-color:var(--hi)}
+.route a.p span{color:var(--hi-ink)}
+
+/* parts and sections */
+.part{background:var(--ink);color:var(--bg);margin-top:24px}
+.part .wrap{padding-block:40px;display:grid;gap:10px}
+.part .num{font-family:var(--mono);font-size:.8rem;letter-spacing:.14em;color:var(--hi)}
+.part h2{color:var(--bg)}
+.part p{color:color-mix(in srgb,var(--bg) 78%,var(--ink));max-width:62ch}
+section.block{padding-block:48px;border-top:1px solid var(--line)}
+section.block.first{border-top:0}
+.sec-head{display:grid;gap:10px;margin-bottom:24px}
+.mission{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px}
+.panel h3{margin-bottom:10px;font-size:1.05rem}
+.btn{border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:8px;padding:9px 14px;font-weight:700;font-size:.95rem}
+.btn:hover{background:var(--hi);color:var(--hi-ink);border-color:var(--hi-ink)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn.primary:hover{background:var(--hi);color:var(--hi-ink)}
+.task{border-left:4px solid var(--hi);padding:10px 14px;background:var(--paper);border-radius:0 8px 8px 0;margin-top:20px;max-width:75ch}
+.task b{font-family:var(--display)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.key{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px}
+.key div{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px;font-size:.9rem}
+.key dt,.key b{font-family:var(--display);display:block;font-size:1rem;margin-bottom:2px}
+
+/* video cards */
+.watch{margin-top:24px}
+.watch .wh{font-family:var(--mono);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+a.vid{display:grid;grid-template-columns:56px minmax(0,1fr);gap:12px;align-items:start;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px}
+a.vid:hover{border-color:var(--ink)}
+a.vid .play{width:56px;height:56px;border-radius:8px;background:var(--ink);display:grid;place-items:center}
+a.vid .play::before{content:"";border-left:16px solid var(--hi);border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
+a.vid b{font-family:var(--display);font-size:1rem;display:block;line-height:1.2}
+a.vid .by{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+a.vid .use{font-size:.85rem;margin-top:4px;display:block}
+
+/* diagram */
+.loop{width:100%;height:auto;max-width:560px;display:block}
+.loop text{font-family:var(--body);fill:var(--ink)}
+.loop .lbl{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+
+/* feed sim */
+.feed-grid{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:24px;align-items:start}
+.phone{background:var(--ink);border-radius:30px;padding:14px;max-width:380px}
+.screen{background:var(--paper);border-radius:20px;overflow:hidden}
+.post{aspect-ratio:4/5;max-width:100%;display:flex;flex-direction:column;justify-content:space-between;padding:20px;color:#fff;position:relative}
+.post .ptopic{font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;opacity:.9}
+.post .ptitle{font-family:var(--display);font-weight:800;font-size:1.6rem;line-height:1.1}
+.post .why{font-size:.78rem;background:rgba(0,0,0,.35);padding:6px 9px;border-radius:6px;align-self:flex-start}
+.post .timer{position:absolute;top:16px;right:16px;font-family:var(--mono);font-size:.75rem;background:rgba(0,0,0,.35);padding:3px 7px;border-radius:5px}
+.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:10px}
+.actions button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:8px 2px;font-size:.82rem;font-weight:700}
+.actions button:hover{background:var(--hi);color:var(--hi-ink)}
+.dash{display:grid;gap:16px;min-width:0}
+.bars{display:grid;gap:7px}
+.bar{display:grid;grid-template-columns:96px minmax(0,1fr) 38px;gap:8px;align-items:center;font-size:.86rem}
+.bar .track{height:12px;background:var(--bg);border-radius:6px;overflow:hidden}
+.bar .fill{height:100%;background:var(--teal);border-radius:6px;transition:width .4s}
+.bar .num{font-family:var(--mono);font-size:.78rem;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.log{font-family:var(--mono);font-size:.74rem;background:var(--ink);color:#C9F2D6;border-radius:8px;padding:12px;height:170px;overflow-y:auto;line-height:1.6}
+.log .k{color:#FFE14A}
+.segs{display:flex;flex-wrap:wrap;gap:6px}
+.seg{font-size:.82rem;padding:4px 10px;border-radius:99px;background:var(--hi);color:var(--hi-ink);font-weight:700}
+.seg.dim{background:var(--bg);color:var(--muted);font-weight:400;border:1px dashed var(--line)}
+.seg.t{background:var(--teal-soft);color:var(--ink);font-weight:400}
+.meter{height:14px;border-radius:7px;background:linear-gradient(90deg,var(--good),var(--hi),var(--bad));position:relative}
+.meter i{position:absolute;top:-4px;width:4px;height:22px;background:var(--ink);border-radius:2px;transition:left .4s}
+
+/* tracker sim */
+.sites{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.site{text-align:left;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:8px;padding:10px;display:grid;gap:4px}
+.site:hover{border-color:var(--ink)}
+.site.v{border-color:var(--teal);background:var(--teal-soft)}
+.site b{font-family:var(--display)}
+.site span{font-size:.76rem;color:var(--muted)}
+.trk{display:grid;gap:10px}
+.tk{border:1px solid var(--line);border-radius:8px;padding:12px;background:var(--paper)}
+.tk .tn{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:.78rem}
+.tk .tn b{font-family:var(--display);font-size:1rem}
+
+/* sort */
+.sort-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.sitem{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:10px}
+.sitem .opts{display:flex;gap:6px;flex-wrap:wrap}
+.sitem .opts button{flex:1;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:6px;padding:6px 4px;font-size:.8rem;font-weight:700}
+.sitem.right{border-color:var(--good);background:var(--good-soft)}
+.sitem.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.sitem .fb{font-size:.84rem}
+.legend3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.legend3 div{padding:12px;border-radius:8px;background:var(--paper);border:1px solid var(--line);font-size:.9rem}
+.legend3 b{font-family:var(--display);display:block;font-size:1.05rem}
+
+/* people-like-you */
+.items{display:grid;gap:8px}
+.item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;font-size:.92rem}
+.rate{display:flex;gap:3px}
+.rate button{width:30px;height:30px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:6px;font-size:.8rem;font-weight:700;padding:0}
+.rate button.on{background:var(--teal);color:var(--paper);border-color:var(--teal)}
+.nb{display:grid;grid-template-columns:90px minmax(0,1fr) 46px;gap:8px;align-items:center;font-size:.84rem}
+.rec{border:1.5px solid var(--teal);border-radius:8px;padding:12px;background:var(--teal-soft);display:grid;gap:6px}
+.rec b{font-family:var(--display);font-size:1.1rem}
+.rec .yn{display:flex;gap:6px}
+
+/* scenarios */
+.scen-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:16px}
+.scen-tabs button{border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:99px;padding:8px 14px;white-space:nowrap;font-weight:700;font-size:.9rem}
+.scen-tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.flow{display:grid;gap:10px}
+.step{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start}
+.step .n{width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-family:var(--mono);font-size:.8rem}
+.step .lbl{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.choices{display:grid;gap:8px;margin-top:10px}
+.choices button{text-align:left;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:10px 12px}
+.choices button:hover{border-color:var(--ink)}
+.choices button.right{border-color:var(--good);background:var(--good-soft)}
+.choices button.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.fbbox{margin-top:12px;padding:12px;border-radius:8px;background:var(--teal-soft);font-size:.95rem}
+.discuss{margin-top:14px;font-size:.92rem}
+.discuss b{font-family:var(--display)}
+
+/* dark patterns */
+.dps{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.dp{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:10px;align-content:start}
+.mock{border:1px solid var(--line);border-radius:8px;padding:14px;background:var(--bg);font-family:system-ui,sans-serif;font-size:.9rem;display:grid;gap:8px}
+.mock .mbig{background:#1565C0;color:#fff;border:0;border-radius:6px;padding:9px;font-weight:700;text-align:center}
+.mock .mtiny{font-size:.7rem;color:var(--muted);text-align:center;text-decoration:underline}
+.mock .mred{color:#C62828;font-weight:700}
+.mock .mrow{display:flex;justify-content:space-between;gap:8px}
+.dp select{font:inherit;padding:8px;border-radius:6px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+.dp.right{border-color:var(--good)}
+.dp.wrong{border-color:var(--bad)}
+
+/* cv bot */
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.86rem}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td.h{color:var(--good);font-weight:700}
+td.r{color:var(--bad);font-weight:700}
+tr.extra td{background:var(--teal-soft)}
+.kw{display:inline-block;font-family:var(--mono);font-size:.74rem;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:1px 6px;margin:1px 2px 1px 0}
+.toggles{display:grid;gap:8px;margin:14px 0}
+.tg{display:flex;gap:10px;align-items:flex-start;font-size:.92rem;cursor:pointer}
+.tg input{width:20px;height:20px;margin-top:2px;accent-color:var(--teal);flex:none}
+.wbars{display:grid;gap:6px}
+.wbar{display:grid;grid-template-columns:150px minmax(0,1fr) 48px;gap:8px;align-items:center;font-size:.82rem}
+.wbar .t{position:relative;height:14px;background:var(--bg);border-radius:3px}
+.wbar .t::after{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--muted)}
+.wbar .f{position:absolute;top:0;height:100%;border-radius:3px;transition:all .4s}
+.wbar .v{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+.tests{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tcv{border:1px solid var(--line);border-radius:8px;padding:12px;background:var(--bg);display:grid;gap:6px}
+.tcv .who{font-family:var(--display);font-weight:700}
+.stars{font-size:1.1rem;letter-spacing:2px;color:var(--teal)}
+.verdict{font-family:var(--mono);font-size:.74rem;font-weight:600;padding:2px 8px;border-radius:4px;justify-self:start}
+.verdict.y{background:var(--good-soft);color:var(--good)}
+.verdict.n{background:var(--bad-soft);color:var(--bad)}
+.score{display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;margin:14px 0 6px}
+.score .big{font-family:var(--display);font-weight:800;font-size:2.4rem;font-variant-numeric:tabular-nums}
+.restab td,.restab th{text-align:center}
+.restab td:first-child,.restab th:first-child{text-align:left}
+
+/* cases */
+.cases{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.case{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.case .yr{font-family:var(--mono);font-size:.76rem;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.case .stamp{border:1.5px solid var(--bad);color:var(--bad);border-radius:4px;padding:0 6px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.case dl{margin:0;display:grid;gap:8px;font-size:.93rem}
+.case dt{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);font-weight:600}
+.case dd{margin:0}
+.case details{border-top:1px dashed var(--line);padding-top:10px;font-size:.92rem}
+.case summary{cursor:pointer;font-weight:700}
+.case ul{margin:8px 0 0;padding-left:20px}
+.case .src{font-size:.8rem;margin-top:auto}
+.analyse{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:20px}
+.analyse div{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px;font-size:.88rem}
+.analyse b{font-family:var(--display);display:block}
+
+/* rights */
+.rights{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.right-c{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:6px;align-content:start}
+.right-c b{font-family:var(--display);font-size:1.05rem}
+.right-c .eg{font-size:.86rem;color:var(--muted)}
+.form{display:grid;gap:10px}
+.form label{display:grid;gap:4px;font-size:.88rem;font-weight:700}
+.form input,.form select,.form textarea{font:inherit;font-weight:400;padding:9px 10px;border:1.5px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);width:100%}
+.letter{font-family:var(--mono);font-size:.8rem;white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:14px;max-height:340px;overflow:auto}
+
+/* quiz */
+.quiz{display:grid;gap:14px;max-width:760px}
+.q{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px}
+.q p.qt{font-weight:700;margin-bottom:8px}
+.qscore{position:sticky;bottom:12px;justify-self:start;background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:99px;font-family:var(--mono);font-size:.85rem}
+
+/* control */
+.ctrl{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.ctrl label{display:flex;gap:10px;align-items:flex-start;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px;cursor:pointer;font-size:.93rem}
+.ctrl input{width:20px;height:20px;accent-color:var(--teal);flex:none;margin-top:2px}
+
+/* project */
+.proj-hero{background:var(--hi);color:var(--hi-ink)}
+.proj-hero .wrap{padding-block:48px;display:grid;gap:12px}
+.proj-hero h2{font-size:clamp(2.2rem,6vw,3.6rem)}
+.proj-hero p{max-width:64ch}
+.proj-hero .num{font-family:var(--mono);font-size:.8rem;letter-spacing:.14em}
+.paths{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.path{background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:8px;align-content:start;text-align:left;color:var(--ink)}
+.path[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--hi) inset}
+.path .pl{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;color:var(--teal);font-weight:600}
+.path b{font-family:var(--display);font-size:1.2rem}
+.path ul{margin:0;padding-left:18px;font-size:.88rem}
+.timeline{display:grid;gap:0;counter-reset:st}
+.stage{display:grid;grid-template-columns:110px minmax(0,1fr);gap:18px;padding:18px 0;border-top:1px solid var(--line)}
+.stage .when{font-family:var(--mono);font-size:.78rem;color:var(--muted)}
+.stage .when b{display:block;font-family:var(--display);font-size:1.3rem;color:var(--ink)}
+.stage ul{margin:6px 0 0;padding-left:20px;font-size:.93rem}
+.stage .out{margin-top:8px;font-size:.88rem;background:var(--teal-soft);padding:6px 10px;border-radius:6px;display:inline-block}
+.rubric th,.rubric td{font-size:.84rem}
+.rubric td:first-child{font-weight:700;font-family:var(--display);font-size:.95rem}
+.planner .form{grid-template-columns:repeat(2,minmax(0,1fr))}
+.planner .full{grid-column:1/-1}
+.checks{display:grid;gap:6px;font-size:.92rem}
+.checks label{display:flex;gap:10px;align-items:flex-start;font-weight:400}
+.checks input{width:18px;height:18px;flex:none;margin-top:3px;accent-color:var(--teal)}
+
+.teacher ol,.teacher ul{margin:8px 0 0;padding-left:20px}
+.teacher li{margin-bottom:6px}
+footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
+
+@media (max-width:900px){
+  .route{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .analyse{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .paths{grid-template-columns:1fr}
+}
+@media (max-width:820px){
+  .hero-grid,.feed-grid,.two{grid-template-columns:1fr}
+  .receipt{transform:none}
+  .phone{margin:0 auto;width:100%}
+}
+@media (max-width:520px){
+  .legend3,.tests,.planner .form{grid-template-columns:1fr}
+  .route{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .wbar{grid-template-columns:110px minmax(0,1fr) 44px}
+  .stage{grid-template-columns:1fr;gap:6px}
+  nav.top .brand{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<nav class="top"><div class="wrap">
+  <span class="brand">The Data Trail</span>
+  <div class="links">
+    <a href="#p1">1 · Your trail</a><a href="#p2">2 · How AI learns</a><a href="#p3">3 · Steering you</a><a href="#p4">4 · Bias</a><a href="#p5">5 · Case files</a><a href="#p6">6 · Rights</a><a href="#project" class="proj">Final project</a><a href="#teacher">Teachers</a>
+  </div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="hero-grid">
+    <div>
+      <p class="eyebrow">An investigation for ages 13–15</p>
+      <h1 style="margin-top:10px">You didn’t pay with money. You paid with <span class="mark">data</span>.</h1>
+      <p class="lede">Every scroll, pause, search and basket leaves a trail. AI systems read that trail to predict what you’ll do next, and then try to change it. Work through six parts, then use what you’ve learned in a final project.</p>
+      <div class="meta"><span class="chip">6 parts · 13 activities</span><span class="chip">11 video clips</span><span class="chip">5 real case files</span><span class="chip">final project · 4–6 lessons</span></div>
+    </div>
+    <div class="receipt" aria-label="Example data receipt for one school day">
+      <div class="rh">DATA RECEIPT · ONE SCHOOL DAY</div>
+      <div class="row"><span>07:12 Phone unlocked</span><span>location</span></div>
+      <div class="row"><span>07:15 Watched 41 short videos</span><span>watch time</span></div>
+      <div class="row"><span>08:30 Bus pass tapped</span><span>route</span></div>
+      <div class="row"><span>12:40 Searched “cheap trainers”</span><span>intent</span></div>
+      <div class="row"><span>12:42 Left trainers in basket</span><span>hesitation</span></div>
+      <div class="row"><span>16:05 Lost level 12 three times</span><span>frustration</span></div>
+      <div class="row"><span>22:58 Still scrolling</span><span>late-night use</span></div>
+      <div class="row"><span>23:20 Paused on a sad song</span><span>mood?</span></div>
+      <div class="tot"><span>TOTAL PAID</span><span>~2,000 data points</span></div>
+    </div>
+  </div>
+  <div class="route" style="margin-top:36px" aria-label="Route through the investigation">
+    <a href="#p1"><span>PART 1</span><b>Your trail</b>What is collected and how</a>
+    <a href="#p2"><span>PART 2</span><b>How AI learns</b>Recommendation systems</a>
+    <a href="#p3"><span>PART 3</span><b>Steering you</b>Nudges and dark patterns</a>
+    <a href="#p4"><span>PART 4</span><b>Bias</b>Train and test an AI</a>
+    <a href="#p5"><span>PART 5</span><b>Case files</b>Real news stories</a>
+    <a href="#p6"><span>PART 6</span><b>Rights</b>The law and you</a>
+    <a href="#project" class="p"><span>FINISH</span><b>Project</b>Audit and redesign</a>
+  </div>
+</div></header>
+
+<!-- ============ PART 1 ============ -->
+<div class="part" id="p1"><div class="wrap"><span class="num">PART 1 OF 6 · ABOUT 2 LESSONS</span><h2>Your data trail</h2><p>Before an AI can influence you, it needs data. Here you find out what is collected, how websites follow you around, and the difference between what you share and what is guessed about you.</p></div></div>
+
+<section class="block first" id="trail"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">1.1 · READ AND DISCUSS · 10 MIN</span>
+    <h2>Where does the data come from?</h2>
+  </div>
+  <div class="two">
+    <div class="prose">
+      <p>Most apps you use are free because they make money from advertising. Advertisers pay more when they can reach exactly the right people, so apps try to know as much about you as possible.</p>
+      <p>Data comes from three places: the <b>app itself</b> (what you watch, like, type and buy), your <b>device</b> (location, phone model, battery level, which other apps are installed) and <b>other websites</b> that share data through trackers.</p>
+      <p>Some companies, called <b>data brokers</b>, collect data from many sources and sell profiles to other businesses. You will probably never visit their websites, but they may have a file on your household.</p>
+    </div>
+    <dl class="key" style="margin-top:0">
+      <div><dt>Cookie</dt>A small file a website stores in your browser so it recognises you next time.</div>
+      <div><dt>Third-party cookie</dt>A cookie from a company that isn’t the site you’re on, usually an advertiser.</div>
+      <div><dt>Tracking pixel</dt>An invisible image in a web page or email that reports when you opened it.</div>
+      <div><dt>Device ID</dt>A code that identifies your phone to advertisers across many apps.</div>
+      <div><dt>Profile</dt>Everything a company has collected or guessed about you, linked together.</div>
+      <div><dt>Data broker</dt>A business that buys, combines and sells people’s data.</div>
+    </dl>
+  </div>
+  <div class="watch"><div class="wh">Watch</div><div class="vids">
+    <a class="vid" href="https://www.youtube.com/watch?v=QWw7Wd2gUJk" target="_blank" rel="noopener"><span class="play" aria-hidden="true"></span><span><b>How cookies can track you</b><span class="by">Simply Explained</span><span class="use">Clear animated explainer of first- and third-party cookies. Watch before 1.2.</span></span></a>
+    <a class="vid" href="https://www.youtube.com/results?search_query=Vox+How+ads+follow+you+around+the+internet" target="_blank" rel="noopener"><span class="play" aria-hidden="true"></span><span><b>How ads follow you around the internet</b><span class="by">Vox · Open Sourced (2020)</span><span class="use">Includes an interview with the inventor of the cookie. Opens a YouTube search.</span></span></a>
+  </div></div>
+</div></section>
+
+<section class="block" id="track"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">1.2 · SIMULATION · 10 MIN</span>
+    <h2>Follow the trackers</h2>
+    <p class="lede">Visit these five pretend websites in any order. Each one secretly contains trackers from ad companies. Watch how those companies join up your visits into one profile, even though you never visited them.</p>
+  </div>
+  <div class="two">
+    <div class="panel">
+      <h3>Websites (tap to visit)</h3>
+      <div class="sites" id="sites"></div>
+      <div style="margin-top:12px"><button class="btn" id="trkReset">Clear cookies</button></div>
+    </div>
+    <div class="panel">
+      <h3>What each tracker company now knows</h3>
+      <div class="trk" id="trk"></div>
+    </div>
+  </div>
+  <div class="task"><b>Think:</b> Which company knows the most about you? You never visited its website. Now press <i>Clear cookies</i> and visit only two sites. How does clearing cookies change what is joined up?</div>
+</div></section>
+
+<section class="block" id="sort"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">1.3 · SORTING ACTIVITY · 10 MIN</span>
+    <h2>Given, observed or inferred?</h2>
+    <p class="lede">The third type is the one most people don’t know about, and it is where AI does its work.</p>
+  </div>
+  <div class="legend3">
+    <div><b>Given</b>You typed or uploaded it on purpose.</div>
+    <div><b>Observed</b>The app recorded what you did.</div>
+    <div><b>Inferred</b>An AI guessed it from other data. You never said it.</div>
+  </div>
+  <div class="sort-list" id="sortList"></div>
+  <p class="small" style="margin-top:14px" id="sortScore">0 of 12 sorted</p>
+</div></section>
+
+<!-- ============ PART 2 ============ -->
+<div class="part" id="p2"><div class="wrap"><span class="num">PART 2 OF 6 · ABOUT 2 LESSONS</span><h2>How AI learns you</h2><p>Recommendation systems are AI that decide what you see next. They learn from your behaviour and from people who behave like you. Here you see the loop from the inside.</p></div></div>
+
+<section class="block first" id="loop"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">2.1 · EXPLAINER · 10 MIN</span>
+    <h2>The engagement loop</h2>
+  </div>
+  <div class="two">
+    <svg class="loop" viewBox="0 0 520 420" role="img" aria-label="Diagram: Collect data, predict, choose content, measure reaction, then back to collect.">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--teal)"/></marker></defs>
+      <circle cx="260" cy="210" r="140" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="4 6"/>
+      <path d="M330 92 A140 140 0 0 1 395 180" fill="none" stroke="var(--teal)" stroke-width="3" marker-end="url(#ar)"/>
+      <path d="M392 250 A140 140 0 0 1 320 335" fill="none" stroke="var(--teal)" stroke-width="3" marker-end="url(#ar)"/>
+      <path d="M195 334 A140 140 0 0 1 125 245" fill="none" stroke="var(--teal)" stroke-width="3" marker-end="url(#ar)"/>
+      <path d="M128 170 A140 140 0 0 1 195 88" fill="none" stroke="var(--teal)" stroke-width="3" marker-end="url(#ar)"/>
+      <g><rect x="190" y="40" width="140" height="56" rx="8" fill="var(--hi)"/><text x="260" y="66" text-anchor="middle" font-weight="700" font-size="16" style="fill:var(--hi-ink)">1. Collect</text><text x="260" y="84" text-anchor="middle" font-size="11" style="fill:var(--hi-ink)">watch time, likes, location</text></g>
+      <g><rect x="360" y="182" width="150" height="56" rx="8" fill="var(--paper)" stroke="var(--teal)" stroke-width="2"/><text x="435" y="208" text-anchor="middle" font-weight="700" font-size="16">2. Predict</text><text x="435" y="226" text-anchor="middle" class="lbl">“will they watch this?”</text></g>
+      <g><rect x="190" y="324" width="140" height="56" rx="8" fill="var(--paper)" stroke="var(--teal)" stroke-width="2"/><text x="260" y="350" text-anchor="middle" font-weight="700" font-size="16">3. Act</text><text x="260" y="368" text-anchor="middle" class="lbl">show the top-scored post</text></g>
+      <g><rect x="10" y="182" width="150" height="56" rx="8" fill="var(--paper)" stroke="var(--teal)" stroke-width="2"/><text x="85" y="208" text-anchor="middle" font-weight="700" font-size="16">4. Measure</text><text x="85" y="226" text-anchor="middle" class="lbl">did you stay or scroll?</text></g>
+      <text x="260" y="204" text-anchor="middle" font-size="13" font-weight="700">Goal set by the company:</text>
+      <text x="260" y="224" text-anchor="middle" font-size="13" class="lbl">maximise time on app</text>
+    </svg>
+    <div class="prose">
+      <p>A recommendation system repeats four steps millions of times a day. It <b>collects</b> data about you, <b>predicts</b> how likely you are to engage with each possible post, <b>acts</b> by showing the posts with the highest scores, then <b>measures</b> your reaction and adds that to the data.</p>
+      <p>The key question is what the system is told to aim for. If the goal is “keep people watching”, it will learn whatever works, including content that makes people angry, anxious or unable to stop. Nobody has to program that on purpose. The AI finds it because it works.</p>
+      <p>There are two main ways systems choose: <b>content-based</b> (more of what you already liked) and <b>collaborative filtering</b> (what people similar to you liked). Most real apps combine both, along with thousands of other signals.</p>
+    </div>
+  </div>
+  <div class="watch"><div class="wh">Watch</div><div class="vids">
+    <a class="vid" href="https://www.youtube.com/watch?v=UzrBpYrcacM" target="_blank" rel="noopener"><span class="play" aria-hidden="true"></span><span><b>How AI Works</b><span class="by">Code.org</span><span class="use">Series introduction. A good starter for the whole unit.</span></span></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=2V6zog8MPQo" target="_blank" rel="noopener"><span class="play" aria-hidden="true"></span><span><b>What is Machine Learning?</b><span class="by">Code.org</span><span class="use">How computers learn patterns from examples instead of rules.</span></span></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=kiInh5STnyQ" target="_blank" rel="noopener"><span class="play" aria-hidden="true"></span><span><b>How YouTube knows what you should watch</b><span class="by">Crash Course AI #15</span><span class="use">Content-based, social and personalised recommendations. Longer; good for S3 or extension.</span></span></a>
+    <a class="vid" href="https://www.cbc.ca/kidsnews/post/watch-how-do-social-media-algorithms-work" target="_blank" rel="noopener"><span class="play" aria-hidden="true"></span><span><b>How do social media algorithms work?</b><span class="by">CBC Kids News</span><span class="use">Under three minutes, aimed at young people, ends with tips for managing your feed.</span></span></a>
+  </div></div>
+</div></section>
+
+<section class="block" id="feed"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">2.2 · SIMULATION · 15 MIN</span>
+    <h2>Be the user. Watch the AI learn you.</h2>
+    <p class="lede">This pretend app works like a content-based recommender. Every tap, and even how long you stay on a post, is logged and used to choose what comes next.</p>
+  </div>
+  <div class="feed-grid">
+    <div class="phone"><div class="screen">
+      <div class="post" id="post">
+        <span class="timer" id="timer">0.0s</span>
+        <span class="ptopic" id="ptopic">topic</span>
+        <span class="ptitle" id="ptitle">Loading…</span>
+        <span class="why" id="pwhy">Why am I seeing this?</span>
+      </div>
+      <div class="actions">
+        <button id="aLike">Like</button><button id="aWatch">Watch all</button><button id="aShare">Share</button><button id="aSkip">Skip</button>
+      </div>
+    </div></div>
+    <div class="dash">
+      <div class="panel"><h3>What the AI thinks you’re into</h3><div class="bars" id="bars"></div></div>
+      <div class="panel"><h3>Advertiser segments you’ve been placed in</h3><div class="segs" id="segs"></div><p class="small" style="margin-top:8px">Advertisers pay to reach these groups. You never chose them.</p></div>
+      <div class="panel"><h3>Bubble meter</h3><div class="meter" aria-hidden="true"><i id="mPin" style="left:0%"></i></div><p class="small" style="margin-top:8px" id="mText">Varied feed. Keep going.</p></div>
+      <div class="panel"><h3>Behind the scenes: the data log</h3><div class="log" id="log" aria-live="off"></div></div>
+      <div><button class="btn" id="feedReset">Reset the app (new user)</button></div>
+    </div>
+  </div>
+  <div class="task"><b>Experiment:</b> Pick one topic and only like that. How many posts until your feed is mostly that topic? Then reset, never press Like, but stay a long time on one topic before skipping. Did the AI still work you out? What does that tell you about “just looking”?</div>
+</div></section>
+
+<section class="block" id="similar"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">2.3 · TRAIN AND TEST · 15 MIN</span>
+    <h2>“People like you also watched…”</h2>
+    <p class="lede">This is collaborative filtering. Rate five videos. The AI compares you with six other users, finds the ones most like you, and predicts what you’ll enjoy from videos you haven’t seen. Then you test whether it was right.</p>
+  </div>
+  <div class="two">
+    <div class="panel">
+      <h3>Step 1 · Rate these (1 = no thanks, 5 = love it)</h3>
+      <div class="items" id="cfItems"></div>
+    </div>
+    <div class="panel">
+      <h3>Step 2 · Your nearest neighbours</h3>
+      <div id="cfNb" class="items"><p class="small">Rate all five videos to find users like you.</p></div>
+      <h3 style="margin-top:18px">Step 3 · Recommendations and testing</h3>
+      <div id="cfRec" class="items"></div>
+      <p class="small" style="margin-top:10px" id="cfAcc"></p>
+    </div>
+  </div>
+  <div class="task"><b>Discuss:</b> The AI never knew <i>why</i> you liked anything. It only knew who rates things like you do. What happens to someone whose tastes are unusual? What happens if most users are one age group or culture?</div>
+</div></section>
+
+<!-- ============ PART 3 ============ -->
+<div class="part" id="p3"><div class="wrap"><span class="num">PART 3 OF 6 · ABOUT 1–2 LESSONS</span><h2>How systems steer you</h2><p>Predictions become powerful when a system acts on them: changing what you see, what price you pay, or when an offer appears. Some of these nudges are helpful. Some are designed to trick you.</p></div></div>
+
+<section class="block first" id="scenarios"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">3.1 · SCENARIOS · 20 MIN</span>
+    <h2>Six ways your data steers you</h2>
+    <p class="lede">Each scenario follows the same chain: data is collected, the AI predicts something, the system acts. Work out what is really going on.</p>
+  </div>
+  <div class="scen-tabs" role="tablist" id="scenTabs"></div>
+  <div class="two" id="scenBody"></div>
+</div></section>
+
+<section class="block" id="dark"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">3.2 · SPOT THE TRICK · 15 MIN</span>
+    <h2>Dark patterns</h2>
+    <p class="lede">A dark pattern is a design that pushes you into something you might not choose if it were presented fairly. Data makes them stronger, because the system can show each trick to the people most likely to fall for it. Name the pattern in each mock-up.</p>
+  </div>
+  <div class="dps" id="dps"></div>
+  <p class="small" style="margin-top:14px" id="dpScore"></p>
+  <div class="task"><b>Hunt:</b> Find one real dark pattern on an app or website you use this week. Screenshot it (don’t include personal info) and bring it to the next lesson. You’ll need it for the final project.</div>
+</div></section>
+
+<!-- ============ PART 4 ============ -->
+<div class="part" id="p4"><div class="wrap"><span class="num">PART 4 OF 6 · ABOUT 1–2 LESSONS</span><h2>When AI gets it wrong: bias</h2><p>An AI is only as fair as the data it learns from. If the past was unfair, a system trained on the past can repeat that unfairness automatically, at huge scale, while looking neutral.</p></div></div>
+
+<section class="block first" id="train"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">4.1 · TRAIN, TEST, FIX · 25 MIN</span>
+    <h2>Train an AI. Test it. Catch it cheating.</h2>
+    <p class="lede">You work for <b>TechCo</b>. You must build <b>CV-Bot</b>, an AI that scores job applications from 1 to 5 stars. It learns from 10 years of the company’s past hiring decisions. This is based on a real system (Case file 2).</p>
+  </div>
+  <div class="two">
+    <div class="panel">
+      <h3>Step 1 · The training data</h3>
+      <p class="small">Each row is a past applicant: the clubs on their CV, and whether TechCo hired them.</p>
+      <div class="toggles">
+        <label class="tg"><input type="checkbox" id="fixWords"> <span><b>Fix A:</b> delete gendered words (“women’s”, “girls’”) from every CV before training</span></label>
+        <label class="tg"><input type="checkbox" id="fixData"> <span><b>Fix B:</b> add 7 more past records from a fairer hiring year</span></label>
+      </div>
+      <div class="tablewrap"><table><thead><tr><th>#</th><th>CV keywords</th><th>Result</th></tr></thead><tbody id="trainBody"></tbody></table></div>
+      <div style="margin-top:14px"><button class="btn primary" id="trainBtn">Train CV-Bot</button></div>
+    </div>
+    <div class="panel">
+      <h3>Step 2 · What CV-Bot learned</h3>
+      <p class="small" id="wIntro">Not trained yet. Press <b>Train CV-Bot</b>.</p>
+      <p class="small" style="margin-top:4px">Bars to the right push a CV up. Bars to the left push it down.</p>
+      <div class="wbars" id="wbars" style="margin-top:12px"></div>
+      <h3 style="margin-top:22px">Step 3 · Test on new applicants</h3>
+      <p class="small">Human interviewers rated all four applicants as <b>strong</b>. A fair bot should shortlist all four.</p>
+      <div class="tests" id="tests" style="margin-top:10px"></div>
+      <div class="score"><span class="big" id="acc">–</span><span class="small">test accuracy</span></div>
+      <div class="fbbox" id="cvFb">Train the bot, then read what happened here.</div>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:20px">
+    <h3>Your results table (fills in as you test)</h3>
+    <div class="tablewrap"><table class="restab"><thead><tr><th>Training setup</th><th>A</th><th>B</th><th>C</th><th>D</th><th>Accuracy</th></tr></thead><tbody id="resTab"></tbody></table></div>
+  </div>
+  <div class="task"><b>Explain in writing:</b> Why doesn’t deleting the word “women’s” fix the problem? What is a <i>proxy</i>? Which fix would a company find cheapest, and which actually works? Why must AI be tested on new data, not the data it learned from?</div>
+  <div class="watch"><div class="wh">Watch</div><div class="vids">
+    <a class="vid" href="https://www.youtube.com/watch?v=_egaRTxlA44" target="_blank" rel="noopener"><span class="play" aria-hidden="true"></span><span><b>AI: Training Data & Bias</b><span class="by">Code.org</span><span class="use">Why the quantity and quality of training data decides what an AI learns.</span></span></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=Y3tzSlzVh9M" target="_blank" rel="noopener"><span class="play" aria-hidden="true"></span><span><b>Ethics & AI: Equal Access & Algorithmic Bias</b><span class="by">Code.org</span><span class="use">Real examples of biased systems and who is affected.</span></span></a>
+  </div></div>
+</div></section>
+
+<!-- ============ PART 5 ============ -->
+<div class="part" id="p5"><div class="wrap"><span class="num">PART 5 OF 6 · ABOUT 1–2 LESSONS</span><h2>Case files: it really happened</h2><p>Five real news stories. Use the same four questions on each one. Groups can become experts on one case and teach the others.</p></div></div>
+
+<section class="block first" id="cases"><div class="wrap">
+  <div class="analyse">
+    <div><b>1. Data</b>What data was collected, from whom, and did they know?</div>
+    <div><b>2. System</b>What did the AI or system do with it?</div>
+    <div><b>3. Influence</b>Whose behaviour was changed, and how?</div>
+    <div><b>4. Consequences</b>Who was harmed, who benefited, what happened next?</div>
+  </div>
+  <div class="cases" id="caseList"></div>
+  <div class="watch"><div class="wh">Watch</div><div class="vids">
+    <a class="vid" href="https://www.cbsnews.com/news/cambridge-analytica-firm-that-helped-trumps-campaign-harvested-50-million-facebook-profiles/" target="_blank" rel="noopener"><span class="play" aria-hidden="true"></span><span><b>Cambridge Analytica: the original report</b><span class="by">CBS News (2018)</span><span class="use">News coverage from when the story broke. Note the early figure of 50 million, later revised to 87 million.</span></span></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=LlB8YK5dCcw" target="_blank" rel="noopener"><span class="play" aria-hidden="true"></span><span><b>AI: Impact on Society</b><span class="by">Code.org</span><span class="use">Benefits and risks of AI across society. Good before the case-file debate.</span></span></a>
+  </div></div>
+</div></section>
+
+<!-- ============ PART 6 ============ -->
+<div class="part" id="p6"><div class="wrap"><span class="num">PART 6 OF 6 · ABOUT 1 LESSON</span><h2>Your rights and your choices</h2><p>In the UK, the law gives you real rights over your data, with extra protections for children. Knowing them turns you from a data source into someone who can push back.</p></div></div>
+
+<section class="block first" id="rights"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">6.1 · KNOW YOUR RIGHTS · 15 MIN</span>
+    <h2>What the law says</h2>
+    <p class="lede">These come mainly from UK GDPR and the ICO’s Children’s Code (Age Appropriate Design Code). The Online Safety Act adds duties on platforms to protect under-18s from harmful content.</p>
+  </div>
+  <div class="rights">
+    <div class="right-c"><b>Right of access</b>Ask any organisation for a copy of the data it holds about you.<span class="eg">Usually free, with a reply within one month.</span></div>
+    <div class="right-c"><b>Right to erasure</b>Ask for your data to be deleted in many situations.<span class="eg">Especially strong for data collected when you were a child.</span></div>
+    <div class="right-c"><b>Right to object</b>Say no to your data being used for direct marketing.<span class="eg">Companies must stop when you object to marketing.</span></div>
+    <div class="right-c"><b>Right to be informed</b>Organisations must explain clearly what they collect and why.<span class="eg">For children, in language they can understand.</span></div>
+    <div class="right-c"><b>Automated decisions</b>Protections when important decisions are made about you by computer alone.<span class="eg">Think CV-Bot: you can ask for a human to review.</span></div>
+    <div class="right-c"><b>Age 13</b>In the UK, apps need a parent or carer’s consent to use under-13s’ data on the basis of consent.<span class="eg">Why TikTok was fined (Case file 5).</span></div>
+    <div class="right-c"><b>High privacy by default</b>The Children’s Code expects settings for under-18s to start private.<span class="eg">Location off and profiling off unless there’s a good reason.</span></div>
+    <div class="right-c"><b>No harmful nudges</b>The Children’s Code says services shouldn’t use nudge techniques that push children to weaken their privacy.<span class="eg">Links to the dark patterns in Part 3.</span></div>
+  </div>
+  <div class="two" style="margin-top:24px">
+    <div class="panel">
+      <h3>6.2 · Write a data request</h3>
+      <p class="small">Fill this in to generate a subject access request. Practise with it in class. If you’re under 13, ask a parent or carer to help before sending anything.</p>
+      <div class="form" style="margin-top:12px">
+        <label for="sarCo">Company or app<input id="sarCo" value="Example App Ltd"></label>
+        <label for="sarName">Name on your account<input id="sarName" value="A. Pupil"></label>
+        <label for="sarUser">Username or email on the account<input id="sarUser" value="@example_user"></label>
+        <label for="sarAsk">What I especially want to know
+          <select id="sarAsk"><option>the interests and categories you have assigned to me</option><option>which advertisers or partners my data has been shared with</option><option>how my data is used to choose what appears in my feed</option></select></label>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Your letter</h3>
+      <div class="letter" id="sarOut"></div>
+      <div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="btn" id="sarCopy">Copy letter</button><span class="small" id="sarMsg"></span></div>
+    </div>
+  </div>
+  <div class="watch"><div class="wh">Watch</div><div class="vids">
+    <a class="vid" href="https://www.youtube.com/watch?v=R0isSTNDZiQ" target="_blank" rel="noopener"><span class="play" aria-hidden="true"></span><span><b>Ethics & AI: Privacy & the Future of Work</b><span class="by">Code.org</span><span class="use">How AI changes privacy, and what trade-offs society is making.</span></span></a>
+  </div></div>
+</div></section>
+
+<section class="block" id="control"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">6.3 · TAKE CONTROL · 5 MIN</span>
+    <h2>Shorten your trail</h2>
+    <p class="lede">You can’t switch the data trail off, but you can make it shorter. Tick the ones you already do. Pick one new one to try this week.</p>
+  </div>
+  <div class="ctrl" id="ctrl"></div>
+  <p class="small" style="margin-top:12px" id="ctrlScore"></p>
+</div></section>
+
+<section class="block" id="quiz"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">6.4 · END-OF-UNIT QUIZ · 15 MIN</span>
+    <h2>Check your understanding</h2>
+    <p class="lede">Twelve questions covering all six parts. Score 9 or more before starting the project.</p>
+  </div>
+  <div class="quiz" id="quizBox"></div>
+</div></section>
+
+<!-- ============ PROJECT ============ -->
+<div class="proj-hero" id="project"><div class="wrap">
+  <span class="num">FINAL PROJECT · 4–6 LESSONS · TEAMS OF 3–4</span>
+  <h2>The Algorithm Audit</h2>
+  <p>The government has set up a <b>Youth Digital Panel</b> and wants young people’s evidence. Your team will investigate how one app or website uses data and AI to influence people your age, judge whether that is fair, and propose a better design. You’ll present to a panel acting as the regulator.</p>
+</div></div>
+
+<section class="block first" id="paths"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">STEP 1 · CHOOSE YOUR PATHWAY</span>
+    <h2>Three ways to complete the project</h2>
+    <p class="lede">Every pathway includes an investigation, a fairness judgement and a proposal. Pick the one that suits your team.</p>
+  </div>
+  <div class="paths" id="pathList">
+    <button class="path" data-p="A" aria-pressed="false"><span class="pl">PATHWAY A · INVESTIGATE</span><b>Audit and redesign</b><span>Audit a real app or website you know, then redesign it to be fairer.</span><ul><li>Evidence log and audit report</li><li>Redesigned screens (paper or digital)</li><li>5-minute pitch</li></ul></button>
+    <button class="path" data-p="B" aria-pressed="false"><span class="pl">PATHWAY B · BUILD</span><b>Build a fair recommender</b><span>Code a simple recommender in Scratch or Python and test it for bias.</span><ul><li>Working program and training data</li><li>Test results, including a bias test</li><li>Design write-up and demo</li></ul></button>
+    <button class="path" data-p="C" aria-pressed="false"><span class="pl">PATHWAY C · CAMPAIGN</span><b>Teach the next year group</b><span>Create a campaign that helps 11–12 year olds understand their data trail.</span><ul><li>Research summary with sources</li><li>Campaign resource (video, comic, game or lesson)</li><li>Test it with real P7/S1 pupils and report back</li></ul></button>
+  </div>
+</div></section>
+
+<section class="block" id="stages"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">STEP 2 · WORK THROUGH THE STAGES</span>
+    <h2>Project stages</h2>
+  </div>
+  <div class="timeline">
+    <div class="stage"><div class="when"><b>Stage 1</b>Lesson 1</div><div><h3>Choose and plan</h3><ul><li>Choose an app or website popular with your age group that you are old enough to use under its rules.</li><li>Agree team roles (below) and write a research question, for example: “How does [app] use data to keep 13–15 year olds using it, and is it fair?”</li><li>Fill in the project planner at the bottom of this page.</li></ul><span class="out">Output: completed planner and research question</span></div></div>
+    <div class="stage"><div class="when"><b>Stage 2</b>Lessons 2–3</div><div><h3>Investigate and collect evidence</h3><ul><li><b>Data:</b> read the app’s privacy policy or data notice. List what is given, observed and inferred (Part 1).</li><li><b>Loop:</b> use “Why am I seeing this?” features and ad settings. Draw the app’s engagement loop (Part 2).</li><li><b>Steering:</b> screenshot at least two nudges or dark patterns (Part 3). Remove names and faces.</li><li><b>Context:</b> find one news story or report about this app or a similar one (Part 5). Record the source.</li><li>Pathway B: build and train your recommender, then test it on new users. Pathway C: survey younger pupils about what they already know.</li></ul><span class="out">Output: evidence log with at least 8 pieces of evidence and sources</span></div></div>
+    <div class="stage"><div class="when"><b>Stage 3</b>Lesson 4</div><div><h3>Judge fairness</h3><ul><li>Score the app against five Children’s Code ideas: high privacy by default, clear information, no harmful nudges, location off, profiling off by default.</li><li>Identify who benefits from the design (users, the company, advertisers) and who could be harmed.</li><li>Consider the other side: what would the company say in its defence?</li></ul><span class="out">Output: fairness scorecard with reasons</span></div></div>
+    <div class="stage"><div class="when"><b>Stage 4</b>Lesson 5</div><div><h3>Propose a better design</h3><ul><li>Pathway A: redesign at least two screens to remove a dark pattern or give users real control. Explain what the business would lose and gain.</li><li>Pathway B: change your training data or algorithm to reduce bias, and show the before-and-after results.</li><li>Pathway C: finish and test your campaign resource. Improve it based on feedback.</li></ul><span class="out">Output: redesign, improved program, or tested resource</span></div></div>
+    <div class="stage"><div class="when"><b>Stage 5</b>Lesson 6</div><div><h3>Present to the panel</h3><ul><li>Five-minute presentation to the “Youth Digital Panel” (teacher and classmates acting as the regulator).</li><li>Panel asks at least two questions. Every team member speaks.</li><li>Finish with one recommendation for the company and one for the government.</li><li>Individually complete the self-assessment and reflection.</li></ul><span class="out">Output: presentation, recommendations, individual reflection</span></div></div>
+  </div>
+</div></section>
+
+<section class="block" id="roles"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">STEP 3 · TEAM ROLES</span>
+    <h2>Who does what</h2>
+    <p class="lede">Everyone researches and everyone presents. Roles decide who is responsible for making sure each part is finished.</p>
+  </div>
+  <div class="rights">
+    <div class="right-c"><b>Data detective</b>Leads the privacy policy research and the given/observed/inferred list. Keeps the evidence log tidy and sourced.</div>
+    <div class="right-c"><b>Systems analyst</b>Draws the engagement loop and explains how the AI makes decisions. In Pathway B, leads the coding.</div>
+    <div class="right-c"><b>Ethics lead</b>Leads the fairness scorecard, the case-study link and the “company’s defence”. Checks the team considers all sides.</div>
+    <div class="right-c"><b>Designer and presenter</b>Leads the redesign or campaign resource and plans the presentation so everyone has a part.</div>
+  </div>
+</div></section>
+
+<section class="block" id="rubric"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">STEP 4 · HOW YOU WILL BE ASSESSED</span>
+    <h2>Success criteria</h2>
+  </div>
+  <div class="tablewrap panel" style="padding:0"><table class="rubric">
+    <thead><tr><th style="padding:12px">Criterion</th><th>Developing</th><th>Secure</th><th>Excellent</th></tr></thead>
+    <tbody>
+      <tr><td style="padding-left:12px">Understanding data</td><td>Lists some data the app collects.</td><td>Sorts data into given, observed and inferred with examples.</td><td>Explains how inferred data is created and why it matters, using evidence.</td></tr>
+      <tr><td style="padding-left:12px">How the AI works</td><td>Says the app “uses an algorithm”.</td><td>Explains the engagement loop for this app.</td><td>Explains what the system is optimised for and how that shapes behaviour, including training data and bias.</td></tr>
+      <tr><td style="padding-left:12px">Evidence and sources</td><td>Some evidence; sources missing.</td><td>At least 8 pieces of evidence with sources.</td><td>Evidence from several types of source, checked and compared, including a real case.</td></tr>
+      <tr><td style="padding-left:12px">Evaluating fairness</td><td>Gives an opinion.</td><td>Judges fairness using the Children’s Code ideas and gives reasons.</td><td>Weighs benefits and harms for different groups and fairly presents the company’s view.</td></tr>
+      <tr><td style="padding-left:12px">Proposal</td><td>Suggests a change.</td><td>Designs a realistic change that fixes a specific problem.</td><td>Tests or justifies the change and explains its trade-offs for users and business.</td></tr>
+      <tr><td style="padding-left:12px">Communication and teamwork</td><td>Presentation shares findings.</td><td>Clear, organised presentation; all members contribute.</td><td>Persuasive, well-structured; answers panel questions with evidence.</td></tr>
+    </tbody>
+  </table></div>
+</div></section>
+
+<section class="block planner" id="planner"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">STEP 5 · PROJECT PLANNER</span>
+    <h2>Your team’s planner</h2>
+    <p class="lede">This saves in this browser only. Copy it into your project folder at the end of each lesson so you don’t lose it.</p>
+  </div>
+  <div class="panel">
+    <div class="form">
+      <label for="pTeam">Team name<input id="pTeam" placeholder="e.g. The Cookie Monsters"></label>
+      <label for="pPath">Pathway<select id="pPath"><option value="">Choose…</option><option value="A">A · Audit and redesign</option><option value="B">B · Build a fair recommender</option><option value="C">C · Teach the next year group</option></select></label>
+      <label for="pApp">App or website we’re investigating<input id="pApp" placeholder="e.g. a video app, an online shop, a game"></label>
+      <label for="pRoles">Roles (name: role)<input id="pRoles" placeholder="Sam: data detective, Ava: ethics lead…"></label>
+      <label for="pQ" class="full">Research question<input id="pQ" placeholder="How does … use data to … and is it fair?"></label>
+      <label for="pEv" class="full">Evidence log (what, where found, source)<textarea id="pEv" rows="5" placeholder="1. Privacy policy says it collects device location — source: app privacy page, 12 Nov"></textarea></label>
+      <div class="full">
+        <p style="font-weight:700;font-size:.88rem;margin-bottom:6px">Progress</p>
+        <div class="checks" id="pChecks"></div>
+      </div>
+    </div>
+    <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button class="btn primary" id="pCopy">Copy planner as text</button><span class="small" id="pMsg"></span></div>
+  </div>
+  <div class="panel" style="margin-top:20px">
+    <h3>Individual reflection (complete after presenting)</h3>
+    <ol style="margin:8px 0 0;padding-left:20px">
+      <li>What is one thing you now do differently online because of this unit?</li>
+      <li>Which piece of evidence surprised your team most, and why?</li>
+      <li>Do you think recommendation algorithms do more good or harm for people your age? Give one reason each way.</li>
+      <li>Which success criterion did you meet best, and which would you improve next time?</li>
+    </ol>
+  </div>
+</div></section>
+
+<!-- TEACHER -->
+<section class="block" id="teacher"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">FOR TEACHERS</span>
+    <h2>Teacher notes</h2>
+  </div>
+  <div class="two teacher">
+    <div class="panel">
+      <h3>Learning intentions</h3>
+      <ul>
+        <li>Explain how given, observed and inferred data are collected online, including by third-party trackers.</li>
+        <li>Describe how recommendation systems (content-based and collaborative filtering) predict and influence behaviour.</li>
+        <li>Identify persuasive and deceptive design (dark patterns).</li>
+        <li>Explain how biased training data produces biased models, including through proxy variables, and why testing on unseen data matters.</li>
+        <li>Evaluate real cases using fairness, consent, transparency and regulation (UK GDPR, Children’s Code, Online Safety Act, consumer law).</li>
+      </ul>
+      <h3 style="margin-top:18px">Suggested sequence (about 12 lessons)</h3>
+      <ol>
+        <li>Part 1: data receipt starter, cookies video, tracker simulation, sorting (2 lessons).</li>
+        <li>Part 2: loop explainer and videos, feed simulator, collaborative filtering (2 lessons).</li>
+        <li>Part 3: scenarios in groups, dark patterns, set the screenshot hunt (1–2 lessons).</li>
+        <li>Part 4: CV-Bot with the results table, bias videos (1–2 lessons).</li>
+        <li>Part 5: jigsaw case files and debate (1–2 lessons).</li>
+        <li>Part 6: rights, data request, quiz (1 lesson).</li>
+        <li>Final project (4–6 lessons).</li>
+      </ol>
+    </div>
+    <div class="panel">
+      <h3>Videos</h3>
+      <p class="small">All clips open in a new tab on the original site. Check each one before the lesson and that YouTube is accessible on your school network. Code.org videos also appear on its How AI Works pages. The Vox link opens a YouTube search so you can pick the official upload.</p>
+      <h3 style="margin-top:18px">How the simulations work</h3>
+      <p class="small"><b>Trackers:</b> each pretend site embeds a fixed set of tracker companies; each tracker joins every visit it sees into one profile until cookies are cleared.</p>
+      <p class="small" style="margin-top:8px"><b>Feed:</b> share +4, like +3, watch all +2, dwell up to +2, skip −1 per topic. About 75% of posts come from top topics; the rest are random exploration.</p>
+      <p class="small" style="margin-top:8px"><b>People like you:</b> similarity = 100% minus the average rating difference across the five rated videos. The two nearest users’ ratings are averaged to predict the three unseen videos.</p>
+      <p class="small" style="margin-top:8px"><b>CV-Bot:</b> keyword weight = (hired − rejected) ÷ times seen. CV score = sum of weights; above 0 is shortlisted.</p>
+      <h3 style="margin-top:18px">Safeguarding</h3>
+      <p class="small">Case file 4 refers to harmful content in teen feeds without detail; signpost pastoral support first. In the project, pupils should only investigate services they are old enough to use, never share screenshots showing personal data, and must not create accounts to test platforms. The data request letter is for practice; pupils should talk to a parent or carer before sending one.</p>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">Case files are summarised from published reporting; links open the original sources. Simulations are simplified models for teaching and do not show how any specific company’s system works. Legal points are simplified for learners and are not legal advice.</div></footer>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+function copyText(t,msgEl){
+  const done=()=>{msgEl.textContent="Copied."};
+  try{navigator.clipboard.writeText(t).then(done,()=>{msgEl.textContent="Couldn’t copy automatically. Select the text and copy it.";});}catch(e){msgEl.textContent="Couldn’t copy automatically. Select the text and copy it.";}
+}
+
+/* ---------- 1.2 TRACKERS ---------- */
+const SITES=[
+ {n:"GoalZone",d:"football news",tag:"football fan",tr:["AdNet","SocialPixel","DataHive"]},
+ {n:"KickStore",d:"trainers shop",tag:"wants trainers, budget under £60",tr:["AdNet","ShopTrack","SocialPixel"]},
+ {n:"HomeworkHub",d:"maths help",tag:"school-age, revising maths",tr:["DataHive","AdNet"]},
+ {n:"QuickBakes",d:"recipe blog",tag:"interested in baking",tr:["DataHive","ShopTrack"]},
+ {n:"BlockWiki",d:"game guide",tag:"plays block-building game",tr:["AdNet","DataHive","SocialPixel"]}
+];
+const TRK={AdNet:"Advertising network",SocialPixel:"Social media ‘Like’ button",DataHive:"Data broker",ShopTrack:"Shopping retargeting"};
+let visited=new Set();
+function renderTrk(){
+  $("#sites").innerHTML=SITES.map((s,i)=>"<button class='site"+(visited.has(i)?" v":"")+"' data-i='"+i+"'><b>"+s.n+"</b><span>"+s.d+"</span><span>"+(visited.has(i)?"Visited · "+s.tr.length+" trackers":"Hidden trackers: ?")+"</span></button>").join("");
+  $("#trk").innerHTML=Object.keys(TRK).map(t=>{
+    const seen=[...visited].filter(i=>SITES[i].tr.includes(t));
+    const id="uid_"+(t.length*7919%9973).toString(16)+"a"+(t.charCodeAt(0)*31).toString(16);
+    return "<div class='tk'><div class='tn'><b>"+t+"</b><span>"+TRK[t]+"</span></div>"+(seen.length?"<p class='small' style='margin:4px 0 6px'>Your ID: <code>"+id+"</code> · seen on "+seen.length+" of 5 sites</p><div class='segs'>"+seen.map(i=>"<span class='seg'>"+esc(SITES[i].tag)+"</span>").join("")+(seen.length>=3?"<span class='seg t'>Inferred: teenager, likely in school</span>":"")+"</div>":"<p class='small' style='margin-top:4px'>Hasn’t seen you yet.</p>")+"</div>";
+  }).join("");
+}
+$("#sites").addEventListener("click",e=>{const b=e.target.closest(".site"); if(!b) return; visited.add(+b.dataset.i); renderTrk();});
+$("#trkReset").onclick=()=>{visited=new Set(); renderTrk();};
+renderTrk();
+
+/* ---------- 1.3 SORT ---------- */
+const SORT=[
+  ["Your date of birth when you sign up","g","You typed it in, so it’s given."],
+  ["How long you pause on each video","o","You didn’t type it; the app timed you. Observed."],
+  ["That you’re probably about to buy a new phone","i","Nobody told the app this. An AI guessed it from searches and browsing. Inferred."],
+  ["Photos you post","g","You chose to upload them. Given."],
+  ["Your location from your phone’s GPS","o","Recorded automatically while you use the app. Observed."],
+  ["That you might be feeling low this week","i","A guess from late-night use, music choices or posts. Inferred, and very sensitive."],
+  ["Items you left in a shopping basket","o","The site recorded what you did. Observed."],
+  ["Your family’s likely income","i","Predicted from postcode, device and spending. Inferred."],
+  ["The username you chose","g","You created it. Given."],
+  ["Which links you click in an email","o","Tracking pixels and link codes record this. Observed."],
+  ["Political views you have never stated","i","Predicted from likes and follows. This is what Cambridge Analytica tried to do. Inferred."],
+  ["Answers you give in an online personality quiz","g","You typed the answers, so they’re given, but the quiz may use them to infer much more."]
+];
+const LBL={g:"Given",o:"Observed",i:"Inferred"};
+let sortDone=0,sortRight=0;
+$("#sortList").innerHTML=SORT.map((s,i)=>"<div class='sitem' id='si"+i+"'><span>"+esc(s[0])+"</span><div class='opts'>"+["g","o","i"].map(k=>"<button data-i='"+i+"' data-k='"+k+"'>"+LBL[k]+"</button>").join("")+"</div><span class='fb' hidden></span></div>").join("");
+$("#sortList").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  const i=+b.dataset.i,card=$("#si"+i); if(card.dataset.done) return;
+  card.dataset.done=1; sortDone++;
+  const ok=b.dataset.k===SORT[i][1]; if(ok) sortRight++;
+  card.classList.add(ok?"right":"wrong");
+  card.querySelectorAll("button").forEach(x=>x.disabled=true);
+  const fb=card.querySelector(".fb"); fb.hidden=false; fb.textContent=(ok?"Correct. ":"Not quite. ")+SORT[i][2];
+  $("#sortScore").textContent=sortDone+" of 12 sorted · "+sortRight+" correct"+(sortDone===12?". Notice how much of the inferred data is the most personal.":"");
+});
+
+/* ---------- 2.2 FEED ---------- */
+const TOPICS={
+  football:{c:"#1F7A4D",t:["Last-minute screamer from 35 yards","Ranking every kit this season","Training drills the pros use","Goalkeeper saves of the month"]},
+  gaming:{c:"#4B3BA8",t:["This speedrun broke the record","Hidden map secret nobody noticed","Ranked tips: stop making this mistake","New season patch notes explained"]},
+  makeup:{c:"#B03A6F",t:["5-minute school-day look","Testing viral cheap products","Glow-up routine (honest review)","Dupes vs designer: can you tell?"]},
+  fitness:{c:"#C2541A",t:["Home workout, no equipment","What I eat in a day as an athlete","30-day plank challenge","Morning routine of a sprinter"]},
+  music:{c:"#0F6E87",t:["Producer makes a beat from bin sounds","Songs that hit different at night","Guitar riff anyone can learn","Reacting to this year’s top charts"]},
+  pets:{c:"#7A6A1E",t:["Dog sees snow for the first time","Cat refuses to leave the box","Rescue hamster glow-up","Parrot says the funniest thing"]},
+  trainers:{c:"#333E48",t:["Unboxing the restock everyone wanted","How to spot fake trainers","Cleaning 10-year-old kicks","Top 5 under £60"]},
+  science:{c:"#2D6A9F",t:["What happens if you fall into Jupiter?","Weird animal facts nobody taught you","Building a robot arm from cardboard","Why the sky goes red at sunset"]}
+};
+const SEGS=[
+  {need:["gaming"],name:"Gaming hardware buyers"},{need:["trainers"],name:"Sneaker drop alerts"},{need:["makeup"],name:"Teen beauty shoppers"},
+  {need:["fitness"],name:"Supplements & gym gear"},{need:["football"],name:"Sports merchandise"},{need:["music"],name:"Concert ticket buyers"},
+  {need:["pets"],name:"Pet product shoppers"},{need:["science"],name:"Educational apps"},{need:["fitness","makeup"],name:"Body-image sensitive audience"},
+  {need:["gaming","trainers"],name:"High-spend teen consumer"},{need:["football","fitness"],name:"Sports nutrition"}
+];
+let scores,history,cur,shownAt,postCount;
+function resetFeed(){
+  scores={}; Object.keys(TOPICS).forEach(k=>scores[k]=1);
+  history=[]; postCount=0; $("#log").innerHTML="";
+  logLine("new_user","device=phone age_band=13-17 location=approx");
+  nextPost("New account: showing a random mix to learn about you.");
+}
+function pickTopic(){
+  const keys=Object.keys(scores);
+  if(postCount<3||Math.random()<.25) return {t:keys[Math.floor(Math.random()*keys.length)],why:"Exploring: testing a random topic to learn more about you."};
+  const w=keys.map(k=>Math.pow(Math.max(.1,scores[k]),2)); const sum=w.reduce((a,b)=>a+b,0);
+  let r=Math.random()*sum; for(let i=0;i<keys.length;i++){r-=w[i]; if(r<=0) return {t:keys[i],why:"Because you engaged with "+keys[i]+" posts."};}
+  return {t:keys[0],why:""};
+}
+function nextPost(forceWhy){
+  const p=pickTopic(); cur=p.t; postCount++;
+  const T=TOPICS[cur];
+  $("#post").style.background="linear-gradient(160deg,"+T.c+","+T.c+"CC 60%,#111A 140%)";
+  $("#ptopic").textContent="#"+cur;
+  $("#ptitle").textContent=T.t[Math.floor(Math.random()*T.t.length)];
+  $("#pwhy").textContent=forceWhy||p.why;
+  shownAt=performance.now();
+  history.push(cur); if(history.length>10) history.shift();
+  renderFeed();
+}
+function logLine(k,v){
+  const ts=new Date().toTimeString().slice(0,8);
+  const el=$("#log"); el.innerHTML+="<div>"+ts+" <span class='k'>"+esc(k)+"</span> "+esc(v)+"</div>"; el.scrollTop=el.scrollHeight;
+}
+function act(kind){
+  const dwell=(performance.now()-shownAt)/1000;
+  const add={like:3,watch:2,share:4,skip:-1}[kind];
+  scores[cur]=Math.max(0,scores[cur]+add+Math.min(2,dwell/3));
+  logLine(kind,"topic="+cur+" dwell="+dwell.toFixed(1)+"s score="+scores[cur].toFixed(1));
+  if(dwell>6&&kind==="skip") logLine("signal","long dwell before skip → interest still rising");
+  nextPost();
+}
+function renderFeed(){
+  const keys=Object.keys(scores).sort((a,b)=>scores[b]-scores[a]);
+  const max=Math.max(...keys.map(k=>scores[k]),1),tot=keys.reduce((a,k)=>a+scores[k],0);
+  $("#bars").innerHTML=keys.map(k=>"<div class='bar'><span>"+k+"</span><div class='track'><div class='fill' style='width:"+(scores[k]/max*100).toFixed(0)+"%'></div></div><span class='num'>"+(scores[k]/tot*100).toFixed(0)+"%</span></div>").join("");
+  const top=keys.filter(k=>scores[k]>=6);
+  const segs=SEGS.filter(s=>s.need.every(n=>top.includes(n)));
+  $("#segs").innerHTML=segs.length?segs.map(s=>"<span class='seg'>"+esc(s.name)+"</span>").join(""):"<span class='seg dim'>Not enough data yet. Keep using the app.</span>";
+  const counts={}; history.forEach(h=>counts[h]=(counts[h]||0)+1);
+  const topShare=history.length?Math.max(...Object.values(counts))/history.length:0;
+  $("#mPin").style.left="calc("+(topShare*100).toFixed(0)+"% - 2px)";
+  $("#mText").textContent=history.length<5?"Varied feed. Keep going.":topShare>=.6?"Filter bubble: "+Math.round(topShare*100)+"% of your last "+history.length+" posts were one topic.":topShare>=.4?"Narrowing: one topic is starting to take over.":"Varied feed. Keep going.";
+}
+setInterval(()=>{if(shownAt) $("#timer").textContent=((performance.now()-shownAt)/1000).toFixed(1)+"s";},100);
+$("#aLike").onclick=()=>act("like"); $("#aWatch").onclick=()=>act("watch"); $("#aShare").onclick=()=>act("share"); $("#aSkip").onclick=()=>act("skip");
+$("#feedReset").onclick=resetFeed;
+resetFeed();
+
+/* ---------- 2.3 COLLABORATIVE FILTERING ---------- */
+const CF_SEEN=["Football skills compilation","Block-building mega castle","Baking a rainbow cake","Space rocket launch live","Dance challenge tutorial"];
+const CF_NEW=["Behind the scenes at a stadium","Speedrun world record","Make-up for beginners"];
+const CF_USERS=[
+ ["Jordan",[5,4,1,3,2],[5,4,1]],["Priya",[1,2,5,2,5],[2,1,5]],["Leo",[4,5,2,4,1],[3,5,1]],
+ ["Maya",[2,1,4,5,3],[2,2,3]],["Sam",[3,3,3,3,3],[3,3,3]],["Zara",[1,5,2,2,4],[1,4,4]]
+];
+let cfMine=[0,0,0,0,0],cfTest={};
+function renderCF(){
+  $("#cfItems").innerHTML=CF_SEEN.map((n,i)=>"<div class='item'><span>"+esc(n)+"</span><span class='rate' role='group' aria-label='Rate "+esc(n)+"'>"+[1,2,3,4,5].map(v=>"<button data-i='"+i+"' data-v='"+v+"' class='"+(cfMine[i]===v?"on":"")+"' aria-pressed='"+(cfMine[i]===v)+"'>"+v+"</button>").join("")+"</span></div>").join("");
+  if(cfMine.some(v=>!v)){ $("#cfNb").innerHTML="<p class='small'>Rate all five videos to find users like you ("+cfMine.filter(v=>v).length+" of 5 done).</p>"; $("#cfRec").innerHTML=""; $("#cfAcc").textContent=""; return; }
+  const sims=CF_USERS.map(u=>{const d=u[1].reduce((a,v,i)=>a+Math.abs(v-cfMine[i]),0)/5; return {u,sim:Math.round(100-d/4*100)};}).sort((a,b)=>b.sim-a.sim);
+  $("#cfNb").innerHTML=sims.map((s,k)=>"<div class='nb'><span>"+(k<2?"<b>":"")+s.u[0]+(k<2?"</b>":"")+"</span><div class='track' style='height:12px;background:var(--bg);border-radius:6px;overflow:hidden'><div style='height:100%;width:"+s.sim+"%;background:"+(k<2?"var(--teal)":"var(--line)")+"'></div></div><span class='num' style='font-family:var(--mono);font-size:.78rem;text-align:right'>"+s.sim+"%</span></div>").join("")+"<p class='small'>Closest matches: <b>"+sims[0].u[0]+"</b> and <b>"+sims[1].u[0]+"</b>.</p>";
+  const preds=CF_NEW.map((n,j)=>({n,j,p:(sims[0].u[2][j]+sims[1].u[2][j])/2})).sort((a,b)=>b.p-a.p);
+  $("#cfRec").innerHTML=preds.map(p=>"<div class='rec'><span class='small'>Predicted rating "+p.p.toFixed(1)+" / 5 · because "+sims[0].u[0]+" and "+sims[1].u[0]+" rated it that way</span><b>"+esc(p.n)+"</b><span class='small'>Test the AI: would you actually want to watch this?</span><span class='yn'><button class='btn' data-t='"+p.j+"' data-y='1'"+(cfTest[p.j]!==undefined?" disabled":"")+">Yes</button><button class='btn' data-t='"+p.j+"' data-y='0'"+(cfTest[p.j]!==undefined?" disabled":"")+">No</button></span></div>").join("");
+  const tested=Object.keys(cfTest).length;
+  if(tested){ let right=0; preds.forEach(p=>{ if(cfTest[p.j]!==undefined){ const said=p.p>=3; if(said===!!cfTest[p.j]) right++; }});
+    $("#cfAcc").textContent="Tested "+tested+" of 3. The AI predicted correctly "+right+" time"+(right===1?"":"s")+" (a predicted rating of 3 or more counts as “you’ll like it”)."+(tested===3?" Real systems test like this constantly, using whether you click as the answer.":""); }
+  else $("#cfAcc").textContent="";
+}
+$("#cfItems").addEventListener("click",e=>{const b=e.target.closest("button[data-v]"); if(!b) return; cfMine[+b.dataset.i]=+b.dataset.v; cfTest={}; renderCF();});
+$("#cfRec").addEventListener("click",e=>{const b=e.target.closest("button[data-t]"); if(!b) return; cfTest[+b.dataset.t]=+b.dataset.y; renderCF();});
+renderCF();
+
+/* ---------- 3.1 SCENARIOS ---------- */
+const SCEN=[
+ {tab:"Late-night scroll",place:"Social video app",data:["Watch time per video","Time of day (23:40)","Rewatches","Volume up on sad songs"],ai:"Predicts you engage most with emotional content late at night.",act:"Serves more sad and dramatic videos after 11pm and delays the “take a break” reminder.",
+  q:"What is the system most likely optimised for?",opts:[["Your wellbeing",0,"Most feeds are scored on engagement, not on how you feel afterwards. Wellbeing tools exist, but they are usually add-ons."],["Keeping you watching (engagement)",1,"Yes. More watch time means more adverts shown. The AI does not “know” you are sad; it only knows sad content keeps you watching."],["Showing friends’ posts first",0,"Short-video feeds are mostly content from strangers, chosen by the algorithm."]],
+  d:"Should apps be allowed to change what they show you based on the time of day? Who decides what counts as “harmful”?"},
+ {tab:"Abandoned basket",place:"Online shop",data:["Viewed same trainers 3 times","Added to basket, left","Checked delivery price","Came from a video ad"],ai:"Predicts you want them but price is the barrier.",act:"Emails “Only 2 left in your size!” and a 10% code that expires in 3 hours. Trainers ads follow you to other sites.",
+  q:"Which persuasion technique is being used?",opts:[["Scarcity and urgency",1,"Correct. Countdown timers and “only 2 left” push fast decisions. In the UK, false urgency claims can break consumer law."],["Social proof",0,"Social proof would be “500 people bought this today”. This one is about running out of time."],["Random chance",0,"Nothing here is random. The email is triggered by your basket behaviour."]],
+  d:"Is a discount triggered by your hesitation a good deal or a manipulation? Would you feel differently if you knew it was automatic?"},
+ {tab:"Price that moves",place:"Travel / tickets site",data:["Searched same trip 4 times","Using an expensive phone","Booking close to the date","Demand from other users"],ai:"Predicts demand is high and you are likely to pay more.",act:"Price shown rises from £135 to £180 between searches.",
+  q:"In the UK, is changing prices with demand (dynamic pricing) allowed?",opts:[["No, it is banned",0,"It is not banned. Airlines and hotels have used it for years. Regulators have looked closely at it for event tickets."],["Yes, but businesses must not mislead you about the price",1,"Correct. Dynamic pricing is legal, but consumer law requires clear information. Case file 3 shows what happened with Oasis tickets."],["Only for under-18s",0,"There is no age rule for pricing."]],
+  d:"Prices that change with demand are normal for flights. Should they be allowed for concerts and football matches? Why might fans feel differently?"},
+ {tab:"Losing streak",place:"Mobile game",data:["Lost level 12 three times","Spent £2.99 last month","Play sessions getting longer","Close to beating the level each time"],ai:"Predicts you are frustrated but committed, and likely to buy help.",act:"Pops up a “Power Boost Bundle £4.99, today only” right after your third loss.",
+  q:"Why does the offer appear at that exact moment?",opts:[["It is a random advert",0,"Timing is chosen on purpose. Offers are tested to find the moment people are most likely to buy."],["The AI targets the moment you’re most frustrated",1,"Correct. Near-misses plus frustration predict spending. This is a dark pattern."],["The game wants to help you learn",0,"A tutorial would help you learn. A paid bundle helps the game earn."]],
+  d:"Some countries have restricted loot boxes for young people. Should in-game offers be timed using your emotions?"},
+ {tab:"Free quiz",place:"Social login quiz app",data:["Your profile and likes","Your friends list","Friends’ likes and birthdays","Your quiz answers"],ai:"Builds a personality profile for you and for friends who never took the quiz.",act:"Profiles are sold and used to target political adverts at people based on predicted personality.",
+  q:"What was the real price of the “free” quiz?",opts:[["Nothing, it was free",0,"No money changed hands, but data did, and it was valuable."],["Your data and your friends’ data",1,"Correct. This is almost exactly how the Cambridge Analytica scandal happened (Case file 1). Your friends never agreed."],["Just your quiz answers",0,"The app took far more than the answers: profile data and friends’ data too."]],
+  d:"Can you consent on behalf of your friends? Should apps ever collect data about people who never used them?"},
+ {tab:"Age guess",place:"Video platform",data:["Typing speed and spelling","School-hours activity pattern","Accounts followed","Selfie for age check"],ai:"Estimates you are probably 14, even though you entered 18 when you signed up.",act:"Switches on teen protections: private account, no late-night notifications, stricter content filters.",
+  q:"Is this a good use of inferred data?",opts:[["Yes, it protects young users",2,"It can. UK law now expects platforms to protect children, and age estimation is one tool. The same technique can also be wrong, or be used for advertising."],["No, it is creepy",2,"Many people feel that way. Even protective inference involves collecting and analysing lots of data about you."],["It depends on what else the data is used for",2,"This is the key question. The same prediction could protect you or target you. Purpose, transparency and limits matter."]],
+  d:"Inference is not always bad. Where would you draw the line between protecting someone and watching them?"}
+];
+let sIdx=0;
+function renderTabs(){$("#scenTabs").innerHTML=SCEN.map((s,i)=>"<button role='tab' aria-selected='"+(i===sIdx)+"' data-i='"+i+"'>"+esc(s.tab)+"</button>").join("");}
+function renderScen(){
+  const s=SCEN[sIdx];
+  $("#scenBody").innerHTML="<div class='panel'><p class='eyebrow'>"+esc(s.place)+"</p><div class='flow' style='margin-top:12px'>"+
+   "<div class='step'><span class='n'>1</span><div><div class='lbl'>Data collected</div><div class='segs' style='margin-top:4px'>"+s.data.map(d=>"<span class='seg'>"+esc(d)+"</span>").join("")+"</div></div></div>"+
+   "<div class='step'><span class='n'>2</span><div><div class='lbl'>AI prediction</div>"+esc(s.ai)+"</div></div>"+
+   "<div class='step'><span class='n'>3</span><div><div class='lbl'>System action</div>"+esc(s.act)+"</div></div></div></div>"+
+   "<div class='panel'><h3>"+esc(s.q)+"</h3><div class='choices'>"+s.opts.map((o,i)=>"<button data-o='"+i+"'>"+esc(o[0])+"</button>").join("")+"</div><div class='fbbox' id='sfb' hidden></div><p class='discuss'><b>Discuss:</b> "+esc(s.d)+"</p></div>";
+}
+$("#scenTabs").addEventListener("click",e=>{const b=e.target.closest("button"); if(!b) return; sIdx=+b.dataset.i; renderTabs(); renderScen();});
+$("#scenBody").addEventListener("click",e=>{
+  const b=e.target.closest("button[data-o]"); if(!b) return;
+  const o=SCEN[sIdx].opts[+b.dataset.o];
+  $("#scenBody").querySelectorAll("button[data-o]").forEach(x=>x.classList.remove("right","wrong"));
+  if(o[1]===1) b.classList.add("right"); else if(o[1]===0) b.classList.add("wrong");
+  const fb=$("#sfb"); fb.hidden=false; fb.textContent=o[2];
+});
+renderTabs(); renderScen();
+
+/* ---------- 3.2 DARK PATTERNS ---------- */
+const DPN=["Confirmshaming","Pre-ticked box","Fake urgency","Hard to cancel","Visual misdirection","Hidden costs","Autoplay trap","Nagging"];
+const DP=[
+ {m:"<b>Get 20% off your first order!</b><div class='mbig'>Yes, I want to save!</div><div class='mtiny'>No thanks, I don’t like saving money</div>",a:0,e:"The ‘no’ option is written to make you feel silly for refusing."},
+ {m:"<b>Create account</b><div>☑ Send me offers from our partners</div><div>☑ Share my activity to personalise ads</div><div class='mbig'>Sign up</div>",a:1,e:"The boxes are already ticked, so doing nothing means saying yes. UK data law says consent must be an active choice."},
+ {m:"<div class='mred'>Hurry! 14 people are looking at this</div><div>Offer ends in <b>04:59</b></div><div class='mbig'>Buy now</div>",a:2,e:"Pressure to decide fast. If the timer resets or the numbers aren’t real, it is misleading."},
+ {m:"<b>Cancel membership</b><div>To cancel, please call our team (Mon–Fri, 9–11am) or complete the 6-step survey.</div><div class='mbig'>Keep my benefits</div>",a:3,e:"Easy to join, hard to leave. Sometimes called a ‘roach motel’."},
+ {m:"<b>We value your privacy</b><div class='mbig'>Accept all cookies</div><div class='mtiny'>manage settings</div>",a:4,e:"The option the company wants is big and bright; the privacy choice is tiny and grey."},
+ {m:"<div class='mrow'><span>Ticket</span><span>£24.00</span></div><div class='mrow'><span>Service fee</span><span>£4.50</span></div><div class='mrow'><span>Order processing</span><span>£2.25</span></div><div class='mrow'><b>Total</b><b>£30.75</b></div>",a:5,e:"Extra fees appear only at checkout. UK consumer law now targets ‘drip pricing’ like this."},
+ {m:"<b>Next episode in 5…</b><div style='height:6px;background:#1565C0;width:70%;border-radius:3px'></div><div class='mtiny'>cancel</div>",a:6,e:"Starting the next video automatically removes the natural moment to stop."},
+ {m:"<b>Turn on notifications?</b><div>Never miss what your friends are up to!</div><div class='mbig'>Allow</div><div class='mtiny'>Ask me later</div>",a:7,e:"There’s no ‘never’ option, so it keeps asking until you give in."}
+];
+let dpDone=0,dpRight=0;
+$("#dps").innerHTML=DP.map((d,i)=>"<div class='dp' id='dp"+i+"'><div class='mock' aria-label='Mock-up'>"+d.m+"</div><label class='small' for='dps"+i+"'>Which dark pattern is this?</label><select id='dps"+i+"' data-i='"+i+"'><option value=''>Choose…</option>"+DPN.map((n,j)=>"<option value='"+j+"'>"+n+"</option>").join("")+"</select><div class='fbbox' hidden></div></div>").join("");
+$("#dps").addEventListener("change",e=>{
+  const s=e.target.closest("select"); if(!s||s.value==="") return; const i=+s.dataset.i, card=$("#dp"+i); if(card.dataset.done) return;
+  card.dataset.done=1; dpDone++; s.disabled=true;
+  const ok=+s.value===DP[i].a; if(ok) dpRight++;
+  card.classList.add(ok?"right":"wrong");
+  const fb=card.querySelector(".fbbox"); fb.hidden=false; fb.textContent=(ok?"Correct. ":"It’s “"+DPN[DP[i].a]+"”. ")+DP[i].e;
+  $("#dpScore").textContent=dpDone+" of 8 named · "+dpRight+" correct";
+});
+
+/* ---------- 4.1 CV BOT ---------- */
+const BASE=[
+ [["coding club","football captain"],1],[["robotics team","maths olympiad"],1],[["coding club","robotics team"],1],
+ [["football captain","volunteering"],1],[["maths olympiad","coding club"],1],[["robotics team","football captain"],1],
+ [["coding club","volunteering"],1],[["women's chess club","coding club"],0],[["netball team","maths olympiad"],0],
+ [["girls' coding society","robotics team"],0],[["volunteering","netball team"],0],[["maths olympiad","football captain"],1],
+ [["women's chess club","maths olympiad"],0],[["coding club","netball team"],0]
+];
+const EXTRA=[
+ [["women's chess club","coding club"],1],[["netball team","robotics team"],1],[["girls' coding society","maths olympiad"],1],
+ [["netball team","coding club"],1],[["women's chess club","robotics team"],1],[["football captain","volunteering"],0],[["netball team","maths olympiad"],1]
+];
+const TESTS=[
+ {who:"Applicant A",kw:["coding club","maths olympiad","women's chess club"]},
+ {who:"Applicant B",kw:["coding club","maths olympiad","chess club"]},
+ {who:"Applicant C",kw:["robotics team","maths olympiad","netball team"]},
+ {who:"Applicant D",kw:["robotics team","maths olympiad","football captain"]}
+];
+const strip=k=>k.replace(/^women's /,"").replace(/^girls' /,"");
+let trained=null; const results={};
+function dataset(){
+  const fw=$("#fixWords").checked, fd=$("#fixData").checked;
+  let rows=BASE.map(r=>[r[0],r[1],false]); if(fd) rows=rows.concat(EXTRA.map(r=>[r[0],r[1],true]));
+  if(fw) rows=rows.map(r=>[r[0].map(strip),r[1],r[2]]);
+  return rows;
+}
+function renderTrain(){
+  $("#trainBody").innerHTML=dataset().map((r,i)=>"<tr class='"+(r[2]?"extra":"")+"'><td>"+(i+1)+"</td><td>"+r[0].map(k=>"<span class='kw'>"+esc(k)+"</span>").join("")+"</td><td class='"+(r[1]?"h":"r")+"'>"+(r[1]?"Hired":"Rejected")+"</td></tr>").join("");
+}
+function train(){
+  const c={}; dataset().forEach(r=>r[0].forEach(k=>{c[k]=c[k]||{h:0,n:0}; c[k].n++; if(r[1]) c[k].h++;}));
+  const w={}; Object.keys(c).forEach(k=>w[k]=(c[k].h-(c[k].n-c[k].h))/c[k].n);
+  trained={w,fw:$("#fixWords").checked,fd:$("#fixData").checked};
+  renderModel();
+}
+function renderResTab(){
+  const labels={"00":"No fixes","10":"Fix A only","01":"Fix B only","11":"Fix A + B"};
+  $("#resTab").innerHTML=["00","10","01","11"].map(k=>{const r=results[k]; return "<tr><td>"+labels[k]+"</td>"+(r?r.v.map(x=>"<td class='"+(x?"h":"r")+"'>"+(x?"✓":"✗")+"</td>").join("")+"<td><b>"+r.a+"%</b></td>":"<td colspan='5' class='small' style='text-align:center'>not tested yet</td>")+"</tr>";}).join("");
+}
+function renderModel(){
+  if(!trained){ $("#tests").innerHTML=TESTS.map(t=>"<div class='tcv'><span class='who'>"+t.who+"</span><div>"+t.kw.map(k=>"<span class='kw'>"+esc(k)+"</span>").join("")+"</div><span class='small'>Not scored yet</span></div>").join(""); renderResTab(); return; }
+  const w=trained.w, keys=Object.keys(w).sort((a,b)=>w[b]-w[a]);
+  $("#wIntro").innerHTML="Trained on <b>"+dataset().length+"</b> past CVs. Each keyword now carries a weight between −1 and +1.";
+  $("#wbars").innerHTML=keys.map(k=>{const v=w[k],col=v>=0?"var(--good)":"var(--bad)",L=v>=0?50:50+v*50,W=Math.abs(v)*50;
+    return "<div class='wbar'><span>"+esc(k)+"</span><div class='t'><div class='f' style='left:"+L+"%;width:"+W+"%;background:"+col+"'></div></div><span class='v'>"+(v>=0?"+":"")+v.toFixed(2)+"</span></div>";}).join("");
+  let hit=0; const res=TESTS.map(t=>{const kw=trained.fw?t.kw.map(strip):t.kw; const s=kw.reduce((a,k)=>a+(w[k]||0),0);
+    const stars=Math.max(1,Math.min(5,Math.round(3+s*1.5))), ok=s>0; if(ok) hit++; return {t,kw,s,stars,ok};});
+  $("#tests").innerHTML=res.map(r=>"<div class='tcv'><span class='who'>"+r.t.who+"</span><div>"+r.kw.map(k=>"<span class='kw'>"+esc(k)+(w[k]===undefined?" (new word)":"")+"</span>").join("")+"</div><span class='stars' aria-label='"+r.stars+" stars'>"+"★".repeat(r.stars)+"☆".repeat(5-r.stars)+"</span><span class='verdict "+(r.ok?"y":"n")+"'>"+(r.ok?"SHORTLISTED":"REJECTED")+" · score "+(r.s>=0?"+":"")+r.s.toFixed(2)+"</span></div>").join("");
+  const acc=Math.round(hit/4*100); $("#acc").textContent=acc+"%";
+  results[(trained.fw?"1":"0")+(trained.fd?"1":"0")]={v:res.map(r=>r.ok),a:acc}; renderResTab();
+  let msg;
+  if(!trained.fw&&!trained.fd) msg="CV-Bot rejected A and C, who are just as strong as B and D. It never saw anyone’s gender, but it learned from history: in the past data, CVs with “women’s”, “girls’” or “netball” were rejected. The AI copied the old bias and made it automatic.";
+  else if(trained.fw&&!trained.fd) msg="Deleting gendered words made things worse. “Chess club” now only appears on CVs that were rejected, so B is punished too. Netball is still marked down because it is a proxy: a word that stands in for gender. Amazon hit exactly this problem and could not guarantee their fix worked.";
+  else if(!trained.fw&&trained.fd) msg="Better data fixed most of it. When the history includes fair decisions, the bias weights shrink to zero and all four strong applicants are shortlisted. The problem was never the maths; it was what we taught it.";
+  else msg="With fairer data the deleted words make little difference, and all four are shortlisted. A real company would keep testing with new applicants, because bias can hide in many other proxies (postcode, school, hobbies, writing style).";
+  $("#cvFb").textContent=msg;
+}
+["#fixWords","#fixData"].forEach(id=>$(id).addEventListener("change",()=>{renderTrain(); if(trained) $("#cvFb").textContent="Training data changed. Press Train CV-Bot again to retrain.";}));
+$("#trainBtn").onclick=train;
+renderTrain(); renderModel();
+
+/* ---------- 5 CASES ---------- */
+const CASES=[
+ {yr:"2014–2018",tag:"Fined",t:"Cambridge Analytica and the personality quiz",
+  data:"A personality quiz app on Facebook collected data from people who took it and from their friends, reaching up to 87 million people worldwide, including around 1 million in the UK.",
+  sys:"The data was passed to Cambridge Analytica, a political consultancy that built models to predict voters’ personalities and target them with political adverts, including for Donald Trump’s 2016 campaign.",
+  out:"The UK Information Commissioner fined Facebook £500,000, the maximum under the old law. In the US, the FTC approved a $5 billion settlement in 2019. Cambridge Analytica shut down.",
+  qs:["Most of the 87 million never took the quiz. Who should have protected them?","£500,000 was the legal maximum then. Is a fine that small a real punishment for a huge company?","Can targeted adverts change how people vote, or only nudge people who already agree?"],
+  src:[["ICO fine (Yahoo News)","https://uk.news.yahoo.com/facebook-fined-500-000-over-042600325.html"],["FTC $5bn settlement","https://capitalfm.africa/tech-talk-facebook-fined-a-whooping-5-billion-for-data-privacy-violations-in-the-cambridge-analytica-scandal/"]]},
+ {yr:"2014–2018",tag:"Scrapped",t:"Amazon’s CV-scoring AI",
+  data:"The AI was trained on CVs submitted to Amazon over 10 years. Most came from men, reflecting the tech industry.",
+  sys:"An experimental tool rated applicants from one to five stars. It taught itself that male candidates were preferable, marking down CVs with “women’s” (as in a women’s chess club) and graduates of two women’s colleges.",
+  out:"Engineers removed those specific terms but could not guarantee the system wouldn’t find other ways to discriminate. Amazon dropped the project and says recruiters never relied on its rankings alone.",
+  qs:["How is this like what happened to CV-Bot in Part 4?","Why can’t engineers just delete the biased words?","Should AI ever make the first cut in job applications?"],
+  src:[["Reuters report (via HR Reporter)","https://www.hrreporter.com/focus-areas/recruitment-and-staffing/amazon-scraps-secret-ai-recruiting-tool-that-showed-bias-against-women/287026"],["Mobile Marketing summary","https://mobilemarketingmagazine.com/?p=111129"]]},
+ {yr:"2024–2025",tag:"Investigated",t:"Oasis tickets: was it the algorithm?",
+  data:"Fans queued online for hours for the 2025 reunion tour. Many saw prices climb during the sale.",
+  sys:"Fans and media blamed “dynamic pricing”, where an algorithm raises prices as demand rises. Some standard tickets reportedly reached about £355 against an expected £148. The band said they hadn’t known this would happen.",
+  out:"The Competition and Markets Authority investigated. It later said it found no evidence that Ticketmaster used algorithmic dynamic pricing. Instead, cheaper standing tickets sold out first before pricier ones were released without clear explanation. Ticketmaster agreed to change how it gives price information.",
+  qs:["Everyone blamed an algorithm. What actually caused the problem?","Why do people find it easy to blame “the algorithm”?","Should dynamic pricing be banned for concerts? Airline seats?"],
+  src:[["Music Business Worldwide","https://www.musicbusinessworldwide.com/ticketmaster-didnt-use-dynamic-pricing-for-oasis-concerts-will-change-how-it-sells-tickets-in-uk-watchdog-says"],["AP report on the probe","https://newschannel9.com/news/entertainment/ticketmasters-pricing-for-oasis-tickets-is-under-investigation-in-the-uk-fans-noel-gallagher-liam-gallagher-dynamic-pricing-wembley-stadium-cardiff-manchester"]]},
+ {yr:"2022–2025",tag:"Under scrutiny",t:"What the feed shows a 13-year-old",
+  data:"Researchers set up test accounts registered as 13-year-olds and simply watched, sometimes without searching for anything.",
+  sys:"Studies by campaign groups and universities reported that recommendation feeds could start showing harmful content (for example about body image) within minutes, based mainly on how long the account lingered on videos. TikTok said such tests do not reflect real users’ experience.",
+  out:"In 2025 the UK’s ICO opened an investigation into how TikTok uses 13–17-year-olds’ data to choose what appears in their feeds. Under the Online Safety Act, duties to protect under-18s from harmful content came into force on 25 July 2025.",
+  qs:["The accounts didn’t like or search anything. How did the algorithm still decide what to show?","Link this to the bubble meter in Part 2.","Who should be responsible: the app, the creators, parents, or users?"],
+  src:[["ICO investigation (Reuters via Deccan Herald)","https://www.deccanherald.com/amp/story/world/uk-launches-investigation-into-tiktok-reddit-over-childrens-personal-data-practices-3428809"],["Irish study on For You feeds","https://www.laois-nationalist.ie/tiktoks-for-you-feed-exposes-irish-teens-to-harmful-content-study-finds_arid-82607.html"]]},
+ {yr:"2018–2023",tag:"Fined",t:"TikTok and under-13s’ data",
+  data:"TikTok’s own rules said under-13s couldn’t have accounts, but the ICO estimated up to 1.4 million UK children under 13 were using it in 2020.",
+  sys:"Their personal data was collected and used without parental consent, which UK law requires for under-13s. The regulator said this data may have been used to track and profile children and decide what they saw next.",
+  out:"In April 2023 the ICO fined TikTok £12.7 million. TikTok disagreed with the decision and said it invests heavily in keeping under-13s off the platform.",
+  qs:["Why does the law treat under-13s’ data differently?","Age checks need more data about you. Is that a fair trade?","How could a platform tell someone is under 13 without asking for ID?"],
+  src:[["ICO announcement","https://ico-newsroom.prgloo.com/news/ico-fines-tiktok-gbp-12-7-million-for-misusing-childrens-data"],["Silicon UK","https://silicon.co.uk/e-marketing/socialmedia/tiktok-ico-fine-504884"]]}
+];
+$("#caseList").innerHTML=CASES.map((c,i)=>"<article class='case'><div class='yr'><span>CASE FILE "+(i+1)+" · "+c.yr+"</span><span class='stamp'>"+c.tag+"</span></div><h3>"+esc(c.t)+"</h3><dl><dt>The data</dt><dd>"+esc(c.data)+"</dd><dt>The system & influence</dt><dd>"+esc(c.sys)+"</dd><dt>What happened next</dt><dd>"+esc(c.out)+"</dd></dl><details><summary>Discussion questions</summary><ul>"+c.qs.map(q=>"<li>"+esc(q)+"</li>").join("")+"</ul></details><div class='src'>Sources: "+c.src.map(s=>"<a href='"+s[1]+"' target='_blank' rel='noopener'>"+esc(s[0])+"</a>").join(" · ")+"</div></article>").join("");
+
+/* ---------- 6.2 SAR LETTER ---------- */
+function renderSAR(){
+  const co=$("#sarCo").value||"[company]",nm=$("#sarName").value||"[your name]",us=$("#sarUser").value||"[username]",ask=$("#sarAsk").value;
+  $("#sarOut").textContent="To: Data Protection Officer, "+co+"\n\nSubject: Subject access request\n\nDear Data Protection Officer,\n\nI am making a subject access request under Article 15 of the UK GDPR.\n\nMy account details are:\nName: "+nm+"\nUsername / email: "+us+"\n\nPlease send me:\n1. A copy of all personal data you hold about me.\n2. The purposes you use it for.\n3. Who you have shared it with.\n4. Where you got any data that I did not give you directly.\n5. Whether you use automated decision-making or profiling on my data, and how it works.\n\nIn particular, I would like to know "+ask+".\n\nI understand you should normally respond within one month.\n\nThank you,\n"+nm;
+}
+["#sarCo","#sarName","#sarUser","#sarAsk"].forEach(id=>$(id).addEventListener("input",renderSAR));
+$("#sarAsk").addEventListener("change",renderSAR);
+$("#sarCopy").onclick=()=>copyText($("#sarOut").textContent,$("#sarMsg"));
+renderSAR();
+
+/* ---------- 6.3 CONTROL ---------- */
+const CTRL=["Check “Why am I seeing this?” on an ad or post","Reject non-essential cookies on websites","Turn off ad personalisation in app settings","Clear or pause watch/search history","Switch location to “only while using the app”","Don’t log in to quizzes or games with a social account","Use “Not interested” to reset your feed","Turn off autoplay where you can","Download your data from one app and look at it"];
+$("#ctrl").innerHTML=CTRL.map((c,i)=>"<label><input type='checkbox' id='c"+i+"'><span>"+esc(c)+"</span></label>").join("");
+const upd=()=>{const n=[...document.querySelectorAll("#ctrl input")].filter(x=>x.checked).length; $("#ctrlScore").textContent=n+" of "+CTRL.length+" ticked."+(n?" Pick one you haven’t ticked to try this week.":"");};
+$("#ctrl").addEventListener("change",upd); upd();
+
+/* ---------- 6.4 QUIZ ---------- */
+const QUIZ=[
+ ["A tracker from an ad company appears on four different websites. What can it do that a single website can’t?",["Make the pages load faster","Join your visits into one profile across sites","Delete your cookies","Read your private messages"],1,"Third-party trackers link your activity across every site they’re embedded in."],
+ ["An app predicts you are about to move house from your searches. What type of data is that prediction?",["Given","Observed","Inferred","Encrypted"],2,"You never said it; the AI predicted it, so it is inferred."],
+ ["Why can a recommendation feed learn your interests even if you never press Like?",["It reads your messages","It measures how long you stay on each post","It asks your friends","It can’t; likes are required"],1,"Dwell time (how long you linger) is one of the strongest signals."],
+ ["“People who liked what you liked also watched this” is an example of…",["Collaborative filtering","Encryption","A cookie banner","Random selection"],0,"Collaborative filtering recommends based on similar users."],
+ ["What is a filter bubble?",["A pop-up asking for cookies","When a feed narrows to show mostly one type of content","A privacy setting","A type of computer virus"],1,"Recommending more of what you engage with can shrink what you see."],
+ ["A sign-up form has “Send me partner offers” already ticked. This dark pattern is called…",["Confirmshaming","Pre-ticked box","Nagging","Hidden costs"],1,"Under UK data law, consent should be an active choice, not a pre-ticked box."],
+ ["CV-Bot rejected strong applicants. What was the main cause?",["A bug in the code","Biased historical training data","The computer was too slow","Applicants lied"],1,"An AI learns patterns from data. Biased history in, biased predictions out."],
+ ["Why did “netball team” still count against applicants after deleting gendered words?",["It is a proxy for gender in the data","Netball is not a real sport","The bot dislikes sport","It was a typo"],0,"A proxy is a feature that stands in for something else, here gender."],
+ ["Why must an AI be tested on data it has never seen before?",["To make it run faster","To check it works on new real-world cases, not just memorised ones","Because the law requires 100% accuracy","It doesn’t need testing"],1,"Testing on unseen data shows whether the model generalises fairly."],
+ ["In the Cambridge Analytica case, whose data was collected?",["Only people who took the quiz","Quiz-takers and their friends","Only politicians","Only US citizens"],1,"The app also pulled data from friends, who never agreed."],
+ ["What did the CMA conclude about the Oasis ticket sale?",["Ticketmaster used algorithmic surge pricing","It found no evidence of dynamic pricing, but price information was unclear","Oasis set the prices themselves","Tickets were free"],1,"The problem was how tiered prices were released and explained."],
+ ["Which UK right lets you ask a company for a copy of your data?",["Right to erasure","Right of access (subject access request)","Right to object","Freedom of information"],1,"A subject access request uses your right of access, usually answered within one month."]
+];
+let qAns=0,qRight=0;
+$("#quizBox").innerHTML=QUIZ.map((q,i)=>"<div class='q' id='q"+i+"'><p class='qt'>"+(i+1)+". "+esc(q[0])+"</p><div class='choices'>"+q[1].map((o,j)=>"<button data-q='"+i+"' data-j='"+j+"'>"+esc(o)+"</button>").join("")+"</div><div class='fbbox' hidden></div></div>").join("")+"<div class='qscore' id='qscore'>Score 0 / "+QUIZ.length+"</div>";
+$("#quizBox").addEventListener("click",e=>{
+  const b=e.target.closest("button[data-q]"); if(!b) return;
+  const i=+b.dataset.q,card=$("#q"+i); if(card.dataset.done) return; card.dataset.done=1; qAns++;
+  const ok=+b.dataset.j===QUIZ[i][2]; if(ok) qRight++;
+  card.querySelectorAll("button").forEach((x,j)=>{x.disabled=true; if(j===QUIZ[i][2]) x.classList.add("right");});
+  if(!ok) b.classList.add("wrong");
+  const fb=card.querySelector(".fbbox"); fb.hidden=false; fb.textContent=QUIZ[i][3];
+  $("#qscore").textContent="Score "+qRight+" / "+QUIZ.length+(qAns===QUIZ.length?(qRight>=9?" · Ready for the project":" · Revisit the parts you missed"):"");
+});
+
+/* ---------- PROJECT ---------- */
+const PCHK=["Research question agreed","Privacy policy read; data sorted into given / observed / inferred","Engagement loop drawn","Two or more nudges or dark patterns found","Real news case linked","Fairness scorecard complete","Redesign / program / resource finished","Presentation rehearsed","Individual reflections done"];
+$("#pChecks").innerHTML=PCHK.map((c,i)=>"<label><input type='checkbox' id='pc"+i+"'><span>"+esc(c)+"</span></label>").join("");
+const PF=["pTeam","pPath","pApp","pRoles","pQ","pEv"];
+function loadP(){
+  let d={}; try{d=JSON.parse(store.get("dataTrailPlanner")||"{}")}catch(e){}
+  PF.forEach(k=>{if(d[k]!==undefined) $("#"+k).value=d[k];});
+  PCHK.forEach((c,i)=>{ $("#pc"+i).checked=!!(d.c&&d.c[i]); });
+  syncPath();
+}
+function saveP(){
+  const d={}; PF.forEach(k=>d[k]=$("#"+k).value); d.c=PCHK.map((c,i)=>$("#pc"+i).checked);
+  store.set("dataTrailPlanner",JSON.stringify(d));
+}
+function syncPath(){ const v=$("#pPath").value; document.querySelectorAll(".path").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.p===v))); }
+document.querySelector(".planner").addEventListener("input",()=>{saveP(); syncPath();});
+document.querySelector(".planner").addEventListener("change",()=>{saveP(); syncPath();});
+$("#pathList").addEventListener("click",e=>{const b=e.target.closest(".path"); if(!b) return; $("#pPath").value=b.dataset.p; syncPath(); saveP();});
+$("#pCopy").onclick=()=>{
+  const t="THE ALGORITHM AUDIT — PROJECT PLANNER\nTeam: "+$("#pTeam").value+"\nPathway: "+($("#pPath").selectedOptions[0]||{}).text+"\nApp/website: "+$("#pApp").value+"\nRoles: "+$("#pRoles").value+"\nResearch question: "+$("#pQ").value+"\n\nEvidence log:\n"+$("#pEv").value+"\n\nProgress:\n"+PCHK.map((c,i)=>($("#pc"+i).checked?"[x] ":"[ ] ")+c).join("\n");
+  copyText(t,$("#pMsg"));
+};
+loadP();
+})();
+</script>
+
+</body>
+</html>

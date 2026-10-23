@@ -9,3 +9,10 @@ One real computing story a day for learners aged 10–14, with discussion points
 - `daily-compute/stories.json`: every published story and its activities
 
 New stories are drafted each evening, approved by a teacher, then published here each morning by a scheduled task. Please don't edit `stories.json` by hand while a publish might be running.
+
+## The Data Trail
+
+An interactive unit for learners aged 13–15 on how AI uses data from social media, web browsing and online shopping to influence behaviour. Six parts with simulations, video clips, real news case files and a quiz, ending with a team project, The Algorithm Audit.
+
+- Site: https://bwclark14.github.io/CS/data-trail/
+- `data-trail/index.html`: the whole resource in one self-contained page
