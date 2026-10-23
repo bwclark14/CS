@@ -372,6 +372,24 @@ input[type=range]{width:100%;accent-color:var(--bad)}
 .side{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;font-size:.86rem;padding:4px 0;border-bottom:1px solid var(--line)}
 .side:last-child{border-bottom:0}
 .flag1{font-family:var(--mono);font-size:.7rem;font-weight:600;background:var(--bad-soft);color:var(--bad);padding:2px 6px;border-radius:4px}
+.shopwrap{display:grid;grid-template-columns:repeat(2,minmax(0,320px));gap:20px;justify-content:start}
+.shop{background:var(--paper);color:var(--ink);padding:14px;display:grid;gap:8px}
+.shop .sh{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.shop .who{font-family:var(--display);font-weight:800;font-size:1.05rem}
+.shop .pname{font-weight:700}
+.shop .price{font-family:var(--display);font-weight:800;font-size:2rem;font-variant-numeric:tabular-nums;line-height:1}
+.shop .buy{background:#1565C0;color:#fff;border:0;border-radius:6px;padding:9px;font-weight:700;text-align:center}
+.shop .fine{font-size:.72rem;color:var(--muted)}
+.brk{width:100%;font-size:.86rem}
+.brk td{padding:4px 6px}
+.brk td.up{color:var(--bad);font-weight:700;text-align:right;white-space:nowrap}
+.brk td.dn{color:var(--good);font-weight:700;text-align:right;white-space:nowrap}
+.brk td.z{color:var(--muted);text-align:right}
+.brk tr.off td{color:var(--muted);text-decoration:line-through}
+.sig{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.sig label{display:grid;gap:4px;font-size:.84rem;font-weight:700}
+.sig select{font:inherit;font-weight:400;padding:7px;border-radius:6px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+@media (max-width:720px){.shopwrap{grid-template-columns:minmax(0,1fr)}}
 .teacher ol,.teacher ul{margin:8px 0 0;padding-left:20px}
 .teacher li{margin-bottom:6px}
 footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
@@ -410,7 +428,7 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
       <p class="eyebrow">An investigation for ages 13–15</p>
       <h1 style="margin-top:10px">You didn’t pay with money. You paid with <span class="mark">data</span>.</h1>
       <p class="lede">Every scroll, pause, search and basket leaves a trail. AI systems read that trail to predict what you’ll do next, and then try to change it. Work through six parts, then use what you’ve learned in a final project.</p>
-      <div class="meta"><span class="chip">6 parts · 19 activities</span><span class="chip">11 video clips</span><span class="chip">5 real case files</span><span class="chip">final project · 4–6 lessons</span></div>
+      <div class="meta"><span class="chip">6 parts · 20 activities</span><span class="chip">11 video clips</span><span class="chip">5 real case files</span><span class="chip">final project · 4–6 lessons</span></div>
     </div>
     <div class="receipt" aria-label="Example data receipt for one school day">
       <div class="rh">DATA RECEIPT · ONE SCHOOL DAY</div>
@@ -696,6 +714,46 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
   <div class="two" id="scenBody"></div>
 </div></section>
 
+<section class="block" id="pricing"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">3.1b · SIMULATION · 20 MIN</span>
+    <h2>Same trainers. Different price.</h2>
+    <p class="lede">Some online shops can use what they know about you, such as your device, how you arrived and what you looked at before, to decide what to show you and even what price to offer. This is called <b>personalised pricing</b>. You usually can’t tell it is happening, because you only ever see your own price.</p>
+  </div>
+  <div class="panel" style="margin-bottom:16px">
+    <h3>Step 1 · Two friends shop at the same moment</h3>
+    <p class="small" style="margin-bottom:10px">Isla and Kai both open the same shop at the same time. Choose a product and compare what each of them sees.</p>
+    <div class="modes" role="radiogroup" aria-label="Product" id="prodPick"></div>
+  </div>
+  <div class="shopwrap" id="shops"></div>
+  <div class="panel" style="margin-top:16px">
+    <h3>Why do you think the prices are different?</h3>
+    <p class="small">Discuss with a partner first. Then reveal what the shop saw.</p>
+    <div style="margin-top:10px"><button class="btn primary" id="revealBtn">Reveal what the shop saw</button></div>
+    <div class="two" id="reveal" hidden style="margin-top:14px"></div>
+  </div>
+  <div class="panel" style="margin-top:16px">
+    <h3>Step 2 · Be the shopper</h3>
+    <p class="small" style="margin-bottom:12px">Change the signals and watch your price. Can you find the cheapest price? What would you have to give up to get it?</p>
+    <div class="two">
+      <div class="sig" id="sigs"></div>
+      <div>
+        <div class="phone" style="max-width:320px"><div class="screen"><div class="shop" id="myShop"></div></div></div>
+      </div>
+    </div>
+    <h3 style="margin-top:16px">What the shop is doing behind the scenes</h3>
+    <div class="tablewrap"><table class="brk" id="myBrk"></table></div>
+  </div>
+  <div class="realbox" style="margin-top:20px">
+    <span class="eyebrow">What really happens</span>
+    <p>In 2012 the Wall Street Journal reported that travel site Orbitz showed people using Mac computers pricier hotels near the top of their search results, because Mac users tended to spend $20 to $30 more a night. The price of each room was the same; what changed was what people were shown first.</p>
+    <p>In January 2025 the US Federal Trade Commission published early findings on what it calls <b>surveillance pricing</b>. It found companies offering tools that can use data such as location, device, browsing, mouse movements and items left in a basket to target different prices at different people. The findings were preliminary.</p>
+    <p>In the UK, personalised prices are not banned, but shops must not mislead customers, and using personal data must follow UK GDPR. It is hard to know how often individual prices are used, because shops rarely say.</p>
+    <p class="small">Sources: <a href="https://www.kcur.org/2012-06-26/orbitz-shows-mac-users-more-expensive-options" target="_blank" rel="noopener">KCUR / NPR on Orbitz (2012)</a> · <a href="https://ftc.gov/policy/advocacy-research/tech-at-ftc/2025/01/surveillance-pricing-update-work-ahead" target="_blank" rel="noopener">FTC, January 2025</a> · <a href="https://www.mccarter.com/insights/ftc-surveillance-pricing-study-finds-personal-data-is-used-to-set-individualized-consumer-prices-and-generate-higher-profits-for-companies/" target="_blank" rel="noopener">Summary of the FTC findings</a></p>
+  </div>
+  <div class="task"><b>Discuss:</b> Kai got a lower price partly because he looked hesitant. Is it fair that Isla pays more for being keen? Would you change how you shop if you knew this was happening? How is personalised pricing different from dynamic pricing, where the price changes for everyone at once (Scenario: “Price that moves”)?</div>
+</div></section>
+
 <section class="block" id="dark"><div class="wrap">
   <div class="sec-head">
     <span class="mission">3.2 · SPOT THE TRICK · 15 MIN</span>
@@ -959,7 +1017,7 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
   <div class="sec-head">
     <span class="mission">6.4 · END-OF-UNIT QUIZ · 15 MIN</span>
     <h2>Check your understanding</h2>
-    <p class="lede">Sixteen questions covering all six parts. Score 12 or more before starting the project.</p>
+    <p class="lede">Seventeen questions covering all six parts. Score 13 or more before starting the project.</p>
   </div>
   <div class="quiz" id="quizBox"></div>
 </div></section>
@@ -1112,6 +1170,7 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
       <p class="small"><b>Trackers:</b> each pretend site embeds a fixed set of tracker companies; each tracker joins every visit it sees into one profile until cookies are cleared.</p>
       <p class="small" style="margin-top:8px"><b>Feed:</b> share +4, like +3, watch all +2, dwell up to +2, skip −1 per topic. About 75% of posts come from top topics; the rest are random exploration.</p>
       <p class="small" style="margin-top:8px"><b>News feed:</b> topic, tone and debate-side scores rise with each read, like, share or comment (and with time spent on a headline). In Engagement mode worrying headlines get a 1.25× boost and shocking ones 1.45×. Balanced mode favours reliable outlets and calm headlines, avoids repeating recent topics and shows the side of a debate you have seen less. All outlets and headlines are fictional.</p>
+      <p class="small" style="margin-top:8px"><b>Personalised pricing:</b> each signal adds or removes a percentage from the starting price (for example latest iPhone +5%, price comparison site −6%, left in basket −5%). Rejecting cookies hides visit history, basket and page behaviour. The percentages are invented for teaching; real systems are secret and may work differently.</p>
       <p class="small" style="margin-top:8px"><b>People like you:</b> similarity = 100% minus the average rating difference across the five rated videos. The two nearest users’ ratings are averaged to predict the three unseen videos.</p>
       <p class="small" style="margin-top:8px"><b>CV-Bot:</b> keyword weight = (hired − rejected) ÷ times seen. CV score = sum of weights; above 0 is shortlisted.</p>
       <h3 style="margin-top:18px">Safeguarding</h3>
@@ -1528,6 +1587,48 @@ $("#scenBody").addEventListener("click",e=>{
 });
 renderTabs(); renderScen();
 
+/* ---------- 3.1b PERSONALISED PRICING ---------- */
+{
+const PRODS=[{id:"tr",n:"Air-Lite trainers",base:55,img:"trainers"},{id:"hp",n:"Wireless headphones",base:40,img:"music"},{id:"gm",n:"Game + season pass",base:30,img:"gaming"}];
+const SIG=[
+ {k:"device",lab:"Device",why:"People with expensive devices are predicted to spend more.",opts:[["iphone","Latest iPhone",0.05],["android","Older Android phone",0],["chromebook","School Chromebook",-0.03]]},
+ {k:"arrive",lab:"How you arrived",why:"Shoppers from comparison sites are offered less so the shop wins the sale.",opts:[["ad","Clicked an advert",0.03],["typed","Typed the shop’s address",0],["compare","Came from a price comparison site",-0.06]]},
+ {k:"visits",lab:"Visits to this item this week",why:"Lots of visits means you really want it, so you are likely to buy anyway.",opts:[["one","First visit",0],["three","Three or more visits",0.04]],cookie:true},
+ {k:"basket",lab:"Left it in your basket before?",why:"Leaving it in the basket suggests price is the problem, so a small discount may win the sale.",opts:[["no","No",0],["yes","Yes",-0.05]],cookie:true},
+ {k:"hover",lab:"How you behave on the page",why:"Hovering over the price and checking reviews suggests you are price-sensitive.",opts:[["quick","Went straight to Buy",0.02],["normal","Scrolled normally",0],["hover","Hovered over the price, read reviews",-0.03]],cookie:true},
+ {k:"area",lab:"Area (guessed from your internet address)",why:"Areas with higher average incomes are predicted to pay more.",opts:[["high","Higher-income area",0.03],["other","Other area",0]]},
+ {k:"time",lab:"Time of day",why:"Late-evening shoppers are predicted to buy on impulse.",opts:[["day","Afternoon",0],["late","Late evening",0.02]]},
+ {k:"cookies",lab:"Cookies",why:"Rejecting cookies hides your visit history, basket and page behaviour from the pricing engine.",opts:[["accept","Accepted all cookies",0],["reject","Rejected non-essential cookies",0]]}
+];
+const PEOPLE={
+ Isla:{device:"iphone",arrive:"ad",visits:"three",basket:"no",hover:"quick",area:"high",time:"late",cookies:"accept"},
+ Kai:{device:"android",arrive:"compare",visits:"one",basket:"yes",hover:"hover",area:"other",time:"day",cookies:"accept"}
+};
+let prod=PRODS[0], me={device:"android",arrive:"typed",visits:"one",basket:"no",hover:"normal",area:"other",time:"day",cookies:"accept"};
+function calc(pr){ const rows=SIG.map(sg=>{ const o=sg.opts.find(x=>x[0]===pr[sg.k]); const off=sg.cookie&&pr.cookies==="reject"; return {sg,o,off,v:off?0:o[2]}; });
+  const tot=rows.reduce((a,r)=>a+r.v,0); const price=Math.max(1,Math.round(prod.base*(1+tot))-0.01); return {rows,tot,price}; }
+const money=v=>"£"+v.toFixed(2);
+function shopHTML(name,pr,showName){ const c=calc(pr);
+  return "<div class='sh'><span>STRIDE STORE</span><span>Today</span></div>"+(showName?"<div class='who'>"+name+"’s screen</div>":"")+"<span class='thumb' style='max-width:none'>"+thumb(prod.img,rng(prod.id))+"</span><div class='pname'>"+prod.n+"</div><div class='price'>"+money(c.price)+"</div><div class='fine'>Price includes VAT. Free delivery.</div><div class='buy'>Add to basket</div>"; }
+function brkHTML(pr){ const c=calc(pr);
+  return "<tbody><tr><td>Starting price</td><td></td><td class='z'>"+money(prod.base)+"</td></tr>"+c.rows.filter(r=>r.sg.k!=="cookies").map(r=>"<tr class='"+(r.off?"off":"")+"'><td><b>"+esc(r.sg.lab.replace(/\?$/,""))+":</b> "+esc(r.o[1])+(r.off?" <span class='small'>(hidden: cookies rejected)</span>":"")+"<br><span class='small'>"+esc(r.sg.why)+"</span></td><td></td><td class='"+(r.v>0?"up":r.v<0?"dn":"z")+"'>"+(r.v?(r.v>0?"+":"−")+Math.round(Math.abs(r.v)*100)+"%":"no change")+"</td></tr>").join("")+"<tr><td><b>Price shown</b></td><td></td><td style='text-align:right'><b>"+money(c.price)+"</b></td></tr></tbody>"; }
+function renderShops(){
+  document.getElementById("prodPick").innerHTML=PRODS.map(x=>"<label><input type='radio' name='prod' value='"+x.id+"'"+(x.id===prod.id?" checked":"")+"> "+x.n+"</label>").join("");
+  document.getElementById("shops").innerHTML=["Isla","Kai"].map(n=>"<div class='phone'><div class='screen'><div class='shop'>"+shopHTML(n,PEOPLE[n],true)+"</div></div></div>").join("");
+  const rv=document.getElementById("reveal");
+  if(!rv.hidden) rv.innerHTML=["Isla","Kai"].map(n=>"<div><h3>What the shop saw: "+n+"</h3><div class='tablewrap'><table class='brk'>"+brkHTML(PEOPLE[n])+"</table></div></div>").join("");
+  const d=calc(PEOPLE.Isla).price-calc(PEOPLE.Kai).price;
+  document.getElementById("revealBtn").textContent=rv.hidden?"Reveal what the shop saw":"Isla pays "+money(d)+" more for the same "+prod.n.toLowerCase();
+  document.getElementById("myShop").innerHTML=shopHTML("You",me,false);
+  document.getElementById("myBrk").innerHTML=brkHTML(me);
+}
+document.getElementById("sigs").innerHTML=SIG.map(sg=>"<label for='sg_"+sg.k+"'>"+esc(sg.lab)+"<select id='sg_"+sg.k+"' data-k='"+sg.k+"'>"+sg.opts.map(o=>"<option value='"+o[0]+"'"+(me[sg.k]===o[0]?" selected":"")+">"+esc(o[1])+"</option>").join("")+"</select></label>").join("");
+document.getElementById("sigs").addEventListener("change",e=>{const t=e.target.closest("select"); if(!t) return; me[t.dataset.k]=t.value; renderShops();});
+document.getElementById("prodPick").addEventListener("change",e=>{ prod=PRODS.find(x=>x.id===e.target.value); renderShops(); });
+document.getElementById("revealBtn").onclick=()=>{ const rv=document.getElementById("reveal"); rv.hidden=false; renderShops(); };
+renderShops();
+}
+
 /* ---------- 3.2 DARK PATTERNS ---------- */
 const DPN=["Confirmshaming","Pre-ticked box","Fake urgency","Hard to cancel","Visual misdirection","Hidden costs","Autoplay trap","Nagging"];
 const DP=[
@@ -1847,6 +1948,7 @@ const QUIZ=[
  ["In the Cambridge Analytica case, whose data was collected?",["Only people who took the quiz","Quiz-takers and their friends","Only politicians","Only US citizens"],1,"The app also pulled data from friends, who never agreed."],
  ["What did the CMA conclude about the Oasis ticket sale?",["Ticketmaster used algorithmic surge pricing","It found no evidence of dynamic pricing, but price information was unclear","Oasis set the prices themselves","Tickets were free"],1,"The problem was how tiered prices were released and explained."],
  ["You only click shocking headlines about one side of a debate. Over time, an engagement-based news app will probably show you…",["A balanced mix of views","More shocking headlines from that side","Only reliable sources","Fewer adverts"],1,"Ranking by engagement gives you more of what you clicked. That can build an echo chamber."],
+ ["At the same moment, two friends see different prices for the same trainers because of their phones and browsing history. This is…",["Dynamic pricing","Personalised pricing","Data poisoning","A filter bubble"],1,"Personalised pricing uses data about you; dynamic pricing changes the price for everyone as demand changes."],
  ["Why is CV-Bot tested on four new applicants instead of the CVs it learned from?",["Test data shows whether it works on people it hasn’t seen","The training data was lost","Testing on old CVs is illegal","New applicants are always better"],0,"Training data is for learning; separate test data checks whether the model generalises."],
  ["A traffic light that changes every 60 seconds, whatever the traffic, is an example of…",["A data-driven system","A rule-based system","Data poisoning","Collaborative filtering"],1,"It follows a fixed rule a person wrote, so the same input always gives the same output."],
  ["Thousands of fake accounts like a scam post so the app’s AI learns it is popular. This is…",["Encryption","Data poisoning","Volunteered data","A filter bubble"],1,"Data poisoning deliberately feeds false data to a system so it learns the wrong thing."],
@@ -1861,7 +1963,7 @@ $("#quizBox").addEventListener("click",e=>{
   card.querySelectorAll("button").forEach((x,j)=>{x.disabled=true; if(j===QUIZ[i][2]) x.classList.add("right");});
   if(!ok) b.classList.add("wrong");
   const fb=card.querySelector(".fbbox"); fb.hidden=false; fb.textContent=QUIZ[i][3];
-  $("#qscore").textContent="Score "+qRight+" / "+QUIZ.length+(qAns===QUIZ.length?(qRight>=12?" · Ready for the project":" · Revisit the parts you missed"):"");
+  $("#qscore").textContent="Score "+qRight+" / "+QUIZ.length+(qAns===QUIZ.length?(qRight>=13?" · Ready for the project":" · Revisit the parts you missed"):"");
 });
 
 /* ---------- PROJECT ---------- */
