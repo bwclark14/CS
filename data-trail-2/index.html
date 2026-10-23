@@ -360,6 +360,18 @@ input[type=range]{width:100%;accent-color:var(--bad)}
 .stack span{display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden;transition:flex-grow .4s}
 .s-south{background:#5B6C7D}.s-north{background:#0C6E7C}.s-scot{background:#005EB8}
 @media (max-width:520px){.match,.vtests{grid-template-columns:1fr}}
+.newscard{display:flex;flex-direction:column;gap:10px;padding:18px;min-height:300px;background:var(--paper);color:var(--ink)}
+.newscard .nbar{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.newscard .nh{font-family:var(--display);font-weight:800;font-size:1.45rem;line-height:1.15;text-wrap:balance}
+.newscard .nband{height:6px;border-radius:3px}
+.newscard .why{font-size:.8rem;background:var(--bg);padding:6px 9px;border-radius:6px;margin-top:auto}
+.modes{display:flex;gap:6px;flex-wrap:wrap}
+.modes label{display:flex;gap:6px;align-items:center;border:1.5px solid var(--line);border-radius:99px;padding:6px 12px;font-size:.86rem;font-weight:700;cursor:pointer;background:var(--paper)}
+.modes input{accent-color:var(--teal)}
+.s-calm{background:var(--teal)}.s-alarm{background:#B86E00}.s-shock{background:var(--bad)}
+.side{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;font-size:.86rem;padding:4px 0;border-bottom:1px solid var(--line)}
+.side:last-child{border-bottom:0}
+.flag1{font-family:var(--mono);font-size:.7rem;font-weight:600;background:var(--bad-soft);color:var(--bad);padding:2px 6px;border-radius:4px}
 .teacher ol,.teacher ul{margin:8px 0 0;padding-left:20px}
 .teacher li{margin-bottom:6px}
 footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
@@ -398,7 +410,7 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
       <p class="eyebrow">An investigation for ages 13–15</p>
       <h1 style="margin-top:10px">You didn’t pay with money. You paid with <span class="mark">data</span>.</h1>
       <p class="lede">Every scroll, pause, search and basket leaves a trail. AI systems read that trail to predict what you’ll do next, and then try to change it. Work through six parts, then use what you’ve learned in a final project.</p>
-      <div class="meta"><span class="chip">6 parts · 18 activities</span><span class="chip">11 video clips</span><span class="chip">5 real case files</span><span class="chip">final project · 4–6 lessons</span></div>
+      <div class="meta"><span class="chip">6 parts · 19 activities</span><span class="chip">11 video clips</span><span class="chip">5 real case files</span><span class="chip">final project · 4–6 lessons</span></div>
     </div>
     <div class="receipt" aria-label="Example data receipt for one school day">
       <div class="rh">DATA RECEIPT · ONE SCHOOL DAY</div>
@@ -554,6 +566,56 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
     </div>
   </div>
   <div class="task"><b>Experiment:</b> Pick one topic and only like that. How many posts until your feed is mostly that topic? Then reset, never press Like, but stay a long time on one topic before skipping. Did the AI still work you out? What does that tell you about “just looking”?</div>
+</div></section>
+
+<section class="block" id="news"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">2.2b · SIMULATION · 15 MIN</span>
+    <h2>Be the reader. Watch your news change.</h2>
+    <p class="lede">News apps use the same kind of AI as video feeds. They learn which <b>topics</b>, which <b>tone</b> of headline and which <b>side of a debate</b> you engage with, then show you more of it. All outlets and headlines here are made up.</p>
+  </div>
+  <div class="feed-grid">
+    <div class="phone"><div class="screen">
+      <div class="newscard" id="nCard">
+        <div class="nbar"><span id="nSrc">Outlet</span><span id="nAge">just now</span></div>
+        <div class="nband" id="nBand"></div>
+        <div class="nh" id="nHead">Loading…</div>
+        <div class="segs" id="nTags"></div>
+        <div class="why" id="nWhy">Why am I seeing this?</div>
+      </div>
+      <div class="actions">
+        <button id="nRead">Read</button><button id="nLike">Like</button><button id="nShare">Share</button><button id="nComment">Comment</button><button id="nPast">Scroll past</button><button id="nNot">Not interested</button>
+      </div>
+    </div></div>
+    <div class="dash">
+      <div class="panel">
+        <h3>What should the app rank by?</h3>
+        <div class="modes" role="radiogroup" aria-label="Ranking mode">
+          <label><input type="radio" name="nMode" id="nModeE" value="eng" checked> Engagement (most apps)</label>
+          <label><input type="radio" name="nMode" id="nModeB" value="bal"> Balanced news</label>
+        </div>
+        <p class="small" style="margin-top:8px" id="nModeNote">Shows whatever you are most likely to click. Shocking headlines get a boost because they get more clicks.</p>
+      </div>
+      <div class="panel"><h3>Your news mix</h3><div class="bars" id="nBars"></div></div>
+      <div class="panel">
+        <h3>Tone of your last 10 headlines</h3>
+        <div class="stack" id="nTone" style="margin-top:4px"></div>
+        <p class="small" style="margin-top:6px" id="nToneTxt"></p>
+        <h3 style="margin-top:14px">From low-reliability sources</h3>
+        <div class="meter" aria-hidden="true"><i id="nRelPin" style="left:0%"></i></div>
+        <p class="small" style="margin-top:6px" id="nRelTxt"></p>
+      </div>
+      <div class="panel"><h3>Debates: which side have you seen?</h3><div id="nSides"></div></div>
+      <div><button class="btn" id="nReset">Reset the app (new reader)</button></div>
+    </div>
+  </div>
+  <dl class="key">
+    <div><dt>Clickbait</dt>A headline written to make you click, often by exaggerating or holding back the key fact.</div>
+    <div><dt>Sensational</dt>Made to sound more shocking or scary than the facts support.</div>
+    <div><dt>Echo chamber</dt>When you mostly see views you already agree with, so they seem more common than they are.</div>
+    <div><dt>Reliable source</dt>An outlet with a track record of checking facts and correcting mistakes.</div>
+  </dl>
+  <div class="task"><b>Experiments:</b> (1) Only <i>Read</i> or <i>Share</i> shocking or scary headlines for 10 posts. What happens to the tone meter? (2) Reset, then only engage with one side of the phone-ban debate. What do you see about the other side? (3) Switch to <i>Balanced news</i> and repeat. What changed? Which mode would keep people in the app longest, and which is better for them?</div>
 </div></section>
 
 <section class="block" id="similar"><div class="wrap">
@@ -897,7 +959,7 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
   <div class="sec-head">
     <span class="mission">6.4 · END-OF-UNIT QUIZ · 15 MIN</span>
     <h2>Check your understanding</h2>
-    <p class="lede">Fifteen questions covering all six parts. Score 11 or more before starting the project.</p>
+    <p class="lede">Sixteen questions covering all six parts. Score 12 or more before starting the project.</p>
   </div>
   <div class="quiz" id="quizBox"></div>
 </div></section>
@@ -1049,6 +1111,7 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
       <h3 style="margin-top:18px">How the simulations work</h3>
       <p class="small"><b>Trackers:</b> each pretend site embeds a fixed set of tracker companies; each tracker joins every visit it sees into one profile until cookies are cleared.</p>
       <p class="small" style="margin-top:8px"><b>Feed:</b> share +4, like +3, watch all +2, dwell up to +2, skip −1 per topic. About 75% of posts come from top topics; the rest are random exploration.</p>
+      <p class="small" style="margin-top:8px"><b>News feed:</b> topic, tone and debate-side scores rise with each read, like, share or comment (and with time spent on a headline). In Engagement mode worrying headlines get a 1.25× boost and shocking ones 1.45×. Balanced mode favours reliable outlets and calm headlines, avoids repeating recent topics and shows the side of a debate you have seen less. All outlets and headlines are fictional.</p>
       <p class="small" style="margin-top:8px"><b>People like you:</b> similarity = 100% minus the average rating difference across the five rated videos. The two nearest users’ ratings are averaged to predict the three unseen videos.</p>
       <p class="small" style="margin-top:8px"><b>CV-Bot:</b> keyword weight = (hired − rejected) ÷ times seen. CV score = sum of weights; above 0 is shortlisted.</p>
       <h3 style="margin-top:18px">Safeguarding</h3>
@@ -1225,6 +1288,125 @@ $("#aLike").onclick=()=>act("like"); $("#aWatch").onclick=()=>act("watch"); $("#
 $("#feedReset").onclick=resetFeed;
 resetFeed();
 
+/* ---------- 2.2b NEWS FEED ---------- */
+{
+const NT={local:["Local","#2D6A9F"],sport:["Sport","#1F7A4D"],science:["Science","#5B3FA8"],tech:["Tech","#0F6E87"],enviro:["Environment","#3C7A2F"],ents:["Entertainment","#B03A6F"],school:["School life","#B5651D"]};
+const LOWREL=new Set(["ShockFeed","ViralBuzz","TruthBlast"]);
+const ISS={phones:["Phone ban in schools","ban","For a ban","noban","Against a ban"],fourday:["Four-day school week","yes","For it","no","Against it"]};
+const NEWS=[
+ ["New skate park opens in Dundee after pupils’ campaign","local","calm","Glen Gazette"],
+ ["Council adds late-night bus for teens after youth vote","local","calm","Scot News"],
+ ["Storm warning: some schools may close as winds hit 80mph","local","alarm","Scot News"],
+ ["You won’t BELIEVE what was found under this Glasgow street","local","shock","ViralBuzz"],
+ ["Locals FURIOUS over new parking rule. Is your street next?","local","shock","ShockFeed"],
+ ["Library launches free coding club for teens","local","calm","Glen Gazette"],
+ ["Scotland under-17s reach cup final","sport","calm","SportDesk"],
+ ["Local runner, 14, breaks regional 800m record","sport","calm","Glen Gazette"],
+ ["Star striker’s SHOCK move. Fans can’t believe it","sport","shock","ViralBuzz"],
+ ["Referee row: ‘This could ruin football forever’","sport","alarm","ShockFeed"],
+ ["How to start rock climbing: a beginner’s guide","sport","calm","SportDesk"],
+ ["New images show ice volcanoes on a distant moon","science","calm","Science Now"],
+ ["Scottish scientists turn seaweed into plastic-free packaging","science","calm","Science Now"],
+ ["Scientists HATE this one weird sleep trick","science","shock","ViralBuzz"],
+ ["Asteroid to pass Earth this week. Should we be worried?","science","alarm","NewsNow24"],
+ ["Was the Moon landing fake? The ‘evidence’ that went viral","science","shock","TruthBlast"],
+ ["How to set up two-step verification on your games account","tech","calm","TechBite"],
+ ["New AI tool describes photos for blind users","tech","calm","TechBite"],
+ ["Hackers target gaming accounts: what you need to know","tech","alarm","NewsNow24"],
+ ["This app is SPYING on you right now (check your phone!)","tech","shock","ShockFeed"],
+ ["Free skins glitch EVERYONE is using before it’s fixed","tech","shock","ViralBuzz"],
+ ["Pupils plant 1,000 trees along the River Clyde","enviro","calm","Glen Gazette"],
+ ["Wind farms set new power record for Scotland","enviro","calm","Science Now"],
+ ["Hotter summers ‘could become normal’, scientists warn","enviro","alarm","NewsNow24"],
+ ["The ONE food you eat that’s destroying the planet","enviro","shock","ViralBuzz"],
+ ["Floods hit towns again: ‘We’re scared every time it rains’","enviro","alarm","Scot News"],
+ ["Glasgow band announces free outdoor gig","ents","calm","Glen Gazette"],
+ ["Behind the scenes: how animated films are made in Dundee","ents","calm","Scot News"],
+ ["Famous YouTuber’s meltdown caught on camera","ents","shock","ShockFeed"],
+ ["This singer’s new look has fans in TEARS","ents","shock","ViralBuzz"],
+ ["Book of the month: a fantasy adventure set on Skye","ents","calm","Pupil Post"],
+ ["Exam timetable published: key dates for S4 to S6","school","calm","Pupil Post"],
+ ["Free breakfast clubs expand to more schools","school","calm","Scot News"],
+ ["Head teacher: ‘Our phone ban helped pupils focus’","school","calm","Pupil Post","phones","ban"],
+ ["Phones are DESTROYING your brain, expert claims","school","shock","ShockFeed","phones","ban"],
+ ["Teachers warn of ‘phone addiction crisis’ in classrooms","school","alarm","NewsNow24","phones","ban"],
+ ["Survey: most teachers back phone-free classrooms","school","calm","Scot News","phones","ban"],
+ ["‘I got my brain back’: pupils on life without phones","school","calm","Pupil Post","phones","ban"],
+ ["Parents: ‘I need to be able to reach my child after school’","school","calm","Glen Gazette","phones","noban"],
+ ["Why a total phone ban could backfire, say youth workers","school","alarm","NewsNow24","phones","noban"],
+ ["Pupils say phones help them learn and stay safe on the way home","school","calm","Pupil Post","phones","noban"],
+ ["Phone ban is an ATTACK on young people, say furious parents","school","shock","ShockFeed","phones","noban"],
+ ["Study finds phone bans made little difference to grades","school","calm","NewsNow24","phones","noban"],
+ ["School trials four-day week: ‘Pupils are happier’","school","calm","Pupil Post","fourday","yes"],
+ ["Four-day school week is the BEST idea ever, say pupils","school","shock","ViralBuzz","fourday","yes"],
+ ["Parents worry about childcare if schools move to four days","school","calm","Scot News","fourday","no"],
+ ["Four-day week ‘would leave pupils further behind’","school","alarm","NewsNow24","fourday","no"]
+].map((n,i)=>({i,h:n[0],t:n[1],tone:n[2],src:n[3],iss:n[4]||null,side:n[5]||null}));
+let tW,toneW,sideW,shown,recent,cur,shownAt,count;
+const mode=()=>document.getElementById("nModeB").checked?"bal":"eng";
+function nReset(){ tW={}; Object.keys(NT).forEach(k=>tW[k]=1); toneW={calm:1,alarm:1,shock:1}; sideW={}; shown=new Set(); recent=[]; count=0; nNext(); }
+function score(n){
+  const sk=n.iss?n.iss+":"+n.side:null;
+  if(mode()==="eng"){ const boost={calm:1,alarm:1.25,shock:1.45}[n.tone];
+    let sf=1; if(sk){ const I=ISS[n.iss], opp=n.iss+":"+(n.side===I[1]?I[3]:I[1]); sf=Math.min(6,Math.max(0.03,(sideW[sk]||1)/(sideW[opp]||1))); }
+    return tW[n.t]*toneW[n.tone]*boost*sf*(0.85+Math.random()*0.3); }
+  const last3=recent.slice(-3).map(r=>r.t);
+  let sc=(LOWREL.has(n.src)?0.3:1.4)*{calm:1.3,alarm:1,shock:0.4}[n.tone]*Math.sqrt(tW[n.t])*(last3.includes(n.t)?0.45:1.2);
+  if(n.iss){ const seenSides=recent.filter(r=>r.iss===n.iss); const same=seenSides.filter(r=>r.side===n.side).length, other=seenSides.length-same; sc*=same>other?0.4:1.5; }
+  return sc*(0.85+Math.random()*0.3);
+}
+function why(n){
+  if(count<=3) return "New reader: showing a mix to learn what you like.";
+  if(mode()==="bal"){ if(n.iss) return "Balanced: showing a view on this debate you haven’t seen much of."; return "Balanced: a reliable source on a topic you haven’t seen recently."; }
+  const sk=n.iss?n.iss+":"+n.side:null;
+  if(sk&&(sideW[sk]||1)>3) return "Because you engaged with this side of the "+ISS[n.iss][0].toLowerCase()+" debate.";
+  if(n.tone!=="calm"&&toneW[n.tone]>3) return "Because you engage with "+(n.tone==="shock"?"shocking":"worrying")+" headlines.";
+  if(tW[n.t]>3) return "Because you read "+NT[n.t][0].toLowerCase()+" stories.";
+  if(n.tone!=="calm") return "Trending: headlines like this get lots of clicks.";
+  return "Popular with readers like you.";
+}
+function nNext(){
+  count++;
+  const lastIds=recent.slice(-10).map(r=>r.i); let pool=NEWS.filter(n=>!lastIds.includes(n.i));
+  let cand; if(count<=3) cand=pool[Math.floor(Math.random()*pool.length)];
+  else { const sample=shuf(pool).slice(0,10); cand=sample.map(n=>[n,score(n)]).sort((a,b)=>b[1]-a[1])[0][0]; }
+  cur=cand; shown.add(cur.i); recent.push(cur); if(recent.length>15) recent.shift();
+  document.getElementById("nSrc").textContent=cur.src;
+  document.getElementById("nAge").textContent=(1+Math.floor(Math.random()*11))+"h ago";
+  document.getElementById("nBand").style.background=NT[cur.t][1];
+  document.getElementById("nHead").textContent=cur.h;
+  document.getElementById("nTags").innerHTML="<span class='seg t'>"+NT[cur.t][0]+"</span>"+(cur.iss?"<span class='seg t'>Debate: "+esc(ISS[cur.iss][0])+"</span>":"");
+  document.getElementById("nWhy").textContent=why(cur);
+  shownAt=performance.now(); nRender();
+}
+function nAct(k){
+  const add={read:2,like:2,share:3,comment:3,past:0,not:-1.5}[k];
+  const dw=Math.min(1.5,(performance.now()-shownAt)/4000);
+  const a=add+(k==="not"?0:dw);
+  tW[cur.t]=Math.max(0.2,tW[cur.t]+a); toneW[cur.tone]=Math.max(0.2,toneW[cur.tone]+a*0.8);
+  if(cur.iss){ const I=ISS[cur.iss], sk=cur.iss+":"+cur.side, opp=cur.iss+":"+(cur.side===I[1]?I[3]:I[1]); sideW[sk]=Math.max(0.2,(sideW[sk]||1)+a); if(a>0) sideW[opp]=Math.max(0.2,(sideW[opp]||1)-a*0.6); }
+  nNext();
+}
+function nRender(){
+  const keys=Object.keys(NT).sort((a,b)=>tW[b]-tW[a]), max=Math.max(...keys.map(k=>tW[k])), tot=keys.reduce((s,k)=>s+tW[k],0);
+  document.getElementById("nBars").innerHTML=keys.map(k=>"<div class='bar'><span>"+NT[k][0]+"</span><div class='track'><div class='fill' style='width:"+(tW[k]/max*100).toFixed(0)+"%'></div></div><span class='num'>"+(tW[k]/tot*100).toFixed(0)+"%</span></div>").join("");
+  const last=recent.slice(-10), c={calm:0,alarm:0,shock:0}; last.forEach(r=>c[r.tone]++);
+  document.getElementById("nTone").innerHTML=[["calm","Calm"],["alarm","Worrying"],["shock","Shocking"]].map(t=>"<span class='s-"+t[0]+"' style='flex-grow:"+(c[t[0]]||0.0001)+"'>"+(c[t[0]]?t[1]+" "+c[t[0]]:"")+"</span>").join("");
+  const hot=c.alarm+c.shock;
+  document.getElementById("nToneTxt").textContent=last.length<5?"Keep reading to see the pattern.":hot>=7?hot+" of your last "+last.length+" headlines were worrying or shocking. The news can start to feel scarier than the world really is.":hot>=4?"Worrying and shocking headlines are taking over.":"Mostly calm headlines.";
+  const low=last.filter(r=>LOWREL.has(r.src)).length;
+  document.getElementById("nRelPin").style.left="calc("+(last.length?low/last.length*100:0).toFixed(0)+"% - 2px)";
+  document.getElementById("nRelTxt").textContent=low+" of your last "+last.length+" came from outlets with a poor track record for checking facts (ShockFeed, ViralBuzz, TruthBlast).";
+  document.getElementById("nSides").innerHTML=Object.keys(ISS).map(k=>{ const I=ISS[k], seen=[...recent].filter(r=>r.iss===k), a=seen.filter(r=>r.side===I[1]).length, b=seen.filter(r=>r.side===I[3]).length;
+    const one=(a>=2&&b===0)||(b>=2&&a===0);
+    return "<div class='side'><span><b>"+I[0]+"</b><br><span class='small'>"+I[2]+": "+a+" · "+I[4]+": "+b+"</span></span>"+(one?"<span class='flag1'>ONE-SIDED</span>":"<span class='small'>"+(a+b?"mixed":"not seen yet")+"</span>")+"</div>"; }).join("")+"<p class='small' style='margin-top:6px'>Counts from your last 15 headlines.</p>";
+}
+[["nRead","read"],["nLike","like"],["nShare","share"],["nComment","comment"],["nPast","past"],["nNot","not"]].forEach(a=>document.getElementById(a[0]).onclick=()=>nAct(a[1]));
+document.getElementById("nReset").onclick=nReset;
+document.querySelectorAll("input[name=nMode]").forEach(r=>r.addEventListener("change",()=>{ document.getElementById("nModeNote").textContent=mode()==="eng"?"Shows whatever you are most likely to click. Shocking headlines get a boost because they get more clicks.":"Mixes topics, favours reliable outlets and calm headlines, and shows the other side of debates you have only seen one view of."; nNext(); }));
+window.__newsInit=nReset;
+}
+
 /* ---------- 2.3 COLLABORATIVE FILTERING ---------- */
 const CF_POOL=[["Football skills compilation","sport"],["Last-minute derby winner","sport"],["Block-building mega castle","gaming"],["Speedrun world record","gaming"],["Baking a rainbow cake","food"],["3-ingredient pasta hack","food"],["Space rocket launch live","science"],["Why volcanoes erupt","science"],["Dance challenge tutorial","dance"],["Street dance battle","dance"],["Guitar riff anyone can learn","music"],["Reacting to the top chart","music"],["Cat refuses to leave the box","animals"],["Dog sees snow for the first time","animals"],["Teachers vs pupils sketch","comedy"],["Prank goes wrong","comedy"],["Drawing my dog in 3 styles","art"],["Graffiti wall time-lapse","art"]];
 const CF_NAMES=["Jordan","Priya","Leo","Maya","Sam","Zara","Euan","Aimee","Kofi","Isla"];
@@ -1254,6 +1436,7 @@ $("#cfItems").addEventListener("click",e=>{const b=e.target.closest("button[data
 $("#cfRec").addEventListener("click",e=>{const b=e.target.closest("button[data-t]"); if(!b) return; cf.test[+b.dataset.t]=+b.dataset.y; renderCF();});
 $("#cfShuffle").onclick=()=>{cfNew(); renderCF();};
 cfNew(); renderCF();
+window.__newsInit();
 
 /* ---------- 2.4 RULES VS DATA ---------- */
 function rng(seed){let h=1779033703^seed.length; for(let i=0;i<seed.length;i++){h=Math.imul(h^seed.charCodeAt(i),3432918353); h=h<<13|h>>>19;} return function(){h=Math.imul(h^h>>>16,2246822507); h=Math.imul(h^h>>>13,3266489909); return ((h^=h>>>16)>>>0)/4294967296;};}
@@ -1663,6 +1846,7 @@ const QUIZ=[
  ["Why must an AI be tested on data it has never seen before?",["To make it run faster","To check it works on new real-world cases, not just memorised ones","Because the law requires 100% accuracy","It doesn’t need testing"],1,"Testing on unseen data shows whether the model generalises fairly."],
  ["In the Cambridge Analytica case, whose data was collected?",["Only people who took the quiz","Quiz-takers and their friends","Only politicians","Only US citizens"],1,"The app also pulled data from friends, who never agreed."],
  ["What did the CMA conclude about the Oasis ticket sale?",["Ticketmaster used algorithmic surge pricing","It found no evidence of dynamic pricing, but price information was unclear","Oasis set the prices themselves","Tickets were free"],1,"The problem was how tiered prices were released and explained."],
+ ["You only click shocking headlines about one side of a debate. Over time, an engagement-based news app will probably show you…",["A balanced mix of views","More shocking headlines from that side","Only reliable sources","Fewer adverts"],1,"Ranking by engagement gives you more of what you clicked. That can build an echo chamber."],
  ["Why is CV-Bot tested on four new applicants instead of the CVs it learned from?",["Test data shows whether it works on people it hasn’t seen","The training data was lost","Testing on old CVs is illegal","New applicants are always better"],0,"Training data is for learning; separate test data checks whether the model generalises."],
  ["A traffic light that changes every 60 seconds, whatever the traffic, is an example of…",["A data-driven system","A rule-based system","Data poisoning","Collaborative filtering"],1,"It follows a fixed rule a person wrote, so the same input always gives the same output."],
  ["Thousands of fake accounts like a scam post so the app’s AI learns it is popular. This is…",["Encryption","Data poisoning","Volunteered data","A filter bubble"],1,"Data poisoning deliberately feeds false data to a system so it learns the wrong thing."],
@@ -1677,7 +1861,7 @@ $("#quizBox").addEventListener("click",e=>{
   card.querySelectorAll("button").forEach((x,j)=>{x.disabled=true; if(j===QUIZ[i][2]) x.classList.add("right");});
   if(!ok) b.classList.add("wrong");
   const fb=card.querySelector(".fbbox"); fb.hidden=false; fb.textContent=QUIZ[i][3];
-  $("#qscore").textContent="Score "+qRight+" / "+QUIZ.length+(qAns===QUIZ.length?(qRight>=11?" · Ready for the project":" · Revisit the parts you missed"):"");
+  $("#qscore").textContent="Score "+qRight+" / "+QUIZ.length+(qAns===QUIZ.length?(qRight>=12?" · Ready for the project":" · Revisit the parts you missed"):"");
 });
 
 /* ---------- PROJECT ---------- */
