@@ -129,7 +129,7 @@ a.vid .use{font-size:.85rem;margin-top:4px;display:block}
 .post .ptitle{font-family:var(--display);font-weight:800;font-size:1.6rem;line-height:1.1}
 .post .why{font-size:.78rem;background:rgba(0,0,0,.35);padding:6px 9px;border-radius:6px;align-self:flex-start}
 .post .timer{position:absolute;top:16px;right:16px;font-family:var(--mono);font-size:.75rem;background:rgba(0,0,0,.35);padding:3px 7px;border-radius:5px}
-.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:10px}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:10px}
 .actions button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:8px 2px;font-size:.82rem;font-weight:700}
 .actions button:hover{background:var(--hi);color:var(--hi-ink)}
 .dash{display:grid;gap:16px;min-width:0}
@@ -330,6 +330,36 @@ input[type=range]{width:100%;accent-color:var(--bad)}
 .ebar .eb{height:26px;background:var(--teal);border-radius:4px;display:flex;align-items:center;padding:0 8px;color:var(--paper);font-family:var(--mono);font-size:.76rem;white-space:nowrap;max-width:100%}
 .scot{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
 .scot .right-c{border-top:4px solid #005EB8}
+.fcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.fc{border:0;padding:0;background:none;color:var(--ink);text-align:left;perspective:900px;min-height:160px}
+.fc .fi{display:grid;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.fc.flip .fi{transform:rotateY(180deg)}
+.fc .face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1.5px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:6px;background:var(--paper)}
+.fc .front{justify-content:space-between}
+.fc .front b{font-family:var(--display);font-size:1.25rem;line-height:1.1}
+.fc .back{transform:rotateY(180deg);background:var(--teal-soft);border-color:var(--teal);font-size:.88rem}
+.fc .hint{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.06em}
+.match{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:12px}
+.match .col{display:grid;gap:6px;align-content:start}
+.match button{text-align:left;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:8px;padding:8px 10px;font-size:.88rem}
+.match button.t{font-weight:700;font-family:var(--display)}
+.match button.sel{border-color:var(--ink);background:var(--hi);color:var(--hi-ink)}
+.match button.ok{border-color:var(--good);background:var(--good-soft);opacity:.8}
+.match button.bad{border-color:var(--bad);background:var(--bad-soft)}
+.thumb{display:block;width:100%;max-width:240px;aspect-ratio:16/10;border-radius:8px;overflow:hidden;margin:6px 0}
+.thumb svg{display:block;width:100%;height:100%}
+.outbox .pt{font-weight:700}
+.realbox{border:1.5px solid var(--bad);border-radius:10px;padding:14px 16px;background:var(--paper);font-size:.93rem;display:grid;gap:6px}
+.realbox .eyebrow{color:var(--bad)}
+.vtests{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.vt{border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--bg);display:grid;gap:4px;font-size:.84rem}
+.vt b{font-family:var(--display);font-size:.98rem}
+.vt .cmds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 8px;font-size:.8rem}
+.vt .y{color:var(--good)} .vt .n{color:var(--bad)} .vt .w{color:var(--bad);font-weight:700}
+.stack{display:flex;height:22px;border-radius:5px;overflow:hidden;font-family:var(--mono);font-size:.7rem;color:#fff}
+.stack span{display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden;transition:flex-grow .4s}
+.s-south{background:#5B6C7D}.s-north{background:#0C6E7C}.s-scot{background:#005EB8}
+@media (max-width:520px){.match,.vtests{grid-template-columns:1fr}}
 .teacher ol,.teacher ul{margin:8px 0 0;padding-left:20px}
 .teacher li{margin-bottom:6px}
 footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
@@ -368,7 +398,7 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
       <p class="eyebrow">An investigation for ages 13–15</p>
       <h1 style="margin-top:10px">You didn’t pay with money. You paid with <span class="mark">data</span>.</h1>
       <p class="lede">Every scroll, pause, search and basket leaves a trail. AI systems read that trail to predict what you’ll do next, and then try to change it. Work through six parts, then use what you’ve learned in a final project.</p>
-      <div class="meta"><span class="chip">6 parts · 16 activities</span><span class="chip">11 video clips</span><span class="chip">5 real case files</span><span class="chip">final project · 4–6 lessons</span></div>
+      <div class="meta"><span class="chip">6 parts · 18 activities</span><span class="chip">11 video clips</span><span class="chip">5 real case files</span><span class="chip">final project · 4–6 lessons</span></div>
     </div>
     <div class="receipt" aria-label="Example data receipt for one school day">
       <div class="rh">DATA RECEIPT · ONE SCHOOL DAY</div>
@@ -429,7 +459,7 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
   <div class="sec-head">
     <span class="mission">1.2 · SIMULATION · 10 MIN</span>
     <h2>Follow the trackers</h2>
-    <p class="lede">Visit these five pretend websites in any order. Each one secretly contains trackers from ad companies. Watch how those companies join up your visits into one profile, even though you never visited them.</p>
+    <p class="lede">Visit any of these pretend websites, in any order. Each one secretly contains trackers from ad companies. Watch how those companies join up your visits into one profile, even though you never visited them.</p>
   </div>
   <div class="two">
     <div class="panel">
@@ -442,7 +472,7 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
       <div class="trk" id="trk"></div>
     </div>
   </div>
-  <div class="task"><b>Think:</b> Which company knows the most about you? You never visited its website. Now press <i>Clear cookies</i> and visit only two sites. How does clearing cookies change what is joined up?</div>
+  <div class="task"><b>Think:</b> Which company knows the most about you? You never visited its website. Which visits led to a <b>sensitive</b> guess (shown in red)? Now press <i>Clear cookies</i> and visit a different mix. How do the guesses change?</div>
 </div></section>
 
 <section class="block" id="sort"><div class="wrap">
@@ -512,7 +542,7 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
         <span class="why" id="pwhy">Why am I seeing this?</span>
       </div>
       <div class="actions">
-        <button id="aLike">Like</button><button id="aWatch">Watch all</button><button id="aShare">Share</button><button id="aSkip">Skip</button>
+        <button id="aLike">Like</button><button id="aWatch">Watch all</button><button id="aShare">Share</button><button id="aSave">Save</button><button id="aComment">Comment</button><button id="aSkip">Skip</button>
       </div>
     </div></div>
     <div class="dash">
@@ -530,12 +560,13 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
   <div class="sec-head">
     <span class="mission">2.3 · TRAIN AND TEST · 15 MIN</span>
     <h2>“People like you also watched…”</h2>
-    <p class="lede">This is collaborative filtering. Rate five videos. The AI compares you with six other users, finds the ones most like you, and predicts what you’ll enjoy from videos you haven’t seen. Then you test whether it was right.</p>
+    <p class="lede">This is collaborative filtering. Rate five videos. The AI compares you with ten other users, finds the two most like you, and predicts what you’ll enjoy from videos you haven’t seen. Then you test whether it was right. Everyone gets a different random set of videos and users, so compare with the person next to you.</p>
   </div>
   <div class="two">
     <div class="panel">
       <h3>Step 1 · Rate these (1 = no thanks, 5 = love it)</h3>
       <div class="items" id="cfItems"></div>
+      <div style="margin-top:12px"><button class="btn" id="cfShuffle">New videos and new users</button></div>
     </div>
     <div class="panel">
       <h3>Step 2 · Your nearest neighbours</h3>
@@ -609,13 +640,21 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
     <h2>Dark patterns</h2>
     <p class="lede">A dark pattern is a design that pushes you into something you might not choose if it were presented fairly. Data makes them stronger, because the system can show each trick to the people most likely to fall for it. Name the pattern in each mock-up.</p>
   </div>
+  <h3 style="margin-bottom:6px">Step 1 · Learn the patterns</h3>
+  <p class="small" style="margin-bottom:12px">Tap a card to flip it and read what the pattern means.</p>
+  <div class="fcards" id="fcards"></div>
+  <h3 style="margin:28px 0 6px">Step 2 · Match each pattern to its meaning</h3>
+  <p class="small" style="margin-bottom:12px">Pick a pattern, then pick its meaning.</p>
+  <div class="match"><div class="col" id="mTerms"></div><div class="col" id="mDefs"></div></div>
+  <p class="small" style="margin-top:10px" id="mScore"></p>
+  <h3 style="margin:28px 0 12px">Step 3 · Spot the trick</h3>
   <div class="dps" id="dps"></div>
   <p class="small" style="margin-top:14px" id="dpScore"></p>
   <div class="task"><b>Hunt:</b> Find one real dark pattern on an app or website you use this week. Screenshot it (don’t include personal info) and bring it to the next lesson. You’ll need it for the final project.</div>
 </div></section>
 
 <!-- ============ PART 4 ============ -->
-<div class="part" id="p4"><div class="wrap"><span class="num">PART 4 OF 6 · ABOUT 1–2 LESSONS</span><h2>When AI gets it wrong: bias</h2><p>An AI is only as fair as the data it learns from. If the past was unfair, a system trained on the past can repeat that unfairness automatically, at huge scale, while looking neutral.</p></div></div>
+<div class="part" id="p4"><div class="wrap"><span class="num">PART 4 OF 6 · ABOUT 2–3 LESSONS</span><h2>When AI gets it wrong: bias</h2><p>An AI is only as fair as the data it learns from. If the past was unfair, a system trained on the past can repeat that unfairness automatically, at huge scale, while looking neutral.</p></div></div>
 
 <section class="block first" id="train"><div class="wrap">
   <div class="sec-head">
@@ -662,9 +701,60 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
   </div></div>
 </div></section>
 
+<section class="block" id="grade"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">4.2 · TRAIN, TEST, FIX · 20 MIN</span>
+    <h2>GradeBot: is it judging you, or your school?</h2>
+    <p class="lede">Exams are cancelled. <b>GradeBot</b> must predict whether each pupil deserves an A or B, using past pupils’ results as training data. This time the problem is different from CV-Bot, and so are the fixes.</p>
+  </div>
+  <div id="labGrade"></div>
+  <div class="realbox" style="margin-top:20px">
+    <span class="eyebrow">This really happened · Scotland, August 2020</span>
+    <p>When exams were cancelled during the pandemic, the SQA adjusted teachers’ estimated grades using each school’s past results. About 125,000 estimates were lowered. The Higher pass rate for pupils from the most deprived areas was cut by 15.2 percentage points, compared with 6.9 for the least deprived. After pupils protested, the Scottish Government reversed the downgrades and used teacher estimates instead.</p>
+    <p class="small">This was a statistical method, not machine learning, but it made the same mistake GradeBot does: judging pupils partly by their school’s past. Sources: <a href="https://www.scotsman.com/education/exam-results-scotland-2020-why-was-the-pass-rate-reduced-for-pupils-from-the-most-deprived-backgrounds-2933672" target="_blank" rel="noopener">The Scotsman</a> · <a href="https://www.lbc.co.uk/article/scottish-government-reverses-controversial-downgrading-exam-results-DWyZ7R_2/" target="_blank" rel="noopener">LBC</a></p>
+  </div>
+  <div class="task"><b>Investigate:</b> Try each fix on its own, then together. Why didn’t removing the school name work on its own? Why didn’t more data help this time, when it helped CV-Bot? Is it ever fair to use information about a group to judge one person?</div>
+</div></section>
+
+<section class="block" id="voice"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">4.3 · TRAIN, TEST, FIX · 20 MIN</span>
+    <h2>VoiceBot: does it understand every accent?</h2>
+    <p class="lede"><b>VoiceBot</b> is a voice assistant trained on recorded clips of people saying commands. Most of its clips came from the south of England. Train it, then test it with six new speakers it has never heard.</p>
+  </div>
+  <div class="two">
+    <div class="panel">
+      <h3>Step 1 · The training data</h3>
+      <p class="small">Clips of people saying commands, grouped by where the speaker is from.</p>
+      <div class="stack" id="vStack" style="margin-top:10px"></div>
+      <p class="small" id="vCounts" style="margin-top:6px"></p>
+      <div class="toggles">
+        <label class="tg"><input type="checkbox" id="vFixA"> <span><b>Fix A:</b> add 900 more clips from the same speakers</span></label>
+        <label class="tg"><input type="checkbox" id="vFixB"> <span><b>Fix B:</b> add 400 clips from Scottish speakers</span></label>
+        <label class="tg"><input type="checkbox" id="vFixC"> <span><b>Fix C:</b> lower the confidence threshold, so VoiceBot acts even when it is unsure</span></label>
+      </div>
+      <button class="btn primary" id="vTrain">Train VoiceBot</button>
+      <h3 style="margin-top:20px">What VoiceBot learned</h3>
+      <div class="bars" id="vBars"><p class="small">Not trained yet.</p></div>
+    </div>
+    <div class="panel">
+      <h3>Step 2 · Test data: six new speakers</h3>
+      <p class="small">✓ understood · ✗ “Sorry, I didn’t catch that” · ⚠ did the wrong thing</p>
+      <div class="vtests" id="vTests" style="margin-top:10px"></div>
+      <div class="score"><div><span class="big" id="vTr">–</span><br><span class="small">training accuracy</span></div><div><span class="big" id="vSc">–</span><br><span class="small">Scottish speakers<br>understood</span></div><div><span class="big" id="vWr">–</span><br><span class="small">wrong actions</span></div></div>
+      <div class="fbbox" id="vFb">Train VoiceBot, then read what happened here.</div>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:20px">
+    <h3>Your results table</h3>
+    <div class="tablewrap"><table class="restab"><thead><tr><th>Training setup</th><th>Training acc.</th><th>South</th><th>North</th><th>Scotland</th><th>Wrong actions</th></tr></thead><tbody id="vRes"></tbody></table></div>
+  </div>
+  <div class="task"><b>Compare all three bots:</b> For CV-Bot, GradeBot and VoiceBot, which fix worked best, and why? Complete this sentence: “More data only helps when…”. Link VoiceBot to accessibility in Part 5: who is let down when voice technology doesn’t understand them?</div>
+</div></section>
+
 <section class="block" id="poison"><div class="wrap">
   <div class="sec-head">
-    <span class="mission">4.2 · SIMULATION · 15 MIN</span>
+    <span class="mission">4.4 · SIMULATION · 15 MIN</span>
     <h2>Poisoning the data</h2>
     <p class="lede">If an AI learns from data, then whoever controls the data can steer the AI. <b>Data poisoning</b> is a cyber attack where someone deliberately feeds false or misleading data into a system so that it learns the wrong thing. Here a scammer uses fake accounts to push a scam to the top of a “Trending” list that the feed AI learns from.</p>
   </div>
@@ -982,10 +1072,34 @@ function copyText(t,msgEl){
 /* ---------- 1.2 TRACKERS ---------- */
 const SITES=[
  {n:"GoalZone",d:"football news",tag:"football fan",tr:["AdNet","SocialPixel","DataHive"]},
- {n:"KickStore",d:"trainers shop",tag:"wants trainers, budget under £60",tr:["AdNet","ShopTrack","SocialPixel"]},
- {n:"HomeworkHub",d:"maths help",tag:"school-age, revising maths",tr:["DataHive","AdNet"]},
- {n:"QuickBakes",d:"recipe blog",tag:"interested in baking",tr:["DataHive","ShopTrack"]},
- {n:"BlockWiki",d:"game guide",tag:"plays block-building game",tr:["AdNet","DataHive","SocialPixel"]}
+ {n:"KickStore",d:"trainers shop",tag:"wants trainers under £60",tr:["AdNet","ShopTrack","SocialPixel"]},
+ {n:"HomeworkHub",d:"maths help",tag:"revising maths",tr:["DataHive","AdNet"]},
+ {n:"QuickBakes",d:"recipe blog",tag:"likes baking",tr:["DataHive","ShopTrack"]},
+ {n:"BlockWiki",d:"game guide",tag:"plays a block-building game",tr:["AdNet","DataHive","SocialPixel"]},
+ {n:"RevisionPal",d:"exam timetable",tag:"has exams in May",tr:["DataHive","AdNet"]},
+ {n:"BusTimes",d:"Glasgow bus times",tag:"travels around Glasgow",tr:["AdNet","DataHive"]},
+ {n:"MoodTunes",d:"sad songs playlist, 23:40",tag:"listens to sad songs late at night",tr:["SocialPixel","DataHive"]},
+ {n:"PocketCard",d:"teen bank card",tag:"has their own bank card",tr:["ShopTrack","DataHive"]},
+ {n:"PhoneDeals",d:"compare phones",tag:"comparing new phones",tr:["AdNet","ShopTrack"]},
+ {n:"SpotClear",d:"skincare shop",tag:"buying spot cream",tr:["ShopTrack","SocialPixel","AdNet"]},
+ {n:"PawPals",d:"dog walking tips",tag:"has a dog",tr:["DataHive","ShopTrack"]},
+ {n:"SaturdayJobs",d:"part-time jobs",tag:"looking for a Saturday job",tr:["AdNet","DataHive"]},
+ {n:"HolidayHop",d:"cheap flights",tag:"looking at summer holidays",tr:["AdNet","ShopTrack","DataHive"]}
+];
+const INFER=[
+ {need:[2,5],t:"Exam-year pupil, probably 15 or 16"},
+ {need:[6],t:"Lives in or near Glasgow"},
+ {need:[6,2],t:"Goes to school in Glasgow"},
+ {need:[7],t:"May be feeling low",sens:true},
+ {need:[7,5],t:"Possibly stressed about exams",sens:true},
+ {need:[10,7],t:"Worried about appearance",sens:true},
+ {need:[1,8],t:"Has money to spend: send trainer drop alerts"},
+ {need:[9,8],t:"About to buy a phone"},
+ {need:[12,8],t:"Wants to earn money: target with job apps"},
+ {need:[11],t:"Dog owner: show pet insurance ads"},
+ {need:[13,8],t:"Planning a family holiday"},
+ {need:[0,4],t:"Into sport and gaming: high-spend teen"},
+ {need:[3,11],t:"Spends lots of time at home"}
 ];
 const TRK={AdNet:"Advertising network",SocialPixel:"Social media ‘Like’ button",DataHive:"Data broker",ShopTrack:"Shopping retargeting"};
 let visited=new Set();
@@ -994,7 +1108,10 @@ function renderTrk(){
   $("#trk").innerHTML=Object.keys(TRK).map(t=>{
     const seen=[...visited].filter(i=>SITES[i].tr.includes(t));
     const id="uid_"+(t.length*7919%9973).toString(16)+"a"+(t.charCodeAt(0)*31).toString(16);
-    return "<div class='tk'><div class='tn'><b>"+t+"</b><span>"+TRK[t]+"</span></div>"+(seen.length?"<p class='small' style='margin:4px 0 6px'>Your ID: <code>"+id+"</code> · seen on "+seen.length+" of 5 sites</p><div class='segs'>"+seen.map(i=>"<span class='seg'>"+esc(SITES[i].tag)+"</span>").join("")+(seen.length>=3?"<span class='seg t'>Inferred: teenager, likely in school</span>":"")+"</div>":"<p class='small' style='margin-top:4px'>Hasn’t seen you yet.</p>")+"</div>";
+    const inf=INFER.filter(r=>r.need.every(n=>seen.includes(n)));
+    if(seen.length>=3) inf.push({t:"Teenager, likely still at school"});
+    if(seen.length>=6) inf.push({t:"Detailed profile: worth selling to other companies"});
+    return "<div class='tk'><div class='tn'><b>"+t+"</b><span>"+TRK[t]+"</span></div>"+(seen.length?"<p class='small' style='margin:4px 0 6px'>Your ID: <code>"+id+"</code> · seen on "+seen.length+" of "+SITES.length+" sites</p><div class='segs'>"+seen.map(i=>"<span class='seg'>"+esc(SITES[i].tag)+"</span>").join("")+"</div>"+(inf.length?"<div class='segs' style='margin-top:6px'>"+inf.map(r=>"<span class='seg t'"+(r.sens?" style='background:var(--bad-soft);color:var(--bad);font-weight:700'":"")+">Inferred: "+esc(r.t)+"</span>").join("")+"</div>":""):"<p class='small' style='margin-top:4px'>Hasn’t seen you yet.</p>")+"</div>";
   }).join("");
 }
 $("#sites").addEventListener("click",e=>{const b=e.target.closest(".site"); if(!b) return; visited.add(+b.dataset.i); renderTrk();});
@@ -1033,20 +1150,26 @@ $("#sortList").addEventListener("click",e=>{
 
 /* ---------- 2.2 FEED ---------- */
 const TOPICS={
-  football:{c:"#1F7A4D",t:["Last-minute screamer from 35 yards","Ranking every kit this season","Training drills the pros use","Goalkeeper saves of the month"]},
-  gaming:{c:"#4B3BA8",t:["This speedrun broke the record","Hidden map secret nobody noticed","Ranked tips: stop making this mistake","New season patch notes explained"]},
-  makeup:{c:"#B03A6F",t:["5-minute school-day look","Testing viral cheap products","Glow-up routine (honest review)","Dupes vs designer: can you tell?"]},
-  fitness:{c:"#C2541A",t:["Home workout, no equipment","What I eat in a day as an athlete","30-day plank challenge","Morning routine of a sprinter"]},
-  music:{c:"#0F6E87",t:["Producer makes a beat from bin sounds","Songs that hit different at night","Guitar riff anyone can learn","Reacting to this year’s top charts"]},
-  pets:{c:"#7A6A1E",t:["Dog sees snow for the first time","Cat refuses to leave the box","Rescue hamster glow-up","Parrot says the funniest thing"]},
-  trainers:{c:"#333E48",t:["Unboxing the restock everyone wanted","How to spot fake trainers","Cleaning 10-year-old kicks","Top 5 under £60"]},
-  science:{c:"#2D6A9F",t:["What happens if you fall into Jupiter?","Weird animal facts nobody taught you","Building a robot arm from cardboard","Why the sky goes red at sunset"]}
+  football:{c:"#1F7A4D",t:["Last-minute screamer from 35 yards","Ranking every kit this season","Training drills the pros use","Goalkeeper saves of the month","Penalty shootout drama","Away fans sing all game"]},
+  gaming:{c:"#4B3BA8",t:["This speedrun broke the record","Hidden map secret nobody noticed","Ranked tips: stop making this mistake","New season patch notes explained","Building a castle in survival mode","Lag ruined my best match"]},
+  makeup:{c:"#B03A6F",t:["5-minute school-day look","Testing viral cheap products","Glow-up routine (honest review)","Dupes vs designer: can you tell?","Doing my sister’s make-up","Skincare for spots that actually works"]},
+  fitness:{c:"#C2541A",t:["Home workout, no equipment","What I eat in a day as an athlete","30-day plank challenge","Morning routine of a sprinter","Stretching for footballers","First time at a climbing wall"]},
+  music:{c:"#0F6E87",t:["Producer makes a beat from bin sounds","Songs that hit different at night","Guitar riff anyone can learn","Reacting to this year’s top charts","Busker stops the whole street","Learning the drums in 30 days"]},
+  pets:{c:"#7A6A1E",t:["Dog sees snow for the first time","Cat refuses to leave the box","Rescue hamster glow-up","Parrot says the funniest thing","Puppy meets a hedgehog","Cat vs cucumber"]},
+  trainers:{c:"#333E48",t:["Unboxing the restock everyone wanted","How to spot fake trainers","Cleaning 10-year-old kicks","Top 5 under £60","Rating the whole class’s trainers","Custom painting my old pair"]},
+  science:{c:"#2D6A9F",t:["What happens if you fall into Jupiter?","Weird animal facts nobody taught you","Building a robot arm from cardboard","Why the sky goes red at sunset","Elephant toothpaste experiment","How do black holes form?"]},
+  art:{c:"#8A4FB0",t:["Drawing my dog in 3 styles","Speed painting a sunset","Graffiti artist paints a whole wall","Turning a doodle into a comic","Clay sculpture time-lapse","Art supplies under £10"]},
+  cooking:{c:"#B5651D",t:["3-ingredient pasta","Making the perfect pancake","Trying a viral cheese pull","Cooking dinner for my family","Rating every crisp flavour","Easy tablet recipe"]},
+  comedy:{c:"#C9A100",t:["Teachers vs pupils sketch","Prank goes wrong","Impressions of every teacher","When the Wi-Fi drops mid-game","Dad jokes that actually landed","Things my gran says"]},
+  dance:{c:"#C2185B",t:["New dance trend tutorial","Street dance battle final","Ceilidh dance speedrun","Choreo to this week’s No.1","Dance fails compilation","Learning a routine in one hour"]}
 };
 const SEGS=[
   {need:["gaming"],name:"Gaming hardware buyers"},{need:["trainers"],name:"Sneaker drop alerts"},{need:["makeup"],name:"Teen beauty shoppers"},
   {need:["fitness"],name:"Supplements & gym gear"},{need:["football"],name:"Sports merchandise"},{need:["music"],name:"Concert ticket buyers"},
-  {need:["pets"],name:"Pet product shoppers"},{need:["science"],name:"Educational apps"},{need:["fitness","makeup"],name:"Body-image sensitive audience"},
-  {need:["gaming","trainers"],name:"High-spend teen consumer"},{need:["football","fitness"],name:"Sports nutrition"}
+  {need:["pets"],name:"Pet product shoppers"},{need:["science"],name:"Educational apps"},{need:["art"],name:"Art supplies & creative apps"},
+  {need:["cooking"],name:"Food delivery & snacks"},{need:["comedy"],name:"Streaming subscriptions"},{need:["dance"],name:"Dance classes & music apps"},
+  {need:["fitness","makeup"],name:"Body-image sensitive audience"},{need:["gaming","trainers"],name:"High-spend teen consumer"},
+  {need:["football","fitness"],name:"Sports nutrition"},{need:["music","dance"],name:"Festival & event tickets"},{need:["cooking","comedy"],name:"Weekend-at-home audience"}
 ];
 let scores,history,cur,shownAt,postCount;
 function resetFeed(){
@@ -1079,7 +1202,7 @@ function logLine(k,v){
 }
 function act(kind){
   const dwell=(performance.now()-shownAt)/1000;
-  const add={like:3,watch:2,share:4,skip:-1}[kind];
+  const add={like:3,watch:2,share:4,save:3,comment:3,skip:-1}[kind];
   scores[cur]=Math.max(0,scores[cur]+add+Math.min(2,dwell/3));
   logLine(kind,"topic="+cur+" dwell="+dwell.toFixed(1)+"s score="+scores[cur].toFixed(1));
   if(dwell>6&&kind==="skip") logLine("signal","long dwell before skip → interest still rising");
@@ -1098,53 +1221,80 @@ function renderFeed(){
   $("#mText").textContent=history.length<5?"Varied feed. Keep going.":topShare>=.6?"Filter bubble: "+Math.round(topShare*100)+"% of your last "+history.length+" posts were one topic.":topShare>=.4?"Narrowing: one topic is starting to take over.":"Varied feed. Keep going.";
 }
 setInterval(()=>{if(shownAt) $("#timer").textContent=((performance.now()-shownAt)/1000).toFixed(1)+"s";},100);
-$("#aLike").onclick=()=>act("like"); $("#aWatch").onclick=()=>act("watch"); $("#aShare").onclick=()=>act("share"); $("#aSkip").onclick=()=>act("skip");
+$("#aLike").onclick=()=>act("like"); $("#aWatch").onclick=()=>act("watch"); $("#aShare").onclick=()=>act("share"); $("#aSkip").onclick=()=>act("skip"); $("#aSave").onclick=()=>act("save"); $("#aComment").onclick=()=>act("comment");
 $("#feedReset").onclick=resetFeed;
 resetFeed();
 
 /* ---------- 2.3 COLLABORATIVE FILTERING ---------- */
-const CF_SEEN=["Football skills compilation","Block-building mega castle","Baking a rainbow cake","Space rocket launch live","Dance challenge tutorial"];
-const CF_NEW=["Behind the scenes at a stadium","Speedrun world record","Make-up for beginners"];
-const CF_USERS=[
- ["Jordan",[5,4,1,3,2],[5,4,1]],["Priya",[1,2,5,2,5],[2,1,5]],["Leo",[4,5,2,4,1],[3,5,1]],
- ["Maya",[2,1,4,5,3],[2,2,3]],["Sam",[3,3,3,3,3],[3,3,3]],["Zara",[1,5,2,2,4],[1,4,4]]
-];
-let cfMine=[0,0,0,0,0],cfTest={};
+const CF_POOL=[["Football skills compilation","sport"],["Last-minute derby winner","sport"],["Block-building mega castle","gaming"],["Speedrun world record","gaming"],["Baking a rainbow cake","food"],["3-ingredient pasta hack","food"],["Space rocket launch live","science"],["Why volcanoes erupt","science"],["Dance challenge tutorial","dance"],["Street dance battle","dance"],["Guitar riff anyone can learn","music"],["Reacting to the top chart","music"],["Cat refuses to leave the box","animals"],["Dog sees snow for the first time","animals"],["Teachers vs pupils sketch","comedy"],["Prank goes wrong","comedy"],["Drawing my dog in 3 styles","art"],["Graffiti wall time-lapse","art"]];
+const CF_NAMES=["Jordan","Priya","Leo","Maya","Sam","Zara","Euan","Aimee","Kofi","Isla"];
+const CF_CATS=[...new Set(CF_POOL.map(v=>v[1]))];
+const shuf=a=>{a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a;};
+let cf;
+function cfNew(){
+  const users=CF_NAMES.map(n=>{const taste={}; CF_CATS.forEach(c=>taste[c]=1+Math.floor(Math.random()*3)); shuf(CF_CATS).slice(0,2).forEach(c=>taste[c]=5);
+    return {n,r:CF_POOL.map(v=>Math.max(1,Math.min(5,taste[v[1]]+Math.round(Math.random()*2-1))))};});
+  const seen=shuf(CF_CATS).slice(0,5).map(c=>{const o=CF_POOL.map((v,i)=>i).filter(i=>CF_POOL[i][1]===c); return o[Math.floor(Math.random()*o.length)];});
+  cf={users,seen,mine:[0,0,0,0,0],test:{}};
+}
 function renderCF(){
-  $("#cfItems").innerHTML=CF_SEEN.map((n,i)=>"<div class='item'><span>"+esc(n)+"</span><span class='rate' role='group' aria-label='Rate "+esc(n)+"'>"+[1,2,3,4,5].map(v=>"<button data-i='"+i+"' data-v='"+v+"' class='"+(cfMine[i]===v?"on":"")+"' aria-pressed='"+(cfMine[i]===v)+"'>"+v+"</button>").join("")+"</span></div>").join("");
-  if(cfMine.some(v=>!v)){ $("#cfNb").innerHTML="<p class='small'>Rate all five videos to find users like you ("+cfMine.filter(v=>v).length+" of 5 done).</p>"; $("#cfRec").innerHTML=""; $("#cfAcc").textContent=""; return; }
-  const sims=CF_USERS.map(u=>{const d=u[1].reduce((a,v,i)=>a+Math.abs(v-cfMine[i]),0)/5; return {u,sim:Math.round(100-d/4*100)};}).sort((a,b)=>b.sim-a.sim);
-  $("#cfNb").innerHTML=sims.map((s,k)=>"<div class='nb'><span>"+(k<2?"<b>":"")+s.u[0]+(k<2?"</b>":"")+"</span><div class='track' style='height:12px;background:var(--bg);border-radius:6px;overflow:hidden'><div style='height:100%;width:"+s.sim+"%;background:"+(k<2?"var(--teal)":"var(--line)")+"'></div></div><span class='num' style='font-family:var(--mono);font-size:.78rem;text-align:right'>"+s.sim+"%</span></div>").join("")+"<p class='small'>Closest matches: <b>"+sims[0].u[0]+"</b> and <b>"+sims[1].u[0]+"</b>.</p>";
-  const preds=CF_NEW.map((n,j)=>({n,j,p:(sims[0].u[2][j]+sims[1].u[2][j])/2})).sort((a,b)=>b.p-a.p);
-  $("#cfRec").innerHTML=preds.map(p=>"<div class='rec'><span class='small'>Predicted rating "+p.p.toFixed(1)+" / 5 · because "+sims[0].u[0]+" and "+sims[1].u[0]+" rated it that way</span><b>"+esc(p.n)+"</b><span class='small'>Test the AI: would you actually want to watch this?</span><span class='yn'><button class='btn' data-t='"+p.j+"' data-y='1'"+(cfTest[p.j]!==undefined?" disabled":"")+">Yes</button><button class='btn' data-t='"+p.j+"' data-y='0'"+(cfTest[p.j]!==undefined?" disabled":"")+">No</button></span></div>").join("");
-  const tested=Object.keys(cfTest).length;
-  if(tested){ let right=0; preds.forEach(p=>{ if(cfTest[p.j]!==undefined){ const said=p.p>=3; if(said===!!cfTest[p.j]) right++; }});
-    $("#cfAcc").textContent="Tested "+tested+" of 3. The AI predicted correctly "+right+" time"+(right===1?"":"s")+" (a predicted rating of 3 or more counts as “you’ll like it”)."+(tested===3?" Real systems test like this constantly, using whether you click as the answer.":""); }
+  $("#cfItems").innerHTML=cf.seen.map((vi,i)=>"<div class='item'><span>"+esc(CF_POOL[vi][0])+"</span><span class='rate' role='group' aria-label='Rate "+esc(CF_POOL[vi][0])+"'>"+[1,2,3,4,5].map(v=>"<button data-i='"+i+"' data-v='"+v+"' class='"+(cf.mine[i]===v?"on":"")+"' aria-pressed='"+(cf.mine[i]===v)+"'>"+v+"</button>").join("")+"</span></div>").join("");
+  if(cf.mine.some(v=>!v)){ $("#cfNb").innerHTML="<p class='small'>Rate all five videos to find users like you ("+cf.mine.filter(v=>v).length+" of 5 done).</p>"; $("#cfRec").innerHTML=""; $("#cfAcc").textContent=""; return; }
+  const sims=cf.users.map(u=>{const d=cf.seen.reduce((a,vi,i)=>a+Math.abs(u.r[vi]-cf.mine[i]),0)/5; return {u,sim:Math.round(100-d/4*100)};}).sort((a,b)=>b.sim-a.sim);
+  const a=sims[0].u,b=sims[1].u;
+  $("#cfNb").innerHTML=sims.map((s,k)=>"<div class='nb'><span>"+(k<2?"<b>":"")+s.u.n+(k<2?"</b>":"")+"</span><div style='height:12px;background:var(--bg);border-radius:6px;overflow:hidden'><div style='height:100%;width:"+s.sim+"%;background:"+(k<2?"var(--teal)":"var(--line)")+"'></div></div><span style='font-family:var(--mono);font-size:.78rem;text-align:right'>"+s.sim+"%</span></div>").join("")+"<p class='small'>Closest matches: <b>"+a.n+"</b> and <b>"+b.n+"</b>.</p>";
+  const preds=CF_POOL.map((v,vi)=>vi).filter(vi=>!cf.seen.includes(vi)).map(vi=>({vi,p:(a.r[vi]+b.r[vi])/2})).sort((x,y)=>y.p-x.p).slice(0,3);
+  $("#cfRec").innerHTML=preds.map(p=>"<div class='rec'><span class='small'>Predicted rating "+p.p.toFixed(1)+" / 5 · "+a.n+" gave it "+a.r[p.vi]+", "+b.n+" gave it "+b.r[p.vi]+"</span><b>"+esc(CF_POOL[p.vi][0])+"</b><span class='small'>Test the AI: would you actually want to watch this?</span><span class='yn'><button class='btn' data-t='"+p.vi+"' data-y='1'"+(cf.test[p.vi]!==undefined?" disabled":"")+">Yes</button><button class='btn' data-t='"+p.vi+"' data-y='0'"+(cf.test[p.vi]!==undefined?" disabled":"")+">No</button></span></div>").join("");
+  const tested=preds.filter(p=>cf.test[p.vi]!==undefined);
+  if(tested.length){ const right=tested.filter(p=>(p.p>=3)===!!cf.test[p.vi]).length;
+    $("#cfAcc").textContent="Tested "+tested.length+" of 3. The AI was right "+right+" time"+(right===1?"":"s")+" (a predicted rating of 3 or more counts as “you’ll like it”)."+(tested.length===3?" Press “New videos and new users” and see how the neighbours and recommendations change.":""); }
   else $("#cfAcc").textContent="";
 }
-$("#cfItems").addEventListener("click",e=>{const b=e.target.closest("button[data-v]"); if(!b) return; cfMine[+b.dataset.i]=+b.dataset.v; cfTest={}; renderCF();});
-$("#cfRec").addEventListener("click",e=>{const b=e.target.closest("button[data-t]"); if(!b) return; cfTest[+b.dataset.t]=+b.dataset.y; renderCF();});
-renderCF();
+$("#cfItems").addEventListener("click",e=>{const b=e.target.closest("button[data-v]"); if(!b) return; cf.mine[+b.dataset.i]=+b.dataset.v; cf.test={}; renderCF();});
+$("#cfRec").addEventListener("click",e=>{const b=e.target.closest("button[data-t]"); if(!b) return; cf.test[+b.dataset.t]=+b.dataset.y; renderCF();});
+$("#cfShuffle").onclick=()=>{cfNew(); renderCF();};
+cfNew(); renderCF();
 
 /* ---------- 2.4 RULES VS DATA ---------- */
+function rng(seed){let h=1779033703^seed.length; for(let i=0;i<seed.length;i++){h=Math.imul(h^seed.charCodeAt(i),3432918353); h=h<<13|h>>>19;} return function(){h=Math.imul(h^h>>>16,2246822507); h=Math.imul(h^h>>>13,3266489909); return ((h^=h>>>16)>>>0)/4294967296;};}
+function thumb(key,r){
+  const H={calm:210,football:130,gaming:255,music:320,dog:200,drama:350,slime:280,speedrun:20,trainers:190,fails:45,dance:300,study:40,cooking:15,comedy:265}[key]||200;
+  const h=H+Math.round(r()*40-20), j=()=>Math.round(r()*12-6);
+  let g="<rect width='160' height='100' fill='hsl("+h+",50%,"+(26+Math.round(r()*14))+"%)'/><path d='M0 100L160 "+(10+j())+"V100Z' fill='hsl("+(h+30)+",60%,"+(42+Math.round(r()*14))+"%)' opacity='.6'/>";
+  const W="#FFFFFF",K="#1B1B1B";
+  if(key==="calm") g+="<circle cx='"+(118+j())+"' cy='"+(26+j())+"' r='11' fill='#FFF6C8'/><rect y='62' width='160' height='38' fill='hsl("+h+",45%,18%)'/><path d='M20 74h40M74 84h50M30 92h34' stroke='#A8E6F0' stroke-width='2' opacity='.7'/>";
+  else if(key==="football") g="<rect width='160' height='100' fill='hsl("+(125+j())+",50%,36%)'/><path d='M80 0v100M0 50h160' stroke='#fff' stroke-width='2' opacity='.6'/><circle cx='80' cy='50' r='18' fill='none' stroke='#fff' stroke-width='2' opacity='.6'/><circle cx='"+(100+j()*3)+"' cy='"+(62+j())+"' r='10' fill='#fff' stroke='"+K+"'/><circle cx='"+(100)+"' cy='62' r='0'/>";
+  else if(key==="gaming") g+="<rect x='"+(44+j())+"' y='36' width='72' height='32' rx='16' fill='"+K+"'/><rect x='"+(58+j()/2)+"' y='50' width='14' height='4' fill='#fff'/><rect x='63' y='45' width='4' height='14' fill='#fff'/><circle cx='98' cy='48' r='4' fill='#FF5A5A'/><circle cx='106' cy='56' r='4' fill='#4FD1FF'/>";
+  else if(key==="music") g+="<ellipse cx='"+(58+j())+"' cy='68' rx='9' ry='7' fill='#fff'/><rect x='65' y='28' width='3' height='40' fill='#fff'/><ellipse cx='96' cy='62' rx='9' ry='7' fill='#fff'/><rect x='103' y='22' width='3' height='40' fill='#fff'/><rect x='65' y='22' width='41' height='6' fill='#fff'/>";
+  else if(key==="dog") {g+="<circle cx='80' cy='55' r='24' fill='#C8955A'/><ellipse cx='58' cy='44' rx='8' ry='16' fill='#7A5230'/><ellipse cx='102' cy='44' rx='8' ry='16' fill='#7A5230'/><circle cx='72' cy='50' r='3' fill='"+K+"'/><circle cx='88' cy='50' r='3' fill='"+K+"'/><ellipse cx='80' cy='62' rx='5' ry='4' fill='"+K+"'/>"; for(let i=0;i<8;i++) g+="<circle cx='"+Math.round(r()*160)+"' cy='"+Math.round(r()*100)+"' r='2' fill='#fff'/>";}
+  else if(key==="drama") g+="<rect x='16' y='18' width='62' height='34' rx='10' fill='#fff'/><path d='M32 52l-6 12 16-12z' fill='#fff'/><text x='47' y='42' text-anchor='middle' font-size='20' font-weight='700' fill='#C62828' font-family='sans-serif'>!?</text><rect x='84' y='"+(46+j())+"' width='60' height='30' rx='10' fill='#FFE14A'/><text x='114' y='"+(67+j()/2)+"' text-anchor='middle' font-size='16' font-weight='700' fill='"+K+"' font-family='sans-serif'>OMG</text>";
+  else if(key==="slime") {const c="hsl("+(h+120)+",80%,62%)"; g+="<path d='M38 82 Q40 36 80 34 Q120 36 122 82Z' fill='"+c+"'/><circle cx='"+(60+j())+"' cy='84' r='5' fill='"+c+"'/><circle cx='98' cy='88' r='4' fill='"+c+"'/><ellipse cx='70' cy='50' rx='8' ry='4' fill='#fff' opacity='.5'/>";}
+  else if(key==="speedrun") g+="<path d='M14 40h30M8 52h36M16 64h28' stroke='#fff' stroke-width='3' opacity='.6'/><circle cx='86' cy='52' r='26' fill='#fff'/><path d='M86 52V32M86 52l14 9' stroke='"+K+"' stroke-width='3'/><text x='130' y='30' font-size='12' fill='#fff' font-family='monospace'>"+(10+Math.floor(r()*50))+":"+(10+Math.floor(r()*49))+"</text>";
+  else if(key==="trainers") g+="<path d='M28 72 Q32 44 58 50 L86 60 Q122 62 132 72 V80 H28Z' fill='#fff' stroke='"+K+"' stroke-width='2'/><rect x='28' y='78' width='104' height='6' fill='#333'/><path d='M60 58l18 10' stroke='hsl("+(h+180)+",80%,50%)' stroke-width='6'/>";
+  else if(key==="fails") g+="<circle cx='80' cy='50' r='26' fill='#FFD43B'/><path d='M66 44q4-5 8 0M86 44q4-5 8 0' stroke='"+K+"' stroke-width='3' fill='none'/><path d='M66 56q14 16 28 0z' fill='"+K+"'/><text x='"+(120+j())+"' y='30' font-size='14' fill='#fff' font-family='sans-serif' font-weight='700'>LOL</text>";
+  else if(key==="dance") g+="<circle cx='80' cy='28' r='7' fill='#fff'/><path d='M80 35v24M80 42l"+(-18+j())+" "+(-8+j())+"M80 42l"+(16+j())+" "+(6+j())+"M80 59l"+(-12+j())+" 18M80 59l"+(14+j())+" 16' stroke='#fff' stroke-width='4' stroke-linecap='round' fill='none'/><circle cx='30' cy='20' r='3' fill='#FFE14A'/><circle cx='135' cy='30' r='3' fill='#FFE14A'/>";
+  else if(key==="study") g+="<path d='M38 34h40v42H38zM82 34h40v42H82z' fill='#fff'/><path d='M80 34v42M44 44h28M44 52h28M44 60h20M88 44h28M88 52h28' stroke='#999' stroke-width='2'/><rect x='"+(120+j())+"' y='20' width='6' height='36' fill='#FFD43B' transform='rotate(25 123 38)'/>";
+  else if(key==="cooking") g+="<circle cx='74' cy='54' r='22' fill='#333'/><rect x='94' y='51' width='42' height='6' rx='3' fill='#555'/><circle cx='"+(68+j()/2)+"' cy='50' r='7' fill='#FFD43B'/><circle cx='80' cy='60' r='5' fill='#E5533D'/><path d='M66 26q4-8 0-14M78 26q4-8 0-14' stroke='#fff' stroke-width='2' fill='none' opacity='.7'/>";
+  else if(key==="comedy") g+="<path d='M80 0L40 100H120Z' fill='#FFF6C8' opacity='.25'/><rect x='74' y='26' width='12' height='26' rx='6' fill='#ddd'/><path d='M68 46q12 16 24 0M80 58v18M70 76h20' stroke='#ddd' stroke-width='3' fill='none'/>";
+  return "<svg viewBox='0 0 160 100' role='img' aria-label='Generated picture for a "+key+" post'>"+g+"</svg>";
+}
 const RB=[
- {n:"Aisha, 14, 23:15",age:14,late:true,follows:"football",dd:["Sad song edit (you watched three last night)","Late-night football highlights","Relationship drama storytime","Satisfying slime video"]},
- {n:"Callum, 15, 16:30",age:15,late:false,follows:"gaming",dd:["Speedrun record attempt","Ranked tips video","New trainers unboxing (players like you watched this)","Funny gaming fails"]},
- {n:"Morag, 17, 23:40",age:17,late:true,follows:"",dd:["Most-watched dance trend","Study-with-me video","Cooking hack","Late-night comedy clip"]}
+ {n:"Aisha, 14, 23:15",age:14,late:true,follows:"football",dd:[["Sad song edit (you watched three last night)","music"],["Late-night football highlights","football"],["Relationship drama storytime","drama"],["Satisfying slime video","slime"]]},
+ {n:"Callum, 15, 16:30",age:15,late:false,follows:"gaming",dd:[["Speedrun record attempt","speedrun"],["Ranked tips video","gaming"],["New trainers unboxing (players like you watched this)","trainers"],["Funny gaming fails","fails"]]},
+ {n:"Ben, 13, 07:45",age:13,late:false,follows:"music",dd:[["Morning motivation playlist","music"],["Dog does a backflip","dog"],["Five-minute breakfast idea","cooking"],["School-day dance trend","dance"]]},
+ {n:"Morag, 17, 23:40",age:17,late:true,follows:"",dd:[["Most-watched dance trend","dance"],["Study-with-me video","study"],["Cooking hack","cooking"],["Late-night comedy clip","comedy"]]}
 ];
 let rbSel=0,rbRuns=0,rbPrevDD=null;
-function rbRule(u){ if(u.age<16&&u.late) return "Calm post: “Rain sounds and a slow lake view”"; if(u.follows) return "Newest post from #"+u.follows; return "Today’s most popular post: “Dog sees snow for the first time”"; }
-function rbRender(){
-  $("#rbPeople").innerHTML=RB.map((u,i)=>"<button aria-pressed='"+(i===rbSel)+"' data-i='"+i+"'>"+esc(u.n)+"</button>").join("");
-}
-$("#rbPeople").addEventListener("click",e=>{const b=e.target.closest("button"); if(!b) return; rbSel=+b.dataset.i; rbRuns=0; rbPrevDD=null; $("#rbOut").innerHTML=""; $("#ddOut").innerHTML=""; $("#rbNote").textContent=""; rbRender();});
+function rbRule(u){ if(u.age<16&&u.late) return ["Calm post: “Rain sounds and a slow lake view”","calm"]; if(u.follows) return ["Newest post from #"+u.follows,u.follows==="music"?"music":u.follows]; return ["Today’s most popular post: “Dog sees snow for the first time”","dog"]; }
+function rbRender(){ $("#rbPeople").innerHTML=RB.map((u,i)=>"<button aria-pressed='"+(i===rbSel)+"' data-i='"+i+"'>"+esc(u.n)+"</button>").join(""); }
+$("#rbPeople").addEventListener("click",e=>{const b=e.target.closest("button"); if(!b) return; rbSel=+b.dataset.i; rbRuns=0; rbPrevDD=null; $("#rbOut").innerHTML=""; $("#ddOut").innerHTML=""; $("#rbNote").textContent=""; $("#rbRun").textContent="Ask both systems"; rbRender();});
 $("#rbRun").onclick=()=>{
   const u=RB[rbSel]; rbRuns++;
-  const pick=u.dd[Math.floor(Math.random()*u.dd.length)];
-  $("#rbOut").innerHTML="<span class='run'>Run "+rbRuns+"</span><br>"+esc(rbRule(u));
-  $("#ddOut").innerHTML="<span class='run'>Run "+rbRuns+"</span><br>"+esc(pick)+(rbPrevDD&&rbPrevDD!==pick?"<br><span class='small'>Different from last time.</span>":"");
-  rbPrevDD=pick;
-  $("#rbNote").textContent=rbRuns<2?"Press it again. Which system gives the same answer every time?":"The rule-based feed gives the same output for the same input. The data-driven feed can vary.";
+  const rule=rbRule(u), pick=u.dd[Math.floor(Math.random()*u.dd.length)];
+  $("#rbOut").innerHTML="<span class='run'>Run "+rbRuns+"</span><span class='thumb'>"+thumb(rule[1],rng(u.n+rule[0]))+"</span><span class='pt'>"+esc(rule[0])+"</span>";
+  $("#ddOut").innerHTML="<span class='run'>Run "+rbRuns+"</span><span class='thumb'>"+thumb(pick[1],Math.random)+"</span><span class='pt'>"+esc(pick[0])+"</span>"+(rbPrevDD&&rbPrevDD!==pick[0]?"<br><span class='small'>Different from last time.</span>":"");
+  rbPrevDD=pick[0];
+  $("#rbNote").textContent=rbRuns<2?"Press it again. Which system gives exactly the same post and picture every time?":"The rule-based feed gives the same output for the same input. The data-driven feed can vary.";
   $("#rbRun").textContent="Ask again";
 };
 rbRender();
@@ -1218,6 +1368,33 @@ $("#dps").addEventListener("change",e=>{
   $("#dpScore").textContent=dpDone+" of 8 named · "+dpRight+" correct";
 });
 
+const DPDEF=[
+ ["Wording that makes you feel guilty or silly for saying no.","“No thanks, I don’t like saving money.”"],
+ ["A box that is already ticked, so doing nothing means saying yes.","☑ Send me offers from our partners"],
+ ["Timers or “only a few left” messages that pressure you to decide fast.","“14 people are looking at this. Offer ends in 4:59.”"],
+ ["Easy to sign up, but deliberately hard to leave.","“To cancel, call us Mon–Fri 9–11am.”"],
+ ["The choice the company wants is big and bright; the other choice is small or hidden.","A huge “Accept all” button and a tiny grey “settings” link."],
+ ["Extra fees that only appear at the last step of buying.","A £24 ticket that becomes £30.75 at checkout."],
+ ["The next video starts automatically, so there is no natural moment to stop.","“Next episode in 5…”"],
+ ["Asking again and again until you give in, with no way to say never.","“Turn on notifications?” Allow / Ask me later"]
+];
+$("#fcards").innerHTML=DPN.map((n,i)=>"<button class='fc' data-i='"+i+"' aria-label='"+esc(n)+": tap to flip'><span class='fi'><span class='face front'><b>"+esc(n)+"</b><span class='hint'>TAP TO FLIP</span></span><span class='face back'><span><b>What it is:</b> "+esc(DPDEF[i][0])+"</span><span><b>Example:</b> "+esc(DPDEF[i][1])+"</span></span></span></button>").join("");
+$("#fcards").addEventListener("click",e=>{const b=e.target.closest(".fc"); if(b) b.classList.toggle("flip");});
+let mSel=null,mDone=0,mTries=0;
+const mOrderT=shuf(DPN.map((n,i)=>i)), mOrderD=shuf(DPN.map((n,i)=>i));
+$("#mTerms").innerHTML=mOrderT.map(i=>"<button class='t' data-t='"+i+"'>"+esc(DPN[i])+"</button>").join("");
+$("#mDefs").innerHTML=mOrderD.map(i=>"<button data-d='"+i+"'>"+esc(DPDEF[i][0])+"</button>").join("");
+function mScore(){ $("#mScore").textContent=mDone+" of 8 matched"+(mTries?" · "+mTries+" tries":"")+(mDone===8?". Now try spotting them in real designs below.":""); }
+document.querySelector(".match").addEventListener("click",e=>{
+  const t=e.target.closest("button[data-t]"), d=e.target.closest("button[data-d]");
+  if(t&&!t.disabled){ document.querySelectorAll("#mTerms button").forEach(x=>x.classList.remove("sel")); t.classList.add("sel"); mSel=+t.dataset.t; return; }
+  if(d&&!d.disabled&&mSel!==null){ mTries++; const tb=document.querySelector("#mTerms button[data-t='"+mSel+"']");
+    if(+d.dataset.d===mSel){ [tb,d].forEach(x=>{x.classList.remove("sel","bad"); x.classList.add("ok"); x.disabled=true;}); mDone++; mSel=null; }
+    else { d.classList.add("bad"); setTimeout(()=>d.classList.remove("bad"),700); }
+    mScore(); }
+});
+mScore();
+
 /* ---------- 4.1 CV BOT ---------- */
 const BASE=[
  [["coding club","football captain"],1],[["robotics team","maths olympiad"],1],[["coding club","robotics team"],1],
@@ -1283,7 +1460,112 @@ function renderModel(){
 $("#trainBtn").onclick=train;
 renderTrain(); renderModel();
 
-/* ---------- 4.2 DATA POISONING ---------- */
+/* ---------- 4.2 GRADEBOT ---------- */
+function makeLab(root,cfg){
+  const P=cfg.id;
+  root.innerHTML="<div class='two'><div class='panel'><h3>Step 1 · The training data</h3><p class='small'>"+cfg.dataNote+"</p><div class='toggles'>"+cfg.fixes.map((f,i)=>"<label class='tg'><input type='checkbox' id='"+P+"F"+i+"'> <span><b>Fix "+"ABC"[i]+":</b> "+f.label+"</span></label>").join("")+"</div><div class='tablewrap' style='max-height:340px;overflow-y:auto'><table><thead><tr><th>#</th><th>Evidence</th><th>Result</th></tr></thead><tbody id='"+P+"Body'></tbody></table></div><div style='margin-top:14px'><button class='btn primary' id='"+P+"Train'>Train "+cfg.name+"</button></div></div>"+
+   "<div class='panel'><h3>Step 2 · What "+cfg.name+" learned</h3><p class='small' id='"+P+"Intro'>Not trained yet.</p><div class='wbars' id='"+P+"W' style='margin-top:12px'></div><h3 style='margin-top:22px'>Step 3 · Test data: four new pupils</h3><p class='small'>"+cfg.testNote+"</p><div class='tests' id='"+P+"Tests' style='margin-top:10px'></div><div class='score'><div><span class='big' id='"+P+"Tr'>–</span><br><span class='small'>training accuracy</span></div><div><span class='big' id='"+P+"Acc'>–</span><br><span class='small'>test accuracy</span></div></div><div class='fbbox' id='"+P+"Fb'>Train "+cfg.name+", then read what happened here.</div></div></div>"+
+   "<div class='panel' style='margin-top:20px'><h3>Your results table</h3><div class='tablewrap'><table class='restab'><thead><tr><th>Training setup</th><th>Training acc.</th>"+cfg.tests.map(t=>"<th>"+t.short+"</th>").join("")+"<th>Test acc.</th></tr></thead><tbody id='"+P+"Res'></tbody></table></div></div>";
+  const $$=id=>document.getElementById(P+id); let trained=null; const results={};
+  const flags=()=>cfg.fixes.map((f,i)=>$$("F"+i).checked);
+  function data(){ const fl=flags(); let rows=cfg.rows.map(r=>[r[0].slice(),r[1],false]);
+    cfg.fixes.forEach((f,i)=>{ if(fl[i]&&f.add) rows=rows.concat(f.add.map(r=>[r[0].slice(),r[1],true])); });
+    cfg.fixes.forEach((f,i)=>{ if(fl[i]&&f.drop) rows=rows.map(r=>[r[0].filter(k=>!k.startsWith(f.drop)),r[1],r[2]]); });
+    return rows; }
+  const testKw=t=>{ const fl=flags(); let kw=t.kw.slice(); cfg.fixes.forEach((f,i)=>{ if(fl[i]&&f.drop) kw=kw.filter(k=>!k.startsWith(f.drop)); }); return kw; };
+  function renderData(){ $$("Body").innerHTML=data().map((r,i)=>"<tr class='"+(r[2]?"extra":"")+"'><td>"+(i+1)+"</td><td>"+r[0].map(k=>"<span class='kw'>"+esc(k)+"</span>").join("")+"</td><td class='"+(r[1]?"h":"r")+"'>"+(r[1]?cfg.pos:cfg.neg)+"</td></tr>").join(""); }
+  function key(){ return flags().map(x=>x?1:0).join(""); }
+  function label(k){ const on=k.split("").map((x,i)=>x==="1"?"ABC"[i]:"").join(""); return on?"Fix "+on.split("").join(" + "):"No fixes"; }
+  function renderRes(){ $$("Res").innerHTML=Object.keys(results).sort().map(k=>{const r=results[k]; return "<tr><td>"+label(k)+"</td><td>"+r.ta+"%</td>"+r.v.map(x=>"<td class='"+(x?"h":"r")+"'>"+(x?"✓":"✗")+"</td>").join("")+"<td><b>"+r.a+"%</b></td></tr>";}).join("")||"<tr><td colspan='"+(cfg.tests.length+3)+"' class='small' style='text-align:center'>Train and test to fill this in.</td></tr>"; }
+  function train(){
+    const rows=data(), c={}; rows.forEach(r=>r[0].forEach(k=>{c[k]=c[k]||{h:0,n:0}; c[k].n++; if(r[1]) c[k].h++;}));
+    const w={}; Object.keys(c).forEach(k=>w[k]=(c[k].h-(c[k].n-c[k].h))/c[k].n);
+    const keys=Object.keys(w).sort((a,b)=>w[b]-w[a]);
+    $$("Intro").innerHTML="Trained on <b>"+rows.length+"</b> past pupils. Each piece of evidence now carries a weight between −1 and +1.";
+    $$("W").innerHTML=keys.map(k=>{const v=w[k],col=v>=0?"var(--good)":"var(--bad)",L=v>=0?50:50+v*50,Wd=Math.abs(v)*50; return "<div class='wbar'><span>"+esc(k)+"</span><div class='t'><div class='f' style='left:"+L+"%;width:"+Wd+"%;background:"+col+"'></div></div><span class='v'>"+(v>=0?"+":"")+v.toFixed(2)+"</span></div>";}).join("");
+    const sc=kw=>kw.reduce((a,k)=>a+(w[k]||0),0);
+    const trHit=rows.filter(r=>(sc(r[0])>0)===!!r[1]).length, ta=Math.round(trHit/rows.length*100);
+    const res=cfg.tests.map(t=>{const kw=testKw(t),s=sc(kw); return {t,kw,s,ok:s>0};}), acc=Math.round(res.filter(r=>r.ok).length/res.length*100);
+    $$("Tests").innerHTML=res.map(r=>"<div class='tcv'><span class='who'>"+r.t.who+"</span><div>"+r.kw.map(k=>"<span class='kw'>"+esc(k)+"</span>").join("")+"</div><span class='verdict "+(r.ok?"y":"n")+"'>"+(r.ok?cfg.pos.toUpperCase():cfg.neg.toUpperCase())+" · score "+(r.s>=0?"+":"")+r.s.toFixed(2)+"</span></div>").join("");
+    $$("Tr").textContent=ta+"%"; $$("Acc").textContent=acc+"%";
+    results[key()]={ta,a:acc,v:res.map(r=>r.ok)}; renderRes();
+    $$("Fb").textContent=cfg.msg(flags(),ta,acc);
+  }
+  cfg.fixes.forEach((f,i)=>$$("F"+i).addEventListener("change",()=>{renderData(); $$("Fb").textContent="Training data changed. Press Train "+cfg.name+" again.";}));
+  $$("Train").onclick=train;
+  $$("Tests").innerHTML=cfg.tests.map(t=>"<div class='tcv'><span class='who'>"+t.who+"</span><div>"+t.kw.map(k=>"<span class='kw'>"+esc(k)+"</span>").join("")+"</div><span class='small'>Not predicted yet</span></div>").join("");
+  renderData(); renderRes();
+}
+{
+  const H=["school: Hillview","postcode: EH10"],E=["school: Eastfield","postcode: G33"],Rv=["school: Riverside","postcode: KY1"];
+  const ev=(m,c)=>["mock: "+m,"coursework: "+c];
+  const base=[[H.concat(ev("A","strong")),1],[H.concat(ev("B","strong")),1],[H.concat(ev("B","weak")),1],[H.concat(ev("C","weak")),1],[H.concat(ev("A","weak")),1],[H.concat(ev("C","strong")),1],
+    [E.concat(ev("A","strong")),1],[E.concat(ev("B","strong")),0],[E.concat(ev("B","weak")),0],[E.concat(ev("C","weak")),0],[E.concat(ev("A","weak")),0],[E.concat(ev("C","strong")),0],
+    [Rv.concat(ev("A","strong")),1],[Rv.concat(ev("B","strong")),1],[Rv.concat(ev("C","weak")),0],[Rv.concat(ev("B","weak")),0]];
+  const more=[]; for(let y=0;y<2;y++) base.forEach(r=>more.push([r[0].slice(),r[1]]));
+  makeLab(document.getElementById("labGrade"),{
+    id:"gb",name:"GradeBot",pos:"A or B",neg:"Below B",
+    dataNote:"Each row is a past pupil: their school, home postcode, mock exam grade and coursework, and whether they got an A or B.",
+    testNote:"Teachers say all four have earned an <b>A or B</b>. A fair GradeBot should agree.",
+    rows:base,
+    tests:[{who:"Pupil 1",short:"P1",kw:E.concat(ev("A","strong"))},{who:"Pupil 2",short:"P2",kw:E.concat(ev("B","strong"))},{who:"Pupil 3",short:"P3",kw:H.concat(ev("B","strong"))},{who:"Pupil 4",short:"P4",kw:Rv.concat(ev("A","strong"))}],
+    fixes:[{label:"remove school names from the data",drop:"school:"},{label:"remove home postcodes from the data",drop:"postcode:"},{label:"add two more years of results from the same schools",add:more}],
+    msg:(f,ta,acc)=>{ let m;
+      if(!f[0]&&!f[1]) m="GradeBot marked down the Eastfield pupils even though their own evidence is strong. It learned that “school: Eastfield” and “postcode: G33” went with lower grades in the past, so it now holds every Eastfield pupil back.";
+      else if(f[0]&&!f[1]) m="Removing the school name helped a little, but the postcode still tells GradeBot where the pupil lives. Postcode is a proxy for the school and for how well-off the area is.";
+      else if(!f[0]&&f[1]) m="Removing postcodes alone helped a little, but the school name still carries the same information. Bias can travel through more than one feature.";
+      else m="With school and postcode both removed, GradeBot can only use each pupil’s own evidence: mock grade and coursework. Strong pupils are now recognised wherever they go to school.";
+      if(f[2]) m+=" Adding more years of results from the same schools changed nothing: it repeated the same pattern. More data only helps when it is better data.";
+      if(ta-acc>=20) m+=" Notice that GradeBot matches "+ta+"% of past results but only "+acc+"% of these pupils: it learned the past, not the pupils.";
+      return m; }
+  });
+}
+
+/* ---------- 4.3 VOICEBOT ---------- */
+{
+  const G=[["south","South of England"],["north","North of England"],["scot","Scotland"]];
+  const SPK=[["Grace","Bristol","south"],["Aisha","London","south"],["Tom","Leeds","north"],["Priya","Manchester","north"],["Jamie","Glasgow","scot"],["Eilidh","Isle of Lewis","scot"]];
+  const CMDS=["play music","next song","stop","volume up","call Mum","set a timer"];
+  const vRes={};
+  const vf=()=>[$("#vFixA").checked,$("#vFixB").checked,$("#vFixC").checked];
+  function counts(eff){ const f=vf(); const c={south:600,north:250,scot:80}; const k=eff?0.25:1; if(f[0]){c.south+=580*k;c.north+=242*k;c.scot+=78*k;} if(f[1]) c.scot+=400; return c; }
+  function renderStack(){ const c=counts(),t=c.south+c.north+c.scot;
+    $("#vStack").innerHTML=G.map(g=>"<span class='s-"+g[0]+"' style='flex-grow:"+c[g[0]]+"'>"+(c[g[0]]/t>.12?g[1].replace("South of England","South").replace("North of England","North"):"")+"</span>").join("");
+    $("#vCounts").textContent=G.map(g=>g[1]+": "+c[g[0]]+" clips").join(" · ")+" · Total: "+t; }
+  const accFor=n=>0.5+0.45*(1-Math.exp(-n/180));
+  function vTrain(){
+    const f=vf(), c=counts(), ce=counts(true), t=c.south+c.north+c.scot, acc={}; G.forEach(g=>acc[g[0]]=accFor(ce[g[0]]));
+    const ta=Math.round(G.reduce((a,g)=>a+acc[g[0]]*c[g[0]],0)/t*100);
+    $("#vBars").innerHTML=G.map(g=>"<div class='bar'><span>"+g[1].replace(" of England","")+"</span><div class='track'><div class='fill' style='width:"+Math.round(acc[g[0]]*100)+"%'></div></div><span class='num'>"+Math.round(acc[g[0]]*100)+"%</span></div>").join("")+"<p class='small' style='margin-top:6px'>How often VoiceBot can understand each group, based on its training.</p>";
+    let wrong=0,scY=0,scN=0; const grp={south:[0,0],north:[0,0],scot:[0,0]};
+    $("#vTests").innerHTML=SPK.map(s=>{ const r=rng(s[0]+"spk"), a=Math.min(1,acc[s[2]]+(f[2]?0.12:0)+(r()*0.06-0.03));
+      const nOk=Math.round(a*CMDS.length), order=CMDS.map(cm=>[cm,rng(s[0]+cm)()]).sort((x,y)=>x[1]-y[1]).map(x=>x[0]);
+      const okSet=new Set(order.slice(0,nOk)), wrongCmd=(f[2]&&r()<0.4)?order[0]:null;
+      const cells=CMDS.map(cm=>{ let o=cm===wrongCmd?"w":okSet.has(cm)?"y":"n"; if(o==="w") wrong++;
+        grp[s[2]][1]++; if(o==="y") grp[s[2]][0]++;
+        return "<span class='"+o+"'>"+(o==="y"?"✓":o==="n"?"✗":"⚠")+" "+cm+"</span>"; }).join("");
+      return "<div class='vt'><b>"+s[0]+"</b><span class='small'>"+s[1]+"</span><div class='cmds'>"+cells+"</div></div>"; }).join("");
+    const pct=g=>Math.round(grp[g][0]/grp[g][1]*100);
+    $("#vTr").textContent=ta+"%"; $("#vSc").textContent=pct("scot")+"%"; $("#vWr").textContent=wrong;
+    const k=f.map(x=>x?1:0).join(""); vRes[k]={ta,s:pct("south"),n:pct("north"),c:pct("scot"),w:wrong};
+    const lab=k=>{const on=k.split("").map((x,i)=>x==="1"?"ABC"[i]:"").join(""); return on?"Fix "+on.split("").join(" + "):"No fixes";};
+    $("#vRes").innerHTML=Object.keys(vRes).sort().map(k=>{const r=vRes[k]; return "<tr><td>"+lab(k)+"</td><td>"+r.ta+"%</td><td>"+r.s+"%</td><td>"+r.n+"%</td><td><b>"+r.c+"%</b></td><td>"+r.w+"</td></tr>";}).join("");
+    let m;
+    if(!f[0]&&!f[1]) m="VoiceBot scores "+ta+"% on its own training data, but Jamie and Eilidh struggle. Only "+c.scot+" of its "+t+" clips were Scottish voices, so it never properly learned how Scottish speakers say these commands.";
+    else if(f[0]&&!f[1]) m="Doubling the data helped a little, but the new clips came from the same few speakers. Hearing the same voices again doesn’t teach VoiceBot how new Scottish speakers sound, so the gap is still there. More of the same unbalanced data keeps the same unfairness.";
+    else if(!f[0]&&f[1]) m="Adding Scottish voices closed most of the gap, even though the total amount of data grew less than with Fix A. Balance mattered more than size.";
+    else m="Adding lots of data and Scottish voices together gives the best understanding for everyone, but it costs the most to collect.";
+    if(f[2]) m+=" Lowering the threshold made VoiceBot respond more often, but it also did the wrong thing "+wrong+" time"+(wrong===1?"":"s")+" (⚠), like calling someone when you asked for music. That is a trade-off, not a fix.";
+    $("#vFb").textContent=m;
+  }
+  ["#vFixA","#vFixB","#vFixC"].forEach(id=>$(id).addEventListener("change",()=>{renderStack(); $("#vFb").textContent="Training setup changed. Press Train VoiceBot again.";}));
+  $("#vTrain").onclick=vTrain;
+  $("#vTests").innerHTML=SPK.map(s=>"<div class='vt'><b>"+s[0]+"</b><span class='small'>"+s[1]+"</span><span class='small'>Not tested yet</span></div>").join("");
+  $("#vRes").innerHTML="<tr><td colspan='6' class='small' style='text-align:center'>Train and test to fill this in.</td></tr>";
+  renderStack();
+}
+
+/* ---------- 4.4 DATA POISONING ---------- */
 const TR=[{n:"Goalkeeper saves of the month",r:9400},{n:"Dog sees snow for the first time",r:8700},{n:"New season patch notes explained",r:7600},{n:"Free skins giveaway (scam)",r:300,scam:true},{n:"Cooking hack: 3-ingredient pasta",r:5200}];
 function renderPoison(){
   const f=+$("#fakeN").value, det=$("#botDet").checked;
