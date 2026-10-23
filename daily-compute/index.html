@@ -263,8 +263,8 @@ footer li{margin-bottom:4px}
   const tagsOf = st => { const t = (st.tags && st.tags.length) ? st.tags.slice() : []; const th = THEME_TAG[st.theme]; if (th && !t.includes(th)) t.unshift(th); return t; };
   const slug = s => String(s).toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
   let SITE_URL = "https://claude.ai/artifact/KfqAJfH6ZgFFUunuak9VSN";
-  // On GitHub Pages (or a custom domain added later), share links point to this site itself.
-  try { if (/\.github\.io$/i.test(location.hostname)) SITE_URL = location.origin + location.pathname; } catch(e){}
+  // On GitHub Pages or Cloudflare Pages (add a custom domain to the list later), share links point to this site itself.
+  try { if (/\.(github\.io|pages\.dev)$/i.test(location.hostname)) SITE_URL = location.origin + location.pathname; } catch(e){}
   const ORGS = {
     "Cyber resilience and internet safety":"Digital literacy",
     "Searching, processing and managing information responsibly":"Digital literacy",
