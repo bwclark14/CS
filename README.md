@@ -16,3 +16,8 @@ An interactive unit for learners aged 13–15 on how AI uses data from social me
 
 - Site: https://bwclark14.github.io/CS/data-trail/
 - `data-trail/index.html`: the whole resource in one self-contained page
+
+A second version adds rule-based vs data-driven systems, data poisoning, accessibility and the energy cost of AI, training and test data in CV-Bot, and a Scotland lens for the project.
+
+- Site: https://bwclark14.github.io/CS/data-trail-2/
+- `data-trail-2/index.html`: the second version
