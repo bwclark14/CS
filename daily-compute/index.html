@@ -1,0 +1,783 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>The Daily Compute</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Silkscreen:wght@400;700&display=swap">
+<style>
+/* Layout: a kids' news front page. Pixel masthead, one story per day, illustration beside the text, quiz as an LED-lit console below. */
+:root{
+  --paper:#F2F5FB; --card:#FFFFFF; --ink:#16213F; --muted:#56607A; --line:#D5DCEA;
+  --accent:#2B55E6; --accent-soft:#E2E9FF; --hot:#F2701D; --hot-soft:#FFE9DA;
+  --good:#1C8A4E; --good-soft:#DDF3E6; --bad:#C53A3A; --bad-soft:#FBE3E3;
+  --ill-bg:#DCE5FA; --ill-2:#C3D1F5; --str:#A3450C; --g1:#DCE7FF; --g2:#FFE0C7; --g3:#D4EFDD; --g4:#E9DEFA;
+  --f-display:"Silkscreen", "Courier New", monospace;
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "Menlo", monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#0E1426; --card:#161F37; --ink:#E7ECF8; --muted:#9AA5C2; --line:#2A3657;
+  --accent:#7F9BFF; --accent-soft:#1F2C55; --hot:#FF9550; --hot-soft:#3A2618;
+  --good:#5BD08F; --good-soft:#163526; --bad:#FF7C7C; --bad-soft:#3D1C1F;
+  --ill-bg:#1C2850; --ill-2:#25356A; --str:#FFB27A; --g1:#24386E; --g2:#4C2F17; --g3:#1D4530; --g4:#3B2C5E; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#0E1426; --card:#161F37; --ink:#E7ECF8; --muted:#9AA5C2; --line:#2A3657;
+  --accent:#7F9BFF; --accent-soft:#1F2C55; --hot:#FF9550; --hot-soft:#3A2618;
+  --good:#5BD08F; --good-soft:#163526; --bad:#FF7C7C; --bad-soft:#3D1C1F;
+  --ill-bg:#1C2850; --ill-2:#25356A; --str:#FFB27A; --g1:#24386E; --g2:#4C2F17; --g3:#1D4530; --g4:#3B2C5E; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:18px;line-height:1.6}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--hot);outline-offset:2px;border-radius:4px}
+
+/* Masthead */
+.mast{border-bottom:3px solid var(--ink);padding-block:22px 14px}
+.mast-row{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px}
+.logo{font-family:var(--f-display);font-weight:700;font-size:clamp(34px,7vw,64px);line-height:.95;margin:0;letter-spacing:-.01em}
+.logo span{color:var(--accent)}
+.tag{margin:8px 0 0;color:var(--muted);font-size:16px}
+.dateblock{font-family:var(--f-mono);font-size:14px;text-align:right;color:var(--muted)}
+.dateblock strong{display:block;color:var(--ink);font-family:var(--f-body);font-size:18px}
+.bits{display:inline-flex;gap:3px;vertical-align:middle;margin-left:6px}
+.bits i{width:10px;height:10px;border-radius:2px;background:var(--line);display:block}
+.bits i.on{background:var(--hot)}
+
+/* Day strip */
+.days{display:flex;gap:8px;overflow-x:auto;padding-block:14px;scrollbar-width:thin}
+.day{flex:0 0 auto;font:inherit;font-size:14px;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer;display:flex;gap:8px;align-items:center}
+.day b{font-family:var(--f-mono);font-weight:500}
+.day[aria-current="true"]{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.day .new{font-family:var(--f-display);font-size:11px;color:var(--hot)}
+
+/* Story */
+.story{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:32px;padding-block:12px 32px}
+@media (max-width:860px){.story{grid-template-columns:minmax(0,1fr)}}
+.chiprow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+.chip{font-family:var(--f-display);font-size:12px;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:var(--paper);padding:3px 10px;border-radius:4px}
+.when{font-size:14px;color:var(--muted)}
+h2.headline{font-family:var(--f-body);font-weight:700;font-size:clamp(30px,4.4vw,46px);line-height:1.12;margin:0 0 12px;text-wrap:balance}
+.standfirst{font-size:21px;line-height:1.45;margin:0 0 20px;color:var(--ink)}
+figure.ill{margin:0 0 22px;border-radius:var(--r);overflow:hidden;background:var(--ill-bg);aspect-ratio:16/9;max-width:100%}
+figure.ill svg{display:block;width:100%;height:100%}
+.body p{margin:0 0 16px;max-width:65ch}
+.matters{background:var(--hot-soft);border-radius:var(--r);padding:16px 20px;margin-top:22px;max-width:65ch}
+.matters h3,.side h3{font-family:var(--f-display);font-size:15px;letter-spacing:.06em;text-transform:uppercase;margin:0 0 8px}
+.matters p{margin:0}
+
+.side{display:flex;flex-direction:column;gap:22px;min-width:0}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:18px 20px}
+.talk{margin:0;padding:0;list-style:none;counter-reset:t;display:flex;flex-direction:column;gap:12px}
+.talk li{counter-increment:t;display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;font-size:17px;line-height:1.5}
+.talk li::before{content:counter(t);font-family:var(--f-display);font-size:14px;background:var(--accent-soft);color:var(--accent);border-radius:6px;height:28px;display:grid;place-items:center}
+dl.words{margin:0;display:flex;flex-direction:column;gap:12px}
+dl.words dt{font-weight:700}
+dl.words dd{margin:0;color:var(--muted);font-size:16px;line-height:1.5}
+.copybtn{margin-top:14px;font:inherit;font-size:14px;background:none;border:2px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer}
+.copybtn:hover{border-color:var(--ink)}
+
+/* Quiz */
+.quiz{background:var(--ink);color:var(--paper);border-radius:14px;padding:26px clamp(18px,4vw,36px) 30px;margin-bottom:36px}
+.quiz-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+.quiz-head h2{font-family:var(--f-display);font-size:clamp(22px,3vw,30px);margin:0;font-weight:700}
+.leds{display:flex;gap:6px}
+.leds i{width:16px;height:16px;border-radius:3px;background:color-mix(in srgb,var(--paper) 22%,transparent);display:block}
+.leds i.cur{outline:2px solid var(--paper);outline-offset:2px}
+.leds i.ok{background:var(--good)} .leds i.no{background:var(--bad)}
+.strand{font-family:var(--f-mono);font-size:13px;opacity:.75;margin:0 0 6px}
+.qtext{font-size:22px;font-weight:700;line-height:1.35;margin:0 0 16px;max-width:60ch;text-wrap:pretty}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:620px){.opts{grid-template-columns:minmax(0,1fr)}}
+.opt{font:inherit;font-size:18px;text-align:left;background:var(--card);color:var(--ink);border:3px solid transparent;border-radius:10px;padding:12px 14px;cursor:pointer;display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start}
+.opt .k{font-family:var(--f-display);font-size:14px;line-height:1.9;color:var(--accent)}
+.opt:hover:not([disabled]){border-color:var(--hot)}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--good-soft);border-color:var(--good)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.opt.dim{opacity:.55}
+.feedback{margin-top:16px;padding:14px 16px;border-radius:10px;background:color-mix(in srgb,var(--paper) 10%,transparent);font-size:17px;max-width:70ch}
+.feedback b{font-family:var(--f-display);font-weight:400;font-size:15px;letter-spacing:.04em;margin-right:6px}
+.qnav{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{font:inherit;font-weight:700;font-size:17px;border:0;border-radius:10px;padding:11px 20px;cursor:pointer;background:var(--hot);color:#1A1205}
+.btn.ghost{background:transparent;color:var(--paper);border:2px solid color-mix(in srgb,var(--paper) 40%,transparent)}
+.score{font-family:var(--f-display);font-size:clamp(44px,9vw,80px);line-height:1;margin:6px 0 10px}
+.best{font-family:var(--f-mono);font-size:14px;opacity:.8}
+
+/* Parsons code puzzle */
+.parsons{margin-bottom:36px;padding:24px clamp(18px,4vw,32px)}
+.ph{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-bottom:6px}
+.ph h2{font-family:var(--f-display);font-size:clamp(22px,3vw,30px);margin:0;font-weight:700}
+.ph .sub{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.ptitle{font-weight:700;margin:0 0 4px}
+.ptask{margin:0 0 6px;max-width:70ch}
+.phow{margin:0 0 16px;font-size:15px;color:var(--muted)}
+.pcols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:20px}
+@media (max-width:760px){.pcols{grid-template-columns:minmax(0,1fr)}}
+.pcol{min-width:0}
+.pcol h3{font-family:var(--f-display);font-size:14px;letter-spacing:.06em;text-transform:uppercase;margin:0 0 8px}
+.pool,.prog{list-style:none;margin:0;padding:10px;border-radius:10px;min-height:120px;display:flex;flex-direction:column;gap:6px}
+.pool{background:var(--paper);border:2px dashed var(--line)}
+.prog{background:var(--accent-soft);border:2px solid var(--accent);counter-reset:ln}
+.prog li{counter-increment:ln;display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:6px;align-items:center}
+.prog li::before{content:counter(ln);font-family:var(--f-mono);font-size:13px;color:var(--muted);text-align:right}
+.empty{font-size:15px;color:var(--muted);padding:8px;align-self:center;margin:auto 0}
+.cl{font-family:var(--f-mono);font-size:15px;line-height:1.45;text-align:left;white-space:pre;overflow-x:auto;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:8px;padding:8px 10px;cursor:pointer;min-width:0;width:100%}
+.cl:hover:not([disabled]){border-color:var(--hot)}
+.cl[disabled]{cursor:default}
+.cl .kw{color:var(--accent);font-weight:500}
+.cl .st{color:var(--str)}
+.prog .cl.ok{border-color:var(--good);background:var(--good-soft)}
+.prog .cl.bad{border-color:var(--bad);background:var(--bad-soft)}
+.cl .flag{font-family:var(--f-body);font-size:12px;font-weight:700;color:var(--bad);margin-left:10px}
+.up{font:inherit;font-size:15px;width:34px;height:34px;border-radius:8px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.up:hover:not([disabled]){border-color:var(--ink)}
+.up[disabled]{opacity:.35;cursor:default}
+.pfoot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}
+.btn.line{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.pmsg{margin-top:14px;padding:12px 16px;border-radius:10px;font-size:17px;max-width:72ch}
+.pmsg.good{background:var(--good-soft)} .pmsg.try{background:var(--hot-soft)}
+.pmsg b{font-family:var(--f-display);font-weight:400;font-size:15px;letter-spacing:.04em;margin-right:6px}
+
+/* Four Links game */
+.links{margin-bottom:36px;padding:24px clamp(12px,3vw,32px)}
+.links .ph,.links .share,.links .phow{padding-inline:clamp(0px,1vw,0px)}
+.lgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:14px}
+.tile{font:inherit;font-weight:700;font-size:clamp(13px,2.4vw,17px);line-height:1.2;min-height:66px;padding:6px 2px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;overflow-wrap:anywhere;hyphens:auto;min-width:0}
+.tile.long{font-size:clamp(10.5px,2.8vw,16px)}
+.tile:hover:not([disabled]){border-color:var(--ink)}
+.tile[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tile[disabled]{cursor:default}
+.solved{grid-column:1/-1;border-radius:10px;padding:10px 14px;text-align:center;color:var(--ink)}
+.solved b{display:block;font-family:var(--f-display);font-weight:400;font-size:14px;letter-spacing:.05em;text-transform:uppercase}
+.solved .w{font-weight:700;margin-top:2px}
+.solved .e{font-size:15px;margin-top:4px;color:var(--muted)}
+.lv1{background:var(--g1)} .lv2{background:var(--g2)} .lv3{background:var(--g3)} .lv4{background:var(--g4)}
+.lctl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:14px}
+.lives{display:flex;gap:6px;align-items:center;font-size:15px;color:var(--muted)}
+.lives i{width:13px;height:13px;border-radius:50%;background:var(--hot);display:block}
+.lives i.used{background:var(--line)}
+.lbtns{display:flex;flex-wrap:wrap;gap:8px}
+.lbtns .btn[disabled]{opacity:.45;cursor:default}
+.lmsg{min-height:1.5em;margin:12px 0 0;font-weight:700}
+@media (prefers-reduced-motion:no-preference){ .lgrid.shake{animation:shake .35s} @keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}} }
+
+/* Tags on a story */
+.taglist{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px;padding:0;list-style:none}
+.tagbtn{font:inherit;font-size:14px;border:0;background:var(--accent-soft);color:var(--ink);border-radius:6px;padding:3px 10px;cursor:pointer}
+.tagbtn::before{content:"#";color:var(--accent);margin-right:2px;font-family:var(--f-mono)}
+.tagbtn:hover{background:var(--accent);color:var(--paper)}
+.tagbtn:hover::before{color:var(--paper)}
+.tagbtn[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.tagbtn[aria-pressed="true"]::before{color:var(--hot)}
+
+/* Share bar */
+.share{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 18px}
+.share-l{font-family:var(--f-display);font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-right:2px}
+.sh{font:inherit;font-size:14px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 12px;cursor:pointer}
+.sh:hover{border-color:var(--ink)}
+.sh svg{width:16px;height:16px;flex:none}
+.shsel{appearance:none;-webkit-appearance:none;padding-right:30px;background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%);background-position:calc(100% - 15px) 52%,calc(100% - 10px) 52%;background-size:5px 5px;background-repeat:no-repeat}
+.copied{font-size:14px;color:var(--good);font-weight:700}
+.linkbox{font-family:var(--f-mono);font-size:13px;width:min(100%,420px);border:2px solid var(--line);border-radius:8px;padding:5px 8px;background:var(--paper);color:var(--ink)}
+
+/* Archive */
+.archive{border-top:3px solid var(--ink);padding-block:26px 34px;scroll-margin-top:12px}
+.archive h2{font-family:var(--f-display);font-size:clamp(22px,3vw,30px);margin:0 0 4px}
+.archive .lede{margin:0 0 16px;color:var(--muted)}
+.afind{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.afind input{font:inherit;font-size:16px;flex:1 1 260px;min-width:0;border:2px solid var(--line);border-radius:10px;padding:9px 12px;background:var(--card);color:var(--ink)}
+.afind input:focus{border-color:var(--accent);outline:none}
+.tgroup{margin:0 0 12px}
+.tgroup h3{font-family:var(--f-mono);font-size:13px;font-weight:500;color:var(--muted);margin:0 0 6px;text-transform:uppercase;letter-spacing:.05em}
+.tagbtn .n{font-family:var(--f-mono);font-size:12px;opacity:.7;margin-left:4px}
+.acount{font-size:15px;color:var(--muted);margin:14px 0 10px}
+.acount button{font:inherit;font-size:15px;background:none;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;padding:0}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:14px;list-style:none;margin:0;padding:0}
+.card{display:flex;flex-direction:column;gap:6px;background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:12px 14px 14px;text-align:left;font:inherit;color:var(--ink);cursor:pointer;width:100%;height:100%}
+.card:hover{border-color:var(--ink)}
+.card .mini{border-radius:6px;overflow:hidden;background:var(--ill-bg);aspect-ratio:16/7;margin-bottom:4px}
+.card .mini svg{display:block;width:100%;height:100%}
+.card .meta{font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.card .meta .chip{font-size:10px;padding:2px 7px}
+.card b{font-size:18px;line-height:1.25;text-wrap:balance}
+.card .ctags{font-family:var(--f-mono);font-size:12px;color:var(--accent)}
+.card[aria-current="true"]{border-color:var(--accent)}
+.navall{flex:0 0 auto;font:inherit;font-size:14px;font-weight:700;border:2px dashed var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+
+/* Notes and footer */
+details.teacher{margin-bottom:28px}
+details.teacher summary{cursor:pointer;font-weight:700;font-size:17px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tags span{font-size:14px;background:var(--accent-soft);color:var(--ink);border-radius:6px;padding:4px 10px}
+footer{border-top:2px solid var(--line);padding-block:20px 40px;color:var(--muted);font-size:15px}
+footer ul{padding-left:18px;margin:6px 0 14px}
+footer li{margin-bottom:4px}
+.state{padding-block:60px;text-align:center;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){
+  .story,.quiz{animation:rise .4s ease both}
+  @keyframes rise{from{transform:translateY(8px)}to{transform:none}}
+  .heat{animation:pulse 1.8s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.6}}
+}
+</style>
+
+<header class="mast">
+  <div class="wrap mast-row">
+    <div>
+      <h1 class="logo">The Daily <span>Compute</span></h1>
+      <p class="tag">One real computing story a day, for curious minds aged 10–14.</p>
+    </div>
+    <div class="dateblock" id="dateblock"></div>
+  </div>
+</header>
+
+<nav class="wrap days" id="days" aria-label="Choose a day"></nav>
+
+<main class="wrap" id="main">
+  <div class="state" id="state">Loading today's story…</div>
+</main>
+
+<section class="wrap archive" id="archive" aria-labelledby="archh">
+  <h2 id="archh">All stories</h2>
+  <p class="lede">Find earlier stories by topic or computing idea, or search for a word.</p>
+  <div class="afind"><input id="asearch" type="search" placeholder="Search stories, e.g. binary, drones, AI" aria-label="Search stories"></div>
+  <div id="atags"></div>
+  <p class="acount" id="acount" aria-live="polite"></p>
+  <ul class="cards" id="acards"></ul>
+</section>
+
+<footer>
+  <div class="wrap" id="foot"></div>
+</footer>
+
+<script>
+(function(){
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const THEMES = {cyber:"Cyber security", robots:"Robots & drones", hardware:"Hardware", ai:"Artificial intelligence", games:"Games", internet:"Internet", data:"Data", space:"Space tech", coding:"Coding", frontier:"Frontier tech", quantum:"Quantum computing", ethics:"Ethics", environment:"Environment"};
+  // Tag vocabulary: topics first, then computing ideas. Unknown tags still work and sort under topics.
+  const TOPIC_TAGS = ["Cyber security","Online safety","Privacy","AI","Robots","Hardware","Supercomputers","Quantum","Frontier tech","Space","Games","Internet","Internet of Things","Data","Ethics","Environment","Accessibility","Careers"];
+  const IDEA_TAGS = ["Algorithms","Sequence","Selection","Loops","Variables","Binary","Input & output","Sensors","Networks","Parallel processing","Testing","Machine learning"];
+  const THEME_TAG = {cyber:"Cyber security", robots:"Robots", hardware:"Hardware", ai:"AI", games:"Games", internet:"Internet", data:"Data", space:"Space", coding:"Algorithms", frontier:"Frontier tech", quantum:"Quantum", ethics:"Ethics", environment:"Environment"};
+  const tagsOf = st => { const t = (st.tags && st.tags.length) ? st.tags.slice() : []; const th = THEME_TAG[st.theme]; if (th && !t.includes(th)) t.unshift(th); return t; };
+  const slug = s => String(s).toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+  let SITE_URL = "https://claude.ai/artifact/KfqAJfH6ZgFFUunuak9VSN";
+  // On GitHub Pages (or a custom domain added later), share links point to this site itself.
+  try { if (/\.github\.io$/i.test(location.hostname)) SITE_URL = location.origin + location.pathname; } catch(e){}
+  const ORGS = {
+    "Cyber resilience and internet safety":"Digital literacy",
+    "Searching, processing and managing information responsibly":"Digital literacy",
+    "Using digital products and services in a variety of contexts to achieve a purposeful outcome":"Digital literacy",
+    "Understanding the world through computational thinking":"Computing science",
+    "Understanding and analysing computing technology":"Computing science",
+    "Designing, building and testing computing solutions":"Computing science"
+  };
+  const iso = d => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  const todayISO = iso(new Date());
+  const pretty = s => new Date(s+"T12:00:00").toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+  const short = s => new Date(s+"T12:00:00").toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"});
+  const store = {
+    get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
+    set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  };
+
+  // Masthead date with the day number in binary
+  (function(){
+    const d = new Date(), n = d.getDate(), bin = n.toString(2).padStart(5,"0");
+    $("#dateblock").innerHTML = `<strong>${esc(pretty(todayISO))}</strong>Day ${n} in binary: ${bin}<span class="bits" aria-hidden="true">${[...bin].map(b=>`<i class="${b==="1"?"on":""}"></i>`).join("")}</span>`;
+  })();
+
+  // ---------- Illustrations (original, drawn in code) ----------
+  function hash(s){ let h=2166136261; for(const c of s){ h^=c.charCodeAt(0); h=Math.imul(h,16777619); } return h>>>0; }
+  function rng(seed){ let a=seed||1; return ()=>{ a^=a<<13; a^=a>>>17; a^=a<<5; return ((a>>>0)%10000)/10000; }; }
+  const S = inner => `<svg viewBox="0 0 640 360" role="img" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+  function pixels(r, n, col){ let o=""; for(let i=0;i<n;i++){ const x=Math.floor(r()*40)*16, y=Math.floor(r()*22)*16; o+=`<rect x="${x}" y="${y}" width="12" height="12" rx="2" fill="${col}" opacity="${(.25+r()*.5).toFixed(2)}"/>`; } return o; }
+
+  const ILL = {
+    fridge(r){
+      return S(`${pixels(r,26,"var(--ill-2)")}
+      <g fill="none" stroke="var(--accent)" stroke-width="10" stroke-linecap="round">
+        <path d="M262 74a80 80 0 0 1 116 0"/><path d="M285 98a46 46 0 0 1 70 0"/></g>
+      <circle cx="320" cy="118" r="9" fill="var(--accent)"/>
+      <rect x="240" y="138" width="160" height="206" rx="14" fill="var(--card)" stroke="var(--ink)" stroke-width="5"/>
+      <line x1="240" y1="210" x2="400" y2="210" stroke="var(--ink)" stroke-width="5"/>
+      <rect x="378" y="156" width="8" height="38" rx="4" fill="var(--ink)"/><rect x="378" y="226" width="8" height="60" rx="4" fill="var(--ink)"/>
+      <g fill="var(--accent)" opacity=".8"><path d="M268 302q6-16 12 0a6 6 0 0 1-12 0z"/><path d="M300 318q6-16 12 0a6 6 0 0 1-12 0z"/><path d="M332 300q6-16 12 0a6 6 0 0 1-12 0z"/></g>
+      <g stroke="var(--accent)" stroke-width="4" stroke-linecap="round"><path d="M290 160v28M276 174h28M280 164l20 20M300 164l-20 20"/></g>
+      <rect x="470" y="96" width="34" height="200" rx="17" fill="var(--card)" stroke="var(--ink)" stroke-width="5"/>
+      <rect class="heat" x="479" y="118" width="16" height="164" rx="8" fill="var(--hot)"/>
+      <circle cx="487" cy="300" r="26" fill="var(--hot)" stroke="var(--ink)" stroke-width="5"/>
+      <g font-family="IBM Plex Mono, monospace" font-size="16" fill="var(--ink)"><text x="514" y="126">50°C</text><text x="514" y="280">5°C</text></g>
+      <path d="M118 120l42 74H76z" fill="var(--hot)" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/>
+      <rect x="113" y="146" width="10" height="26" rx="3" fill="var(--ink)"/><circle cx="118" cy="182" r="6" fill="var(--ink)"/>
+      <path d="M160 166 C200 166 205 230 240 230" fill="none" stroke="var(--ink)" stroke-width="3" stroke-dasharray="6 8"/>`);
+    },
+    drone(r){
+      let bubbles="", obs=[[150,120,46],[300,250,62],[420,110,40],[520,240,52]];
+      for(const [x,y,s] of obs){ bubbles+=`<circle cx="${x}" cy="${y}" r="${s+30}" fill="var(--ill-2)" opacity=".6"/><circle cx="${x}" cy="${y}" r="${s+30}" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-dasharray="7 7"/><circle cx="${x}" cy="${y}" r="13" fill="var(--hot)" stroke="var(--ink)" stroke-width="4"/>`; }
+      return S(`<g stroke="var(--ill-2)" stroke-width="1.5">${Array.from({length:12},(_,i)=>`<line x1="${i*56}" y1="0" x2="${i*56}" y2="360"/>`).join("")}${Array.from({length:7},(_,i)=>`<line x1="0" y1="${i*56}" x2="640" y2="${i*56}"/>`).join("")}</g>
+      ${bubbles}
+      <path d="M30 300 C110 300 160 230 220 200 S270 120 340 160 S440 210 470 170 S560 70 610 60" fill="none" stroke="var(--accent)" stroke-width="34" stroke-linecap="round" opacity=".22"/>
+      <path d="M30 300 C110 300 160 230 220 200 S270 120 340 160 S440 210 470 170 S560 70 610 60" fill="none" stroke="var(--accent)" stroke-width="4" stroke-dasharray="2 12" stroke-linecap="round"/>
+      <g transform="translate(560 78)"><g stroke="var(--ink)" stroke-width="5"><line x1="-30" y1="-18" x2="30" y2="18"/><line x1="-30" y1="18" x2="30" y2="-18"/></g>
+      ${[[-30,-18],[30,-18],[-30,18],[30,18]].map(([x,y])=>`<ellipse cx="${x}" cy="${y}" rx="18" ry="6" fill="var(--card)" stroke="var(--ink)" stroke-width="3.5"/>`).join("")}
+      <rect x="-15" y="-11" width="30" height="22" rx="6" fill="var(--accent)" stroke="var(--ink)" stroke-width="4"/><circle cx="0" cy="0" r="4" fill="var(--card)"/></g>
+      <circle cx="30" cy="300" r="9" fill="var(--ink)"/>`);
+    },
+    chip(r){
+      let cores="", pins="";
+      for(let row=0;row<8;row++) for(let col=0;col<10;col++){ const on=r()<.45; cores+=`<rect x="${232+col*18}" y="${112+row*18}" width="13" height="13" rx="2" fill="${on?"var(--hot)":"var(--accent)"}" opacity="${on?1:.55}"/>`; }
+      for(let i=0;i<12;i++){ const p=128+i*16; pins+=`<rect x="${p}" y="54" width="7" height="30" fill="var(--ink)"/><rect x="${p}" y="276" width="7" height="30" fill="var(--ink)"/>`; }
+      for(let i=0;i<9;i++){ const p=108+i*18; pins+=`<rect x="186" y="${p}" width="30" height="7" fill="var(--ink)"/><rect x="424" y="${p}" width="30" height="7" fill="var(--ink)"/>`; }
+      return S(`${pixels(r,22,"var(--ill-2)")}<g transform="translate(0,0)">${pins}
+      <rect x="210" y="80" width="220" height="200" rx="16" fill="var(--card)" stroke="var(--ink)" stroke-width="6"/>${cores}
+      <text x="320" y="268" text-anchor="middle" font-family="Silkscreen, monospace" font-size="15" fill="var(--ink)">80 CORES</text></g>
+      <g stroke="var(--accent)" stroke-width="4" fill="none" stroke-linecap="round"><path d="M454 112h60v-40h70"/><path d="M454 166h96"/><path d="M454 220h50v60h80"/><path d="M186 140h-60v-50h-80"/><path d="M186 230h-90v50h-50"/></g>
+      ${[[584,72],[550,166],[584,280],[46,90],[46,280]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="8" fill="var(--hot)" stroke="var(--ink)" stroke-width="3"/>`).join("")}`);
+    },
+    ai(r){
+      const L=[[120,[90,180,270]],[260,[60,140,220,300]],[400,[60,140,220,300]],[530,[140,220]]]; let e="", n="";
+      for(let i=0;i<L.length-1;i++) for(const a of L[i][1]) for(const b of L[i+1][1]) e+=`<line x1="${L[i][0]}" y1="${a}" x2="${L[i+1][0]}" y2="${b}" stroke="var(--accent)" stroke-width="${(1+r()*3).toFixed(1)}" opacity=".5"/>`;
+      for(const [x,ys] of L) for(const y of ys) n+=`<circle cx="${x}" cy="${y}" r="18" fill="${r()<.35?"var(--hot)":"var(--card)"}" stroke="var(--ink)" stroke-width="4"/>`;
+      return S(pixels(r,20,"var(--ill-2)")+e+n);
+    },
+    games(r){
+      return S(`${pixels(r,40,"var(--ill-2)")}<path d="M190 150q-60 0-74 90-8 56 34 60 30 2 50-40h240q20 42 50 40 42-4 34-60-14-90-74-90z" fill="var(--card)" stroke="var(--ink)" stroke-width="6" stroke-linejoin="round"/>
+      <rect x="196" y="186" width="22" height="66" rx="4" fill="var(--ink)"/><rect x="174" y="208" width="66" height="22" rx="4" fill="var(--ink)"/>
+      <circle cx="430" cy="198" r="14" fill="var(--hot)"/><circle cx="462" cy="226" r="14" fill="var(--accent)"/><circle cx="398" cy="226" r="14" fill="var(--accent)"/><circle cx="430" cy="254" r="14" fill="var(--hot)"/>
+      ${Array.from({length:6},(_,i)=>`<rect x="${250+i*24}" y="${70+(i%2)*14}" width="18" height="18" fill="var(--hot)" opacity="${.4+i*.1}"/>`).join("")}`);
+    },
+    cyber(r){
+      let net=""; const pts=Array.from({length:9},()=>[40+r()*560,30+r()*300]);
+      for(let i=0;i<pts.length;i++){ const j=(i+1)%pts.length; net+=`<line x1="${pts[i][0]}" y1="${pts[i][1]}" x2="${pts[j][0]}" y2="${pts[j][1]}" stroke="var(--accent)" stroke-width="2.5" opacity=".5"/>`; }
+      net+=pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="8" fill="var(--accent)"/>`).join("");
+      return S(`${net}<path d="M270 160v-34a50 50 0 0 1 100 0v34" fill="none" stroke="var(--ink)" stroke-width="14"/>
+      <rect x="244" y="156" width="152" height="130" rx="16" fill="var(--hot)" stroke="var(--ink)" stroke-width="6"/>
+      <circle cx="320" cy="210" r="15" fill="var(--ink)"/><rect x="313" y="214" width="14" height="40" rx="5" fill="var(--ink)"/>`);
+    },
+    internet(r){
+      return S(`${pixels(r,24,"var(--ill-2)")}<circle cx="320" cy="180" r="120" fill="var(--card)" stroke="var(--ink)" stroke-width="6"/>
+      <g fill="none" stroke="var(--accent)" stroke-width="4"><ellipse cx="320" cy="180" rx="50" ry="120"/><path d="M200 180h240M214 120h212M214 240h212"/></g>
+      ${[[150,70],[500,80],[520,290],[120,280]].map(([x,y])=>`<line x1="${x}" y1="${y}" x2="320" y2="180" stroke="var(--hot)" stroke-width="3" stroke-dasharray="5 7"/><circle cx="${x}" cy="${y}" r="14" fill="var(--hot)" stroke="var(--ink)" stroke-width="4"/>`).join("")}`);
+    },
+    data(r){
+      let bars=""; for(let i=0;i<9;i++){ const h=40+r()*200; bars+=`<rect x="${110+i*48}" y="${300-h}" width="34" height="${h}" rx="4" fill="${i%3===1?"var(--hot)":"var(--accent)"}" stroke="var(--ink)" stroke-width="3"/>`; }
+      return S(`${pixels(r,18,"var(--ill-2)")}<line x1="90" y1="302" x2="560" y2="302" stroke="var(--ink)" stroke-width="5"/>${bars}`);
+    }
+  };
+  ILL.ethics = function(r){
+    return S(`${pixels(r,22,"var(--ill-2)")}
+      <rect x="240" y="292" width="160" height="22" rx="8" fill="var(--ink)"/>
+      <rect x="313" y="104" width="14" height="190" rx="4" fill="var(--ink)"/>
+      <g transform="rotate(-6 320 112)">
+        <rect x="160" y="106" width="320" height="12" rx="6" fill="var(--ink)"/>
+        <line x1="176" y1="118" x2="146" y2="214" stroke="var(--ink)" stroke-width="3"/><line x1="176" y1="118" x2="206" y2="214" stroke="var(--ink)" stroke-width="3"/>
+        <line x1="464" y1="118" x2="434" y2="214" stroke="var(--ink)" stroke-width="3"/><line x1="464" y1="118" x2="494" y2="214" stroke="var(--ink)" stroke-width="3"/>
+        <path d="M126 214h100a50 26 0 0 1-100 0z" fill="var(--card)" stroke="var(--ink)" stroke-width="5"/>
+        <path d="M414 214h100a50 26 0 0 1-100 0z" fill="var(--card)" stroke="var(--ink)" stroke-width="5"/>
+        <rect x="152" y="168" width="48" height="44" rx="6" fill="var(--accent)" stroke="var(--ink)" stroke-width="4"/>
+        <g fill="var(--card)">${[0,1,2].map(i=>`<rect x="${160+i*13}" y="176" width="8" height="8" rx="1"/><rect x="${160+i*13}" y="192" width="8" height="8" rx="1"/>`).join("")}</g>
+        <path d="M464 210c-30-18-34-40-16-46 9-3 16 3 16 9 0-6 7-12 16-9 18 6 14 28-16 46z" fill="var(--hot)" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round"/>
+      </g>
+      <circle cx="320" cy="112" r="15" fill="var(--hot)" stroke="var(--ink)" stroke-width="5"/>`);
+  };
+  ILL.environment = function(r){
+    let racks = "";
+    for (let k=0;k<3;k++){ const x=150+k*86; racks += `<rect x="${x}" y="118" width="70" height="180" rx="8" fill="var(--card)" stroke="var(--ink)" stroke-width="5"/>`;
+      for (let j=0;j<6;j++) racks += `<rect x="${x+12}" y="${134+j*26}" width="46" height="14" rx="3" fill="var(--ill-2)"/><circle cx="${x+52}" cy="${141+j*26}" r="3.5" fill="${r()<.5?"var(--accent)":"var(--hot)"}"/>`; }
+    return S(`<circle cx="560" cy="70" r="34" fill="var(--hot)" opacity=".85"/>
+      <rect x="40" y="298" width="560" height="10" rx="5" fill="var(--ink)"/>
+      ${racks}
+      <rect x="466" y="132" width="8" height="168" fill="var(--ink)"/>
+      <g transform="translate(470 132)" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round" fill="var(--card)">
+        <path d="M0 0 L-8 -74 Q0 -84 8 -74 Z"/><path d="M0 0 L-8 -74 Q0 -84 8 -74 Z" transform="rotate(120)"/><path d="M0 0 L-8 -74 Q0 -84 8 -74 Z" transform="rotate(240)"/>
+        <circle r="9" fill="var(--accent)"/></g>
+      <path d="M78 290c-6-62 34-104 96-112-2 66-40 108-96 112z" fill="var(--accent)" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M80 288c20-34 44-62 82-96" fill="none" stroke="var(--card)" stroke-width="4" stroke-linecap="round"/>`);
+  };
+  ILL.frontier = function(r){
+    let stars = ""; for (let i=0;i<34;i++){ const x=r()*640, y=r()*360, s=2+r()*4; stars += `<rect x="${x.toFixed(0)}" y="${y.toFixed(0)}" width="${s.toFixed(1)}" height="${s.toFixed(1)}" fill="var(--accent)" opacity="${(.3+r()*.6).toFixed(2)}"/>`; }
+    return S(`${stars}
+      <circle cx="320" cy="180" r="118" fill="var(--card)" stroke="var(--ink)" stroke-width="6"/>
+      <ellipse cx="320" cy="180" rx="118" ry="34" fill="none" stroke="var(--accent)" stroke-width="4" stroke-dasharray="10 8"/>
+      <ellipse cx="320" cy="180" rx="34" ry="118" fill="none" stroke="var(--ill-2)" stroke-width="4"/>
+      <line x1="320" y1="180" x2="390" y2="92" stroke="var(--hot)" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="394" cy="87" r="16" fill="var(--hot)" stroke="var(--ink)" stroke-width="5"/>
+      <circle cx="320" cy="180" r="9" fill="var(--ink)"/>
+      <g font-family="IBM Plex Mono, monospace" font-size="26" fill="var(--ink)"><text x="302" y="48">|0⟩</text><text x="302" y="336">|1⟩</text></g>`);
+  };
+  ILL.robots = ILL.drone; ILL.hardware = ILL.chip; ILL.space = ILL.internet; ILL.coding = ILL.data; ILL.quantum = ILL.frontier;
+
+  function illustrate(st){
+    if (st.svg && /^\s*<svg[\s>]/i.test(st.svg) && !/<script|on\w+=/i.test(st.svg)) return st.svg;
+    const f = ILL[st.illustration] || ILL[st.theme] || ILL.data;
+    return f(rng(hash(st.id)));
+  }
+
+  // ---------- Rendering ----------
+  let STORIES = [], current = null;
+
+  function pickDefault(){
+    const shown = STORIES.filter(s => s.date <= todayISO);
+    return (shown[0] || STORIES[STORIES.length-1] || null);
+  }
+
+  // ---------- Sharing ----------
+  const ICON = {
+    board:'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20l4-4 4 4"/></svg>',
+    people:'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.2c2.9.3 5 2.6 5 5.8"/></svg>',
+    link:'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>'
+  };
+  const linkFor = (st, part) => SITE_URL + "#d" + st.date + (part ? "-" + part : "");
+  const shareUrls = (url, title) => ({
+    gc: "https://classroom.google.com/share?url=" + encodeURIComponent(url) + "&title=" + encodeURIComponent(title),
+    teams: "https://teams.microsoft.com/share?href=" + encodeURIComponent(url) + "&msgText=" + encodeURIComponent(title)
+  });
+  // One share bar per story. The menu picks what the link opens: the whole story or one activity.
+  function shareTargets(st){
+    const t = [{part:"", label:"Whole story", title: st.headline}];
+    if ((st.quiz||[]).length) t.push({part:"quiz", label:"Quiz", title:"Quiz: " + st.headline});
+    if (st.connections && st.connections.groups) t.push({part:"links", label:"Four Links", title:"Four Links: " + (st.connections.title || st.headline)});
+    if (st.parsons && st.parsons.lines) t.push({part:"puzzle", label:"Code puzzle", title:"Code puzzle: " + (st.parsons.title || st.headline)});
+    return t;
+  }
+  function storyShare(st){
+    const t = shareTargets(st)[0], url = linkFor(st), u = shareUrls(url, t.title);
+    return `<div class="share" role="group" aria-label="Share this story" id="shareBar">
+      <label class="share-l" for="shareWhat">Share</label>
+      <select id="shareWhat" class="sh shsel">${shareTargets(st).map(x => `<option value="${x.part}">${esc(x.label)}</option>`).join("")}</select>
+      <a class="sh" id="shGc" href="${esc(u.gc)}" target="_blank" rel="noopener">${ICON.board}Google Classroom</a>
+      <a class="sh" id="shTeams" href="${esc(u.teams)}" target="_blank" rel="noopener">${ICON.people}Teams</a>
+      <button class="sh" type="button" id="shCopy" data-copy="${esc(url)}">${ICON.link}Copy link</button></div>`;
+  }
+  function wireShare(st){
+    const sel = $("#shareWhat"); if (!sel) return;
+    sel.addEventListener("change", () => {
+      const t = shareTargets(st).find(x => x.part === sel.value), url = linkFor(st, t.part), u = shareUrls(url, t.title);
+      $("#shGc").href = u.gc; $("#shTeams").href = u.teams; $("#shCopy").dataset.copy = url;
+      $("#shareBar").querySelectorAll(".copied,.linkbox").forEach(n => n.remove());
+    });
+  }
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-copy]"); if (!b) return;
+    const url = b.dataset.copy, bar = b.parentElement;
+    bar.querySelectorAll(".copied,.linkbox").forEach(n => n.remove());
+    const ok = () => { const s = document.createElement("span"); s.className = "copied"; s.textContent = "Link copied"; bar.appendChild(s); setTimeout(() => s.remove(), 2200); };
+    const fail = () => { const i = document.createElement("input"); i.className = "linkbox"; i.readOnly = true; i.value = url; i.setAttribute("aria-label","Link to copy"); bar.appendChild(i); i.focus(); i.select(); };
+    try { navigator.clipboard.writeText(url).then(ok, fail); } catch(_) { fail(); }
+  });
+
+  // ---------- Archive ----------
+  let aTag = null, aQuery = "";
+  const published = () => STORIES.filter(s => s.date <= todayISO);
+  function setTag(tag, scroll){
+    aTag = (aTag === tag) ? null : tag; renderArchive();
+    if (scroll) $("#archive").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+  }
+  function renderArchive(){
+    const list = published();
+    const counts = {}; list.forEach(s => tagsOf(s).forEach(t => counts[t] = (counts[t]||0) + 1));
+    const all = Object.keys(counts);
+    const topics = TOPIC_TAGS.filter(t => counts[t]).concat(all.filter(t => !TOPIC_TAGS.includes(t) && !IDEA_TAGS.includes(t)).sort());
+    const ideas = IDEA_TAGS.filter(t => counts[t]);
+    const btn = t => `<button class="tagbtn" type="button" data-tag="${esc(t)}" aria-pressed="${t===aTag}">${esc(t)}<span class="n">${counts[t]}</span></button>`;
+    $("#atags").innerHTML = (topics.length?`<div class="tgroup"><h3>Topics</h3><div class="taglist">${topics.map(btn).join("")}</div></div>`:"")
+      + (ideas.length?`<div class="tgroup"><h3>Computing ideas</h3><div class="taglist">${ideas.map(btn).join("")}</div></div>`:"");
+    $("#atags").querySelectorAll("[data-tag]").forEach(b => b.addEventListener("click", () => setTag(b.dataset.tag)));
+    const q = aQuery.trim().toLowerCase();
+    const hay = s => [s.headline, s.standfirst, ...(s.body||[]), ...tagsOf(s), ...(s.keywords||[]).map(k=>k.term), THEMES[s.theme]||""].join(" ").toLowerCase();
+    const hits = list.filter(s => (!aTag || tagsOf(s).includes(aTag)) && (!q || q.split(/\s+/).every(w => hay(s).includes(w))));
+    const what = [aTag ? `tagged #${esc(aTag)}` : "", q ? `matching “${esc(aQuery.trim())}”` : ""].filter(Boolean).join(" and ");
+    $("#acount").innerHTML = `${hits.length} ${hits.length===1?"story":"stories"}${what?" "+what:""}.`
+      + (aTag||q ? ` <button type="button" id="aclear">Show all</button>` : "")
+      + (aTag ? ` <button type="button" id="atagshare">Copy link to this tag</button>` : "");
+    const c = $("#aclear"); if (c) c.addEventListener("click", () => { aTag = null; aQuery = ""; $("#asearch").value = ""; renderArchive(); });
+    const ts = $("#atagshare"); if (ts) ts.addEventListener("click", () => {
+      const url = SITE_URL + "#tag-" + slug(aTag);
+      try { navigator.clipboard.writeText(url).then(() => ts.textContent = "Link copied", () => ts.textContent = url); } catch(_) { ts.textContent = url; }
+    });
+    $("#acards").innerHTML = hits.map(s => `<li><button class="card" type="button" data-id="${esc(s.id)}" aria-current="${current && s.id===current.id}">
+      <span class="mini" aria-hidden="true">${illustrate(s)}</span>
+      <span class="meta"><span class="chip">${esc(THEMES[s.theme]||s.theme)}</span>${esc(short(s.date))}</span>
+      <b>${esc(s.headline)}</b>
+      <span class="ctags">${tagsOf(s).map(t=>"#"+esc(t)).join(" ")}</span></button></li>`).join("");
+    $("#acards").querySelectorAll(".card").forEach(b => b.addEventListener("click", () => show(b.dataset.id, true)));
+  }
+  $("#asearch").addEventListener("input", e => { aQuery = e.target.value; renderArchive(); });
+
+  function renderDays(){
+    const nav = $("#days");
+    const recent = published().slice(0, 7);
+    nav.innerHTML = recent.map(s => `<button class="day" data-id="${esc(s.id)}" aria-current="${current&&s.id===current.id}">
+      ${s.date===todayISO?'<span class="new">TODAY</span>':""}<b>${esc(short(s.date))}</b></button>`).join("")
+      + `<button class="navall" type="button" id="toArchive">All stories and tags ↓</button>`;
+    nav.querySelectorAll(".day").forEach(b => b.addEventListener("click", () => show(b.dataset.id, true)));
+    $("#toArchive").addEventListener("click", () => $("#archive").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}));
+  }
+
+  function show(id, scroll){
+    const st = STORIES.find(s => s.id === id) || pickDefault();
+    if (!st){ $("#main").innerHTML = `<div class="state">No stories yet. The first one arrives tomorrow morning.</div>`; return; }
+    current = st;
+    try{ if (st !== pickDefault()) history.replaceState(null,"","#d"+st.date); else history.replaceState(null,"",location.pathname+location.search); }catch(e){}
+    renderDays();
+    const strands = [...new Set((st.quiz||[]).map(q=>q.strand).concat(st.parsons?[st.parsons.strand]:[]).filter(s=>ORGS[s]))];
+    $("#main").innerHTML = `
+      <article class="story">
+        <div style="min-width:0">
+          <div class="chiprow"><span class="chip">${esc(THEMES[st.theme]||st.theme)}</span><span class="when">${st.date===todayISO?"Today's story":esc(pretty(st.date))} · in the news ${esc(st.newsDate||"")}</span></div>
+          <h2 class="headline">${esc(st.headline)}</h2>
+          <p class="standfirst">${esc(st.standfirst)}</p>
+          <ul class="taglist" aria-label="Tags">${tagsOf(st).map(t=>`<li><button class="tagbtn" type="button" data-storytag="${esc(t)}">${esc(t)}</button></li>`).join("")}</ul>
+          ${storyShare(st)}
+          <figure class="ill">${illustrate(st)}</figure>
+          <div class="body">${st.body.map(p=>`<p>${esc(p)}</p>`).join("")}</div>
+          <div class="matters"><h3>Why it matters</h3><p>${esc(st.whyItMatters)}</p></div>
+        </div>
+        <aside class="side">
+          <section class="panel" aria-labelledby="talkh">
+            <h3 id="talkh">Let's discuss</h3>
+            <ol class="talk">${st.discussion.map(d=>`<li><span>${esc(d)}</span></li>`).join("")}</ol>
+            <button class="copybtn" id="copyTalk" type="button">Copy discussion points</button>
+          </section>
+          <section class="panel" aria-labelledby="wordh">
+            <h3 id="wordh">Key words</h3>
+            <dl class="words">${st.keywords.map(k=>`<div><dt>${esc(k.term)}</dt><dd>${esc(k.meaning)}</dd></div>`).join("")}</dl>
+          </section>
+        </aside>
+      </article>
+      <section class="quiz" id="quiz" aria-live="polite"></section>
+      <section class="links panel" id="links" aria-labelledby="linksh"></section>
+      <section class="parsons panel" id="parsons" aria-labelledby="parsh"></section>
+      <details class="teacher panel"><summary>Teacher notes: curriculum links</summary>
+        <p style="margin:10px 0 0;font-size:16px;color:var(--muted)">Quiz questions map to Curriculum for Excellence Technologies organisers (Second and Third level). Questions marked "Challenge" stretch towards Third level.</p>
+        <div class="tags">${strands.map(s=>`<span>${esc(ORGS[s])}: ${esc(s)}</span>`).join("")}</div>
+      </details>`;
+    $("#copyTalk").addEventListener("click", e => {
+      const txt = st.headline + "\n\n" + st.discussion.map((d,i)=>(i+1)+". "+d).join("\n");
+      const btn = e.currentTarget;
+      const done = () => { btn.textContent = "Copied"; setTimeout(()=>btn.textContent="Copy discussion points",1800); };
+      try{ navigator.clipboard.writeText(txt).then(done, () => { selectTalk(); btn.textContent="Text selected: press Ctrl+C"; }); }catch(_){ selectTalk(); }
+    });
+    $("#main").querySelectorAll("[data-storytag]").forEach(b => b.addEventListener("click", () => { aTag = null; setTag(b.dataset.storytag, true); }));
+    wireShare(st);
+    renderFoot(st);
+    startQuiz(st);
+    startLinks(st);
+    startParsons(st);
+    renderArchive();
+    if (scroll) window.scrollTo({top:0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+  }
+  function selectTalk(){ const el=document.querySelector(".talk"); const r=document.createRange(); r.selectNodeContents(el); const s=getSelection(); s.removeAllRanges(); s.addRange(r); }
+
+  function renderFoot(st){
+    $("#foot").innerHTML = `<strong style="color:var(--ink)">Where this story came from</strong>
+      <ul>${(st.sources||[]).map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></li>`).join("")}</ul>
+      These links go to news sites written for adults. The Daily Compute rewrites each story for readers aged 10–14 and adds a new one every morning. Illustrations are drawn especially for this page.`;
+  }
+
+  // ---------- Quiz ----------
+  function startQuiz(st){
+    const qs = st.quiz || []; const key = "dc-best-" + st.id;
+    let i = 0, results = [];
+    const box = $("#quiz");
+    const leds = () => `<div class="leds" aria-hidden="true">${qs.map((_,k)=>`<i class="${results[k]===true?"ok":results[k]===false?"no":""} ${k===i&&results.length<qs.length?"cur":""}"></i>`).join("")}</div>`;
+    function q(){
+      const Q = qs[i];
+      const challenge = /^challenge:/i.test(Q.q);
+      box.innerHTML = `<div class="quiz-head"><h2>Quick quiz</h2>${leds()}</div>
+        <p class="strand">Question ${i+1} of ${qs.length} · ${esc(Q.strand||"")}</p>
+        <p class="qtext">${esc(Q.q)}</p>
+        <div class="opts">${Q.options.map((o,k)=>`<button class="opt" type="button" data-k="${k}"><span class="k">${"ABCD"[k]}</span><span>${esc(o)}</span></button>`).join("")}</div>
+        <div id="fb"></div>`;
+      box.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => answer(+b.dataset.k)));
+    }
+    function answer(k){
+      const Q = qs[i], ok = k === Q.answer; results[i] = ok;
+      box.querySelectorAll(".opt").forEach(b => { const n=+b.dataset.k; b.disabled = true;
+        if (n===Q.answer) b.classList.add("right"); else if (n===k) b.classList.add("wrong"); else b.classList.add("dim"); });
+      box.querySelector(".leds").outerHTML = leds();
+      const last = i === qs.length-1;
+      box.querySelector("#fb").innerHTML = `<div class="feedback"><b>${ok?"CORRECT!":"NOT QUITE."}</b>${esc(Q.explain)}</div>
+        <div class="qnav"><button class="btn" type="button" id="next">${last?"See my score":"Next question"}</button></div>`;
+      const nb = box.querySelector("#next"); nb.focus({preventScroll:true});
+      nb.addEventListener("click", () => { if (last) end(); else { i++; q(); } });
+    }
+    function end(){
+      const score = results.filter(Boolean).length;
+      const best = Math.max(score, store.get(key)||0); store.set(key,best);
+      const msg = score===qs.length ? "Perfect run. Every answer correct." : score >= qs.length*0.6 ? "Great work. Check the ones you missed and try again." : "Good start. Reread the story and have another go.";
+      box.innerHTML = `<div class="quiz-head"><h2>Quick quiz</h2>${leds()}</div>
+        <p class="score">${score}/${qs.length}</p><p style="margin:0 0 6px;font-size:19px">${msg}</p>
+        <p class="best">Your best score on this device: ${best}/${qs.length}</p>
+        <div class="qnav"><button class="btn" type="button" id="again">Try again</button></div>`;
+      box.querySelector("#again").addEventListener("click", () => { i=0; results=[]; q(); });
+    }
+    if (qs.length) q(); else box.hidden = true;
+  }
+
+  // ---------- Four Links (find four groups of four) ----------
+  function startLinks(st){
+    const box = $("#links"), C = st.connections;
+    if (!C || !C.groups || C.groups.length !== 4){ box.hidden = true; return; }
+    box.hidden = false;
+    const r = rng(hash(st.id + "links"));
+    const shuffle = a => { a = a.slice(); for (let i=a.length-1;i>0;i--){ const j=Math.floor(r()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+    const groupOf = w => C.groups.findIndex(g => g.words.includes(w));
+    let tiles, sel, solved, mistakes, tried, msg, done;
+    const reset = () => { tiles = shuffle(C.groups.flatMap(g => g.words)); sel = []; solved = []; mistakes = 0; tried = new Set(); msg = ""; done = false; };
+    reset();
+    const MAX = 4;
+    function draw(shake){
+      const solvedRows = solved.map(gi => { const g = C.groups[gi]; return `<div class="solved lv${gi+1}"><b>${esc(g.name)}</b><div class="w">${g.words.map(esc).join(" · ")}</div>${g.explain?`<div class="e">${esc(g.explain)}</div>`:""}</div>`; }).join("");
+      const left = tiles.filter(w => !solved.includes(groupOf(w)));
+      box.innerHTML = `<div class="ph"><h2 id="linksh">Four Links</h2><span class="sub">${esc(C.title||"")} · find four groups of four</span></div>
+        <p class="phow">Tap four words that share a link, then press Check. Groups go from easiest to trickiest. Watch out for red herrings.</p>
+        <div class="lgrid${shake?" shake":""}" role="group" aria-label="Word tiles">${solvedRows}${left.map(w => `<button class="tile${w.length>8?" long":""}" lang="en" type="button" data-w="${esc(w)}" aria-pressed="${sel.includes(w)}" ${done?"disabled":""}>${esc(w)}</button>`).join("")}</div>
+        <div class="lctl">
+          <div class="lives" aria-label="${MAX-mistakes} mistakes left">Mistakes left: ${Array.from({length:MAX},(_,i)=>`<i class="${i<mistakes?"used":""}"></i>`).join("")}</div>
+          <div class="lbtns">${done
+            ? `<button class="btn" type="button" id="lAgain">Play again</button>`
+            : `<button class="btn line" type="button" id="lShuffle">Shuffle</button>
+               <button class="btn line" type="button" id="lClear" ${sel.length?"":"disabled"}>Deselect all</button>
+               <button class="btn" type="button" id="lCheck" ${sel.length===4?"":"disabled"}>Check</button>`}</div>
+        </div>
+        <p class="lmsg" aria-live="polite">${msg}</p>`;
+      box.querySelectorAll(".tile").forEach(b => b.addEventListener("click", () => {
+        const w = b.dataset.w; msg = "";
+        if (sel.includes(w)) sel = sel.filter(x => x !== w); else if (sel.length < 4) sel.push(w);
+        draw();
+      }));
+      const q = id => box.querySelector(id);
+      if (q("#lShuffle")) q("#lShuffle").addEventListener("click", () => { const keep = tiles.filter(w => solved.includes(groupOf(w))); tiles = keep.concat(shuffle(tiles.filter(w => !keep.includes(w)))); draw(); });
+      if (q("#lClear")) q("#lClear").addEventListener("click", () => { sel = []; msg = ""; draw(); });
+      if (q("#lCheck")) q("#lCheck").addEventListener("click", check);
+      if (q("#lAgain")) q("#lAgain").addEventListener("click", () => { reset(); draw(); });
+    }
+    function check(){
+      const key = sel.slice().sort().join("|");
+      if (tried.has(key)){ msg = "You've already tried that group."; return draw(); }
+      tried.add(key);
+      const gs = sel.map(groupOf);
+      if (gs.every(g => g === gs[0])){
+        solved.push(gs[0]); sel = [];
+        if (solved.length === 4){ done = true; msg = mistakes === 0 ? "Perfect! All four links with no mistakes." : `Solved with ${mistakes} mistake${mistakes===1?"":"s"}. Well done!`; }
+        else msg = "Correct!";
+        return draw();
+      }
+      mistakes++;
+      const best = Math.max(...[0,1,2,3].map(g => gs.filter(x => x === g).length));
+      if (mistakes >= MAX){
+        done = true; sel = [];
+        [0,1,2,3].forEach(g => { if (!solved.includes(g)) solved.push(g); });
+        msg = "Out of mistakes. Here are all four links. Read why each group fits, then try again.";
+        return draw(true);
+      }
+      msg = best === 3 ? "One away! Three of those belong together." : "Not a group. Try a different four.";
+      draw(true);
+    }
+    draw();
+  }
+
+  // ---------- Parsons problem ----------
+  const KW = /\b(SET|TO|IF|THEN|ELSE|END|WHILE|DO|REPEAT|TIMES|UNTIL|FOR|FROM|STEP|SEND|DISPLAY|RECEIVE|SENSOR|KEYBOARD|AND|OR|NOT|TRUE|FALSE)\b/g;
+  function hl(code){
+    return code.split(/("[^"]*")/).map(part => part.startsWith('"') ? `<span class="st">${esc(part)}</span>`
+      : esc(part).replace(KW, '<span class="kw">$1</span>')).join("");
+  }
+  function startParsons(st){
+    const box = $("#parsons"), P = st.parsons;
+    if (!P || !P.lines || !P.lines.length){ box.hidden = true; return; }
+    box.hidden = false;
+    const items = P.lines.map((l,i)=>({id:"L"+i, idx:i, ...l})).concat((P.distractors||[]).map((l,i)=>({id:"D"+i, idx:-1, ...l})));
+    const byId = Object.fromEntries(items.map(it=>[it.id,it]));
+    const solution = P.lines.map((_,i)=>i);
+    const valid = [solution].concat(P.alternatives||[]);
+    // Seeded shuffle that never matches the answer
+    const r = rng(hash(st.id+"parsons"));
+    let poolOrder = items.map(it=>it.id);
+    for (let t=0; t<20; t++){
+      for (let i=poolOrder.length-1;i>0;i--){ const j=Math.floor(r()*(i+1)); [poolOrder[i],poolOrder[j]]=[poolOrder[j],poolOrder[i]]; }
+      if (poolOrder.slice(0,solution.length).join() !== solution.map(i=>"L"+i).join()) break;
+    }
+    let prog = [], marks = {}, tries = 0, solved = false, msg = "";
+    const lineHTML = (it, cls="") => `<button class="cl ${cls}" type="button" data-id="${it.id}" ${solved?"disabled":""} style="padding-left:${10+it.indent*28}px">${hl(it.code)}${marks[it.id]==="extra"?'<span class="flag">doesn\'t belong</span>':""}</button>`;
+    function draw(){
+      const pool = poolOrder.filter(id=>!prog.includes(id));
+      box.innerHTML = `<div class="ph"><h2 id="parsh">Code puzzle</h2><span class="sub">Parsons problem · ${esc(P.strand||"")}</span></div>
+        <p class="ptitle">${esc(P.title||"")}</p>
+        <p class="ptask">${esc(P.task)}</p>
+        <p class="phow">Tap a line to add it to your program. Tap it again to send it back, or use ↑ to move it up.</p>
+        <div class="pcols">
+          <div class="pcol"><h3>Lines to use</h3><ol class="pool">${pool.length?pool.map(id=>`<li>${lineHTML(byId[id])}</li>`).join(""):'<li class="empty">All lines used.</li>'}</ol></div>
+          <div class="pcol"><h3>Your program</h3><ol class="prog">${prog.length?prog.map((id,k)=>`<li>${lineHTML(byId[id], marks[id]==="ok"?"ok":marks[id]?"bad":"")}<button class="up" type="button" data-up="${k}" aria-label="Move line ${k+1} up" ${k===0||solved?"disabled":""}>↑</button></li>`).join(""):'<li class="empty">Your program is empty. Tap lines on the left to build it.</li>'}</ol></div>
+        </div>
+        <div class="pfoot">
+          ${solved?"":`<button class="btn" type="button" id="pCheck">Check my program</button>`}
+          <button class="btn line" type="button" id="pReset">${solved?"Try it again":"Start again"}</button>
+          ${!solved && tries>=2?`<button class="btn line" type="button" id="pShow">Show the solution</button>`:""}
+        </div>${msg}`;
+      box.querySelectorAll(".pool .cl").forEach(b=>b.addEventListener("click",()=>{ prog.push(b.dataset.id); marks={}; msg=""; draw(); }));
+      box.querySelectorAll(".prog .cl").forEach(b=>b.addEventListener("click",()=>{ prog=prog.filter(id=>id!==b.dataset.id); marks={}; msg=""; draw(); }));
+      box.querySelectorAll(".up").forEach(b=>b.addEventListener("click",()=>{ const k=+b.dataset.up; [prog[k-1],prog[k]]=[prog[k],prog[k-1]]; marks={}; msg=""; draw(); }));
+      const c=$("#pCheck"); if(c) c.addEventListener("click",check);
+      $("#pReset").addEventListener("click",()=>{ prog=[]; marks={}; msg=""; solved=false; tries=0; draw(); });
+      const s=$("#pShow"); if(s) s.addEventListener("click",()=>{ prog=solution.map(i=>"L"+i); marks=Object.fromEntries(prog.map(id=>[id,"ok"])); solved=true;
+        msg=`<div class="pmsg good"><b>SOLUTION.</b>${esc(P.explain||"")}</div>`; draw(); });
+    }
+    function check(){
+      const need = solution.length;
+      const extras = prog.filter(id=>byId[id].idx<0);
+      const idxs = prog.map(id=>byId[id].idx);
+      if (valid.some(v => v.length===idxs.length && v.every((x,k)=>x===idxs[k]))){
+        solved = true; marks = Object.fromEntries(prog.map(id=>[id,"ok"]));
+        msg = `<div class="pmsg good"><b>IT WORKS!</b>${esc(P.explain||"")}</div>`;
+        try{ const k="dc-parsons-"+st.id; store.set(k,true); }catch(e){}
+        return draw();
+      }
+      tries++;
+      let best = solution, bestScore = -1;
+      for (const v of valid){ const sc = v.filter((x,k)=>idxs[k]===x).length; if (sc>bestScore){ best=v; bestScore=sc; } }
+      marks = {};
+      prog.forEach((id,k)=>{ marks[id] = byId[id].idx<0 ? "extra" : best[k]===byId[id].idx ? "ok" : "no"; });
+      const right = prog.filter(id=>marks[id]==="ok").length;
+      const hints = [];
+      if (extras.length) hints.push("A line marked in red doesn't belong in this program. Take it out.");
+      if (prog.length - extras.length < need) hints.push(`The program needs ${need} lines and you have used ${prog.length - extras.length} of them.`);
+      if (!hints.length) hints.push("Read your program from the top, one line at a time, as if you were the computer.");
+      msg = `<div class="pmsg try"><b>NOT YET.</b>${right} of ${need} lines are in the right place (shown in green). ${esc(hints.join(" "))}</div>`;
+      draw();
+    }
+    draw();
+  }
+
+  // ---------- Links: #d2026-10-22, #d2026-10-22-quiz, #d2026-10-22-puzzle, #archive, #tag-binary ----------
+  function route(){
+    const hs = decodeURIComponent((location.hash||"").slice(1));
+    const smooth = matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    const m = hs.match(/^d(\d{4}-\d{2}-\d{2})(?:-(quiz|links|puzzle))?$/);
+    if (m){
+      const st = published().find(s => s.date === m[1]);
+      show(st ? st.id : (pickDefault()||{}).id);
+      if (st && m[2]){ const go = () => { const el = $({quiz:"#quiz", links:"#links", puzzle:"#parsons"}[m[2]]); if (el) el.scrollIntoView({block:"start"}); }; setTimeout(go, 60); (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(go, 30)); }
+      return;
+    }
+    show((pickDefault()||{}).id);
+    const t = hs.match(/^tag-(.+)$/);
+    if (t){ const all = [...new Set(published().flatMap(tagsOf))]; const tag = all.find(x => slug(x) === t[1]); if (tag){ aTag = null; setTag(tag, true); } return; }
+    if (hs === "archive") setTimeout(() => $("#archive").scrollIntoView({behavior: smooth}), 60);
+  }
+  window.addEventListener("hashchange", route);
+
+  // ---------- Load ----------
+  fetch("stories.json", {cache:"no-store"}).then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(data => {
+      STORIES = (data.stories||[]).slice().sort((a,b)=> b.date.localeCompare(a.date));
+      route();
+    })
+    .catch(() => { $("#main").innerHTML = `<div class="state">Today's story couldn't load. Refresh the page to try again.</div>`; });
+})();
+</script>
+
+</body></html>
