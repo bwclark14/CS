@@ -390,6 +390,7 @@ input[type=range]{width:100%;accent-color:var(--bad)}
 .sig label{display:grid;gap:4px;font-size:.84rem;font-weight:700}
 .sig select{font:inherit;font-weight:400;padding:7px;border-radius:6px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
 @media (max-width:720px){.shopwrap{grid-template-columns:minmax(0,1fr)}}
+.bubcv{display:block;width:100%;height:auto;aspect-ratio:440/260;border-radius:8px;background:var(--bg)}
 .teacher ol,.teacher ul{margin:8px 0 0;padding-left:20px}
 .teacher li{margin-bottom:6px}
 footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
@@ -578,7 +579,7 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
     <div class="dash">
       <div class="panel"><h3>What the AI thinks you’re into</h3><div class="bars" id="bars"></div></div>
       <div class="panel"><h3>Advertiser segments you’ve been placed in</h3><div class="segs" id="segs"></div><p class="small" style="margin-top:8px">Advertisers pay to reach these groups. You never chose them.</p></div>
-      <div class="panel"><h3>Bubble meter</h3><div class="meter" aria-hidden="true"><i id="mPin" style="left:0%"></i></div><p class="small" style="margin-top:8px" id="mText">Varied feed. Keep going.</p></div>
+      <div class="panel"><h3>Your bubble</h3><canvas id="bubCv" class="bubcv" role="img" aria-label="You in the middle with posts on every topic around you."></canvas><p class="small" style="margin-top:8px" id="mText">Varied feed. Keep going.</p><p class="small" style="margin-top:4px">You are in the middle. Each card is a post on a different topic. Cards pushed outside the bubble are still out there; your feed has just stopped showing them to you.</p></div>
       <div class="panel"><h3>Behind the scenes: the data log</h3><div class="log" id="log" aria-live="off"></div></div>
       <div><button class="btn" id="feedReset">Reset the app (new user)</button></div>
     </div>
@@ -1339,12 +1340,60 @@ function renderFeed(){
   $("#segs").innerHTML=segs.length?segs.map(s=>"<span class='seg'>"+esc(s.name)+"</span>").join(""):"<span class='seg dim'>Not enough data yet. Keep using the app.</span>";
   const counts={}; history.forEach(h=>counts[h]=(counts[h]||0)+1);
   const topShare=history.length?Math.max(...Object.values(counts))/history.length:0;
-  $("#mPin").style.left="calc("+(topShare*100).toFixed(0)+"% - 2px)";
+  const topK=Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0]||null;
+  const bb=history.length<5?0:Math.max(0,Math.min(1,(topShare-0.3)/0.5));
+  const inSet=new Set(Object.keys(TOPICS).filter(k=>bb<0.15||k===topK||(counts[k]>=2&&bb<0.6)));
+  if(window.__bubble) window.__bubble(bb,topK,inSet);
   $("#mText").textContent=history.length<5?"Varied feed. Keep going.":topShare>=.6?"Filter bubble: "+Math.round(topShare*100)+"% of your last "+history.length+" posts were one topic.":topShare>=.4?"Narrowing: one topic is starting to take over.":"Varied feed. Keep going.";
 }
 setInterval(()=>{if(shownAt) $("#timer").textContent=((performance.now()-shownAt)/1000).toFixed(1)+"s";},100);
 $("#aLike").onclick=()=>act("like"); $("#aWatch").onclick=()=>act("watch"); $("#aShare").onclick=()=>act("share"); $("#aSkip").onclick=()=>act("skip"); $("#aSave").onclick=()=>act("save"); $("#aComment").onclick=()=>act("comment");
 $("#feedReset").onclick=resetFeed;
+(function(){
+  const cv=document.getElementById("bubCv"); if(!cv||!cv.getContext) return;
+  const ctx=cv.getContext("2d");
+  let W=440,H=260,cx,cy,rmax,outer,sx,sy;
+  const keys=Object.keys(TOPICS), items=[];
+  const order=[]; for(let j=0;j<2;j++) keys.forEach(k=>order.push(k));
+  order.forEach((k,i)=>items.push({k,a:i*2.39996,f:Math.sqrt((i+0.5)/order.length),x:0,y:0,al:1,ph:Math.random()*6.28}));
+  let st={b:0,top:null,inSet:new Set(keys)}, r=null;
+  const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const cssv=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  function size(){ const w=cv.clientWidth||440, narrow=w<480; W=narrow?300:440; H=narrow?300:260;
+    cv.style.aspectRatio=W+"/"+H; const hh=w*H/W, d=window.devicePixelRatio||1;
+    cv.width=Math.round(w*d); cv.height=Math.round(hh*d); ctx.setTransform(d*w/W,0,0,d*w/W,0,0);
+    cx=W/2; cy=H/2+2; rmax=Math.min(112,H/2-16); outer=rmax+26; sx=(W/2-34)/outer; sy=(H/2-12)/outer;
+    if(r===null) r=rmax; items.forEach(it=>{ if(!it.x){ it.x=cx; it.y=cy; } }); }
+  function tgt(it,t){ const wob=reduce?0:Math.sin(t/1500+it.ph)*0.05;
+    if(st.inSet.has(it.k)){ const R=24+it.f*Math.max(8,r-36); return [cx+R*Math.cos(it.a+wob), cy+R*Math.sin(it.a+wob), 1]; }
+    const R=r+22+it.f*Math.max(14,outer-r-18); return [cx+R*Math.cos(it.a+wob)*Math.max(sx,1), cy+R*Math.sin(it.a+wob)*sy, 0.32]; }
+  function card(it){ const lab=it.k, col=TOPICS[it.k].c; ctx.font="600 10px system-ui, sans-serif"; const w=ctx.measureText(lab).width+12, h=17;
+    const x=Math.max(w/2+3,Math.min(W-w/2-3,it.x)), y=Math.max(h/2+3,Math.min(H-h/2-3,it.y));
+    ctx.globalAlpha=Math.max(0,Math.min(1,it.al)); ctx.fillStyle=col; ctx.beginPath(); if(ctx.roundRect) ctx.roundRect(x-w/2,y-h/2,w,h,5); else ctx.rect(x-w/2,y-h/2,w,h); ctx.fill();
+    ctx.fillStyle="#fff"; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillText(lab,x,y+0.5); ctx.globalAlpha=1; }
+  function draw(t){
+    const ink=cssv("--ink")||"#13202B", teal=cssv("--teal")||"#0C6E7C", bad=cssv("--bad")||"#B23A1C";
+    const rt=rmax-st.b*(rmax-44); r+=(rt-r)*(reduce?1:0.06);
+    items.forEach(it=>{ const g=tgt(it,t), e=reduce?1:0.07; it.x+=(g[0]-it.x)*e; it.y+=(g[1]-it.y)*e; it.al+=(g[2]-it.al)*e; });
+    ctx.clearRect(0,0,W,H);
+    items.filter(it=>!st.inSet.has(it.k)).forEach(card);
+    const edge=st.b>0.6?bad:teal;
+    ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.globalAlpha=0.10+st.b*0.12; ctx.fillStyle=edge; ctx.fill();
+    ctx.globalAlpha=0.55+st.b*0.4; ctx.lineWidth=2+st.b*2; ctx.strokeStyle=edge; ctx.stroke();
+    ctx.globalAlpha=0.35; ctx.beginPath(); ctx.arc(cx-r*0.4,cy-r*0.5,Math.max(3,r*0.1),0,Math.PI*2); ctx.fillStyle="#fff"; ctx.fill(); ctx.globalAlpha=1;
+    items.filter(it=>st.inSet.has(it.k)).forEach(card);
+    const glow=st.top&&st.b>0.15?TOPICS[st.top].c:"#9AA8B4";
+    ctx.fillStyle=ink; ctx.beginPath(); ctx.arc(cx,cy-14,8,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(cx-11,cy+16); ctx.quadraticCurveTo(cx,cy-10,cx+11,cy+16); ctx.closePath(); ctx.fill();
+    ctx.fillStyle=glow; ctx.fillRect(cx+6,cy-1,8,13); ctx.strokeStyle=ink; ctx.lineWidth=1.5; ctx.strokeRect(cx+6,cy-1,8,13);
+    if(!reduce) requestAnimationFrame(draw);
+  }
+  window.__bubble=function(b,top,inSet){ st={b,top,inSet}; const n=inSet.size;
+    cv.setAttribute("aria-label", b<0.15?"You in the middle, with posts on every topic inside your bubble.":"Your bubble has shrunk. Only "+n+" topic"+(n===1?"":"s")+" can get in; the rest are pushed outside.");
+    if(reduce) draw(performance.now()); };
+  size(); window.addEventListener("resize",()=>{ size(); if(reduce) draw(performance.now()); });
+  if(reduce) draw(performance.now()); else requestAnimationFrame(draw);
+})();
 resetFeed();
 
 /* ---------- 2.2b NEWS FEED ---------- */
