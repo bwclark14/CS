@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bargo · Practice site</title>
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#F6F7F2;--card:#FFFFFF;--ink:#1D2A1F;--muted:#667064;--line:#E2E6DC;--brand:#0F7B47;--acc:#FFC531;--red:#D7263D}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button{font:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.practice{background:#1D2A1F;color:#fff;font-size:12px;padding:6px 12px;text-align:center}
+.practice a{color:var(--acc)}
+header{background:var(--brand);color:#fff;position:sticky;top:0;z-index:20}
+.hw{max-width:980px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px}
+.logo{font-weight:900;font-size:26px;letter-spacing:-1px;background:none;border:0;color:#fff;padding:0}
+.logo span{color:var(--acc)}
+.search{flex:1;display:flex;min-width:0}
+.search input{flex:1;min-width:0;border:0;border-radius:8px 0 0 8px;padding:9px 12px;font:inherit}
+.search button{border:0;background:var(--acc);border-radius:0 8px 8px 0;padding:0 14px;font-weight:700}
+.hbtn{background:none;border:0;color:#fff;font-weight:700;font-size:13px;white-space:nowrap;padding:6px}
+.hbtn b{background:var(--acc);color:var(--ink);border-radius:99px;padding:0 7px;margin-left:4px}
+.strip{background:#0B5E36;color:#DDF5E7;font-size:12px;text-align:center;padding:5px}
+main{max-width:980px;margin:0 auto;padding:16px}
+.hero{background:linear-gradient(120deg,#0F7B47,#2BB673);color:#fff;border-radius:14px;padding:22px;display:grid;gap:6px;margin-bottom:18px}
+.hero h1{margin:0;font-size:26px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:left;display:grid;gap:6px;color:var(--ink)}
+.pimg{aspect-ratio:4/3;border-radius:8px;display:grid;place-items:center;font-size:44px;color:#fff;max-width:100%}
+.pc .nm{font-weight:700;font-size:14px}
+.price{font-weight:900;font-size:20px}
+.was{color:var(--muted);text-decoration:line-through;font-size:13px;margin-left:6px;font-weight:400}
+.stars{color:#E8A400;font-size:13px}
+.tag{display:inline-block;background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px}
+.sec{font-size:18px;font-weight:800;margin:22px 0 10px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.btn{display:block;width:100%;border:0;border-radius:10px;padding:13px;font-weight:800;background:var(--acc);color:var(--ink);font-size:16px}
+.btn.g{background:var(--brand);color:#fff}
+.btn.o{background:#fff;border:1.5px solid var(--line)}
+.ghost{background:none;border:0;color:#9BA397;font-size:12px;text-decoration:underline;padding:6px;display:block;margin:4px auto 0}
+.urg{color:var(--red);font-weight:700;font-size:14px}
+.timer{display:inline-block;background:var(--red);color:#fff;font-weight:800;padding:2px 8px;border-radius:6px;font-variant-numeric:tabular-nums}
+.note{font-size:12px;color:var(--muted)}
+.rv{border-top:1px solid var(--line);padding:10px 0;font-size:14px}
+.row{display:flex;justify-content:space-between;gap:10px;padding:6px 0;font-size:14px}
+.row.t{font-weight:900;font-size:17px;border-top:1px solid var(--line);margin-top:6px;padding-top:10px}
+.item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.item .pimg{font-size:26px;aspect-ratio:1/1}
+.chk{display:flex;gap:8px;align-items:flex-start;font-size:13px;margin:8px 0;color:var(--muted)}
+.chk input{margin-top:2px;accent-color:var(--brand)}
+.field{display:grid;gap:4px;margin-bottom:10px;font-size:13px;font-weight:700}
+.field input,.field select{font:inherit;font-weight:400;padding:10px;border:1.5px solid var(--line);border-radius:8px}
+.overlay{position:fixed;inset:0;background:rgba(29,42,31,.55);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal{background:#fff;border-radius:16px;padding:22px;max-width:420px;width:100%;max-height:88vh;overflow-y:auto}
+.banner{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:3px solid var(--brand);padding:16px;z-index:40;box-shadow:0 -6px 24px rgba(0,0,0,.12)}
+.banner .in{max-width:980px;margin:0 auto;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.banner p{flex:1;min-width:240px;margin:0;font-size:13px}
+.toast{position:fixed;right:16px;bottom:16px;max-width:340px;background:var(--ink);color:#fff;border-radius:12px;padding:14px;z-index:60;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.toast b{display:block;color:var(--acc)}
+.steps{display:flex;gap:6px;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:14px}
+.steps span.on{color:var(--brand)}
+.tog{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+footer{max-width:980px;margin:30px auto 0;padding:16px;font-size:11px;color:#A3AA9F}
+footer a{color:#A3AA9F}
+@media (max-width:680px){.two{grid-template-columns:1fr}.hbtn span{display:none}}
+</style>
+</head>
+<body>
+<div class="practice">PRACTICE SITE for The Data Trail · Everything here is pretend · No real orders or payments · Use made-up details · <a href="../../#audit">Back to the activity</a></div>
+<header><div class="hw"><button class="logo" id="home">bar<span>go</span></button><form class="search" id="sform"><input id="sq" placeholder="Search Bargo" aria-label="Search"><button>Go</button></form><button class="hbtn" id="acct">&#9786; <span>Account</span></button><button class="hbtn" id="bk">&#128722;<b id="bkn">0</b></button></div><div class="strip">Free delivery for Bargo+ members · Try 7 days free</div></header>
+<main id="main"></main>
+<footer>&copy; Bargo Retail Ltd (pretend) · <a href="#" id="tc">Terms &amp; conditions</a> · Privacy · Cookies<br>Prices shown may be personalised based on your browsing, device and location. See section 14.3 of our terms.</footer>
+<div id="layer"></div>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const P=[
+ {id:"hp",n:"Pulse wireless headphones",p:39.99,was:89.99,ic:"&#127911;",c:"#3B5BDB",r:4.8,rc:2184,cat:"Tech"},
+ {id:"hd",n:"Everyday hoodie (all sizes)",p:24.99,was:45.00,ic:"&#129509;",c:"#5F3DC4",r:4.6,rc:932,cat:"Clothing"},
+ {id:"bt",n:"Steel water bottle 750ml",p:12.99,was:19.99,ic:"&#129380;",c:"#0C8599",r:4.7,rc:1510,cat:"Outdoors"},
+ {id:"bp",n:"Trek backpack 25L",p:29.99,was:59.99,ic:"&#127890;",c:"#2B8A3E",r:4.5,rc:640,cat:"Outdoors"},
+ {id:"gm",n:"Star Tactics (game)",p:34.99,was:49.99,ic:"&#127918;",c:"#C2255C",r:4.9,rc:3120,cat:"Games"},
+ {id:"pc",n:"Tough phone case",p:9.99,was:24.99,ic:"&#128241;",c:"#E8590C",r:4.4,rc:2207,cat:"Tech"}
+];
+const S={views:{},basket:[],plus:true,protect:{},cookies:null,newsShown:false,leftHome:false,retarget:false,member:false,acct:null,orders:[],step:1};
+const money=v=>"£"+v.toFixed(2);
+function priceFor(p){ const v=S.views[p.id]||0; return v>=3?+(p.p+3.5).toFixed(2):p.p; }
+function modal(h){ $("#layer").innerHTML="<div class='overlay'><div class='modal'>"+h+"</div></div>"; }
+function close(){ $("#layer").innerHTML=""; }
+function toast(t,b,ms){ const d=document.createElement("div"); d.className="toast"; d.innerHTML="<b>"+esc(t)+"</b>"+b; document.body.appendChild(d); setTimeout(()=>d.remove(),ms||6000); }
+function count(){ $("#bkn").textContent=S.basket.length; }
+
+/* cookies */
+function cookieBanner(){
+  const d=document.createElement("div"); d.className="banner"; d.id="cb";
+  d.innerHTML="<div class='in'><p><b>Bargo uses cookies</b> to give you the best shopping experience, personalise offers and prices, and show you Bargo ads on other websites.</p><button class='btn' style='width:auto;padding:12px 26px' id='cba'>Accept all</button><button class='ghost' id='cbm'>Settings</button></div>";
+  document.body.appendChild(d);
+  $("#cba").onclick=()=>{S.cookies="all";d.remove();};
+  $("#cbm").onclick=()=>{ modal("<h3 style='margin-top:0'>Cookie settings</h3><div class='tog'><span>Essential</span><span>Always on</span></div><label class='tog'><span>Personalisation (offers and prices)</span><input type='checkbox' id='c1' checked></label><label class='tog'><span>Advertising across other websites</span><input type='checkbox' id='c2' checked></label><label class='tog'><span>Analytics</span><input type='checkbox' id='c3' checked></label><p class='note'>Turning these off may make Bargo work less well.</p><button class='btn' id='cs1'>Accept all</button><button class='ghost' id='cs2'>Save settings</button>");
+    $("#cs1").onclick=()=>{S.cookies="all";close();d.remove();}; $("#cs2").onclick=()=>{S.cookies=($("#c1").checked||$("#c2").checked)?"some":"essential";close();d.remove();}; };
+}
+function newsletter(){ if(S.newsShown) return; S.newsShown=true;
+  modal("<div style='text-align:center'><div style='font-size:46px'>&#127873;</div><h2 style='margin:4px 0'>Get 10% off your first order!</h2><p class='note'>Join 2 million shoppers getting our best deals.</p><div class='field' style='text-align:left'><input placeholder='made-up@example.com' aria-label='Email'></div><button class='btn' id='nl1'>Yes, I want to save!</button><button class='ghost' id='nl2'>No thanks, I prefer paying full price</button></div>");
+  $("#nl1").onclick=()=>{close();toast("You're in!","Your code is <b>WELCOME10</b>. You've also been signed up for daily deal emails and partner offers.");}; $("#nl2").onclick=close; }
+
+/* views */
+function home(){
+  if(S.basket.length&&S.leftHome&&!S.retarget){ S.retarget=true; setTimeout(()=>toast("You left something behind!","Your "+esc(P.find(x=>x.id===S.basket[0].id).n)+" is waiting. Checkout in the next <b>15 minutes</b> and get 10% off.",9000),600); }
+  const recent=Object.keys(S.views).map(id=>P.find(p=>p.id===id));
+  $("#main").innerHTML="<div class='hero'><span class='tag' style='justify-self:start;background:var(--acc);color:var(--ink)'>MEGA DEALS</span><h1>Up to 70% off. Ends tonight!</h1><p style='margin:0'>Today only: deals picked just for you.</p></div>"+
+  (recent.length?"<div class='sec'>Because you looked at "+esc(recent[recent.length-1].n.toLowerCase())+"</div><div class='grid'>"+P.filter(p=>p.cat===recent[recent.length-1].cat||p.id==="pc").slice(0,4).map(card).join("")+"</div>":"")+
+  "<div class='sec'>Deals picked for you</div><div class='grid'>"+P.map(card).join("")+"</div>"+
+  (recent.length?"<div class='sec'>Recently viewed</div><div class='grid'>"+recent.map(card).join("")+"</div>":"");
+  bindCards(); S.leftHome=true;
+}
+function card(p){ return "<button class='pc' data-p='"+p.id+"'><span class='pimg' style='background:"+p.c+"'>"+p.ic+"</span><span class='nm'>"+esc(p.n)+"</span><span class='stars'>&#9733;&#9733;&#9733;&#9733;&#9733; <span class='note'>"+p.rc.toLocaleString()+"</span></span><span><span class='price'>"+money(priceFor(p))+"</span><span class='was'>"+money(p.was)+"</span></span><span class='tag' style='justify-self:start'>-"+Math.round((1-p.p/p.was)*100)+"%</span></button>"; }
+function bindCards(){ document.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>product(b.dataset.p)); }
+let tmr=null;
+function product(id){
+  const p=P.find(x=>x.id===id); S.views[id]=(S.views[id]||0)+1; const v=S.views[id], pr=priceFor(p);
+  clearInterval(tmr); let secs=14*60+59;
+  $("#main").innerHTML="<p class='note'><a href='#' id='bkhome'>Home</a> › "+p.cat+"</p><div class='two'><div><div class='pimg' style='background:"+p.c+";font-size:110px;border-radius:14px'>"+p.ic+"</div></div><div><h1 style='margin:0 0 6px;font-size:24px'>"+esc(p.n)+"</h1><p class='stars' style='margin:0'>&#9733;&#9733;&#9733;&#9733;&#9733; "+p.r+" · <a href='#rev'>"+p.rc.toLocaleString()+" reviews</a></p>"+
+  "<p style='margin:12px 0 2px'><span class='price' style='font-size:30px'>"+money(pr)+"</span><span class='was'>RRP "+money(p.was)+"</span></p>"+(v>=3?"<p class='note' style='margin:0'>Price for you today</p>":"")+
+  "<p class='urg' style='margin:10px 0 4px'>&#9888; Only 2 left in stock!</p><p style='margin:0 0 4px;font-size:14px'>&#128065; "+(9+((v*7)%17))+" people are looking at this right now</p><p style='margin:0 0 14px;font-size:14px'>Deal ends in <span class='timer' id='tm'>14:59</span></p>"+
+  (v>=2?"<p class='note' style='background:#FFF6D6;padding:8px;border-radius:8px;color:var(--ink)'>We noticed you've looked at this "+v+" times. Don't miss out!</p>":"")+
+  "<button class='btn' id='add'>Add to basket</button><button class='btn o' style='margin-top:8px' id='bn'>Pay in 3 · just "+money(pr/3)+" today</button>"+
+  "<p class='note' style='margin-top:10px'>Free delivery with Bargo+ · Free returns within 14 days*</p></div></div>"+
+  "<div class='sec' id='rev'>Customer reviews</div><div class='box'><p style='margin:0 0 6px'><b>"+p.r+" out of 5</b> · Sorted by: <select id='rs' style='font:inherit'><option>Most helpful</option><option>Newest</option><option>Lowest rating</option></select></p><div id='rvs'></div></div>"+
+  "<div class='sec'>Customers like you also bought</div><div class='grid'>"+P.filter(x=>x.id!==id).slice(0,3).map(card).join("")+"</div>";
+  const good=[["Sam R.","Brilliant, exactly as described!"],["Alex","Fast delivery, really happy."],["Jordan","Great value for money."]];
+  const bad=[["Casey","Stopped working after two weeks and returns took a month."],["Riley","Not the same as the picture."],["Robin","Price went up after I looked at it a few times?"]];
+  const rv=k=>{ const list=k==="Lowest rating"?bad.map(x=>[x[0],x[1],1]):k==="Newest"?[[bad[2][0],bad[2][1],2],[good[0][0],good[0][1],5]]:good.map(x=>[x[0],x[1],5]);
+    $("#rvs").innerHTML=list.map(r=>"<div class='rv'><span class='stars'>"+"&#9733;".repeat(r[2])+"<span style='color:#ccc'>"+"&#9733;".repeat(5-r[2])+"</span></span> <b>"+r[0]+"</b><br>"+r[1]+"</div>").join(""); };
+  rv("Most helpful"); $("#rs").onchange=e=>rv(e.target.value);
+  tmr=setInterval(()=>{ secs--; const t=$("#tm"); if(!t){clearInterval(tmr);return;} if(secs<0) secs=14*60+59; t.textContent=Math.floor(secs/60)+":"+String(secs%60).padStart(2,"0"); },1000);
+  $("#add").onclick=()=>{ S.basket.push({id,price:pr}); S.protect[id]=true; count(); modal("<h3 style='margin-top:0'>Added to basket</h3><p>"+esc(p.n)+" · "+money(pr)+"</p><p class='note'>We've added <b>2-year Protection Plan (£4.99)</b> so you're covered.</p><button class='btn' id='gob'>Go to basket</button><button class='btn o' style='margin-top:8px' id='cs'>Continue shopping</button>"); $("#gob").onclick=()=>{close();basket();}; $("#cs").onclick=()=>{close();home();}; };
+  $("#bn").onclick=()=>{ modal("<h3 style='margin-top:0'>Pay in 3 with SplitPay</h3><p>Pay "+money(pr/3)+" today and the rest over 2 months. No interest if you pay on time.</p><p class='note'>Missed payments may cost £12 each and could affect your ability to borrow in future. SplitPay will check your details and share them with credit agencies.</p><button class='btn' id='bnc'>Got it</button>"); $("#bnc").onclick=close; };
+  $("#bkhome").onclick=e=>{e.preventDefault();clearInterval(tmr);home();};
+  bindCards(); window.scrollTo(0,0);
+  if(v===1&&Object.keys(S.views).length===1) setTimeout(newsletter,4000);
+}
+function totals(){ const items=S.basket.reduce((a,b)=>a+b.price,0), prot=Object.keys(S.protect).filter(k=>S.protect[k]&&S.basket.some(b=>b.id===k)).length*4.99;
+  return {items,prot,plus:S.plus?0:0,delivery:S.plus?0:3.99,service:S.basket.length?1.95:0,proc:S.basket.length?0.99:0}; }
+function basket(){
+  clearInterval(tmr);
+  if(!S.basket.length){ $("#main").innerHTML="<h1>Your basket</h1><p>Your basket is empty.</p><button class='btn g' style='width:auto;padding:10px 20px' id='sh'>Start shopping</button>"; $("#sh").onclick=home; return; }
+  const t=totals();
+  $("#main").innerHTML="<h1 style='margin-top:0'>Your basket</h1><div class='two'><div class='box'>"+S.basket.map((b,i)=>{const p=P.find(x=>x.id===b.id); return "<div class='item'><span class='pimg' style='background:"+p.c+"'>"+p.ic+"</span><div><b>"+esc(p.n)+"</b><br><button class='ghost' style='margin:0;padding:0' data-rm='"+i+"'>Remove</button></div><b>"+money(b.price)+"</b></div>";}).join("")+
+  Object.keys(S.protect).filter(k=>S.protect[k]&&S.basket.some(b=>b.id===k)).map(k=>"<div class='item'><span class='pimg' style='background:#868E96'>&#128737;</span><div><b>2-year Protection Plan</b><br><span class='note'>for "+esc(P.find(x=>x.id===k).n)+"</span> <button class='ghost' style='margin:0;padding:0;display:inline' data-np='"+k+"'>remove</button></div><b>£4.99</b></div>").join("")+
+  "<label class='chk' style='color:var(--ink)'><input type='checkbox' id='plus'"+(S.plus?" checked":"")+"> <span><b>Free delivery with Bargo+</b> · 7-day free trial, then £7.99 a month until you cancel</span></label></div>"+
+  "<div class='box'><div class='row'><span>Items</span><span>"+money(t.items+t.prot)+"</span></div><div class='row'><span>Delivery</span><span>"+(S.plus?"FREE":"Calculated at checkout")+"</span></div><div class='row t'><span>Subtotal</span><span>"+money(t.items+t.prot)+"</span></div><button class='btn' id='co'>Go to checkout</button><p class='note' style='text-align:center'>Secure checkout</p></div></div>";
+  $("#plus").onchange=e=>{S.plus=e.target.checked;basket();};
+  document.querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{S.basket.splice(+b.dataset.rm,1);count();basket();});
+  document.querySelectorAll("[data-np]").forEach(b=>b.onclick=()=>{ modal("<h3 style='margin-top:0'>Remove protection?</h3><p>Without protection, you'll pay full price for repairs. 4 out of 5 customers keep their plan.</p><button class='btn' id='kp'>Keep me protected</button><button class='ghost' id='rp'>Remove and risk it</button>"); $("#kp").onclick=close; $("#rp").onclick=()=>{S.protect[b.dataset.np]=false;close();basket();}; });
+  $("#co").onclick=()=>{S.step=1;checkout();};
+}
+function checkout(){
+  const t=totals(), st=["Account","Delivery","Payment"].map((s,i)=>"<span class='"+(S.step===i+1?"on":"")+"'>"+(i+1)+". "+s+"</span>").join(" › ");
+  if(S.step===1){
+    $("#main").innerHTML="<div class='steps'>"+st+"</div><div class='two'><div class='box'><h2 style='margin-top:0'>Create your Bargo account</h2><p class='note'>Save your details for faster checkout next time.</p><label class='field'>Email<input id='ae' placeholder='made-up@example.com'></label><label class='field'>Password<input type='password' id='ap'></label><label class='field'>Date of birth<input placeholder='DD/MM/YYYY' id='ad'></label>"+
+    "<label class='chk'><input type='checkbox' checked> Send me personalised offers by email and text</label><label class='chk'><input type='checkbox' checked> Share my details with carefully selected partners</label><label class='chk'><input type='checkbox' checked> Remember this device</label>"+
+    "<button class='btn g' id='c1'>Create account and continue</button><button class='ghost' id='g1'>checkout as guest</button></div><div class='box'><b>Order summary</b><div class='row'><span>Items</span><span>"+money(t.items+t.prot)+"</span></div></div></div>";
+    $("#c1").onclick=()=>{S.acct=$("#ae").value||"made-up@example.com";S.step=2;checkout();}; $("#g1").onclick=()=>{S.step=2;checkout();};
+  } else if(S.step===2){
+    $("#main").innerHTML="<div class='steps'>"+st+"</div><div class='two'><div class='box'><h2 style='margin-top:0'>Delivery</h2><label class='field'>Full name<input placeholder='Made-up name'></label><label class='field'>Address<input placeholder='1 Example Street'></label><label class='field'>Postcode<input placeholder='AB1 2CD'></label>"+
+    "<label class='chk' style='color:var(--ink)'><input type='radio' name='dl' checked> "+(S.plus?"Bargo+ free delivery (2–4 days)":"Standard delivery (2–4 days) £3.99")+"</label><label class='chk' style='color:var(--ink)'><input type='radio' name='dl'> Next day £5.99</label><button class='btn g' id='c2'>Continue to payment</button></div><div class='box'><b>Order summary</b><div class='row'><span>Items</span><span>"+money(t.items+t.prot)+"</span></div><div class='row'><span>Delivery</span><span>"+(S.plus?"FREE":money(3.99))+"</span></div></div></div>";
+    $("#c2").onclick=()=>{S.step=3;checkout();};
+  } else {
+    const total=t.items+t.prot+t.delivery+t.service+t.proc;
+    $("#main").innerHTML="<div class='steps'>"+st+"</div><div class='two'><div class='box'><h2 style='margin-top:0'>Payment</h2><button class='btn' id='spl'>Pay in 3 with SplitPay · "+money(total/3)+" today</button><p class='note' style='text-align:center'>or pay by card</p><label class='field'>Card number<input placeholder='Practice site: no real card' disabled></label><button class='btn o' id='pay'>Pay "+money(total)+" now</button></div>"+
+    "<div class='box'><b>Order summary</b><div class='row'><span>Items</span><span>"+money(t.items)+"</span></div>"+(t.prot?"<div class='row'><span>Protection plan</span><span>"+money(t.prot)+"</span></div>":"")+"<div class='row'><span>Delivery</span><span>"+(S.plus?"FREE":money(3.99))+"</span></div><div class='row'><span>Service fee</span><span>"+money(t.service)+"</span></div><div class='row'><span>Payment processing</span><span>"+money(t.proc)+"</span></div>"+(S.plus?"<div class='row'><span>Bargo+ trial</span><span>£0.00 today</span></div>":"")+"<div class='row t'><span>Total</span><span>"+money(total)+"</span></div>"+(S.plus?"<p class='note'>Bargo+ renews at £7.99/month after 7 days unless cancelled.</p>":"")+"</div></div>";
+    const done=how=>{ S.orders.push({items:S.basket.slice(),total,how}); if(S.plus) S.member=true; S.basket=[]; S.protect={}; count();
+      $("#main").innerHTML="<div class='box' style='max-width:560px;margin:0 auto;text-align:center'><div style='font-size:48px'>&#9989;</div><h2>Order placed (pretend)</h2><p>Total: <b>"+money(total)+"</b>"+(how==="split"?" · paying in 3":"")+"</p>"+(S.plus?"<p class='note'>You've joined <b>Bargo+</b>! Your free trial ends in 7 days, then it's £7.99 a month.</p>":"")+"<p class='note'>We'll use your order to recommend things you'll love.</p><button class='btn g' id='kh'>Keep shopping</button></div>"; $("#kh").onclick=home; };
+    $("#pay").onclick=()=>done("card"); $("#spl").onclick=()=>done("split");
+  }
+}
+function account(){
+  clearInterval(tmr);
+  $("#main").innerHTML="<h1 style='margin-top:0'>Your account</h1><div class='two'><div class='box'><h3 style='margin-top:0'>Bargo+ membership</h3><p>"+(S.member?"<b>Active</b> · free trial, then £7.99 a month":"Not a member")+"</p>"+(S.member?"<button class='ghost' style='margin:0;padding:0' id='mm'>Manage membership</button>":"")+
+  "<h3>Orders</h3>"+(S.orders.length?S.orders.map(o=>"<p class='note'>"+o.items.length+" item(s) · "+money(o.total)+"</p>").join(""):"<p class='note'>No orders yet.</p>")+"</div>"+
+  "<div class='box'><h3 style='margin-top:0'>What we know about you</h3><p class='note'>Used to personalise your offers and prices.</p><div class='row'><span>Items viewed</span><span>"+Object.values(S.views).reduce((a,b)=>a+b,0)+"</span></div><div class='row'><span>Most viewed</span><span>"+(Object.keys(S.views).sort((a,b)=>S.views[b]-S.views[a]).map(id=>P.find(p=>p.id===id).n)[0]||"none yet")+"</span></div><div class='row'><span>Shopper type</span><span>"+(Object.keys(S.views).length>=3?"Deal hunter":"Impulse buyer")+"</span></div><div class='row'><span>Device</span><span>Phone · high value</span></div><div class='row'><span>Cookies</span><span>"+(S.cookies||"not chosen")+"</span></div>"+
+  "<h3>Marketing</h3><label class='tog'><span>Emails and texts</span><input type='checkbox' checked></label><label class='tog'><span>Partner offers</span><input type='checkbox' checked></label><p class='note'>Changes can take up to 28 days.</p></div></div>";
+  const mm=$("#mm"); if(mm) mm.onclick=()=>cancel(1);
+}
+function cancel(s){
+  if(s===1) modal("<h3 style='margin-top:0'>Before you go…</h3><p>You'll lose free delivery, early access to deals and member prices. Members save £128 a year on average.</p><button class='btn' id='k'>Keep Bargo+</button><button class='ghost' id='n'>I still want to cancel</button>");
+  else if(s===2) modal("<h3 style='margin-top:0'>Special offer just for you</h3><p>Stay for 3 more months at half price: £3.99 a month.</p><button class='btn' id='k'>Accept offer</button><button class='ghost' id='n'>No thanks, continue</button>");
+  else modal("<h3 style='margin-top:0'>Cancel membership</h3><p>To cancel Bargo+, please call our membership team on <b>0800 000 0000</b> (Monday to Friday, 9am to 11am), or write to us. Cancellation takes effect at the end of your next billing period.</p><button class='btn' id='k'>OK</button>");
+  $("#k").onclick=()=>{close(); if(s===2) toast("Offer accepted","You'll pay £3.99 a month for 3 months, then £7.99.");};
+  const n=$("#n"); if(n) n.onclick=()=>cancel(s+1);
+}
+$("#home").onclick=()=>{clearInterval(tmr);home();};
+$("#bk").onclick=basket; $("#acct").onclick=account;
+$("#sform").onsubmit=e=>{e.preventDefault(); const q=$("#sq").value.toLowerCase(); const r=P.filter(p=>p.n.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q)); $("#main").innerHTML="<div class='sec'>Results for “"+esc(q)+"”</div><div class='grid'>"+(r.length?r:P).map(card).join("")+"</div><p class='note'>Sponsored results may appear first.</p>"; bindCards(); S.views["search:"+q]=0; delete S.views["search:"+q]; };
+$("#tc").onclick=e=>{e.preventDefault(); modal("<h3 style='margin-top:0'>Terms and conditions (extract)</h3><p class='note'>14.3 Prices. Prices shown on Bargo may vary between customers and over time. We may use information about your device, location, browsing and purchase history to personalise prices and offers.</p><p class='note'>9.1 Bargo+. Your free trial will automatically become a paid membership at £7.99 per month unless cancelled by phone before the trial ends.</p><button class='btn' id='tcx'>Close</button>"); $("#tcx").onclick=close; };
+home(); cookieBanner();
+})();
+</script>
+</body>
+</html>

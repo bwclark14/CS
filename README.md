@@ -22,3 +22,4 @@ A second version adds rule-based vs data-driven systems, data poisoning, accessi
 
 - Site: https://bwclark14.github.io/CS/data-trail-2/
 - `data-trail-2/index.html`: the second version
+- `data-trail-2/sites/`: three practice apps for the Practice audit activity, all simulated: Loop (social media), Bargo (online shop) and Starforge (mobile game). Each has built-in data, privacy and dark-pattern issues for pupils to find; the answer key is in the teacher notes.

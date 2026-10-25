@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Starforge · Practice site</title>
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#0F1430;--panel:#1A2150;--panel2:#242D66;--ink:#F2F4FF;--muted:#A7AED6;--gold:#FFC83D;--gem:#3DE0FF;--pink:#FF5FA2;--green:#4ADE80;--red:#F87171}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:#070A1C;color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button{font:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--gem);outline-offset:2px}
+.practice{background:#000;color:#fff;font-size:12px;padding:6px 12px;text-align:center}
+.practice a{color:var(--gold)}
+.app{max-width:420px;margin:0 auto;min-height:calc(100% - 30px);background:radial-gradient(circle at 30% 0%,#2B3480,var(--bg) 60%);position:relative;display:flex;flex-direction:column}
+.hud{display:flex;gap:8px;align-items:center;padding:10px 12px;position:sticky;top:0;background:rgba(15,20,48,.92);z-index:5}
+.pill{display:flex;align-items:center;gap:5px;background:var(--panel);border-radius:99px;padding:4px 10px;font-weight:800;font-size:14px;font-variant-numeric:tabular-nums}
+.pill button{border:0;background:var(--green);color:#063;border-radius:50%;width:20px;height:20px;line-height:18px;padding:0;font-weight:900}
+.sp{flex:1}
+.main{flex:1;padding:12px 14px 80px}
+.nav{position:sticky;bottom:0;display:grid;grid-template-columns:repeat(5,1fr);background:var(--panel);border-top:1px solid #333C80}
+.nav button{background:none;border:0;color:var(--muted);font-size:11px;padding:9px 0 11px;display:grid;justify-items:center;gap:2px;position:relative}
+.nav button b{font-size:19px;line-height:1}
+.nav button.on{color:var(--gold)}
+.nav .dot{position:absolute;top:6px;right:24%;width:9px;height:9px;background:var(--red);border-radius:50%}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:14px;font-weight:900;font-size:17px;background:linear-gradient(180deg,#FFD866,#F5A623);color:#3A2400;box-shadow:0 4px 0 #B26B00}
+.btn.b{background:linear-gradient(180deg,#5EEBFF,#1EA7D6);color:#032B3A;box-shadow:0 4px 0 #0B6E92}
+.btn.p{background:linear-gradient(180deg,#FF8AC0,#E8457F);color:#fff;box-shadow:0 4px 0 #A01F52}
+.ghost{background:none;border:0;color:#6E76A8;font-size:12px;text-decoration:underline;padding:6px;display:block;margin:6px auto 0}
+.card{background:var(--panel);border-radius:16px;padding:14px;margin-bottom:12px}
+.card h3{margin:0 0 6px}
+.note{font-size:12px;color:var(--muted)}
+.field{display:grid;gap:4px;margin-bottom:10px;font-size:13px;font-weight:700}
+.field input,.field select{font:inherit;font-weight:400;padding:11px;border-radius:10px;border:0;background:var(--panel2);color:var(--ink)}
+.chk{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--muted);margin:8px 0}
+.chk input{margin-top:2px;accent-color:var(--gem)}
+.overlay{position:fixed;inset:0;background:rgba(3,5,18,.75);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal{background:linear-gradient(180deg,#2A3378,#1A2150);border:2px solid #3F49A0;border-radius:20px;padding:20px;max-width:380px;width:100%;text-align:center;max-height:90vh;overflow-y:auto}
+.modal h2{margin:4px 0 8px}
+.big{font-size:54px;line-height:1.1}
+.shopgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gp{background:var(--panel2);border:0;border-radius:14px;padding:12px;color:var(--ink);display:grid;gap:4px;justify-items:center;position:relative}
+.gp .amt{font-weight:900;font-size:18px;color:var(--gem)}
+.gp .cost{background:var(--green);color:#063;border-radius:8px;padding:4px 10px;font-weight:900}
+.gp .rib{position:absolute;top:-8px;right:-4px;background:var(--pink);color:#fff;font-size:10px;font-weight:900;padding:2px 7px;border-radius:6px}
+.timer{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:900}
+.field2{position:relative;height:300px;background:radial-gradient(circle,#1C2468,#0B0F2A);border-radius:16px;overflow:hidden;touch-action:manipulation}
+.star{position:absolute;width:44px;height:44px;border:0;background:none;font-size:34px;line-height:44px;padding:0;color:var(--gold);text-shadow:0 0 12px #FFC83D;animation:pop .2s}
+@keyframes pop{from{transform:scale(.3)}to{transform:scale(1)}}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:10px 0}
+.days div{background:var(--panel2);border-radius:8px;padding:6px 2px;font-size:11px;text-align:center}
+.days div.got{background:#2F7D4A}
+.days div.today{outline:2px solid var(--gold)}
+.lb{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #2E3775}
+.av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:900;color:#fff;flex:none}
+.lb .n{flex:1}
+.chat{display:grid;gap:8px}
+.bub{background:var(--panel2);border-radius:12px;padding:8px 10px;font-size:13px}
+.bub b{color:var(--gem)}
+.tog{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #2E3775;font-size:14px}
+.tog small{display:block;color:var(--muted);font-size:12px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);top:40px;width:calc(100% - 32px);max-width:388px;background:#fff;color:#111;border-radius:14px;padding:10px 12px;z-index:60;font-size:13px;display:flex;gap:10px;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.toast b{display:block}
+.toast .av{background:linear-gradient(135deg,#5EEBFF,#FF5FA2)}
+.bar{height:8px;background:var(--panel2);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--gem)}
+</style>
+</head>
+<body>
+<div class="practice">PRACTICE SITE for The Data Trail · Everything here is pretend · No real money · Use made-up details · <a href="../../#audit">Back to the activity</a></div>
+<div class="app" id="app"></div>
+<div id="layer"></div>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const S={screen:"start",tab:"play",name:"",linked:false,adult:true,offers:true,notif:"ask",gems:120,coins:300,energy:5,level:1,spent:0,streak:6,claimed:false,losses:0,plays:0,contacts:false,chatOn:true,limit:false,partners:true,adsSeen:0,adConsent:null,skins:["Rookie"],chestOdds:false};
+function modal(h){ $("#layer").innerHTML="<div class='overlay'><div class='modal'>"+h+"</div></div>"; }
+function close(){ $("#layer").innerHTML=""; }
+function toast(t,b){ const d=document.createElement("div"); d.className="toast"; d.innerHTML="<div class='av'>S</div><div><b>"+esc(t)+"</b>"+esc(b)+"</div>"; document.body.appendChild(d); setTimeout(()=>d.remove(),5000); }
+function buy(label,price,then){ // one-tap purchase, no confirmation step
+  S.spent=+(S.spent+price).toFixed(2); then(); render(); toast("Purchase complete (pretend)",label+" · £"+price.toFixed(2)+" charged to card ending 0000"); }
+function hud(){ return "<div class='hud'><div class='pill'>&#9889; "+S.energy+"/5</div><div class='pill' style='color:var(--gem)'>&#128142; "+S.gems+" <button id='addg' aria-label='Get gems'>+</button></div><div class='pill' style='color:var(--gold)'>&#129689; "+S.coins+"</div><span class='sp'></span><div class='pill'>Lv "+S.level+"</div></div>"; }
+function shell(inner){
+  const tabs=[["play","&#9733;","Play"],["shop","&#128142;","Shop"],["daily","&#128197;","Daily"],["friends","&#9786;","Friends"],["settings","&#9881;","Settings"]];
+  $("#app").innerHTML=hud()+"<div class='main' id='main'>"+inner+"</div><nav class='nav'>"+tabs.map(t=>"<button data-t='"+t[0]+"' class='"+(S.tab===t[0]?"on":"")+"'><b>"+t[1]+"</b>"+t[2]+((t[0]==="daily"&&!S.claimed)||(t[0]==="shop")?"<span class='dot'></span>":"")+"</button>").join("")+"</nav>";
+  document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{S.tab=b.dataset.t;render();});
+  $("#addg").onclick=()=>{S.tab="shop";render();};
+}
+
+/* ---------- start ---------- */
+function start(){
+  $("#app").innerHTML="<div class='main' style='text-align:center;padding-top:40px'><div class='big'>&#11088;</div><h1 style='margin:6px 0 2px;font-size:34px;letter-spacing:1px'>STARFORGE</h1><p class='note' style='margin:0 0 30px'>Catch stars. Build your galaxy. Beat your friends.</p>"+
+  "<button class='btn b' id='lp'>Continue with Loop</button><p class='note' style='margin:6px 0 16px'>Play with your Loop friends instantly</p><button class='ghost' id='em'>Sign up with email instead</button></div>";
+  $("#lp").onclick=()=>{ modal("<h2>Starforge wants to access your Loop account</h2><p class='note' style='text-align:left'>This will let Starforge:<br>&#10003; See your name and profile picture<br>&#10003; See your friends list<br>&#10003; See your birthday and location<br>&#10003; Post on Loop for you</p><button class='btn' id='ok'>Allow</button><button class='ghost' id='no'>Cancel</button>"); $("#ok").onclick=()=>{S.linked=true;S.name="pixel_fox";close();S.screen="setup";render();}; $("#no").onclick=close; };
+  $("#em").onclick=()=>{S.screen="setup";render();};
+}
+function setup(){
+  const yrs=[]; for(let y=2020;y>=1960;y--) yrs.push(y);
+  $("#app").innerHTML="<div class='main' style='padding-top:30px'><h2 style='margin:0 0 4px'>Create your player</h2><p class='note' style='margin:0 0 18px'>Almost ready!</p>"+
+  "<label class='field'>Player name<input id='pn' value='"+esc(S.name)+"' placeholder='e.g. NovaRunner'></label>"+
+  "<label class='field'>Year of birth<select id='yb'>"+yrs.map(y=>"<option"+(y===2000?" selected":"")+">"+y+"</option>").join("")+"</select></label>"+
+  "<label class='chk'><input type='checkbox' id='o1' checked> Send me personalised offers based on how I play</label>"+
+  "<label class='chk'><input type='checkbox' id='o2' checked> Share my play data with Starforge partners</label>"+
+  "<button class='btn' id='go'>Start playing!</button><p class='note' style='text-align:center'>By continuing you agree to the Terms of Service and Privacy Policy.</p></div>";
+  $("#go").onclick=()=>{ S.name=$("#pn").value.trim()||"Player"; S.adult=(2026-(+$("#yb").value))>=18; S.offers=$("#o1").checked; S.partners=$("#o2").checked; S.screen="main"; S.tab="play"; render();
+    setTimeout(()=>{ modal("<div class='big'>&#128276;</div><h2>Don't miss your rewards!</h2><p class='note'>Turn on notifications so we can tell you when your energy is full and when friends need help.</p><button class='btn' id='na'>Turn on</button><button class='ghost' id='nl'>Maybe later</button>"); $("#na").onclick=()=>{S.notif="on";close();}; $("#nl").onclick=()=>{S.notif="later";close();}; },800); };
+}
+
+/* ---------- play ---------- */
+function play(){
+  shell("<div class='card' style='text-align:center'><p class='note' style='margin:0'>Level "+S.level+"</p><h2 style='margin:2px 0 8px'>Catch 12 stars in 10 seconds</h2><div class='field2' id='fld'><div style='position:absolute;inset:0;display:grid;place-items:center;color:var(--muted)'>Tap Play to start</div></div><div style='display:flex;gap:10px;justify-content:center;margin:10px 0'><span>Caught: <b id='cc'>0</b>/12</span><span>Time: <b id='tt'>10.0</b>s</span></div><button class='btn' id='pl'>Play &#9889;1</button></div>"+
+  "<div class='card'><h3>&#127942; Season Pass</h3><div class='bar'><i style='width:"+Math.min(100,S.level*8)+"%'></i></div><p class='note'>Unlock 40 exclusive rewards. Season ends in <span class='timer'>2d 14h</span>.</p><button class='btn p' id='sp'>Get Season Pass · £7.99</button></div>");
+  $("#pl").onclick=startRound; $("#sp").onclick=()=>buy("Season Pass",7.99,()=>{S.skins.push("Season Hero");});
+}
+function startRound(){
+  if(S.energy<=0){ noEnergy(); return; }
+  S.energy--; S.plays++; const f=$("#fld"); f.innerHTML=""; let caught=0, t=10000; $("#pl").disabled=true; $("#pl").textContent="Playing…";
+  const spawn=setInterval(()=>{ const s=document.createElement("button"); s.className="star"; s.innerHTML="&#9733;"; s.setAttribute("aria-label","Star");
+    s.style.left=(Math.random()*(f.clientWidth-44))+"px"; s.style.top=(Math.random()*(f.clientHeight-44))+"px";
+    s.onclick=()=>{ caught++; $("#cc").textContent=caught; s.remove(); }; f.appendChild(s); setTimeout(()=>s.remove(),820); },640);
+  const clock=setInterval(()=>{ t-=100; const e=$("#tt"); if(e) e.textContent=(t/1000).toFixed(1); if(t<=0){ clearInterval(spawn); clearInterval(clock); end(caught); } },100);
+}
+function end(c){
+  if(c>=12){ S.level++; S.coins+=50; modal("<div class='big'>&#127881;</div><h2>Level complete!</h2><p>+50 coins</p><button class='btn' id='nx'>Next level</button><button class='btn b' style='margin-top:10px' id='dbl'>Watch an ad to double</button>"); $("#nx").onclick=()=>{close();render();}; $("#dbl").onclick=watchAd; return; }
+  S.losses++;
+  modal("<div class='big'>&#128559;</div><h2>So close!</h2><p>You caught <b>"+c+"</b> of 12. Just "+(12-c)+" more!</p><button class='btn b' id='cont'>Keep going: +5 seconds for &#128142;50</button><button class='ghost' id='gu'>Give up</button>");
+  $("#cont").onclick=()=>{ if(S.gems>=50){ S.gems-=50; close(); toast("+5 seconds used","You still didn't make it. Try again!"); render(); } else { close(); S.tab="shop"; render(); } };
+  $("#gu").onclick=()=>{ close(); render(); if(S.losses>=2) setTimeout(lossOffer,500); };
+}
+function lossOffer(){
+  let s=600; modal("<p class='note' style='margin:0'>JUST FOR YOU</p><h2>Starter Bundle</h2><div class='big'>&#128142;&#9889;&#127873;</div><p>500 gems + unlimited energy for 1 hour + rare skin</p><p><s class='note'>£24.99</s> <b style='font-size:22px'>£4.99</b> <span style='background:var(--pink);padding:2px 8px;border-radius:6px;font-weight:900'>-80%</span></p><p>Offer ends in <span class='timer' id='lt'>10:00</span></p><button class='btn' id='bb'>Buy now · £4.99</button><button class='ghost' id='nb'>No thanks</button>");
+  const iv=setInterval(()=>{ s--; const e=$("#lt"); if(!e){clearInterval(iv);return;} e.textContent=Math.floor(s/60)+":"+String(s%60).padStart(2,"0"); },1000);
+  $("#bb").onclick=()=>{clearInterval(iv);close();buy("Starter Bundle",4.99,()=>{S.gems+=500;S.energy=5;S.skins.push("Comet");});};
+  $("#nb").onclick=()=>{clearInterval(iv);close();};
+}
+function noEnergy(){
+  modal("<div class='big'>&#9889;</div><h2>Out of energy!</h2><p>Next energy in <span class='timer'>1:59:47</span></p><button class='btn b' id='rf'>Refill now · &#128142;90</button><button class='btn' style='margin-top:10px' id='wa'>Watch an ad for 1 energy</button><button class='ghost' id='ix'>Invite 3 friends for unlimited energy</button><button class='ghost' id='wt'>Wait</button>");
+  $("#rf").onclick=()=>{ if(S.gems>=90){S.gems-=90;S.energy=5;close();render();} else {close();S.tab="shop";render();} };
+  $("#wa").onclick=watchAd; $("#ix").onclick=()=>{close();S.tab="friends";render();}; $("#wt").onclick=close;
+}
+function watchAd(){
+  if(S.adConsent===null){ modal("<h2>Watch ads for rewards</h2><p class='note'>Ads help keep Starforge free.</p><button class='btn' id='ac'>OK</button><p class='note' style='font-size:10px;margin-top:10px'>By tapping OK you agree that we and our 312 ad partners may use your device ID, location and play data to show you personalised ads in and outside Starforge.</p>"); $("#ac").onclick=()=>{S.adConsent=true;watchAd();}; return; }
+  let s=15; modal("<p class='note'>Advertisement</p><div style='background:linear-gradient(135deg,#FF5FA2,#6C3BF5);border-radius:14px;padding:30px 10px;margin:8px 0'><b style='font-size:20px'>Bargo MEGA DEALS</b><br>Up to 70% off. Ends tonight!</div><p>Reward in <b id='as'>15</b>s</p><button class='ghost' id='ax' disabled>Close</button>");
+  const iv=setInterval(()=>{ s--; const e=$("#as"); if(!e){clearInterval(iv);return;} e.textContent=s; if(s<=0){ clearInterval(iv); S.adsSeen++; S.energy=Math.min(5,S.energy+1); S.coins+=25; $("#ax").disabled=false; $("#ax").textContent="Collect reward"; $("#ax").onclick=()=>{close();render();}; } },1000);
+}
+
+/* ---------- shop ---------- */
+function shop(){
+  const packs=[[160,1.99],[500,4.99],[1200,9.99,"BEST VALUE"],[2600,19.99,"MOST POPULAR"]];
+  shell("<div class='card'><h3>&#128142; Gems</h3><div class='shopgrid'>"+packs.map((p,i)=>"<button class='gp' data-g='"+i+"'>"+(p[2]?"<span class='rib'>"+p[2]+"</span>":"")+"<span style='font-size:28px'>&#128142;</span><span class='amt'>"+p[0].toLocaleString()+"</span><span class='cost'>£"+p[1]+"</span></button>").join("")+"</div><p class='note'>One tap to buy with your saved card.</p></div>"+
+  "<div class='card'><h3>&#127873; Mystery Chest</h3><p>Could contain the <b>LEGENDARY Supernova skin</b>!</p><button class='btn p' id='ch'>Open chest · &#128142;300</button><button class='ghost' id='od' style='font-size:10px'>odds</button></div>"+
+  "<div class='card'><h3>Skins</h3><div class='shopgrid'><button class='gp' data-sk='Nebula' data-c='450'><span style='font-size:28px'>&#127776;</span><b>Nebula</b><span class='cost'>&#128142;450</span></button><button class='gp' data-sk='Aurora' data-c='750'><span style='font-size:28px'>&#127752;</span><b>Aurora</b><span class='cost'>&#128142;750</span></button></div><p class='note'>Your skins: "+S.skins.join(", ")+"</p></div>");
+  document.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>{ const p=packs[+b.dataset.g]; buy(p[0]+" gems",p[1],()=>{S.gems+=p[0];}); });
+  $("#ch").onclick=()=>{ if(S.gems<300){ toast("Not enough gems","Get more gems to open the chest."); return; } S.gems-=300; const r=Math.random(); const prize=r<0.005?"LEGENDARY Supernova skin":r<0.05?"Epic Meteor skin":r<0.3?"200 coins":"50 coins"; if(prize.includes("coins")) S.coins+=parseInt(prize); else S.skins.push(prize.split(" ")[1]); modal("<div class='big'>&#127873;</div><h2>You got: "+prize+"</h2><p class='note'>"+(prize.includes("LEGENDARY")?"Amazing!":"So close to the Legendary! Try again?")+"</p><button class='btn p' id='again'>Open another · &#128142;300</button><button class='ghost' id='cl'>Close</button>"); $("#again").onclick=()=>{close();$("#ch")?$("#ch").click():0;}; $("#cl").onclick=()=>{close();render();}; };
+  $("#od").onclick=()=>{ modal("<h2>Chest odds</h2><p style='text-align:left'>Legendary: 0.5%<br>Epic: 4.5%<br>200 coins: 25%<br>50 coins: 70%</p><button class='btn' id='oc'>Close</button>"); $("#oc").onclick=close; };
+  document.querySelectorAll("[data-sk]").forEach(b=>b.onclick=()=>{ const c=+b.dataset.c; if(S.gems>=c){ S.gems-=c; S.skins.push(b.dataset.sk); render(); toast("Skin unlocked!",b.dataset.sk+" is yours. You have "+S.gems+" gems left."); } else { modal("<h2>Not enough gems</h2><p>You need &#128142;"+c+". You have &#128142;"+S.gems+".</p><p class='note'>Get 1,200 gems for £9.99 (best value)</p><button class='btn' id='q'>Buy 1,200 gems · £9.99</button><button class='ghost' id='qx'>Cancel</button>"); $("#q").onclick=()=>{close();buy("1,200 gems",9.99,()=>{S.gems+=1200;});}; $("#qx").onclick=close; } });
+}
+
+/* ---------- daily ---------- */
+function daily(){
+  shell("<div class='card' style='text-align:center'><h3>Daily rewards</h3><p class='note'>Log in every day. Miss a day and your streak resets to Day 1!</p><div class='days'>"+[1,2,3,4,5,6,7].map(d=>"<div class='"+(d<=S.streak?"got":"")+(d===S.streak+1&&!S.claimed?" today":"")+"'>Day "+d+"<br>"+(d===7?"&#127873;":"&#128142;"+d*10)+"</div>").join("")+"</div>"+
+  (S.claimed?"<p>Come back tomorrow for the <b>Day 7 Mega Chest</b>!</p>":"<button class='btn' id='cl'>Claim Day "+(S.streak+1)+"</button>")+"</div>"+
+  "<div class='card'><h3>Daily missions</h3><p>&#10003; Play 3 rounds ("+Math.min(3,S.plays)+"/3)</p><p>&#9744; Watch 2 ads ("+Math.min(2,S.adsSeen)+"/2)</p><p>&#9744; Spend gems in the shop</p></div>");
+  const c=$("#cl"); if(c) c.onclick=()=>{ S.claimed=true; S.streak++; S.gems+=S.streak*10; render(); toast("Reward claimed!","Don't forget tomorrow or you'll lose your "+S.streak+"-day streak."); };
+}
+
+/* ---------- friends ---------- */
+function friends(){
+  const lb=[["Jordan",4210,"#FF5FA2"],["Riley",3980,"#3DE0FF"],[S.name||"You",S.level*300,"#FFC83D"],["Sam",1420,"#4ADE80"]].sort((a,b)=>b[1]-a[1]);
+  shell("<div class='card'><h3>&#127942; Friends leaderboard</h3>"+lb.map((r,i)=>"<div class='lb'><b>"+(i+1)+"</b><div class='av' style='background:"+r[2]+"'>"+r[0][0]+"</div><span class='n'>"+esc(r[0])+(r[0]===(S.name||"You")?" (you)":"")+"</span><b>"+r[1].toLocaleString()+"</b></div>").join("")+"<p class='note'>Jordan is "+(4210-S.level*300).toLocaleString()+" points ahead of you!</p></div>"+
+  "<div class='card'><h3>Invite friends, get rewards</h3><p>Invite 3 friends and get <b>unlimited energy for a day</b>.</p><button class='btn b' id='inv'>"+(S.contacts?"Invites sent to 3 friends":"Find friends in my contacts")+"</button></div>"+
+  "<div class='card'><h3>Global chat <span class='note'>· Region: Scotland</span></h3><div class='chat'><div class='bub'><b>star_kid_99:</b> anyone wanna team up?</div><div class='bub'><b>freegems.win:</b> FREE 10,000 GEMS!! go to freegems dot win</div><div class='bub'><b>NovaPro:</b> add me, what school u go to?</div></div><div class='field' style='margin-top:10px'><input placeholder='Say something to everyone…' aria-label='Chat message'></div><p class='note'>Chat is open to all players.</p></div>");
+  $("#inv").onclick=()=>{ if(S.contacts) return; modal("<h2>Allow Starforge to access your contacts?</h2><p class='note'>We'll invite your friends by text message and suggest players you know.</p><button class='btn' id='ca'>Allow</button><button class='ghost' id='cn'>Don't allow</button>"); $("#ca").onclick=()=>{S.contacts=true;S.energy=5;close();render();toast("Invites sent!","We texted 3 friends from your contacts. Unlimited energy is on for today.");}; $("#cn").onclick=close; };
+}
+
+/* ---------- settings ---------- */
+function tog(id,t,s,on){ return "<label class='tog'><span>"+t+(s?"<small>"+s+"</small>":"")+"</span><input type='checkbox' id='"+id+"'"+(on?" checked":"")+"></label>"; }
+function settings(){
+  shell("<div class='card'><h3>Settings</h3>"+tog("s_snd","Sound and music","",true)+tog("s_ntf","Notifications","",S.notif==="on")+tog("s_chat","Global chat","",S.chatOn)+
+  "<details style='margin-top:10px'><summary class='note' style='cursor:pointer'>More</summary>"+tog("s_off","Personalised offers","Based on how and when you play",S.offers)+tog("s_par","Share play data with partners","",S.partners)+
+  "<details style='margin:8px 0 0 10px'><summary class='note' style='cursor:pointer'>Family</summary><details style='margin:8px 0 0 10px'><summary class='note' style='cursor:pointer'>Advanced</summary>"+tog("s_lim","Monthly spending limit","Off",S.limit)+tog("s_pin","Ask for a PIN before buying","",false)+"</details></details></details></div>"+
+  "<div class='card'><h3>Account</h3><p>Player: "+esc(S.name||"Player")+"</p><p>Linked to Loop: "+(S.linked?"Yes (friends list, birthday, location shared)":"No")+"</p><p>Age setting: "+(S.adult?"18+ · all features unlocked":"Under 18")+"</p><p>Spent this month (pretend): <b>£"+S.spent.toFixed(2)+"</b></p><button class='ghost' style='margin:0;padding:0' id='del'>Delete account</button></div>");
+  ["s_chat","s_off","s_par","s_lim"].forEach(id=>{ const e=$("#"+id); if(e) e.onchange=()=>{ if(id==="s_chat") S.chatOn=e.checked; if(id==="s_off") S.offers=e.checked; if(id==="s_par") S.partners=e.checked; if(id==="s_lim") S.limit=e.checked; }; });
+  $("#del").onclick=()=>{ modal("<h2>Delete account</h2><p>To delete your account, email <b>privacy@starforge.example</b> with your player ID, the email you signed up with and the date you first played. We'll reply within 30 days.</p><p class='note'>Gems, skins and Season Pass will be lost and are not refundable.</p><button class='btn' id='dx'>OK</button>"); $("#dx").onclick=close; };
+}
+function render(){
+  if(S.screen==="start") return start(); if(S.screen==="setup") return setup();
+  ({play,shop,daily,friends,settings})[S.tab]();
+}
+render();
+setTimeout(()=>{ if(S.screen==="main") toast("23:04 · Your energy is full!","Come back and play. Jordan just beat your score!"); },45000);
+})();
+</script>
+</body>
+</html>
