@@ -1,903 +1,1353 @@
 {
- "updated": "2026-10-23",
- "stories": [
-  {
-   "body": [
-    "FLIP is an uncrewed rover built by a company called Astrolab in California. It weighs about 480 kilograms and has no driver on board. It is due to travel to the Moon on a robotic lander called Griffin, with launch planned for late 2026.",
-    "The rover carries a computer made by Hewlett Packard Enterprise, called Spaceborne Computer-4. It has a CPU and a GPU, a type of chip that is very good at doing lots of small sums at once. The teams say it will be the first time a GPU and AI programs have been tested on the Moon's surface.",
-    "The computer will take in data from FLIP's cameras and lidar, a sensor that bounces light off the ground to build a 3D map. AI programs will use this data to help the rover spot craters and find a safe path.",
-    "There is no GPS on the Moon. So one experiment will help FLIP work out where it is by matching the hills and craters it can see with a map stored in its memory.",
-    "Space is a tough place for computers. Radiation can flip bits in memory, and nights near the south pole are freezing and very long. The computer has no fan, and its software can slow the chip down when radiation levels rise."
-   ],
-   "connections": {
-    "groups": [
-     {
-      "explain": "Things FLIP will drive past or around. Its AI has to spot craters and boulders to find a safe path.",
-      "name": "Things on the Moon's surface",
-      "words": [
-       "Crater",
-       "Dust",
-       "Footprint",
-       "Boulder"
-      ]
-     },
-     {
-      "explain": "Input devices that collect data about the world. Lidar bounces light off the ground to build a 3D map; a gyroscope senses which way the rover is tilting.",
-      "name": "Sensors a rover can use",
-      "words": [
-       "Camera",
-       "Lidar",
-       "Gyroscope",
-       "Light sensor"
-      ]
-     },
-     {
-      "explain": "The hardware inside FLIP's computer. The GPU is the part that runs the AI programs.",
-      "name": "Parts of a computer",
-      "words": [
-       "CPU",
-       "GPU",
-       "Memory",
-       "Storage"
-      ]
-     },
-     {
-      "explain": "Bit was the red herring: it sounds like a computer part, but radiation in space can flip a bit from 0 to 1. And the rover is called FLIP!",
-      "name": "Things you can flip",
-      "words": [
-       "Coin",
-       "Pancake",
-       "Switch",
-       "Bit"
-      ]
-     }
-    ],
-    "title": "Moon mission"
-   },
-   "date": "2026-10-23",
-   "discussion": [
-    "Why might it be better for a rover to make some decisions by itself instead of waiting for people on Earth?",
-    "Experts warn that AI programs can sometimes give wrong answers. Which rover decisions do you think should always be checked by a human? Why?",
-    "FLIP has no GPS. How do you work out where you are when you have no phone or map app?",
-    "Design challenge: plan a test on Earth to check that a rover can spot a crater before it reaches the edge. What would you measure, and how would you know if the test passed?",
-    "If you could send one sensor to the Moon, what would you want it to measure and why?"
-   ],
-   "headline": "A moon rover will carry the first AI computer to the Moon",
-   "id": "2026-10-23-flip-moon-rover-ai",
-   "illustration": "ai",
-   "imageAlt": "Illustration of a rover on the grey Moon, with a small computer box on top and a sensor scanning the ground ahead. Earth glows in the black sky.",
-   "keywords": [
+  "updated": "2026-10-25",
+  "stories": [
     {
-     "meaning": "A vehicle that drives across the surface of a moon or planet, usually controlled from far away.",
-     "term": "Rover"
-    },
-    {
-     "meaning": "Graphics processing unit: a chip that does many simple calculations at the same time. It is used for graphics and AI.",
-     "term": "GPU"
-    },
-    {
-     "meaning": "A sensor that sends out pulses of light and times how long they take to bounce back, to measure distances.",
-     "term": "Lidar"
-    },
-    {
-     "meaning": "Working on data where it is collected, instead of sending it all somewhere else first.",
-     "term": "Processing on board"
-    }
-   ],
-   "newsDate": "20 October 2026",
-   "parsons": {
-    "distractors": [
-     {
-      "code": "IF slope < 15 THEN",
-      "indent": 1
-     }
-    ],
-    "explain": "The count starts at 0 before the loop so it is not reset each time. Inside the loop the rover reads a new slope, then the IF only adds 1 when the slope is more than 15. The display comes after END REPEAT so it shows the final total once. Using < 15 would count the safe, gentle slopes instead of the steep ones.",
-    "lines": [
-     {
-      "code": "SET risky TO 0",
-      "indent": 0
-     },
-     {
-      "code": "REPEAT 10 TIMES",
-      "indent": 0
-     },
-     {
-      "code": "RECEIVE slope FROM SENSOR",
-      "indent": 1
-     },
-     {
-      "code": "IF slope > 15 THEN",
-      "indent": 1
-     },
-     {
-      "code": "SET risky TO risky + 1",
-      "indent": 2
-     },
-     {
-      "code": "END IF",
-      "indent": 1
-     },
-     {
-      "code": "END REPEAT",
-      "indent": 0
-     },
-     {
-      "code": "SEND \"Risky spots: \" & risky TO DISPLAY",
-      "indent": 0
-     }
-    ],
-    "strand": "Designing, building and testing computing solutions",
-    "task": "FLIP checks the ground ahead 10 times. Each time, it receives the slope (in degrees) from its sensor. If the slope is more than 15 degrees, it adds 1 to a count of risky spots. At the end it displays the count. One line doesn't belong.",
-    "title": "Counting risky spots"
-   },
-   "quiz": [
-    {
-     "answer": 2,
-     "explain": "The teams say it will be the first time a GPU and AI programs are tested on the Moon. Rovers have driven on the Moon before, and computers helped guide the Apollo landings back in the 1960s.",
-     "options": [
-      "Driving a vehicle across the Moon's surface",
-      "Taking photos of the Moon's south pole",
-      "Running AI programs on a GPU",
-      "Using a computer to help land a spacecraft"
-     ],
-     "q": "What will FLIP's computer try out on the Moon for the first time?",
-     "strand": "The news"
-    },
-    {
-     "answer": 0,
-     "explain": "GPS works by receiving signals from satellites that circle the Earth, and there is no system like that around the Moon. Radio signals don't need air, so they travel happily through space.",
-     "options": [
-      "There are no GPS satellites circling the Moon",
-      "Moon dust would block the rover's GPS antenna",
-      "GPS only works where there is air to carry signals",
-      "GPS would use up too much of the battery"
-     ],
-     "q": "Why can't FLIP use GPS to find out where it is?",
-     "strand": "The news"
-    },
-    {
-     "answer": 1,
-     "explain": "Cameras and lidar are sensors, which are input devices: they bring data into the computer. They might seem like output because they produce pictures, but the pictures are data going in for the computer to process.",
-     "options": [
-      "Output devices",
-      "Input devices",
-      "Storage devices",
-      "Processing devices"
-     ],
-     "q": "FLIP's cameras and lidar collect information about the ground. What kind of devices are they?",
-     "strand": "Understanding and analysing computing technology"
-    },
-    {
-     "answer": 0,
-     "explain": "Matching landmarks you can see to the same landmarks on a map is the same idea FLIP uses. Counting steps can also estimate position, but small errors build up, and it does not compare what you see with a map.",
-     "options": [
-      "Spotting a church and a bridge, then finding them both on a paper map",
-      "Counting your steps from your front door to guess how far you have gone",
-      "Asking a friend to send you your location on their phone",
-      "Following spoken turn-by-turn directions from a satnav"
-     ],
-     "q": "FLIP finds its position by matching the craters it sees with a stored map. Which everyday method is most like this?",
-     "strand": "Understanding the world through computational thinking"
-    },
-    {
-     "answer": 3,
-     "explain": "The connection to Earth has limited bandwidth, so sending only the useful results saves time and lets the rover react quickly. Computers on Earth can open the photos fine; the problem is getting all of them there.",
-     "options": [
-      "Computers on Earth cannot open photos taken on the Moon",
-      "It means the rover needs no cameras to see",
-      "The rover stores pictures better than computers on Earth",
-      "The link to Earth can only send a limited amount of data"
-     ],
-     "q": "Why is it useful for FLIP to process its camera data on board instead of sending every picture to Earth?",
-     "strand": "Understanding and analysing computing technology"
-    },
-    {
-     "answer": 1,
-     "explain": "The photo takes 1.3 seconds to reach Earth and the reply takes 1.3 seconds to come back, so 1.3 + 1.3 = 2.6 seconds. Only counting one direction gives 1.3 seconds, which is the most common slip.",
-     "options": [
-      "About 1.3 seconds",
-      "About 2.6 seconds",
-      "About 3.9 seconds",
-      "About 0.65 seconds"
-     ],
-     "q": "Challenge: a radio signal takes about 1.3 seconds to travel from the Moon to Earth. FLIP sends a photo and a controller replies instantly. What is the shortest time before FLIP gets the reply?",
-     "strand": "Understanding the world through computational thinking"
-    }
-   ],
-   "sources": [
-    {
-     "title": "Space.com: A supercomputer is about to launch to the moon aboard a rover named FLIP",
-     "url": "https://www.space.com/space-exploration/a-supercomputer-is-about-to-launch-to-the-moon-for-the-1st-time-aboard-a-rover-named-flip"
-    },
-    {
-     "title": "MIT Technology Review: Astrolab's upcoming rover will run the first LLMs on the moon",
-     "url": "https://www.technologyreview.com/2026/10/20/1147360/astrolab-upcoming-rover-llms-on-the-moon/"
-    }
-   ],
-   "standfirst": "A rover called FLIP is getting ready for a trip to the Moon's south pole. Inside it is a small but powerful computer that will test whether AI can work on another world.",
-   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><circle cx=\"80\" cy=\"50\" r=\"2\" fill=\"var(--card)\"/><circle cx=\"200\" cy=\"90\" r=\"2\" fill=\"var(--card)\"/><circle cx=\"330\" cy=\"40\" r=\"2\" fill=\"var(--card)\"/><circle cx=\"450\" cy=\"110\" r=\"2\" fill=\"var(--card)\"/><circle cx=\"600\" cy=\"60\" r=\"2\" fill=\"var(--card)\"/><circle cx=\"140\" cy=\"150\" r=\"1.5\" fill=\"var(--card)\"/><circle cx=\"390\" cy=\"160\" r=\"1.5\" fill=\"var(--card)\"/><circle cx=\"540\" cy=\"80\" r=\"34\" fill=\"var(--accent)\"/><path d=\"M522 70 q12 -10 26 0 q-4 14 -18 12 z\" fill=\"var(--ill-2)\"/><path d=\"M0 270 Q120 240 240 262 T480 258 T640 250 L640 360 L0 360 Z\" fill=\"var(--ill-2)\"/><ellipse cx=\"110\" cy=\"310\" rx=\"40\" ry=\"10\" fill=\"var(--ill-bg)\" opacity=\"0.5\"/><ellipse cx=\"520\" cy=\"320\" rx=\"55\" ry=\"12\" fill=\"var(--ill-bg)\" opacity=\"0.5\"/><rect x=\"230\" y=\"190\" width=\"200\" height=\"44\" rx=\"8\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"300\" y=\"160\" width=\"60\" height=\"30\" rx=\"4\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"312\" y=\"168\" width=\"36\" height=\"14\" rx=\"2\" fill=\"var(--ink)\"/><line x1=\"400\" y1=\"190\" x2=\"420\" y2=\"140\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"408\" y=\"124\" width=\"30\" height=\"18\" rx=\"4\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><path d=\"M438 133 L520 100 M438 133 L520 166\" stroke=\"var(--accent)\" stroke-width=\"3\" stroke-dasharray=\"6 6\" fill=\"none\"/><circle cx=\"260\" cy=\"246\" r=\"22\" fill=\"var(--ink)\"/><circle cx=\"260\" cy=\"246\" r=\"9\" fill=\"var(--card)\"/><circle cx=\"330\" cy=\"246\" r=\"22\" fill=\"var(--ink)\"/><circle cx=\"330\" cy=\"246\" r=\"9\" fill=\"var(--card)\"/><circle cx=\"400\" cy=\"246\" r=\"22\" fill=\"var(--ink)\"/><circle cx=\"400\" cy=\"246\" r=\"9\" fill=\"var(--card)\"/><rect x=\"190\" y=\"196\" width=\"40\" height=\"8\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/></svg>",
-   "tags": [
-    "Space",
-    "Frontier tech",
-    "AI",
-    "Sensors",
-    "Input & output"
-   ],
-   "theme": "space",
-   "whyItMatters": "Sending every photo back to Earth is slow, and controllers end up steering with old information. A computer that can process data on the rover could let future vehicles, including ones that carry astronauts, make safer decisions by themselves."
-  },
-  {
-   "id": "2026-10-22-supermarket-fridge-hack",
-   "date": "2026-10-22",
-   "newsDate": "12 October 2026",
-   "theme": "cyber",
-   "illustration": "fridge",
-   "imageAlt": "Illustration of a supermarket fridge connected to the internet, with its thermometer rising into the red.",
-   "headline": "Hackers turn up the heat on supermarket fridges",
-   "standfirst": "A cyber attack in France switched hundreds of shop freezers to scorching temperatures. What happened, and could it happen to the devices in your home?",
-   "body": [
-    "Imagine walking into a supermarket and finding the freezer aisle warm. That is what happened at hundreds of shops in France on Monday 12 October, after hackers broke into the computer systems that control their fridges and freezers.",
-    "Big supermarket fridges are not like the one in your kitchen. Many are linked to a central computer, so staff can check and change the temperature from anywhere using the internet. The attackers used that remote control to turn the temperature right up, in some cases to around 50°C. That is hotter than a scorching summer's day.",
-    "More than 400 stores were affected, including branches of well-known chains such as Carrefour, Intermarché and Coopérative U. Fresh and frozen food had to be thrown away, and a few overheated machines even caught fire.",
-    "The company whose software runs the fridges said most of the affected equipment was old and no longer received security updates. Updates fix weak spots that attackers can use, so a machine that stops getting them becomes an easier target. After the attack, some shops unplugged their fridge systems from the internet.",
-    "Police in Paris are investigating. Nobody yet knows who did it, or why."
-   ],
-   "whyItMatters": "More and more everyday objects are connected to the internet: doorbells, speakers, toys, even fridges. Together they are called the Internet of Things. Each one is a small computer, and every computer needs looking after with strong passwords and regular updates.",
-   "keywords": [
-    {
-     "term": "Internet of Things (IoT)",
-     "meaning": "Everyday objects that connect to the internet so they can send data or be controlled from far away."
-    },
-    {
-     "term": "Security update",
-     "meaning": "A fix sent out by a company to close weak spots in its software before attackers can use them."
-    },
-    {
-     "term": "Remote access",
-     "meaning": "Controlling a computer or device from somewhere else, over a network."
-    },
-    {
-     "term": "Cyber attack",
-     "meaning": "An attempt to break into, damage or take control of computers or data without permission."
-    }
-   ],
-   "discussion": [
-    "The fridges could be controlled over the internet so staff could manage them from anywhere. What are the good things about that? What are the risks?",
-    "List five devices in your home or school that connect to the internet. Which one would cause the biggest problem if it was hacked, and why?",
-    "The software company had stopped sending updates to the old fridges. Who should be responsible for keeping an old device safe: the maker, the shop, or both?",
-    "Some shops unplugged their fridges from the internet after the attack. Is disconnecting always the best answer? What would they lose?",
-    "Design challenge: a fridge is getting too warm. Write the steps an alarm system should follow, using IF and THEN."
-   ],
-   "quiz": [
-    {
-     "q": "What did the hackers change on the supermarket fridges?",
-     "options": [
-      "Prices on the electronic shelf labels",
-      "Customers' loyalty card details",
-      "The card payment machines",
-      "The temperature"
-     ],
-     "answer": 3,
-     "explain": "The attackers used the fridges' remote control system to turn the temperature right up. Prices, payments and customer data were not what they changed.",
-     "strand": "The news"
-    },
-    {
-     "q": "Why were these fridges an easier target for attackers?",
-     "options": [
-      "They were connected by Wi-Fi instead of cables",
-      "They were old and no longer got security updates",
-      "They were made by a company outside France",
-      "They were switched off overnight for cleaning"
-     ],
-     "answer": 1,
-     "explain": "Updates fix weak spots in software. Equipment that stops getting them keeps its weak spots for attackers to find. Wi-Fi or cables, either can be attacked if the software is weak.",
-     "strand": "Cyber resilience and internet safety"
-    },
-    {
-     "q": "A fridge you can control from a phone app is an example of…",
-     "options": [
-      "Artificial intelligence",
-      "Cloud storage",
-      "The Internet of Things",
-      "A local area network (LAN)"
-     ],
-     "answer": 2,
-     "explain": "Everyday objects that connect to the internet are called the Internet of Things, or IoT. The fridge might use a LAN or the cloud, but the device itself is an IoT device.",
-     "strand": "Understanding and analysing computing technology"
-    },
-    {
-     "q": "A fridge's controller follows this rule: IF temperature > 5°C THEN switch cooling ON. The sensor reads 8°C. What happens?",
-     "options": [
-      "Cooling switches ON",
-      "Cooling switches OFF",
-      "Nothing happens, because 8 is not equal to 5",
-      "The rule keeps repeating until the reading is 5°C"
-     ],
-     "answer": 0,
-     "explain": "8 is greater than 5, so the condition is true and the THEN part runs once. This decision is called selection. Repeating would need a loop, which this rule doesn't have.",
-     "strand": "Understanding the world through computational thinking"
-    },
-    {
-     "q": "Which is the best way to keep a smart device at home safer?",
-     "options": [
-      "Turn off Bluetooth when it isn't being used",
-      "Clear its history every week",
-      "Change the default password and install updates",
-      "Only use it while connected to mobile data"
-     ],
-     "answer": 2,
-     "explain": "Default passwords are easy to find online, and updates close known weak spots. The other ideas don't stop an attacker who can reach the device over the internet.",
-     "strand": "Cyber resilience and internet safety"
-    },
-    {
-     "q": "Challenge: computers store numbers in binary. Which binary number equals 50?",
-     "options": [
-      "101100",
-      "110010",
-      "110100",
-      "110001"
-     ],
-     "answer": 1,
-     "explain": "110010 = 32 + 16 + 2 = 50. Check the others: 101100 is 44, 110100 is 52 and 110001 is 49. Each place is worth double the one to its right: 32, 16, 8, 4, 2, 1.",
-     "strand": "Understanding and analysing computing technology"
-    }
-   ],
-   "sources": [
-    {
-     "title": "CBS News: Hackers turn up the heat in refrigerators at hundreds of supermarkets in France",
-     "url": "https://www.cbsnews.com/news/cyberattack-supermarkets-refrigerators-france-fires-food-losses/"
-    },
-    {
-     "title": "CBC News: A fridge hack spoiled food in hundreds of French supermarkets",
-     "url": "https://www.cbc.ca/news/business/france-fridge-hack-smart-devices-food-system-9.7379613"
-    }
-   ],
-   "parsons": {
-    "title": "Fridge temperature alarm",
-    "task": "Put the lines in order so the program reads the fridge temperature and warns staff if it is warmer than 5°C. One line doesn't belong.",
-    "lines": [
-     {
-      "code": "RECEIVE temperature FROM SENSOR",
-      "indent": 0
-     },
-     {
-      "code": "IF temperature > 5 THEN",
-      "indent": 0
-     },
-     {
-      "code": "SEND \"Too warm! Switching cooling ON\" TO DISPLAY",
-      "indent": 1
-     },
-     {
-      "code": "ELSE",
-      "indent": 0
-     },
-     {
-      "code": "SEND \"Temperature OK\" TO DISPLAY",
-      "indent": 1
-     },
-     {
-      "code": "END IF",
-      "indent": 0
-     }
-    ],
-    "distractors": [
-     {
-      "code": "IF temperature < 5 THEN",
-      "indent": 0
-     }
-    ],
-    "explain": "The program must have the temperature before it can test it, so RECEIVE comes first. The test is temperature > 5, because the alarm is for a fridge that is too warm. Using < 5 would warn when the fridge is nice and cold.",
-    "strand": "Designing, building and testing computing solutions"
-   },
-   "tags": [
-    "Cyber security",
-    "Internet of Things",
-    "Online safety",
-    "Selection",
-    "Binary"
-   ],
-   "connections": {
-    "title": "Connected and protected",
-    "groups": [
-     {
-      "name": "Internet of Things devices",
-      "words": [
-       "Smart speaker",
-       "Doorbell camera",
-       "Fitness tracker",
-       "Smart thermostat"
+      "body": [
+        "When an AI chatbot writes something that sounds right but is not true, people call it a hallucination. Sometimes a chatbot even lists a source, such as a science article, that does not exist at all.",
+        "A team at New York University in the USA, led by computer science professor Dennis Shasha, has built a tool called HallucinationNerd to spot this problem. They described it in a science journal on 22 October.",
+        "The tool works through a document step by step. First it splits the writing into separate claims. Then it finds the source each claim points to and reads the matching part. Finally it decides whether the source really backs the claim up.",
+        "Each claim gets one of six labels: Supported, Partially Supported, Not Supported, Contradicted, Cited article does not exist, or Could not access. In tests on real research papers, the team says it did better than other checking systems.",
+        "The tool is a research project, built mainly to help scientists check papers. But the idea behind it is something anyone can use: when you read a fact, check that the source really says it."
       ],
-      "explain": "Everyday objects that connect to the internet, just like the supermarket fridges."
-     },
-     {
-      "name": "Ways to stay safe online",
-      "words": [
-       "Strong password",
-       "Software update",
-       "Two-step login",
-       "Backup"
+      "connections": {
+        "groups": [
+          {
+            "explain": "All places where you can find information. Search looks as if it belongs here, but it is needed for the last group.",
+            "name": "Places to look things up",
+            "words": [
+              "Website",
+              "Textbook",
+              "Library",
+              "Newspaper"
+            ]
+          },
+          {
+            "explain": "Each one helps you test whether something you read is really true and up to date.",
+            "name": "Ways to check a fact",
+            "words": [
+              "Compare",
+              "Ask expert",
+              "Find source",
+              "Check date"
+            ]
+          },
+          {
+            "explain": "Ideas used in almost every program, including the claim counter in today's Parsons puzzle.",
+            "name": "Programming building blocks",
+            "words": [
+              "Sequence",
+              "Selection",
+              "Loop",
+              "Variable"
+            ]
+          },
+          {
+            "explain": "Search engine, fire engine, steam engine and jet engine. Search is the red herring, because it also looks like a place to find information.",
+            "name": "___ engine",
+            "words": [
+              "Search",
+              "Fire",
+              "Steam",
+              "Jet"
+            ]
+          }
+        ],
+        "title": "Check your sources"
+      },
+      "date": "2026-10-25",
+      "discussion": [
+        "Have you ever found something online that turned out to be wrong? How did you find out?",
+        "Why do you think a chatbot might sound just as confident when it is wrong as when it is right?",
+        "Some people think AI chatbots should always show where their facts come from. Others say that would make answers slower and longer, and people would not read the sources anyway. What do you think, and why?",
+        "Should pupils be allowed to use AI chatbots for homework? Think about the views of a pupil, a teacher and a parent.",
+        "Design challenge: write a 4-step checklist that a pupil in P6 could follow to check a fact from a chatbot before putting it in a project."
       ],
-      "explain": "Habits that make devices and accounts much harder to attack, or quicker to recover."
-     },
-     {
-      "name": "Types of harmful software",
-      "words": [
-       "Virus",
-       "Worm",
-       "Trojan",
-       "Ransomware"
+      "headline": "New tool catches AI making up its sources",
+      "id": "2026-10-25-ai-source-checker",
+      "illustration": "ai",
+      "imageAlt": "Illustration of a computer chip with a brain-like pattern, standing for artificial intelligence.",
+      "keywords": [
+        {
+          "meaning": "When an AI produces information that sounds believable but is false or made up.",
+          "term": "Hallucination"
+        },
+        {
+          "meaning": "A note that tells the reader which book, article or website a fact came from.",
+          "term": "Citation"
+        },
+        {
+          "meaning": "A statement that says something is true. It may or may not be backed up by evidence.",
+          "term": "Claim"
+        },
+        {
+          "meaning": "Breaking a big problem into smaller parts that are easier to solve one at a time.",
+          "term": "Decomposition"
+        }
       ],
-      "explain": "Different kinds of malware, programs designed to cause harm."
-     },
-     {
-      "name": "___ware",
-      "words": [
-       "Soft",
-       "Hard",
-       "Firm",
-       "Mal"
+      "newsDate": "22 October 2026",
+      "parsons": {
+        "distractors": [
+          {
+            "code": "UNTIL label = \"Supported\"",
+            "indent": 0
+          }
+        ],
+        "explain": "The count starts at 0 before the loop. Inside the loop, the program receives a label and adds 1 only when it is \"Not supported\". The loop stops when the user types \"done\", then the total is shown. Stopping when the label is \"Supported\" would end the program at the first good claim and miss the rest.",
+        "lines": [
+          {
+            "code": "SET problems TO 0",
+            "indent": 0
+          },
+          {
+            "code": "REPEAT",
+            "indent": 0
+          },
+          {
+            "code": "RECEIVE label FROM KEYBOARD",
+            "indent": 1
+          },
+          {
+            "code": "IF label = \"Not supported\" THEN",
+            "indent": 1
+          },
+          {
+            "code": "SET problems TO problems + 1",
+            "indent": 2
+          },
+          {
+            "code": "END IF",
+            "indent": 1
+          },
+          {
+            "code": "UNTIL label = \"done\"",
+            "indent": 0
+          },
+          {
+            "code": "SEND \"Claims to check again: \" & problems TO DISPLAY",
+            "indent": 0
+          }
+        ],
+        "strand": "Designing, building and testing computing solutions",
+        "task": "Put the lines in order so the program keeps receiving a label for each claim until the user types \"done\". It counts how many claims are labelled \"Not supported\", then shows that count. One line doesn't belong.",
+        "title": "Claim counter"
+      },
+      "quiz": [
+        {
+          "answer": 1,
+          "explain": "It compares each claim with the source it points to. It does not try to work out whether a person or an AI wrote the text, which is a different kind of tool.",
+          "options": [
+            "Whether a document was written by AI or by a person",
+            "Whether cited sources really back up a document's claims",
+            "Whether a document has spelling or grammar mistakes",
+            "Whether the websites in a document are safe to visit"
+          ],
+          "q": "What does HallucinationNerd check?",
+          "strand": "The news"
+        },
+        {
+          "answer": 3,
+          "explain": "The article was made up, so it does not exist. \"Could not access\" is for real articles the tool was blocked from reading, such as ones behind a paywall.",
+          "options": [
+            "Could not access",
+            "Not Supported",
+            "Contradicted",
+            "Cited article does not exist"
+          ],
+          "q": "A chatbot names an article that was never written. Which label should the tool give it?",
+          "strand": "The news"
+        },
+        {
+          "answer": 0,
+          "explain": "Only the source itself can show whether the fact is backed up. Asking the chatbot again is tempting, but it can confidently repeat the same mistake.",
+          "options": [
+            "Open the link and check it really says the same thing",
+            "Ask the chatbot whether it is sure the fact is right",
+            "Use it, because a fact with a link must be checked already",
+            "Use it if the same chatbot gives the same answer twice"
+          ],
+          "q": "A chatbot gives you a fact and a link for your project. What is the best thing to do?",
+          "strand": "Searching, processing and managing information responsibly"
+        },
+        {
+          "answer": 2,
+          "explain": "Decomposition means breaking a big problem into smaller parts. Abstraction is tempting, but that means hiding unimportant details, not splitting a problem up.",
+          "options": [
+            "Abstraction",
+            "Pattern recognition",
+            "Decomposition",
+            "Debugging"
+          ],
+          "q": "The tool's first step is to split a long document into separate claims. What is this kind of thinking called?",
+          "strand": "Understanding the world through computational thinking"
+        },
+        {
+          "answer": 2,
+          "explain": "A chatbot builds text from patterns, choosing words that seem likely to come next, so it can produce a title that only looks real. Broken links are a real problem online, but they are not why a chatbot invents a whole article.",
+          "options": [
+            "It has run out of storage space for real sources",
+            "It is copying from a website that has broken links",
+            "It builds answers by predicting likely-sounding words",
+            "Its programmers typed in fake sources on purpose"
+          ],
+          "q": "Why can an AI chatbot write a source that does not exist?",
+          "strand": "Understanding and analysing computing technology"
+        },
+        {
+          "answer": 1,
+          "explain": "Only the two \"Not supported\" labels add 1, so the count is 2. The tempting 4 counts every claim, but the IF only adds 1 when the label is \"Not supported\".",
+          "options": [
+            "4",
+            "2",
+            "5",
+            "3"
+          ],
+          "q": "Challenge: in the Parsons puzzle program, the user types Supported, Not supported, Not supported, Supported, then done. What number is shown?",
+          "strand": "Designing, building and testing computing solutions"
+        }
       ],
-      "explain": "Software, hardware, firmware and malware. Firmware is the software built into devices like fridge controllers."
-     }
-    ]
-   }
-  },
-  {
-   "id": "2026-10-21-mit-sando-drones",
-   "date": "2026-10-21",
-   "newsDate": "7 October 2026",
-   "theme": "robots",
-   "illustration": "drone",
-   "imageAlt": "Illustration of a drone flying along a safe path that curves between circles marking where moving obstacles could be.",
-   "headline": "The drone that plans around things it can't predict",
-   "standfirst": "Engineers at MIT have built a flight planner that steers drones safely past moving obstacles, even in places nobody has mapped.",
-   "body": [
-    "Flying a drone through an empty field is easy. Flying one through a forest during a wildfire, or down a busy street, is much harder, because things keep moving and you can't know where they'll be next.",
-    "Researchers at the Massachusetts Institute of Technology (MIT) in the USA have created a system called SANDO to solve this. It uses the drone's own cameras and sensors to spot obstacles and track how they move.",
-    "Here's the clever part. SANDO doesn't try to guess exactly where a moving object will go. Instead, it works out the fastest that object could possibly travel, and draws an imaginary bubble around it showing every place it might reach. The longer into the future it looks, the bigger the bubble gets.",
-    "Next, it builds a safe tunnel of open space that avoids all the bubbles, then picks the quickest route through that tunnel. As the drone flies, it keeps repeating these steps, updating the tunnel and the route whenever something changes.",
-    "In computer simulations, SANDO reached its goal faster than other planners without a single crash. It then flew 12 real test flights and avoided every moving obstacle. The team thinks it could help with search and rescue, fighting wildfires and delivering parcels."
-   ],
-   "whyItMatters": "Robots that move around people need to be safe as well as clever. SANDO shows how breaking a hard problem into clear steps, and repeating them many times a second, lets a computer make safe decisions in a world that keeps changing.",
-   "keywords": [
-    {
-     "term": "Algorithm",
-     "meaning": "A set of clear steps for solving a problem or completing a task."
+      "sources": [
+        {
+          "title": "Mirage News (NYU): Computer Scientists Develop Tools to Find Experiments, Spot Citation Hallucinations",
+          "url": "https://www.miragenews.com/computer-scientists-develop-tools-to-find-1765815/"
+        },
+        {
+          "title": "Information (MDPI): HallucinationNerd: A Framework and Tool to Detect Hallucinations and Unsupported Claims",
+          "url": "https://www.mdpi.com/2078-2489/17/11/1053"
+        }
+      ],
+      "standfirst": "AI chatbots sometimes invent facts, and even invent the books or articles they say they got them from. Computer scientists have built a tool to check.",
+      "tags": [
+        "AI",
+        "Algorithms",
+        "Selection",
+        "Loops",
+        "Testing"
+      ],
+      "theme": "ai",
+      "whyItMatters": "More and more people use AI chatbots for homework and research. A chatbot can sound very confident even when it is wrong. Knowing how to check a source yourself is one of the most useful digital skills there is."
     },
     {
-     "term": "Sensor",
-     "meaning": "A device that measures something in the world, like distance, light or movement, and turns it into data."
+      "body": [
+        "Wednesday 14 October was International E-Waste Day. E-waste means electrical and electronic things we throw away. This year the organisers, a group called the WEEE Forum, chose to look at small, cheap gadgets. They call them fast tech, a bit like fast fashion for clothes.",
+        "Fast tech includes things like USB adapters, chargers, cables, LED lights, mini fans, electronic toys and earbuds. They are cheap to buy and easy to replace, so people often do not keep them for long.",
+        "The WEEE Forum asked over 10,000 adults in 12 European countries about these gadgets. Almost nine in ten owned at least one. More than half could remember a gadget they had used for six months or less. Most people said they were happy with what they bought, and many liked the low price.",
+        "Even a tiny gadget usually has a circuit board, wires and sometimes a battery inside. These contain metals and plastics that could be recovered and used again, but only if the gadget is recycled properly. Batteries thrown in the normal bin can also start fires when bin lorries crush them.",
+        "The organisers have a simple rule: if it has a plug, a cable, a circuit board or a battery, it is e-waste, however small it is. They suggest asking whether you really need a new gadget, choosing second-hand or repairable ones, and taking old ones to a proper collection point."
+      ],
+      "connections": {
+        "groups": [
+          {
+            "explain": "Small, cheap gadgets the WEEE Forum calls fast tech. Speaker could be a gadget too, but it is needed in the parts group.",
+            "name": "Fast tech gadgets",
+            "words": [
+              "Mini fan",
+              "LED lights",
+              "Charger",
+              "Earbuds"
+            ]
+          },
+          {
+            "explain": "Each one keeps a gadget, or its materials, in use for longer instead of in the bin.",
+            "name": "Ways to cut e-waste",
+            "words": [
+              "Repair",
+              "Reuse",
+              "Recycle",
+              "Donate"
+            ]
+          },
+          {
+            "explain": "Components you could find inside a device. Circuit looks like it belongs here, but it is needed for the last group.",
+            "name": "Parts inside a gadget",
+            "words": [
+              "Battery",
+              "Processor",
+              "Memory",
+              "Speaker"
+            ]
+          },
+          {
+            "explain": "Keyboard, motherboard, circuit board and dashboard. A motherboard is the main circuit board inside a computer.",
+            "name": "___board",
+            "words": [
+              "Key",
+              "Mother",
+              "Circuit",
+              "Dash"
+            ]
+          }
+        ],
+        "title": "Fast tech, long life"
+      },
+      "date": "2026-10-24",
+      "discussion": [
+        "Many people in the survey were happy with their cheap gadgets. Why do you think low prices are so popular? What might the hidden costs be?",
+        "Count the chargers, cables and small gadgets in your home or bag. How many do you actually use each week?",
+        "Some people say shoppers should buy less. Others say the companies that make and sell gadgets should pay to collect and recycle them. Some say governments should make rules. Who do you think should be most responsible, and why?",
+        "A cheap gadget breaks. Fixing it might cost more than buying a new one. What would you do, and what would help you decide?",
+        "Design challenge: sketch a small gadget, such as a torch or mini fan, that is easy to repair and recycle. Label how someone could swap its battery or take it apart."
+      ],
+      "headline": "Cheap gadgets are piling up as e-waste",
+      "id": "2026-10-24-fast-tech-e-waste",
+      "illustration": "environment",
+      "imageAlt": "Illustration of a data centre beside a wind turbine and a green leaf, standing for greener ways to use technology.",
+      "keywords": [
+        {
+          "meaning": "Old or broken electrical and electronic items that people throw away.",
+          "term": "E-waste"
+        },
+        {
+          "meaning": "Small, cheap gadgets that are often used for a short time and then replaced.",
+          "term": "Fast tech"
+        },
+        {
+          "meaning": "A flat board inside a device that connects its electronic parts, such as chips, so they can work together.",
+          "term": "Circuit board"
+        },
+        {
+          "meaning": "Breaking down old items so their materials, like metals and plastics, can be used to make new things.",
+          "term": "Recycling"
+        }
+      ],
+      "newsDate": "14 October 2026",
+      "parsons": {
+        "distractors": [
+          {
+            "code": "IF answer = \"no\" THEN",
+            "indent": 1
+          }
+        ],
+        "explain": "The count must start at 0 before the loop, or it would reset each time. Inside the loop the program receives an answer and only adds 1 when it is \"yes\". The total is shown once, after END REPEAT. Testing for \"no\" would count the items that are NOT e-waste.",
+        "lines": [
+          {
+            "code": "SET eWaste TO 0",
+            "indent": 0
+          },
+          {
+            "code": "REPEAT 5 TIMES",
+            "indent": 0
+          },
+          {
+            "code": "RECEIVE answer FROM KEYBOARD",
+            "indent": 1
+          },
+          {
+            "code": "IF answer = \"yes\" THEN",
+            "indent": 1
+          },
+          {
+            "code": "SET eWaste TO eWaste + 1",
+            "indent": 2
+          },
+          {
+            "code": "END IF",
+            "indent": 1
+          },
+          {
+            "code": "END REPEAT",
+            "indent": 0
+          },
+          {
+            "code": "SEND \"E-waste items: \" & eWaste TO DISPLAY",
+            "indent": 0
+          }
+        ],
+        "strand": "Designing, building and testing computing solutions",
+        "task": "Put the lines in order so the program asks about 5 old items, adds 1 to a count each time the answer is \"yes\" (it has a plug, cable, circuit board or battery), then shows how many items are e-waste. One line doesn't belong.",
+        "title": "E-waste counter"
+      },
+      "quiz": [
+        {
+          "answer": 2,
+          "explain": "Fast tech means small, low-cost electronics like chargers and mini fans that people often replace quickly. It is about how long we keep them, not how fast they run or charge.",
+          "options": [
+            "Gadgets that are delivered the next day",
+            "Computers with very fast processors",
+            "Cheap gadgets that are used briefly and replaced",
+            "Devices that charge in a few minutes"
+          ],
+          "q": "What does the WEEE Forum mean by \"fast tech\"?",
+          "strand": "The news"
+        },
+        {
+          "answer": 0,
+          "explain": "Anything with a plug, cable, circuit board or battery counts, however small or cheap. A gadget does not need to be online or expensive to be e-waste.",
+          "options": [
+            "It has a plug, cable, circuit board or battery",
+            "It cost more than £20 when it was new",
+            "It can connect to the internet or Wi-Fi",
+            "It is made mostly of metal, not plastic"
+          ],
+          "q": "Which simple rule did the organisers give for spotting e-waste?",
+          "strand": "The news"
+        },
+        {
+          "answer": 1,
+          "explain": "Pressing the button sends information into the toy, so it is an input. The speaker and LED are outputs, and the battery supplies power rather than data, which makes it neither.",
+          "options": [
+            "The speaker",
+            "The button",
+            "The LED",
+            "The battery"
+          ],
+          "q": "A light-up toy has a button, a speaker, an LED and a battery. Which of these is an input device?",
+          "strand": "Understanding and analysing computing technology"
+        },
+        {
+          "answer": 3,
+          "explain": "Crushed batteries can start fires in bin lorries and waste plants. Data is a real worry for phones, but it is not why batteries are dangerous, and batteries can be recycled at proper collection points.",
+          "options": [
+            "Its battery cannot be recycled at all",
+            "It will keep using electricity in the bin",
+            "Someone could read the data stored on it",
+            "The battery could catch fire if it is crushed"
+          ],
+          "q": "Why should an old gadget with a lithium-ion battery not go in the normal bin?",
+          "strand": "Using digital products and services in a variety of contexts to achieve a purposeful outcome"
+        },
+        {
+          "answer": 2,
+          "explain": "Backing up keeps your files, and signing out plus a factory reset removes your accounts and data. Deleting photos is sensible but leaves your accounts, messages and other files on the device.",
+          "options": [
+            "Charge the battery to 100%",
+            "Delete the photos from the gallery app",
+            "Back up your data, sign out and reset it",
+            "Take off the case and screen protector"
+          ],
+          "q": "You are giving your old tablet to a cousin. What is the most important thing to do first?",
+          "strand": "Cyber resilience and internet safety"
+        },
+        {
+          "answer": 1,
+          "explain": "18 out of 30 is 18 ÷ 30 = 0.6, which is 60%. The tempting 40% is the pupils who said no (12 out of 30), and 18% just reuses the count as if it were a percentage.",
+          "options": [
+            "18%",
+            "60%",
+            "40%",
+            "12%"
+          ],
+          "q": "Challenge: a class of 30 pupils does a survey. 18 say they own a gadget they used for less than six months. What percentage is that?",
+          "strand": "Searching, processing and managing information responsibly"
+        }
+      ],
+      "sources": [
+        {
+          "title": "WEEE Forum: International E-Waste Day 2026: 'Fast Tech' fuels growing e-waste concern",
+          "url": "https://weee-forum.org/ws_news/international-e-waste-day-2026-fast-tech-fuels-growing-e-waste-concern/"
+        },
+        {
+          "title": "Resource Recycling: 'Fast Tech' reduction is focus of E-Waste Day",
+          "url": "https://resource-recycling.com/e-scrap/2026/10/14/fast-tech-reduction-is-focus-of-e-waste-day/"
+        }
+      ],
+      "standfirst": "Mini fans, chargers, cables and earbuds are so cheap that many get thrown away after a few months. Experts have a name for them: fast tech.",
+      "tags": [
+        "Environment",
+        "Hardware",
+        "Input & output",
+        "Selection",
+        "Loops"
+      ],
+      "theme": "environment",
+      "whyItMatters": "Every gadget is a small computer system made from materials dug out of the ground. Around the world, only about a fifth of e-waste is known to be properly recycled. Small choices about what we buy, keep, fix and throw away really add up."
     },
     {
-     "term": "Autonomous",
-     "meaning": "Able to make decisions and act without a person controlling it."
+      "body": [
+        "FLIP is an uncrewed rover built by a company called Astrolab in California. It weighs about 480 kilograms and has no driver on board. It is due to travel to the Moon on a robotic lander called Griffin, with launch planned for late 2026.",
+        "The rover carries a computer made by Hewlett Packard Enterprise, called Spaceborne Computer-4. It has a CPU and a GPU, a type of chip that is very good at doing lots of small sums at once. The teams say it will be the first time a GPU and AI programs have been tested on the Moon's surface.",
+        "The computer will take in data from FLIP's cameras and lidar, a sensor that bounces light off the ground to build a 3D map. AI programs will use this data to help the rover spot craters and find a safe path.",
+        "There is no GPS on the Moon. So one experiment will help FLIP work out where it is by matching the hills and craters it can see with a map stored in its memory.",
+        "Space is a tough place for computers. Radiation can flip bits in memory, and nights near the south pole are freezing and very long. The computer has no fan, and its software can slow the chip down when radiation levels rise."
+      ],
+      "connections": {
+        "groups": [
+          {
+            "explain": "Things FLIP will drive past or around. Its AI has to spot craters and boulders to find a safe path.",
+            "name": "Things on the Moon's surface",
+            "words": [
+              "Crater",
+              "Dust",
+              "Footprint",
+              "Boulder"
+            ]
+          },
+          {
+            "explain": "Input devices that collect data about the world. Lidar bounces light off the ground to build a 3D map; a gyroscope senses which way the rover is tilting.",
+            "name": "Sensors a rover can use",
+            "words": [
+              "Camera",
+              "Lidar",
+              "Gyroscope",
+              "Light sensor"
+            ]
+          },
+          {
+            "explain": "The hardware inside FLIP's computer. The GPU is the part that runs the AI programs.",
+            "name": "Parts of a computer",
+            "words": [
+              "CPU",
+              "GPU",
+              "Memory",
+              "Storage"
+            ]
+          },
+          {
+            "explain": "Bit was the red herring: it sounds like a computer part, but radiation in space can flip a bit from 0 to 1. And the rover is called FLIP!",
+            "name": "Things you can flip",
+            "words": [
+              "Coin",
+              "Pancake",
+              "Switch",
+              "Bit"
+            ]
+          }
+        ],
+        "title": "Moon mission"
+      },
+      "date": "2026-10-23",
+      "discussion": [
+        "Why might it be better for a rover to make some decisions by itself instead of waiting for people on Earth?",
+        "Experts warn that AI programs can sometimes give wrong answers. Which rover decisions do you think should always be checked by a human? Why?",
+        "FLIP has no GPS. How do you work out where you are when you have no phone or map app?",
+        "Design challenge: plan a test on Earth to check that a rover can spot a crater before it reaches the edge. What would you measure, and how would you know if the test passed?",
+        "If you could send one sensor to the Moon, what would you want it to measure and why?"
+      ],
+      "headline": "A moon rover will carry the first AI computer to the Moon",
+      "id": "2026-10-23-flip-moon-rover-ai",
+      "illustration": "ai",
+      "imageAlt": "Illustration of a rover on the grey Moon, with a small computer box on top and a sensor scanning the ground ahead. Earth glows in the black sky.",
+      "keywords": [
+        {
+          "meaning": "A vehicle that drives across the surface of a moon or planet, usually controlled from far away.",
+          "term": "Rover"
+        },
+        {
+          "meaning": "Graphics processing unit: a chip that does many simple calculations at the same time. It is used for graphics and AI.",
+          "term": "GPU"
+        },
+        {
+          "meaning": "A sensor that sends out pulses of light and times how long they take to bounce back, to measure distances.",
+          "term": "Lidar"
+        },
+        {
+          "meaning": "Working on data where it is collected, instead of sending it all somewhere else first.",
+          "term": "Processing on board"
+        }
+      ],
+      "newsDate": "20 October 2026",
+      "parsons": {
+        "distractors": [
+          {
+            "code": "IF slope < 15 THEN",
+            "indent": 1
+          }
+        ],
+        "explain": "The count starts at 0 before the loop so it is not reset each time. Inside the loop the rover reads a new slope, then the IF only adds 1 when the slope is more than 15. The display comes after END REPEAT so it shows the final total once. Using < 15 would count the safe, gentle slopes instead of the steep ones.",
+        "lines": [
+          {
+            "code": "SET risky TO 0",
+            "indent": 0
+          },
+          {
+            "code": "REPEAT 10 TIMES",
+            "indent": 0
+          },
+          {
+            "code": "RECEIVE slope FROM SENSOR",
+            "indent": 1
+          },
+          {
+            "code": "IF slope > 15 THEN",
+            "indent": 1
+          },
+          {
+            "code": "SET risky TO risky + 1",
+            "indent": 2
+          },
+          {
+            "code": "END IF",
+            "indent": 1
+          },
+          {
+            "code": "END REPEAT",
+            "indent": 0
+          },
+          {
+            "code": "SEND \"Risky spots: \" & risky TO DISPLAY",
+            "indent": 0
+          }
+        ],
+        "strand": "Designing, building and testing computing solutions",
+        "task": "FLIP checks the ground ahead 10 times. Each time, it receives the slope (in degrees) from its sensor. If the slope is more than 15 degrees, it adds 1 to a count of risky spots. At the end it displays the count. One line doesn't belong.",
+        "title": "Counting risky spots"
+      },
+      "quiz": [
+        {
+          "answer": 2,
+          "explain": "The teams say it will be the first time a GPU and AI programs are tested on the Moon. Rovers have driven on the Moon before, and computers helped guide the Apollo landings back in the 1960s.",
+          "options": [
+            "Driving a vehicle across the Moon's surface",
+            "Taking photos of the Moon's south pole",
+            "Running AI programs on a GPU",
+            "Using a computer to help land a spacecraft"
+          ],
+          "q": "What will FLIP's computer try out on the Moon for the first time?",
+          "strand": "The news"
+        },
+        {
+          "answer": 0,
+          "explain": "GPS works by receiving signals from satellites that circle the Earth, and there is no system like that around the Moon. Radio signals don't need air, so they travel happily through space.",
+          "options": [
+            "There are no GPS satellites circling the Moon",
+            "Moon dust would block the rover's GPS antenna",
+            "GPS only works where there is air to carry signals",
+            "GPS would use up too much of the battery"
+          ],
+          "q": "Why can't FLIP use GPS to find out where it is?",
+          "strand": "The news"
+        },
+        {
+          "answer": 1,
+          "explain": "Cameras and lidar are sensors, which are input devices: they bring data into the computer. They might seem like output because they produce pictures, but the pictures are data going in for the computer to process.",
+          "options": [
+            "Output devices",
+            "Input devices",
+            "Storage devices",
+            "Processing devices"
+          ],
+          "q": "FLIP's cameras and lidar collect information about the ground. What kind of devices are they?",
+          "strand": "Understanding and analysing computing technology"
+        },
+        {
+          "answer": 0,
+          "explain": "Matching landmarks you can see to the same landmarks on a map is the same idea FLIP uses. Counting steps can also estimate position, but small errors build up, and it does not compare what you see with a map.",
+          "options": [
+            "Spotting a church and a bridge, then finding them both on a paper map",
+            "Counting your steps from your front door to guess how far you have gone",
+            "Asking a friend to send you your location on their phone",
+            "Following spoken turn-by-turn directions from a satnav"
+          ],
+          "q": "FLIP finds its position by matching the craters it sees with a stored map. Which everyday method is most like this?",
+          "strand": "Understanding the world through computational thinking"
+        },
+        {
+          "answer": 3,
+          "explain": "The connection to Earth has limited bandwidth, so sending only the useful results saves time and lets the rover react quickly. Computers on Earth can open the photos fine; the problem is getting all of them there.",
+          "options": [
+            "Computers on Earth cannot open photos taken on the Moon",
+            "It means the rover needs no cameras to see",
+            "The rover stores pictures better than computers on Earth",
+            "The link to Earth can only send a limited amount of data"
+          ],
+          "q": "Why is it useful for FLIP to process its camera data on board instead of sending every picture to Earth?",
+          "strand": "Understanding and analysing computing technology"
+        },
+        {
+          "answer": 1,
+          "explain": "The photo takes 1.3 seconds to reach Earth and the reply takes 1.3 seconds to come back, so 1.3 + 1.3 = 2.6 seconds. Only counting one direction gives 1.3 seconds, which is the most common slip.",
+          "options": [
+            "About 1.3 seconds",
+            "About 2.6 seconds",
+            "About 3.9 seconds",
+            "About 0.65 seconds"
+          ],
+          "q": "Challenge: a radio signal takes about 1.3 seconds to travel from the Moon to Earth. FLIP sends a photo and a controller replies instantly. What is the shortest time before FLIP gets the reply?",
+          "strand": "Understanding the world through computational thinking"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Space.com: A supercomputer is about to launch to the moon aboard a rover named FLIP",
+          "url": "https://www.space.com/space-exploration/a-supercomputer-is-about-to-launch-to-the-moon-for-the-1st-time-aboard-a-rover-named-flip"
+        },
+        {
+          "title": "MIT Technology Review: Astrolab's upcoming rover will run the first LLMs on the moon",
+          "url": "https://www.technologyreview.com/2026/10/20/1147360/astrolab-upcoming-rover-llms-on-the-moon/"
+        }
+      ],
+      "standfirst": "A rover called FLIP is getting ready for a trip to the Moon's south pole. Inside it is a small but powerful computer that will test whether AI can work on another world.",
+      "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><circle cx=\"80\" cy=\"50\" r=\"2\" fill=\"var(--card)\"/><circle cx=\"200\" cy=\"90\" r=\"2\" fill=\"var(--card)\"/><circle cx=\"330\" cy=\"40\" r=\"2\" fill=\"var(--card)\"/><circle cx=\"450\" cy=\"110\" r=\"2\" fill=\"var(--card)\"/><circle cx=\"600\" cy=\"60\" r=\"2\" fill=\"var(--card)\"/><circle cx=\"140\" cy=\"150\" r=\"1.5\" fill=\"var(--card)\"/><circle cx=\"390\" cy=\"160\" r=\"1.5\" fill=\"var(--card)\"/><circle cx=\"540\" cy=\"80\" r=\"34\" fill=\"var(--accent)\"/><path d=\"M522 70 q12 -10 26 0 q-4 14 -18 12 z\" fill=\"var(--ill-2)\"/><path d=\"M0 270 Q120 240 240 262 T480 258 T640 250 L640 360 L0 360 Z\" fill=\"var(--ill-2)\"/><ellipse cx=\"110\" cy=\"310\" rx=\"40\" ry=\"10\" fill=\"var(--ill-bg)\" opacity=\"0.5\"/><ellipse cx=\"520\" cy=\"320\" rx=\"55\" ry=\"12\" fill=\"var(--ill-bg)\" opacity=\"0.5\"/><rect x=\"230\" y=\"190\" width=\"200\" height=\"44\" rx=\"8\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"300\" y=\"160\" width=\"60\" height=\"30\" rx=\"4\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"312\" y=\"168\" width=\"36\" height=\"14\" rx=\"2\" fill=\"var(--ink)\"/><line x1=\"400\" y1=\"190\" x2=\"420\" y2=\"140\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"408\" y=\"124\" width=\"30\" height=\"18\" rx=\"4\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><path d=\"M438 133 L520 100 M438 133 L520 166\" stroke=\"var(--accent)\" stroke-width=\"3\" stroke-dasharray=\"6 6\" fill=\"none\"/><circle cx=\"260\" cy=\"246\" r=\"22\" fill=\"var(--ink)\"/><circle cx=\"260\" cy=\"246\" r=\"9\" fill=\"var(--card)\"/><circle cx=\"330\" cy=\"246\" r=\"22\" fill=\"var(--ink)\"/><circle cx=\"330\" cy=\"246\" r=\"9\" fill=\"var(--card)\"/><circle cx=\"400\" cy=\"246\" r=\"22\" fill=\"var(--ink)\"/><circle cx=\"400\" cy=\"246\" r=\"9\" fill=\"var(--card)\"/><rect x=\"190\" y=\"196\" width=\"40\" height=\"8\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/></svg>",
+      "tags": [
+        "Space",
+        "Frontier tech",
+        "AI",
+        "Sensors",
+        "Input & output"
+      ],
+      "theme": "space",
+      "whyItMatters": "Sending every photo back to Earth is slow, and controllers end up steering with old information. A computer that can process data on the rover could let future vehicles, including ones that carry astronauts, make safer decisions by themselves."
     },
     {
-     "term": "Simulation",
-     "meaning": "A computer model of a real situation, used to test ideas safely before trying them for real."
+      "id": "2026-10-22-supermarket-fridge-hack",
+      "date": "2026-10-22",
+      "newsDate": "12 October 2026",
+      "theme": "cyber",
+      "illustration": "fridge",
+      "imageAlt": "Illustration of a supermarket fridge connected to the internet, with its thermometer rising into the red.",
+      "headline": "Hackers turn up the heat on supermarket fridges",
+      "standfirst": "A cyber attack in France switched hundreds of shop freezers to scorching temperatures. What happened, and could it happen to the devices in your home?",
+      "body": [
+        "Imagine walking into a supermarket and finding the freezer aisle warm. That is what happened at hundreds of shops in France on Monday 12 October, after hackers broke into the computer systems that control their fridges and freezers.",
+        "Big supermarket fridges are not like the one in your kitchen. Many are linked to a central computer, so staff can check and change the temperature from anywhere using the internet. The attackers used that remote control to turn the temperature right up, in some cases to around 50°C. That is hotter than a scorching summer's day.",
+        "More than 400 stores were affected, including branches of well-known chains such as Carrefour, Intermarché and Coopérative U. Fresh and frozen food had to be thrown away, and a few overheated machines even caught fire.",
+        "The company whose software runs the fridges said most of the affected equipment was old and no longer received security updates. Updates fix weak spots that attackers can use, so a machine that stops getting them becomes an easier target. After the attack, some shops unplugged their fridge systems from the internet.",
+        "Police in Paris are investigating. Nobody yet knows who did it, or why."
+      ],
+      "whyItMatters": "More and more everyday objects are connected to the internet: doorbells, speakers, toys, even fridges. Together they are called the Internet of Things. Each one is a small computer, and every computer needs looking after with strong passwords and regular updates.",
+      "keywords": [
+        {
+          "term": "Internet of Things (IoT)",
+          "meaning": "Everyday objects that connect to the internet so they can send data or be controlled from far away."
+        },
+        {
+          "term": "Security update",
+          "meaning": "A fix sent out by a company to close weak spots in its software before attackers can use them."
+        },
+        {
+          "term": "Remote access",
+          "meaning": "Controlling a computer or device from somewhere else, over a network."
+        },
+        {
+          "term": "Cyber attack",
+          "meaning": "An attempt to break into, damage or take control of computers or data without permission."
+        }
+      ],
+      "discussion": [
+        "The fridges could be controlled over the internet so staff could manage them from anywhere. What are the good things about that? What are the risks?",
+        "List five devices in your home or school that connect to the internet. Which one would cause the biggest problem if it was hacked, and why?",
+        "The software company had stopped sending updates to the old fridges. Who should be responsible for keeping an old device safe: the maker, the shop, or both?",
+        "Some shops unplugged their fridges from the internet after the attack. Is disconnecting always the best answer? What would they lose?",
+        "Design challenge: a fridge is getting too warm. Write the steps an alarm system should follow, using IF and THEN."
+      ],
+      "quiz": [
+        {
+          "q": "What did the hackers change on the supermarket fridges?",
+          "options": [
+            "Prices on the electronic shelf labels",
+            "Customers' loyalty card details",
+            "The card payment machines",
+            "The temperature"
+          ],
+          "answer": 3,
+          "explain": "The attackers used the fridges' remote control system to turn the temperature right up. Prices, payments and customer data were not what they changed.",
+          "strand": "The news"
+        },
+        {
+          "q": "Why were these fridges an easier target for attackers?",
+          "options": [
+            "They were connected by Wi-Fi instead of cables",
+            "They were old and no longer got security updates",
+            "They were made by a company outside France",
+            "They were switched off overnight for cleaning"
+          ],
+          "answer": 1,
+          "explain": "Updates fix weak spots in software. Equipment that stops getting them keeps its weak spots for attackers to find. Wi-Fi or cables, either can be attacked if the software is weak.",
+          "strand": "Cyber resilience and internet safety"
+        },
+        {
+          "q": "A fridge you can control from a phone app is an example of…",
+          "options": [
+            "Artificial intelligence",
+            "Cloud storage",
+            "The Internet of Things",
+            "A local area network (LAN)"
+          ],
+          "answer": 2,
+          "explain": "Everyday objects that connect to the internet are called the Internet of Things, or IoT. The fridge might use a LAN or the cloud, but the device itself is an IoT device.",
+          "strand": "Understanding and analysing computing technology"
+        },
+        {
+          "q": "A fridge's controller follows this rule: IF temperature > 5°C THEN switch cooling ON. The sensor reads 8°C. What happens?",
+          "options": [
+            "Cooling switches ON",
+            "Cooling switches OFF",
+            "Nothing happens, because 8 is not equal to 5",
+            "The rule keeps repeating until the reading is 5°C"
+          ],
+          "answer": 0,
+          "explain": "8 is greater than 5, so the condition is true and the THEN part runs once. This decision is called selection. Repeating would need a loop, which this rule doesn't have.",
+          "strand": "Understanding the world through computational thinking"
+        },
+        {
+          "q": "Which is the best way to keep a smart device at home safer?",
+          "options": [
+            "Turn off Bluetooth when it isn't being used",
+            "Clear its history every week",
+            "Change the default password and install updates",
+            "Only use it while connected to mobile data"
+          ],
+          "answer": 2,
+          "explain": "Default passwords are easy to find online, and updates close known weak spots. The other ideas don't stop an attacker who can reach the device over the internet.",
+          "strand": "Cyber resilience and internet safety"
+        },
+        {
+          "q": "Challenge: computers store numbers in binary. Which binary number equals 50?",
+          "options": [
+            "101100",
+            "110010",
+            "110100",
+            "110001"
+          ],
+          "answer": 1,
+          "explain": "110010 = 32 + 16 + 2 = 50. Check the others: 101100 is 44, 110100 is 52 and 110001 is 49. Each place is worth double the one to its right: 32, 16, 8, 4, 2, 1.",
+          "strand": "Understanding and analysing computing technology"
+        }
+      ],
+      "sources": [
+        {
+          "title": "CBS News: Hackers turn up the heat in refrigerators at hundreds of supermarkets in France",
+          "url": "https://www.cbsnews.com/news/cyberattack-supermarkets-refrigerators-france-fires-food-losses/"
+        },
+        {
+          "title": "CBC News: A fridge hack spoiled food in hundreds of French supermarkets",
+          "url": "https://www.cbc.ca/news/business/france-fridge-hack-smart-devices-food-system-9.7379613"
+        }
+      ],
+      "parsons": {
+        "title": "Fridge temperature alarm",
+        "task": "Put the lines in order so the program reads the fridge temperature and warns staff if it is warmer than 5°C. One line doesn't belong.",
+        "lines": [
+          {
+            "code": "RECEIVE temperature FROM SENSOR",
+            "indent": 0
+          },
+          {
+            "code": "IF temperature > 5 THEN",
+            "indent": 0
+          },
+          {
+            "code": "SEND \"Too warm! Switching cooling ON\" TO DISPLAY",
+            "indent": 1
+          },
+          {
+            "code": "ELSE",
+            "indent": 0
+          },
+          {
+            "code": "SEND \"Temperature OK\" TO DISPLAY",
+            "indent": 1
+          },
+          {
+            "code": "END IF",
+            "indent": 0
+          }
+        ],
+        "distractors": [
+          {
+            "code": "IF temperature < 5 THEN",
+            "indent": 0
+          }
+        ],
+        "explain": "The program must have the temperature before it can test it, so RECEIVE comes first. The test is temperature > 5, because the alarm is for a fridge that is too warm. Using < 5 would warn when the fridge is nice and cold.",
+        "strand": "Designing, building and testing computing solutions"
+      },
+      "tags": [
+        "Cyber security",
+        "Internet of Things",
+        "Online safety",
+        "Selection",
+        "Binary"
+      ],
+      "connections": {
+        "title": "Connected and protected",
+        "groups": [
+          {
+            "name": "Internet of Things devices",
+            "words": [
+              "Smart speaker",
+              "Doorbell camera",
+              "Fitness tracker",
+              "Smart thermostat"
+            ],
+            "explain": "Everyday objects that connect to the internet, just like the supermarket fridges."
+          },
+          {
+            "name": "Ways to stay safe online",
+            "words": [
+              "Strong password",
+              "Software update",
+              "Two-step login",
+              "Backup"
+            ],
+            "explain": "Habits that make devices and accounts much harder to attack, or quicker to recover."
+          },
+          {
+            "name": "Types of harmful software",
+            "words": [
+              "Virus",
+              "Worm",
+              "Trojan",
+              "Ransomware"
+            ],
+            "explain": "Different kinds of malware, programs designed to cause harm."
+          },
+          {
+            "name": "___ware",
+            "words": [
+              "Soft",
+              "Hard",
+              "Firm",
+              "Mal"
+            ],
+            "explain": "Software, hardware, firmware and malware. Firmware is the software built into devices like fridge controllers."
+          }
+        ]
+      }
+    },
+    {
+      "id": "2026-10-21-mit-sando-drones",
+      "date": "2026-10-21",
+      "newsDate": "7 October 2026",
+      "theme": "robots",
+      "illustration": "drone",
+      "imageAlt": "Illustration of a drone flying along a safe path that curves between circles marking where moving obstacles could be.",
+      "headline": "The drone that plans around things it can't predict",
+      "standfirst": "Engineers at MIT have built a flight planner that steers drones safely past moving obstacles, even in places nobody has mapped.",
+      "body": [
+        "Flying a drone through an empty field is easy. Flying one through a forest during a wildfire, or down a busy street, is much harder, because things keep moving and you can't know where they'll be next.",
+        "Researchers at the Massachusetts Institute of Technology (MIT) in the USA have created a system called SANDO to solve this. It uses the drone's own cameras and sensors to spot obstacles and track how they move.",
+        "Here's the clever part. SANDO doesn't try to guess exactly where a moving object will go. Instead, it works out the fastest that object could possibly travel, and draws an imaginary bubble around it showing every place it might reach. The longer into the future it looks, the bigger the bubble gets.",
+        "Next, it builds a safe tunnel of open space that avoids all the bubbles, then picks the quickest route through that tunnel. As the drone flies, it keeps repeating these steps, updating the tunnel and the route whenever something changes.",
+        "In computer simulations, SANDO reached its goal faster than other planners without a single crash. It then flew 12 real test flights and avoided every moving obstacle. The team thinks it could help with search and rescue, fighting wildfires and delivering parcels."
+      ],
+      "whyItMatters": "Robots that move around people need to be safe as well as clever. SANDO shows how breaking a hard problem into clear steps, and repeating them many times a second, lets a computer make safe decisions in a world that keeps changing.",
+      "keywords": [
+        {
+          "term": "Algorithm",
+          "meaning": "A set of clear steps for solving a problem or completing a task."
+        },
+        {
+          "term": "Sensor",
+          "meaning": "A device that measures something in the world, like distance, light or movement, and turns it into data."
+        },
+        {
+          "term": "Autonomous",
+          "meaning": "Able to make decisions and act without a person controlling it."
+        },
+        {
+          "term": "Simulation",
+          "meaning": "A computer model of a real situation, used to test ideas safely before trying them for real."
+        }
+      ],
+      "discussion": [
+        "SANDO plans for the worst case: the fastest an obstacle could move. When else do people plan for the worst case in everyday life?",
+        "Would you feel safe with drones delivering parcels in your street? What would make you trust them more?",
+        "The team tested in simulations before real flights. Why might engineers test this way first?",
+        "Search and rescue, wildfires, deliveries: which use do you think is most important, and why?",
+        "Try it: one person walks slowly around the room while another plans a route across it. What rules did you use to stay safe?"
+      ],
+      "quiz": [
+        {
+          "q": "What does SANDO's imaginary 'bubble' around an obstacle show?",
+          "options": [
+            "Exactly where the obstacle will be one second later",
+            "Every place the obstacle could possibly reach",
+            "The area the drone's camera can see",
+            "How close the drone can fly before it must land"
+          ],
+          "answer": 1,
+          "explain": "SANDO doesn't predict one exact spot. It uses the fastest the object could move and covers every place it might reach, then keeps the drone out of that bubble.",
+          "strand": "The news"
+        },
+        {
+          "q": "The drone's camera spots an obstacle. In 'input → process → output', the camera is the…",
+          "options": [
+            "Process",
+            "Output",
+            "Input",
+            "Storage"
+          ],
+          "answer": 2,
+          "explain": "The camera collects data from the world, so it's an input. Working out the route is the process, and spinning the rotors to move is the output.",
+          "strand": "Understanding and analysing computing technology"
+        },
+        {
+          "q": "SANDO keeps updating its route again and again while flying. In programming, repeating steps is called…",
+          "options": [
+            "Sequence",
+            "Selection",
+            "A variable",
+            "Repetition (a loop)"
+          ],
+          "answer": 3,
+          "explain": "Repeating a set of instructions is called repetition, or a loop. Sequence is steps in order, and selection is choosing with IF.",
+          "strand": "Understanding the world through computational thinking"
+        },
+        {
+          "q": "Why would the bubble around an obstacle get bigger the further ahead SANDO plans?",
+          "options": [
+            "There is more time for the obstacle to travel further",
+            "The drone's sensors get less accurate as it flies",
+            "The obstacle is moving closer to the camera",
+            "The drone must fly faster later in the journey"
+          ],
+          "answer": 0,
+          "explain": "The more time that passes, the further something could travel, so the area it might reach keeps growing.",
+          "strand": "Understanding the world through computational thinking"
+        },
+        {
+          "q": "Why did the researchers test SANDO in simulations first?",
+          "options": [
+            "Simulations are always more accurate than real flights",
+            "To test it safely and cheaply before risking real drones",
+            "Drones aren't allowed to fly outdoors in the USA",
+            "A simulation doesn't need any code to run"
+          ],
+          "answer": 1,
+          "explain": "A simulation lets engineers try thousands of situations without crashing anything. It is useful but not perfect, which is why they still did 12 real flights.",
+          "strand": "Designing, building and testing computing solutions"
+        }
+      ],
+      "sources": [
+        {
+          "title": "MIT News: Planning system ensures a robot's flight path will remain collision-free",
+          "url": "https://news.mit.edu/2026/planning-system-ensures-robots-flight-path-will-remain-collision-free-1007"
+        },
+        {
+          "title": "Interesting Engineering: MIT's new drone system plans collision-free paths",
+          "url": "https://interestingengineering.com/innovation/mit-drone-planner-flight"
+        }
+      ],
+      "parsons": {
+        "title": "Drone flight loop",
+        "task": "The drone starts 100 metres from its goal. Each time round the loop it should check its sensor, replan if something is near, then move 10 metres closer. When it arrives it shows a message. One line doesn't belong.",
+        "lines": [
+          {
+            "code": "SET distanceToGoal TO 100",
+            "indent": 0
+          },
+          {
+            "code": "WHILE distanceToGoal > 0 DO",
+            "indent": 0
+          },
+          {
+            "code": "RECEIVE obstacleNear FROM SENSOR",
+            "indent": 1
+          },
+          {
+            "code": "IF obstacleNear = TRUE THEN",
+            "indent": 1
+          },
+          {
+            "code": "SEND \"Obstacle! Replanning route\" TO DISPLAY",
+            "indent": 2
+          },
+          {
+            "code": "END IF",
+            "indent": 1
+          },
+          {
+            "code": "SET distanceToGoal TO distanceToGoal - 10",
+            "indent": 1
+          },
+          {
+            "code": "END WHILE",
+            "indent": 0
+          },
+          {
+            "code": "SEND \"Goal reached\" TO DISPLAY",
+            "indent": 0
+          }
+        ],
+        "distractors": [
+          {
+            "code": "SET distanceToGoal TO distanceToGoal + 10",
+            "indent": 1
+          }
+        ],
+        "explain": "The distance must be set before the loop tests it. Inside the loop the drone senses, decides, then moves. Subtracting 10 brings it closer; adding 10 would move it further away and the loop would never end. \"Goal reached\" goes after END WHILE so it only shows once.",
+        "strand": "Designing, building and testing computing solutions"
+      },
+      "tags": [
+        "Robots",
+        "Frontier tech",
+        "Algorithms",
+        "Sensors",
+        "Loops",
+        "Testing"
+      ],
+      "connections": {
+        "title": "Flying smart",
+        "groups": [
+          {
+            "name": "Parts of a drone",
+            "words": [
+              "Rotor",
+              "Battery",
+              "Camera",
+              "GPS"
+            ],
+            "explain": "Hardware a drone needs to fly, see and know where it is."
+          },
+          {
+            "name": "Programming building blocks",
+            "words": [
+              "Loop",
+              "Selection",
+              "Sequence",
+              "Variable"
+            ],
+            "explain": "The ideas SANDO's code is built from, and the ones in your code puzzle."
+          },
+          {
+            "name": "Jobs drones can help with",
+            "words": [
+              "Delivery",
+              "Rescue",
+              "Farming",
+              "Mapping"
+            ],
+            "explain": "Real uses for drones that can fly safely around moving obstacles."
+          },
+          {
+            "name": "___ path",
+            "words": [
+              "Flight",
+              "Foot",
+              "Cycle",
+              "Garden"
+            ],
+            "explain": "Flight path, footpath, cycle path and garden path. SANDO plans flight paths."
+          }
+        ]
+      }
+    },
+    {
+      "id": "2026-10-20-jupiter-rhea1-chip",
+      "date": "2026-10-20",
+      "newsDate": "22 September 2026",
+      "theme": "hardware",
+      "illustration": "chip",
+      "imageAlt": "Illustration of a computer processor chip with a grid of 80 small squares representing its cores.",
+      "headline": "Europe's own brain chip arrives for its fastest supercomputer",
+      "standfirst": "A processor with 80 cores, designed in Europe, is being fitted into JUPITER, a giant computer in Germany that can do a billion billion sums every second.",
+      "body": [
+        "Every computer has a CPU, the central processing unit. It is the part that carries out instructions, like a brain following a recipe. Most of the CPUs in Europe's biggest computers have been designed by companies in the USA.",
+        "In September, a French company called SiPearl delivered the first samples of a new CPU called Rhea1. It was designed in Europe, and it is being built into JUPITER, Europe's fastest working supercomputer, at a research centre in Jülich, Germany.",
+        "Rhea1 has 80 cores. A core is like a separate worker inside the chip. With 80 of them, the chip can split a huge job into pieces and work on many pieces at the same time.",
+        "JUPITER is an exascale supercomputer. That means it can do at least a billion billion calculations every second. Scientists use machines like this to predict the weather, study climate change, design medicines and train AI.",
+        "Europe wanted its own chip so it relies less on other countries for important technology. A second chip, Rhea2, is planned for another supercomputer in France."
+      ],
+      "whyItMatters": "Supercomputers help answer some of the biggest questions in science. Who designs and makes the chips inside them matters too, because countries want to be sure they can always get the technology they depend on.",
+      "keywords": [
+        {
+          "term": "CPU",
+          "meaning": "Central processing unit: the part of a computer that carries out program instructions."
+        },
+        {
+          "term": "Core",
+          "meaning": "One processing unit inside a CPU. More cores means more tasks can run at the same time."
+        },
+        {
+          "term": "Supercomputer",
+          "meaning": "A very powerful computer made from thousands of processors working together."
+        },
+        {
+          "term": "Exascale",
+          "meaning": "Able to do at least a billion billion (10^18) calculations every second."
+        }
+      ],
+      "discussion": [
+        "Why might a country or region want to design its own computer chips instead of buying them from elsewhere?",
+        "If a supercomputer could answer one question for you, what would you ask it to work on?",
+        "Splitting a big job between 80 workers sounds faster. Can you think of a job that does not get faster with more workers?",
+        "Supercomputers use huge amounts of electricity. How should scientists balance this against what they discover?"
+      ],
+      "quiz": [
+        {
+          "q": "What does CPU stand for?",
+          "options": [
+            "Computer Processing Unit",
+            "Central Processing Unit",
+            "Central Program Utility",
+            "Core Processing Unit"
+          ],
+          "answer": 1,
+          "explain": "CPU stands for Central Processing Unit, the part that carries out the instructions in a program.",
+          "strand": "Understanding and analysing computing technology"
+        },
+        {
+          "q": "How many cores does the new Rhea1 chip have?",
+          "options": [
+            "8",
+            "64",
+            "80",
+            "800"
+          ],
+          "answer": 2,
+          "explain": "Rhea1 has 80 cores, so it can work on many parts of a job at the same time.",
+          "strand": "The news"
+        },
+        {
+          "q": "Why do lots of cores help a computer finish big jobs faster?",
+          "options": [
+            "Each core stores a different part of the job's files",
+            "More cores give the computer more memory",
+            "Each core makes single instructions run faster",
+            "Different parts of the job can run at the same time"
+          ],
+          "answer": 3,
+          "explain": "Splitting work so several parts happen at once is called parallel processing. Cores don't add memory or storage, and one instruction still runs at the same speed.",
+          "strand": "Understanding and analysing computing technology"
+        },
+        {
+          "q": "A job has 80 equal pieces. Each core does one piece in 1 second. Roughly how long do 80 cores take, compared with 1 core?",
+          "options": [
+            "About 1 second instead of 80",
+            "About 40 seconds instead of 80",
+            "About 79 seconds instead of 80",
+            "80 seconds either way"
+          ],
+          "answer": 0,
+          "explain": "All 80 pieces run at once, so it takes about 1 second. Real jobs rarely split this perfectly, but the idea is the same.",
+          "strand": "Understanding the world through computational thinking"
+        },
+        {
+          "q": "Challenge: which binary number equals 80?",
+          "options": [
+            "1100000",
+            "1001000",
+            "1010100",
+            "1010000"
+          ],
+          "answer": 3,
+          "explain": "1010000 = 64 + 16 = 80. The others are 96, 72 and 84. Place values from the left are 64, 32, 16, 8, 4, 2, 1.",
+          "strand": "Understanding and analysing computing technology"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Bull: SiPearl delivers the first Rhea1 CPUs for integration into JUPITER",
+          "url": "https://www.bull.com/en/press-releases/sipearl-delivers-the-first-rhea1-cpus-to-bull-for-integration-into-jupiter-europes-fastest-operating-supercomputer"
+        },
+        {
+          "title": "Electronics World: SiPearl's first Rhea1 CPUs to go into JUPITER",
+          "url": "https://www.electronicsworld.co.uk/sipearls-first-rhea1-cpus-to-go-into-jupiter-europes-fastest-operating-supercomputer/42574/"
+        }
+      ],
+      "parsons": {
+        "title": "Sharing work between cores",
+        "task": "A job has 80 pieces and the chip has 8 free cores. Each round, every core finishes one piece. Put the lines in order to count how many rounds the job takes. One line doesn't belong.",
+        "lines": [
+          {
+            "code": "SET piecesLeft TO 80",
+            "indent": 0
+          },
+          {
+            "code": "SET rounds TO 0",
+            "indent": 0
+          },
+          {
+            "code": "WHILE piecesLeft > 0 DO",
+            "indent": 0
+          },
+          {
+            "code": "SET piecesLeft TO piecesLeft - 8",
+            "indent": 1
+          },
+          {
+            "code": "SET rounds TO rounds + 1",
+            "indent": 1
+          },
+          {
+            "code": "END WHILE",
+            "indent": 0
+          },
+          {
+            "code": "SEND \"Rounds needed: \" & rounds TO DISPLAY",
+            "indent": 0
+          }
+        ],
+        "alternatives": [
+          [
+            1,
+            0,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          [
+            0,
+            1,
+            2,
+            4,
+            3,
+            5,
+            6
+          ],
+          [
+            1,
+            0,
+            2,
+            4,
+            3,
+            5,
+            6
+          ]
+        ],
+        "distractors": [
+          {
+            "code": "SET rounds TO rounds - 1",
+            "indent": 1
+          }
+        ],
+        "explain": "Both counters are set up before the loop. Each time round, 8 pieces are finished and 1 is added to rounds. The answer is 10. Taking 1 away from rounds would count backwards and give -10.",
+        "strand": "Designing, building and testing computing solutions"
+      },
+      "tags": [
+        "Hardware",
+        "Supercomputers",
+        "Frontier tech",
+        "Parallel processing",
+        "Binary"
+      ],
+      "connections": {
+        "title": "Super computing",
+        "groups": [
+          {
+            "name": "Parts inside a computer",
+            "words": [
+              "CPU",
+              "RAM",
+              "GPU",
+              "SSD"
+            ],
+            "explain": "Key hardware: the processor, memory, graphics processor and the solid-state drive that stores files."
+          },
+          {
+            "name": "Units of data",
+            "words": [
+              "Byte",
+              "Kilobyte",
+              "Megabyte",
+              "Gigabyte"
+            ],
+            "explain": "Each unit is about a thousand times bigger than the one before."
+          },
+          {
+            "name": "Supercomputers help study…",
+            "words": [
+              "Weather",
+              "Medicines",
+              "Climate",
+              "Volcanoes"
+            ],
+            "explain": "Big scientific problems that need billions of calculations."
+          },
+          {
+            "name": "Things with a core",
+            "words": [
+              "Apple",
+              "Earth",
+              "Pear",
+              "Reactor"
+            ],
+            "explain": "Each has a core in its centre. CPU was the red herring: chips have cores too, but it belongs with the computer parts."
+          }
+        ]
+      }
     }
-   ],
-   "discussion": [
-    "SANDO plans for the worst case: the fastest an obstacle could move. When else do people plan for the worst case in everyday life?",
-    "Would you feel safe with drones delivering parcels in your street? What would make you trust them more?",
-    "The team tested in simulations before real flights. Why might engineers test this way first?",
-    "Search and rescue, wildfires, deliveries: which use do you think is most important, and why?",
-    "Try it: one person walks slowly around the room while another plans a route across it. What rules did you use to stay safe?"
-   ],
-   "quiz": [
-    {
-     "q": "What does SANDO's imaginary 'bubble' around an obstacle show?",
-     "options": [
-      "Exactly where the obstacle will be one second later",
-      "Every place the obstacle could possibly reach",
-      "The area the drone's camera can see",
-      "How close the drone can fly before it must land"
-     ],
-     "answer": 1,
-     "explain": "SANDO doesn't predict one exact spot. It uses the fastest the object could move and covers every place it might reach, then keeps the drone out of that bubble.",
-     "strand": "The news"
-    },
-    {
-     "q": "The drone's camera spots an obstacle. In 'input → process → output', the camera is the…",
-     "options": [
-      "Process",
-      "Output",
-      "Input",
-      "Storage"
-     ],
-     "answer": 2,
-     "explain": "The camera collects data from the world, so it's an input. Working out the route is the process, and spinning the rotors to move is the output.",
-     "strand": "Understanding and analysing computing technology"
-    },
-    {
-     "q": "SANDO keeps updating its route again and again while flying. In programming, repeating steps is called…",
-     "options": [
-      "Sequence",
-      "Selection",
-      "A variable",
-      "Repetition (a loop)"
-     ],
-     "answer": 3,
-     "explain": "Repeating a set of instructions is called repetition, or a loop. Sequence is steps in order, and selection is choosing with IF.",
-     "strand": "Understanding the world through computational thinking"
-    },
-    {
-     "q": "Why would the bubble around an obstacle get bigger the further ahead SANDO plans?",
-     "options": [
-      "There is more time for the obstacle to travel further",
-      "The drone's sensors get less accurate as it flies",
-      "The obstacle is moving closer to the camera",
-      "The drone must fly faster later in the journey"
-     ],
-     "answer": 0,
-     "explain": "The more time that passes, the further something could travel, so the area it might reach keeps growing.",
-     "strand": "Understanding the world through computational thinking"
-    },
-    {
-     "q": "Why did the researchers test SANDO in simulations first?",
-     "options": [
-      "Simulations are always more accurate than real flights",
-      "To test it safely and cheaply before risking real drones",
-      "Drones aren't allowed to fly outdoors in the USA",
-      "A simulation doesn't need any code to run"
-     ],
-     "answer": 1,
-     "explain": "A simulation lets engineers try thousands of situations without crashing anything. It is useful but not perfect, which is why they still did 12 real flights.",
-     "strand": "Designing, building and testing computing solutions"
-    }
-   ],
-   "sources": [
-    {
-     "title": "MIT News: Planning system ensures a robot's flight path will remain collision-free",
-     "url": "https://news.mit.edu/2026/planning-system-ensures-robots-flight-path-will-remain-collision-free-1007"
-    },
-    {
-     "title": "Interesting Engineering: MIT's new drone system plans collision-free paths",
-     "url": "https://interestingengineering.com/innovation/mit-drone-planner-flight"
-    }
-   ],
-   "parsons": {
-    "title": "Drone flight loop",
-    "task": "The drone starts 100 metres from its goal. Each time round the loop it should check its sensor, replan if something is near, then move 10 metres closer. When it arrives it shows a message. One line doesn't belong.",
-    "lines": [
-     {
-      "code": "SET distanceToGoal TO 100",
-      "indent": 0
-     },
-     {
-      "code": "WHILE distanceToGoal > 0 DO",
-      "indent": 0
-     },
-     {
-      "code": "RECEIVE obstacleNear FROM SENSOR",
-      "indent": 1
-     },
-     {
-      "code": "IF obstacleNear = TRUE THEN",
-      "indent": 1
-     },
-     {
-      "code": "SEND \"Obstacle! Replanning route\" TO DISPLAY",
-      "indent": 2
-     },
-     {
-      "code": "END IF",
-      "indent": 1
-     },
-     {
-      "code": "SET distanceToGoal TO distanceToGoal - 10",
-      "indent": 1
-     },
-     {
-      "code": "END WHILE",
-      "indent": 0
-     },
-     {
-      "code": "SEND \"Goal reached\" TO DISPLAY",
-      "indent": 0
-     }
-    ],
-    "distractors": [
-     {
-      "code": "SET distanceToGoal TO distanceToGoal + 10",
-      "indent": 1
-     }
-    ],
-    "explain": "The distance must be set before the loop tests it. Inside the loop the drone senses, decides, then moves. Subtracting 10 brings it closer; adding 10 would move it further away and the loop would never end. \"Goal reached\" goes after END WHILE so it only shows once.",
-    "strand": "Designing, building and testing computing solutions"
-   },
-   "tags": [
-    "Robots",
-    "Frontier tech",
-    "Algorithms",
-    "Sensors",
-    "Loops",
-    "Testing"
-   ],
-   "connections": {
-    "title": "Flying smart",
-    "groups": [
-     {
-      "name": "Parts of a drone",
-      "words": [
-       "Rotor",
-       "Battery",
-       "Camera",
-       "GPS"
-      ],
-      "explain": "Hardware a drone needs to fly, see and know where it is."
-     },
-     {
-      "name": "Programming building blocks",
-      "words": [
-       "Loop",
-       "Selection",
-       "Sequence",
-       "Variable"
-      ],
-      "explain": "The ideas SANDO's code is built from, and the ones in your code puzzle."
-     },
-     {
-      "name": "Jobs drones can help with",
-      "words": [
-       "Delivery",
-       "Rescue",
-       "Farming",
-       "Mapping"
-      ],
-      "explain": "Real uses for drones that can fly safely around moving obstacles."
-     },
-     {
-      "name": "___ path",
-      "words": [
-       "Flight",
-       "Foot",
-       "Cycle",
-       "Garden"
-      ],
-      "explain": "Flight path, footpath, cycle path and garden path. SANDO plans flight paths."
-     }
-    ]
-   }
-  },
-  {
-   "id": "2026-10-20-jupiter-rhea1-chip",
-   "date": "2026-10-20",
-   "newsDate": "22 September 2026",
-   "theme": "hardware",
-   "illustration": "chip",
-   "imageAlt": "Illustration of a computer processor chip with a grid of 80 small squares representing its cores.",
-   "headline": "Europe's own brain chip arrives for its fastest supercomputer",
-   "standfirst": "A processor with 80 cores, designed in Europe, is being fitted into JUPITER, a giant computer in Germany that can do a billion billion sums every second.",
-   "body": [
-    "Every computer has a CPU, the central processing unit. It is the part that carries out instructions, like a brain following a recipe. Most of the CPUs in Europe's biggest computers have been designed by companies in the USA.",
-    "In September, a French company called SiPearl delivered the first samples of a new CPU called Rhea1. It was designed in Europe, and it is being built into JUPITER, Europe's fastest working supercomputer, at a research centre in Jülich, Germany.",
-    "Rhea1 has 80 cores. A core is like a separate worker inside the chip. With 80 of them, the chip can split a huge job into pieces and work on many pieces at the same time.",
-    "JUPITER is an exascale supercomputer. That means it can do at least a billion billion calculations every second. Scientists use machines like this to predict the weather, study climate change, design medicines and train AI.",
-    "Europe wanted its own chip so it relies less on other countries for important technology. A second chip, Rhea2, is planned for another supercomputer in France."
-   ],
-   "whyItMatters": "Supercomputers help answer some of the biggest questions in science. Who designs and makes the chips inside them matters too, because countries want to be sure they can always get the technology they depend on.",
-   "keywords": [
-    {
-     "term": "CPU",
-     "meaning": "Central processing unit: the part of a computer that carries out program instructions."
-    },
-    {
-     "term": "Core",
-     "meaning": "One processing unit inside a CPU. More cores means more tasks can run at the same time."
-    },
-    {
-     "term": "Supercomputer",
-     "meaning": "A very powerful computer made from thousands of processors working together."
-    },
-    {
-     "term": "Exascale",
-     "meaning": "Able to do at least a billion billion (10^18) calculations every second."
-    }
-   ],
-   "discussion": [
-    "Why might a country or region want to design its own computer chips instead of buying them from elsewhere?",
-    "If a supercomputer could answer one question for you, what would you ask it to work on?",
-    "Splitting a big job between 80 workers sounds faster. Can you think of a job that does not get faster with more workers?",
-    "Supercomputers use huge amounts of electricity. How should scientists balance this against what they discover?"
-   ],
-   "quiz": [
-    {
-     "q": "What does CPU stand for?",
-     "options": [
-      "Computer Processing Unit",
-      "Central Processing Unit",
-      "Central Program Utility",
-      "Core Processing Unit"
-     ],
-     "answer": 1,
-     "explain": "CPU stands for Central Processing Unit, the part that carries out the instructions in a program.",
-     "strand": "Understanding and analysing computing technology"
-    },
-    {
-     "q": "How many cores does the new Rhea1 chip have?",
-     "options": [
-      "8",
-      "64",
-      "80",
-      "800"
-     ],
-     "answer": 2,
-     "explain": "Rhea1 has 80 cores, so it can work on many parts of a job at the same time.",
-     "strand": "The news"
-    },
-    {
-     "q": "Why do lots of cores help a computer finish big jobs faster?",
-     "options": [
-      "Each core stores a different part of the job's files",
-      "More cores give the computer more memory",
-      "Each core makes single instructions run faster",
-      "Different parts of the job can run at the same time"
-     ],
-     "answer": 3,
-     "explain": "Splitting work so several parts happen at once is called parallel processing. Cores don't add memory or storage, and one instruction still runs at the same speed.",
-     "strand": "Understanding and analysing computing technology"
-    },
-    {
-     "q": "A job has 80 equal pieces. Each core does one piece in 1 second. Roughly how long do 80 cores take, compared with 1 core?",
-     "options": [
-      "About 1 second instead of 80",
-      "About 40 seconds instead of 80",
-      "About 79 seconds instead of 80",
-      "80 seconds either way"
-     ],
-     "answer": 0,
-     "explain": "All 80 pieces run at once, so it takes about 1 second. Real jobs rarely split this perfectly, but the idea is the same.",
-     "strand": "Understanding the world through computational thinking"
-    },
-    {
-     "q": "Challenge: which binary number equals 80?",
-     "options": [
-      "1100000",
-      "1001000",
-      "1010100",
-      "1010000"
-     ],
-     "answer": 3,
-     "explain": "1010000 = 64 + 16 = 80. The others are 96, 72 and 84. Place values from the left are 64, 32, 16, 8, 4, 2, 1.",
-     "strand": "Understanding and analysing computing technology"
-    }
-   ],
-   "sources": [
-    {
-     "title": "Bull: SiPearl delivers the first Rhea1 CPUs for integration into JUPITER",
-     "url": "https://www.bull.com/en/press-releases/sipearl-delivers-the-first-rhea1-cpus-to-bull-for-integration-into-jupiter-europes-fastest-operating-supercomputer"
-    },
-    {
-     "title": "Electronics World: SiPearl's first Rhea1 CPUs to go into JUPITER",
-     "url": "https://www.electronicsworld.co.uk/sipearls-first-rhea1-cpus-to-go-into-jupiter-europes-fastest-operating-supercomputer/42574/"
-    }
-   ],
-   "parsons": {
-    "title": "Sharing work between cores",
-    "task": "A job has 80 pieces and the chip has 8 free cores. Each round, every core finishes one piece. Put the lines in order to count how many rounds the job takes. One line doesn't belong.",
-    "lines": [
-     {
-      "code": "SET piecesLeft TO 80",
-      "indent": 0
-     },
-     {
-      "code": "SET rounds TO 0",
-      "indent": 0
-     },
-     {
-      "code": "WHILE piecesLeft > 0 DO",
-      "indent": 0
-     },
-     {
-      "code": "SET piecesLeft TO piecesLeft - 8",
-      "indent": 1
-     },
-     {
-      "code": "SET rounds TO rounds + 1",
-      "indent": 1
-     },
-     {
-      "code": "END WHILE",
-      "indent": 0
-     },
-     {
-      "code": "SEND \"Rounds needed: \" & rounds TO DISPLAY",
-      "indent": 0
-     }
-    ],
-    "alternatives": [
-     [
-      1,
-      0,
-      2,
-      3,
-      4,
-      5,
-      6
-     ],
-     [
-      0,
-      1,
-      2,
-      4,
-      3,
-      5,
-      6
-     ],
-     [
-      1,
-      0,
-      2,
-      4,
-      3,
-      5,
-      6
-     ]
-    ],
-    "distractors": [
-     {
-      "code": "SET rounds TO rounds - 1",
-      "indent": 1
-     }
-    ],
-    "explain": "Both counters are set up before the loop. Each time round, 8 pieces are finished and 1 is added to rounds. The answer is 10. Taking 1 away from rounds would count backwards and give -10.",
-    "strand": "Designing, building and testing computing solutions"
-   },
-   "tags": [
-    "Hardware",
-    "Supercomputers",
-    "Frontier tech",
-    "Parallel processing",
-    "Binary"
-   ],
-   "connections": {
-    "title": "Super computing",
-    "groups": [
-     {
-      "name": "Parts inside a computer",
-      "words": [
-       "CPU",
-       "RAM",
-       "GPU",
-       "SSD"
-      ],
-      "explain": "Key hardware: the processor, memory, graphics processor and the solid-state drive that stores files."
-     },
-     {
-      "name": "Units of data",
-      "words": [
-       "Byte",
-       "Kilobyte",
-       "Megabyte",
-       "Gigabyte"
-      ],
-      "explain": "Each unit is about a thousand times bigger than the one before."
-     },
-     {
-      "name": "Supercomputers help study…",
-      "words": [
-       "Weather",
-       "Medicines",
-       "Climate",
-       "Volcanoes"
-      ],
-      "explain": "Big scientific problems that need billions of calculations."
-     },
-     {
-      "name": "Things with a core",
-      "words": [
-       "Apple",
-       "Earth",
-       "Pear",
-       "Reactor"
-      ],
-      "explain": "Each has a core in its centre. CPU was the red herring: chips have cores too, but it belongs with the computer parts."
-     }
-    ]
-   }
-  }
- ]
+  ]
 }
