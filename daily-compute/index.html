@@ -201,6 +201,7 @@ dl.words dd{margin:0;color:var(--muted);font-size:16px;line-height:1.5}
 .bprog>li::before{content:counter(ln);font-family:var(--f-mono);font-size:13px;color:var(--muted);text-align:right}
 .cl.stat{cursor:default;display:block}
 .bprog .cl.stat .ctext{white-space:pre-wrap;overflow-wrap:anywhere}
+@media (max-width:700px){.cl{white-space:normal}.cl .ctext{white-space:pre-wrap;overflow-wrap:anywhere}}
 .bprog .cl.bad{border-color:var(--bad);background:var(--bad-soft)}
 .bprog .cl.ok{border-color:var(--good);background:var(--good-soft)}
 .bprog .cl.fine{opacity:.6;border-style:dashed}
@@ -871,6 +872,8 @@ footer li{margin-bottom:4px}
   // Bug hunt: tap the faulty line, then choose the fix
   function startBug(box, st, B){
     let found = false, fixed = false, wrongLines = new Set(), wrongFixes = new Set(), msg = "";
+    // Keep the feedback (and the fix choices) on screen after a tap, e.g. on phones
+    const bring = () => { const el = found && !fixed ? box.querySelector(".fixes") : box.querySelector(".pmsg"); if (el) el.scrollIntoView({block:"nearest", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); };
     function draw(){
       const lines = B.lines.map((l,i) => {
         const isBug = i === B.bug;
@@ -882,22 +885,22 @@ footer li{margin-bottom:4px}
       box.innerHTML = `${xHead(B)}
         <p class="step-l">${fixed ? "Fixed!" : found ? "Step 2: choose the fix" : "Step 1: tap the line with the bug"}</p>
         <ol class="bprog">${lines}</ol>
-        ${found && !fixed ? `<div class="fixes" role="group" aria-label="Choose a fix">${B.fixes.map((f,k) => `<button class="cl fix${wrongFixes.has(k)?" no":""}${bm()}" type="button" data-fix="${k}" ${wrongFixes.has(k)?"disabled":""}>${codeLine(f, 0)}</button>`).join("")}</div>` : ""}
         ${msg}
+        ${found && !fixed ? `<div class="fixes" role="group" aria-label="Choose a fix">${B.fixes.map((f,k) => `<button class="cl fix${wrongFixes.has(k)?" no":""}${bm()}" type="button" data-fix="${k}" ${wrongFixes.has(k)?"disabled":""}>${codeLine(f, 0)}</button>`).join("")}</div>` : ""}
         <div class="pfoot">${!found && wrongLines.size >= 2 ? `<button class="btn line" type="button" data-act="reveal">Show me the bug</button>` : ""}${found || wrongLines.size ? `<button class="btn line" type="button" data-act="reset">Start again</button>` : ""}</div>`;
       box.querySelectorAll("[data-line]").forEach(b => b.addEventListener("click", () => {
         const i = +b.dataset.line;
         if (i === B.bug){ found = true; msg = `<div class="pmsg good"><b>FOUND IT!</b>That's the line with the bug. Now choose the line that fixes it.</div>`; }
         else { wrongLines.add(i); msg = `<div class="pmsg try"><b>NOT THAT ONE.</b>Line ${i+1} does what it should. ${wrongLines.size >= 2 ? "Try tracing the program with a test value from the task, line by line." : "Read the task again: what goes wrong?"}</div>`; }
-        draw();
+        draw(); bring();
       }));
       box.querySelectorAll("[data-fix]").forEach(b => b.addEventListener("click", () => {
         const k = +b.dataset.fix;
         if (k === B.answer){ fixed = true; msg = `<div class="pmsg good"><b>BUG FIXED!</b>${esc(B.explain||"")}</div>`; }
         else { wrongFixes.add(k); msg = `<div class="pmsg try"><b>NOT QUITE.</b>That change wouldn't fix it. Imagine the program running with it, using the task's example.</div>`; }
-        draw();
+        draw(); bring();
       }));
-      const a = box.querySelector("[data-act=reveal]"); if (a) a.addEventListener("click", () => { found = true; msg = `<div class="pmsg try"><b>HERE'S THE BUG.</b>Line ${B.bug+1} is the problem. Now choose the fix.</div>`; draw(); });
+      const a = box.querySelector("[data-act=reveal]"); if (a) a.addEventListener("click", () => { found = true; msg = `<div class="pmsg try"><b>HERE'S THE BUG.</b>Line ${B.bug+1} is the problem. Now choose the fix.</div>`; draw(); bring(); });
       const r = box.querySelector("[data-act=reset]"); if (r) r.addEventListener("click", () => { found = fixed = false; wrongLines = new Set(); wrongFixes = new Set(); msg = ""; draw(); });
     }
     redraws.push(draw); draw();
@@ -1134,4 +1137,5 @@ footer li{margin-bottom:4px}
     .catch(() => { $("#main").innerHTML = `<div class="state">Today's story couldn't load. Refresh the page to try again.</div>`; });
 })();
 </script>
+
 </body></html>
