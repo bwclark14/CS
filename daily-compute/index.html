@@ -9,7 +9,7 @@
   --paper:#F2F5FB; --card:#FFFFFF; --ink:#16213F; --muted:#56607A; --line:#D5DCEA;
   --accent:#2B55E6; --accent-soft:#E2E9FF; --hot:#F2701D; --hot-soft:#FFE9DA;
   --good:#1C8A4E; --good-soft:#DDF3E6; --bad:#C53A3A; --bad-soft:#FBE3E3;
-  --ill-bg:#DCE5FA; --ill-2:#C3D1F5; --str:#A3450C; --g1:#DCE7FF; --g2:#FFE0C7; --g3:#D4EFDD; --g4:#E9DEFA;
+  --ill-bg:#DCE5FA; --ill-2:#C3D1F5; --str:#A3450C; --g1:#DCE7FF; --g2:#FFE0C7; --g3:#D4EFDD; --g4:#E9DEFA; --b-ctl:#F2B33D; --b-var:#F7955A; --b-sense:#62C4E2; --b-out:#AE96EE; --b-other:#C9D1E4; --b-ink:#14182A; --b-slot:#FFFFFFE6; --b-str:#9A3F08;
   --f-display:"Silkscreen", "Courier New", monospace;
   --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
   --f-mono:"IBM Plex Mono", ui-monospace, "Menlo", monospace;
@@ -19,12 +19,12 @@
   --paper:#0E1426; --card:#161F37; --ink:#E7ECF8; --muted:#9AA5C2; --line:#2A3657;
   --accent:#7F9BFF; --accent-soft:#1F2C55; --hot:#FF9550; --hot-soft:#3A2618;
   --good:#5BD08F; --good-soft:#163526; --bad:#FF7C7C; --bad-soft:#3D1C1F;
-  --ill-bg:#1C2850; --ill-2:#25356A; --str:#FFB27A; --g1:#24386E; --g2:#4C2F17; --g3:#1D4530; --g4:#3B2C5E; color-scheme:dark }}
+  --ill-bg:#1C2850; --ill-2:#25356A; --str:#FFB27A; --g1:#24386E; --g2:#4C2F17; --g3:#1D4530; --g4:#3B2C5E; --b-ctl:#E3A32F; --b-var:#EA8447; --b-sense:#4FB3D3; --b-out:#9C83E2; --b-other:#AEB8D0; --b-ink:#14182A; --b-slot:#FFFFFFE6; --b-str:#9A3F08; color-scheme:dark }}
 :root[data-theme="dark"]{
   --paper:#0E1426; --card:#161F37; --ink:#E7ECF8; --muted:#9AA5C2; --line:#2A3657;
   --accent:#7F9BFF; --accent-soft:#1F2C55; --hot:#FF9550; --hot-soft:#3A2618;
   --good:#5BD08F; --good-soft:#163526; --bad:#FF7C7C; --bad-soft:#3D1C1F;
-  --ill-bg:#1C2850; --ill-2:#25356A; --str:#FFB27A; --g1:#24386E; --g2:#4C2F17; --g3:#1D4530; --g4:#3B2C5E; color-scheme:dark }
+  --ill-bg:#1C2850; --ill-2:#25356A; --str:#FFB27A; --g1:#24386E; --g2:#4C2F17; --g3:#1D4530; --g4:#3B2C5E; --b-ctl:#E3A32F; --b-var:#EA8447; --b-sense:#4FB3D3; --b-out:#9C83E2; --b-other:#AEB8D0; --b-ink:#14182A; --b-slot:#FFFFFFE6; --b-str:#9A3F08; color-scheme:dark }
 
 *{box-sizing:border-box}
 body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:18px;line-height:1.6}
@@ -162,6 +162,127 @@ dl.words dd{margin:0;color:var(--muted);font-size:16px;line-height:1.5}
 .lmsg{min-height:1.5em;margin:12px 0 0;font-weight:700}
 @media (prefers-reduced-motion:no-preference){ .lgrid.shake{animation:shake .35s} @keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}} }
 
+/* Preview note */
+.pv-note{font-size:15px;color:var(--ink);background:var(--accent-soft);border-radius:8px;padding:8px 12px;margin-top:12px}
+
+/* Extras */
+.extras{margin-bottom:36px}
+.xhead{border-top:3px solid var(--ink);padding-top:22px;margin-bottom:16px}
+.xhead h2{font-family:var(--f-display);font-size:clamp(24px,3.4vw,34px);margin:0;line-height:1.1}
+.xhead p{margin:6px 0 0;color:var(--muted)}
+.xnav{list-style:none;display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:12px 0 0}
+.xnav a{display:inline-flex;align-items:center;font-size:15px;font-weight:700;text-decoration:none;color:var(--ink);border:2px solid var(--line);background:var(--card);border-radius:999px;padding:5px 12px}
+.xnav a:hover{border-color:var(--ink)}
+.codebadge{font-family:var(--f-display);font-size:10px;letter-spacing:.06em;background:var(--accent);color:var(--paper);border-radius:4px;padding:2px 6px;margin-right:6px;line-height:1.2}
+.xact{margin-bottom:22px;padding:24px clamp(14px,3.5vw,32px);scroll-margin-top:12px}
+.ph .vt{margin-left:auto;align-self:center}
+.vt{display:inline-flex;border:2px solid var(--line);border-radius:999px;overflow:hidden}
+.vt button{font:inherit;font-size:13px;font-weight:700;border:0;background:var(--card);color:var(--muted);padding:4px 12px;cursor:pointer}
+.vt button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+
+/* Code as text or blocks */
+.ctext{display:block;white-space:pre}
+.brow{display:flex;align-items:stretch;gap:3px;min-width:0}
+.rail{width:12px;flex:none;border-radius:3px;background:var(--b-ctl)}
+.blk{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;font:700 15px/1.3 var(--f-body);color:var(--b-ink);min-height:34px;white-space:normal;text-align:left}
+.blk.head{border-bottom-left-radius:2px}
+.blk.foot{min-height:20px;padding:2px 12px;font-size:12.5px;border-top-left-radius:2px}
+.blk.mid{border-top-left-radius:2px;border-bottom-left-radius:2px}
+.b-ctl{background:var(--b-ctl)} .b-var{background:var(--b-var)} .b-sense{background:var(--b-sense)} .b-out{background:var(--b-out)} .b-other{background:var(--b-other)}
+.slot{background:var(--b-slot);color:var(--b-ink);border-radius:999px;padding:1px 9px;font:500 14px/1.45 var(--f-mono);white-space:pre-wrap}
+.slot .st{color:var(--b-str)}
+.slot.cond{border-radius:3px;padding:1px 14px;clip-path:polygon(8px 0,calc(100% - 8px) 0,100% 50%,calc(100% - 8px) 100%,8px 100%,0 50%)}
+.cl.bmode{background:transparent;border-color:transparent;padding:3px 4px;white-space:normal}
+.cl.bmode .flag,.cl.bmode .tag-ok,.cl.bmode .tag-fixed{margin-left:6px;align-self:center}
+.cl.bmode{display:flex;align-items:center;flex-wrap:wrap}
+
+/* Program listings (bug hunt, predict) */
+.bprog{list-style:none;margin:0 0 12px;padding:0;counter-reset:ln;display:flex;flex-direction:column;gap:4px}
+.bprog>li{counter-increment:ln;display:grid;grid-template-columns:26px minmax(0,1fr);gap:6px;align-items:center}
+.bprog>li::before{content:counter(ln);font-family:var(--f-mono);font-size:13px;color:var(--muted);text-align:right}
+.cl.stat{cursor:default;display:block}
+.bprog .cl.stat .ctext{white-space:pre-wrap;overflow-wrap:anywhere}
+.bprog .cl.bad{border-color:var(--bad);background:var(--bad-soft)}
+.bprog .cl.ok{border-color:var(--good);background:var(--good-soft)}
+.bprog .cl.fine{opacity:.6;border-style:dashed}
+.tag-ok,.tag-fixed{font-family:var(--f-body);font-size:12px;font-weight:700;margin-left:10px}
+.tag-ok{color:var(--muted)} .tag-fixed{color:var(--good)}
+.fixes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:4px 0 12px}
+@media (max-width:640px){.fixes{grid-template-columns:minmax(0,1fr)}}
+.cl.fix.no{opacity:.45;text-decoration:line-through}
+.step-l{font-family:var(--f-display);font-size:13px;letter-spacing:.05em;text-transform:uppercase;margin:10px 0 6px}
+
+/* Predict */
+.qtext2{font-size:19px;font-weight:700;margin:6px 0 10px}
+.popts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (max-width:620px){.popts{grid-template-columns:minmax(0,1fr)}}
+.popt{font:inherit;text-align:left;background:var(--paper);color:var(--ink);border:3px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;align-items:center}
+.popt .k{font-family:var(--f-display);font-size:13px;color:var(--accent)}
+.popt .screen{font-family:var(--f-mono);font-size:15px;overflow-wrap:anywhere}
+.popt:hover:not([disabled]){border-color:var(--hot)}
+.popt[disabled]{cursor:default}
+.popt.right{background:var(--good-soft);border-color:var(--good)} .popt.wrong{background:var(--bad-soft);border-color:var(--bad)} .popt.dim{opacity:.55}
+.tt{overflow-x:auto;margin-top:12px}
+.tt table{border-collapse:collapse;font-variant-numeric:tabular-nums;min-width:100%}
+.tt th,.tt td{padding:6px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.tt th{font-family:var(--f-mono);font-size:13px;font-weight:500;color:var(--muted)}
+.tt td{font-family:var(--f-mono);font-size:15px}
+
+/* Binary */
+.bits8{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;max-width:520px;margin:6px 0 12px}
+.bcol{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.pv{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.bit{width:100%;max-width:58px;aspect-ratio:1/1.15;font:700 22px var(--f-mono);border:2px solid var(--line);border-radius:8px;background:var(--paper);color:var(--muted);cursor:pointer}
+.bit.on{background:var(--hot);border-color:var(--ink);color:var(--b-ink)}
+.bit:hover{border-color:var(--ink)}
+.btotal{font-size:19px;margin:0;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.btotal .mono{font-family:var(--f-mono);letter-spacing:.08em}
+.btotal .sumw{color:var(--muted);font-size:15px}
+.btarget{font-family:var(--f-display);font-size:14px;background:var(--accent-soft);border-radius:6px;padding:2px 8px}
+
+/* Sort into buckets */
+.slist{list-style:none;margin:0 0 6px;padding:0}
+.srow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;align-items:center;padding:10px 0 10px 10px;border-top:1px solid var(--line)}
+@media (max-width:560px){.srow{grid-template-columns:minmax(0,1fr)}}
+.srow.ok{box-shadow:inset 4px 0 0 var(--good)} .srow.no{box-shadow:inset 4px 0 0 var(--bad)}
+.stext{font-weight:700}
+.seg{display:inline-flex;flex-wrap:wrap;border:2px solid var(--line);border-radius:10px;overflow:hidden;justify-self:start}
+.seg button{font:inherit;font-size:14px;font-weight:700;border:0;background:var(--card);color:var(--ink);padding:6px 12px;cursor:pointer}
+.seg button+button{border-left:2px solid var(--line)}
+.seg button[aria-checked="true"]{background:var(--ink);color:var(--paper)}
+.seg button[disabled]{cursor:default}
+.sx{grid-column:1/-1;font-size:15px;color:var(--muted)}
+
+/* Order */
+.olist{list-style:none;margin:0 0 6px;padding:0;display:flex;flex-direction:column;gap:6px}
+.orow{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:10px;align-items:center;background:var(--paper);border:2px solid var(--line);border-radius:10px;padding:8px 10px}
+.orow.ok{border-color:var(--good);background:var(--good-soft)} .orow.no{border-color:var(--bad)}
+.onum{font-family:var(--f-display);font-size:14px;color:var(--accent);text-align:center}
+.otext{min-width:0}
+.obtns{display:flex;gap:6px}
+
+/* Fact or opinion */
+.flist{list-style:none;margin:0 0 6px;padding:0}
+.frow{padding:12px 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.frow p{margin:0}
+.fbtns{display:flex;gap:8px;flex-wrap:wrap}
+.fbtns .btn{font-size:15px;padding:7px 16px}
+.fbtns .btn.picked{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.fx{font-size:15px}
+.fx.good b{color:var(--good)} .fx.try b{color:var(--bad)}
+
+/* Complete the code */
+.gap{font:600 14px/1.3 var(--f-mono);color:var(--ink);background:var(--card);border:2px dashed var(--accent);border-radius:6px;padding:1px 4px;margin:0 2px;cursor:pointer;max-width:100%}
+.gap:focus-visible{outline:3px solid var(--hot);outline-offset:1px}
+.gap.ok{border-style:solid;border-color:var(--good);background:var(--good-soft)}
+.gap.no{border-style:solid;border-color:var(--bad);background:var(--bad-soft)}
+.gap[disabled]{cursor:default;opacity:1}
+.slot .gap{color:var(--b-ink);background:#fff}
+.slot .gap.ok{background:#DDF3E6} .slot .gap.no{background:#FBE3E3}
+
+/* Teacher notes: extras */
+.xwhy{margin:10px 0 0;padding-left:20px;font-size:16px;display:flex;flex-direction:column;gap:4px}
+
 /* Tags on a story */
 .taglist{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px;padding:0;list-style:none}
 .tagbtn{font:inherit;font-size:14px;border:0;background:var(--accent-soft);color:var(--ink);border-radius:6px;padding:3px 10px;cursor:pointer}
@@ -263,7 +384,6 @@ footer li{margin-bottom:4px}
   const tagsOf = st => { const t = (st.tags && st.tags.length) ? st.tags.slice() : []; const th = THEME_TAG[st.theme]; if (th && !t.includes(th)) t.unshift(th); return t; };
   const slug = s => String(s).toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
   let SITE_URL = "https://claude.ai/artifact/KfqAJfH6ZgFFUunuak9VSN";
-  // On GitHub Pages or Cloudflare Pages (add a custom domain to the list later), share links point to this site itself.
   try { if (/\.(github\.io|pages\.dev)$/i.test(location.hostname)) SITE_URL = location.origin + location.pathname; } catch(e){}
   const ORGS = {
     "Cyber resilience and internet safety":"Digital literacy",
@@ -439,7 +559,7 @@ footer li{margin-bottom:4px}
     const t = [{part:"", label:"Whole story", title: st.headline}];
     if ((st.quiz||[]).length) t.push({part:"quiz", label:"Quiz", title:"Quiz: " + st.headline});
     if (st.connections && st.connections.groups) t.push({part:"links", label:"Four Links", title:"Four Links: " + (st.connections.title || st.headline)});
-    if (st.parsons && st.parsons.lines) t.push({part:"puzzle", label:"Code puzzle", title:"Code puzzle: " + (st.parsons.title || st.headline)});
+    extrasOf(st).forEach(x => t.push({part:x.type, label:xName(x), title:xName(x) + ": " + (x.title || st.headline)}));
     return t;
   }
   function storyShare(st){
@@ -522,7 +642,7 @@ footer li{margin-bottom:4px}
     current = st;
     try{ if (st !== pickDefault()) history.replaceState(null,"","#d"+st.date); else history.replaceState(null,"",location.pathname+location.search); }catch(e){}
     renderDays();
-    const strands = [...new Set((st.quiz||[]).map(q=>q.strand).concat(st.parsons?[st.parsons.strand]:[]).filter(s=>ORGS[s]))];
+    const strands = [...new Set((st.quiz||[]).map(q=>q.strand).concat(extrasOf(st).map(x=>x.strand)).filter(s=>ORGS[s]))];
     $("#main").innerHTML = `
       <article class="story">
         <div style="min-width:0">
@@ -549,10 +669,11 @@ footer li{margin-bottom:4px}
       </article>
       <section class="quiz" id="quiz" aria-live="polite"></section>
       <section class="links panel" id="links" aria-labelledby="linksh"></section>
-      <section class="parsons panel" id="parsons" aria-labelledby="parsh"></section>
+      <section class="extras" id="extras" aria-label="Extra challenges"></section>
       <details class="teacher panel"><summary>Teacher notes: curriculum links</summary>
         <p style="margin:10px 0 0;font-size:16px;color:var(--muted)">Quiz questions map to Curriculum for Excellence Technologies organisers (Second and Third level). Questions marked "Challenge" stretch towards Third level.</p>
         <div class="tags">${strands.map(s=>`<span>${esc(ORGS[s])}: ${esc(s)}</span>`).join("")}</div>
+        ${extrasOf(st).length ? `<p style="margin:14px 0 0;font-weight:700">Why these extra challenges were picked</p><ul class="xwhy">${extrasOf(st).map(x => `<li><b>${esc(xName(x))}:</b> ${esc(x.why || "")}</li>`).join("")}</ul>` : ""}
       </details>`;
     $("#copyTalk").addEventListener("click", e => {
       const txt = st.headline + "\n\n" + st.discussion.map((d,i)=>(i+1)+". "+d).join("\n");
@@ -565,7 +686,7 @@ footer li{margin-bottom:4px}
     renderFoot(st);
     startQuiz(st);
     startLinks(st);
-    startParsons(st);
+    startExtras(st);
     renderArchive();
     if (scroll) window.scrollTo({top:0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
   }
@@ -680,21 +801,259 @@ footer li{margin-bottom:4px}
     draw();
   }
 
+  // ---------- Code display: text or blocks ----------
+  let codeView = store.get("dc-codeview") === "blocks" ? "blocks" : "text";
+  let redraws = [];
+  const hlExpr = s => String(s).split(/("[^"]*")/).map(p => p.startsWith('"') ? `<span class="st">${esc(p)}</span>` : esc(p)).join("");
+  function blockParts(code){
+    const c = String(code).trim(); let m;
+    const S = s => `<span class="slot">${hlExpr(s)}</span>`;
+    const C = s => `<span class="slot cond">${hlExpr(s)}</span>`;
+    if ((m = c.match(/^SET\s+(\w+)\s+TO\s+(.+)$/i))) return {cat:"var", shape:"", html:`set ${S(m[1])} to ${S(m[2])}`};
+    if ((m = c.match(/^RECEIVE\s+(\w+)\s+FROM\s+(.+)$/i))) return {cat:"sense", shape:"", html:`receive ${S(m[1])} from ${esc(m[2].toLowerCase())}`};
+    if ((m = c.match(/^SEND\s+(.+)\s+TO\s+(\w+)$/i))) return {cat:"out", shape:"", html:`send ${S(m[1])} to ${esc(m[2].toLowerCase())}`};
+    if ((m = c.match(/^IF\s+(.+)\s+THEN$/i))) return {cat:"ctl", shape:"head", html:`if ${C(m[1])} then`};
+    if (/^ELSE$/i.test(c)) return {cat:"ctl", shape:"mid", html:"else"};
+    if ((m = c.match(/^WHILE\s+(.+)\s+DO$/i))) return {cat:"ctl", shape:"head", html:`while ${C(m[1])}`};
+    if ((m = c.match(/^REPEAT\s+(.+)\s+TIMES$/i))) return {cat:"ctl", shape:"head", html:`repeat ${S(m[1])} times`};
+    if (/^REPEAT$/i.test(c)) return {cat:"ctl", shape:"head", html:"repeat"};
+    if ((m = c.match(/^UNTIL\s+(.+)$/i))) return {cat:"ctl", shape:"foot", html:`until ${C(m[1])}`};
+    if (/^END\s+(IF|WHILE|REPEAT)$/i.test(c)) return {cat:"ctl", shape:"foot", html:"end"};
+    return {cat:"other", shape:"", html:esc(c)};
+  }
+  function codeLine(code, indent){
+    if (codeView !== "blocks") return `<span class="ctext" style="padding-left:${(indent||0)*2}ch">${hl(code)}</span>`;
+    const b = blockParts(code);
+    return `<span class="brow">${'<span class="rail" aria-hidden="true"></span>'.repeat(indent||0)}<span class="blk b-${b.cat} ${b.shape}">${b.html}</span></span>`;
+  }
+  const bm = () => codeView === "blocks" ? " bmode" : "";
+  const viewToggle = () => `<div class="vt" role="group" aria-label="Show code as"><button type="button" data-view="text" aria-pressed="${codeView==="text"}">Text</button><button type="button" data-view="blocks" aria-pressed="${codeView==="blocks"}">Blocks</button></div>`;
+  document.addEventListener("click", e => {
+    const v = e.target.closest("[data-view]");
+    if (v){ if (codeView !== v.dataset.view){ codeView = v.dataset.view; store.set("dc-codeview", codeView); redraws.forEach(f => f()); } return; }
+    const j = e.target.closest("[data-jump]");
+    if (j){ e.preventDefault(); const el = document.getElementById(j.dataset.jump); if (el) el.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); }
+  });
+
+  // ---------- Extra challenges ----------
+  const XT = {
+    parsons:{name:"Code puzzle", how:"Parsons problem", code:true},
+    bug:{name:"Bug hunt", how:"Find and fix the bug", code:true},
+    predict:{name:"Predict the output", how:"Trace the code", code:true},
+    complete:{name:"Complete the code", how:"Fill the gaps", code:true},
+    binary:{name:"Binary maker", how:"Numbers in binary"},
+    sort:{name:"Input, process or output?", how:"Sort it out"},
+    order:{name:"Put it in order", how:"Sequencing"},
+    factop:{name:"Fact or opinion?", how:"Think critically"}
+  };
+  const extrasOf = st => (Array.isArray(st.extras) && st.extras.length ? st.extras : (st.parsons && st.parsons.lines ? [{type:"parsons", ...st.parsons}] : [])).filter(x => x && XT[x.type]);
+  // A sort that uses its own groups (not input/process/output) gets a general name
+  const isIPO = x => !x.buckets || x.buckets.join("|").toLowerCase() === "input|process|output";
+  const xName = x => x.type === "sort" && !isIPO(x) ? "Sort it out" : XT[x.type].name;
+  const xHead = x => { const t = XT[x.type]; return `<div class="ph"><h2 id="xh-${x.type}">${esc(xName(x))}</h2><span class="sub">${t.code?'<span class="codebadge">CODE</span>':""}${esc(t.how)}${x.strand?" · "+esc(x.strand):""}</span>${t.code?viewToggle():""}</div>${x.title?`<p class="ptitle">${esc(x.title)}</p>`:""}${x.task?`<p class="ptask">${esc(x.task)}</p>`:""}`; };
+  function seededShuffle(n, seed, avoidIdentity){
+    const r = rng(hash(seed)); let a = [...Array(n).keys()];
+    for (let t=0;t<20;t++){ for (let i=n-1;i>0;i--){ const j=Math.floor(r()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } if (!avoidIdentity || n<2 || a.some((v,i)=>v!==i)) break; }
+    return a;
+  }
+  function startExtras(st){
+    redraws = [];
+    const wrap = $("#extras"), xs = extrasOf(st);
+    if (!xs.length){ wrap.hidden = true; return; }
+    wrap.hidden = false;
+    const nCode = xs.filter(x => XT[x.type].code).length;
+    wrap.innerHTML = `<div class="xhead"><h2>Extra challenges</h2><p>${xs.length} challenges picked to fit today's story${nCode?`, ${nCode} of them with code`:""}.</p>
+      <ul class="xnav">${xs.map(x => `<li><a href="#d${st.date}-${x.type}" data-jump="x-${x.type}">${XT[x.type].code?'<span class="codebadge">CODE</span>':""}${esc(xName(x))}</a></li>`).join("")}</ul></div>`
+      + xs.map(x => `<section class="panel xact" id="x-${x.type}" aria-labelledby="xh-${x.type}"></section>`).join("");
+    const RUN = {parsons:startParsons, bug:startBug, predict:startPredict, complete:startComplete, binary:startBinary, sort:startSort, order:startOrder, factop:startFactop};
+    xs.forEach(x => { try { RUN[x.type]($("#x-"+x.type), st, x); } catch(e){ $("#x-"+x.type).hidden = true; } });
+  }
+
+  // Bug hunt: tap the faulty line, then choose the fix
+  function startBug(box, st, B){
+    let found = false, fixed = false, wrongLines = new Set(), wrongFixes = new Set(), msg = "";
+    function draw(){
+      const lines = B.lines.map((l,i) => {
+        const isBug = i === B.bug;
+        const cls = isBug && fixed ? "ok" : isBug && found ? "bad" : wrongLines.has(i) ? "fine" : "";
+        const code = isBug && fixed ? B.fixes[B.answer] : l.code;
+        const tag = isBug && fixed ? '<span class="tag-fixed">fixed</span>' : isBug && found ? '<span class="flag">bug</span>' : wrongLines.has(i) ? '<span class="tag-ok">works fine</span>' : "";
+        return `<li><button class="cl ${cls}${bm()}" type="button" data-line="${i}" ${found?"disabled":""} aria-label="Line ${i+1}: ${esc(code)}">${codeLine(code, l.indent)}${tag}</button></li>`;
+      }).join("");
+      box.innerHTML = `${xHead(B)}
+        <p class="step-l">${fixed ? "Fixed!" : found ? "Step 2: choose the fix" : "Step 1: tap the line with the bug"}</p>
+        <ol class="bprog">${lines}</ol>
+        ${found && !fixed ? `<div class="fixes" role="group" aria-label="Choose a fix">${B.fixes.map((f,k) => `<button class="cl fix${wrongFixes.has(k)?" no":""}${bm()}" type="button" data-fix="${k}" ${wrongFixes.has(k)?"disabled":""}>${codeLine(f, 0)}</button>`).join("")}</div>` : ""}
+        ${msg}
+        <div class="pfoot">${!found && wrongLines.size >= 2 ? `<button class="btn line" type="button" data-act="reveal">Show me the bug</button>` : ""}${found || wrongLines.size ? `<button class="btn line" type="button" data-act="reset">Start again</button>` : ""}</div>`;
+      box.querySelectorAll("[data-line]").forEach(b => b.addEventListener("click", () => {
+        const i = +b.dataset.line;
+        if (i === B.bug){ found = true; msg = `<div class="pmsg good"><b>FOUND IT!</b>That's the line with the bug. Now choose the line that fixes it.</div>`; }
+        else { wrongLines.add(i); msg = `<div class="pmsg try"><b>NOT THAT ONE.</b>Line ${i+1} does what it should. ${wrongLines.size >= 2 ? "Try tracing the program with a test value from the task, line by line." : "Read the task again: what goes wrong?"}</div>`; }
+        draw();
+      }));
+      box.querySelectorAll("[data-fix]").forEach(b => b.addEventListener("click", () => {
+        const k = +b.dataset.fix;
+        if (k === B.answer){ fixed = true; msg = `<div class="pmsg good"><b>BUG FIXED!</b>${esc(B.explain||"")}</div>`; }
+        else { wrongFixes.add(k); msg = `<div class="pmsg try"><b>NOT QUITE.</b>That change wouldn't fix it. Imagine the program running with it, using the task's example.</div>`; }
+        draw();
+      }));
+      const a = box.querySelector("[data-act=reveal]"); if (a) a.addEventListener("click", () => { found = true; msg = `<div class="pmsg try"><b>HERE'S THE BUG.</b>Line ${B.bug+1} is the problem. Now choose the fix.</div>`; draw(); });
+      const r = box.querySelector("[data-act=reset]"); if (r) r.addEventListener("click", () => { found = fixed = false; wrongLines = new Set(); wrongFixes = new Set(); msg = ""; draw(); });
+    }
+    redraws.push(draw); draw();
+  }
+
+  // Predict the output: read the code, choose what it displays, then see the trace table
+  function startPredict(box, st, Q){
+    let pick = null, showTrace = false;
+    function draw(){
+      const T = Q.trace;
+      box.innerHTML = `${xHead(Q)}
+        <ol class="bprog">${Q.lines.map(l => `<li><span class="cl stat${bm()}">${codeLine(l.code, l.indent)}</span></li>`).join("")}</ol>
+        <p class="qtext2">${esc(Q.question || "What will be displayed?")}</p>
+        <div class="popts">${Q.options.map((o,k) => `<button class="popt ${pick===null?"":k===Q.answer?"right":k===pick?"wrong":"dim"}" type="button" data-k="${k}" ${pick!==null?"disabled":""}><span class="k">${"ABCD"[k]}</span><span class="screen">${esc(o)}</span></button>`).join("")}</div>
+        ${pick===null ? "" : `<div class="pmsg ${pick===Q.answer?"good":"try"}"><b>${pick===Q.answer?"CORRECT!":"NOT QUITE."}</b>${esc(Q.explain||"")}</div>
+          <div class="pfoot">${T?`<button class="btn line" type="button" data-act="trace">${showTrace?"Hide":"Show"} the trace table</button>`:""}<button class="btn line" type="button" data-act="again">Start again</button></div>
+          ${showTrace && T ? `<div class="tt"><table><thead><tr>${T.cols.map(c=>`<th scope="col">${esc(c)}</th>`).join("")}</tr></thead><tbody>${T.rows.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>` : ""}`}`;
+      box.querySelectorAll("[data-k]").forEach(b => b.addEventListener("click", () => { pick = +b.dataset.k; draw(); }));
+      const t = box.querySelector("[data-act=trace]"); if (t) t.addEventListener("click", () => { showTrace = !showTrace; draw(); });
+      const g = box.querySelector("[data-act=again]"); if (g) g.addEventListener("click", () => { pick = null; showTrace = false; draw(); });
+    }
+    redraws.push(draw); draw();
+  }
+
+  // Binary maker: switch bits on to make a number from the story
+  function startBinary(box, st, X){
+    const n = Math.min(Math.max(X.bits||8, 4), 10); let bits = Array(n).fill(0);
+    const places = [...Array(n).keys()].map(i => 2 ** (n-1-i));
+    function draw(){
+      const total = bits.reduce((s,b,i) => s + b*places[i], 0);
+      const on = places.filter((p,i) => bits[i]);
+      const done = total === X.target;
+      const msg = done ? `<div class="pmsg good"><b>YOU MADE ${X.target}!</b>${esc(X.explain||"")}</div>` : total > X.target ? `<div class="pmsg try"><b>TOO BIG.</b>${total} is more than ${X.target}. Switch a bit off.</div>` : "";
+      box.innerHTML = `${xHead(X)}
+        <p class="phow">Tap a bit to switch it between 0 and 1. Each place is worth double the one to its right.</p>
+        <div class="bits8" style="grid-template-columns:repeat(${n},minmax(0,1fr))">${places.map((p,i) => `<div class="bcol"><span class="pv">${p}</span><button class="bit${bits[i]?" on":""}" type="button" data-i="${i}" aria-pressed="${!!bits[i]}" aria-label="${p}s place, now ${bits[i]}">${bits[i]}</button></div>`).join("")}</div>
+        <p class="btotal"><span class="mono">${bits.join("")}</span><span>= <b>${total}</b></span><span class="sumw">${on.length ? on.join(" + ") : "all bits off"}</span><span class="btarget">Make ${X.target}</span></p>
+        ${msg}${total ? `<div class="pfoot"><button class="btn line" type="button" data-act="reset">Clear</button></div>` : ""}`;
+      box.querySelectorAll("[data-i]").forEach(b => b.addEventListener("click", () => { const i = +b.dataset.i; bits[i] = bits[i] ? 0 : 1; draw(); }));
+      const r = box.querySelector("[data-act=reset]"); if (r) r.addEventListener("click", () => { bits = Array(n).fill(0); draw(); });
+    }
+    redraws.push(draw); draw();
+  }
+
+  // Sort into buckets (e.g. input / process / output)
+  function startSort(box, st, X){
+    const B = X.buckets || ["Input","Process","Output"];
+    const order = seededShuffle(X.items.length, st.id + "sort", true);
+    let choice = {}, marks = {}, tries = 0, solved = false, msg = "";
+    function draw(){
+      const all = order.every(i => choice[i] != null);
+      box.innerHTML = `${xHead(X)}
+        <ul class="slist">${order.map(i => { const it = X.items[i]; return `<li class="srow ${marks[i]||""}"><span class="stext">${esc(it.text)}</span>
+          <span class="seg" role="radiogroup" aria-label="${esc(it.text)}">${B.map((b,k) => `<button type="button" role="radio" aria-checked="${choice[i]===k}" data-i="${i}" data-k="${k}" ${solved?"disabled":""}>${esc(b)}</button>`).join("")}</span>
+          ${marks[i]==="no" && tries >= 2 && it.explain ? `<span class="sx">${esc(it.explain)}</span>` : ""}</li>`; }).join("")}</ul>
+        ${msg}
+        <div class="pfoot">${solved ? `<button class="btn line" type="button" data-act="reset">Start again</button>` : `<button class="btn" type="button" data-act="check" ${all?"":"disabled"}>Check</button>`}</div>`;
+      box.querySelectorAll("[data-k]").forEach(b => b.addEventListener("click", () => { const i = +b.dataset.i; choice[i] = +b.dataset.k; delete marks[i]; msg = ""; draw(); }));
+      const c = box.querySelector("[data-act=check]"); if (c) c.addEventListener("click", () => {
+        let right = 0; marks = {};
+        X.items.forEach((it,i) => { const ok = choice[i] === it.bucket; marks[i] = ok ? "ok" : "no"; if (ok) right++; });
+        if (right === X.items.length){ solved = true; msg = `<div class="pmsg good"><b>ALL CORRECT!</b>${esc(X.explain||"")}</div>`; }
+        else { tries++; msg = `<div class="pmsg try"><b>NOT YET.</b>${right} of ${X.items.length} are right. ${tries >= 2 ? "Read the hints under the ones in red." : "Change the ones marked in red, then check again."}</div>`; }
+        draw();
+      });
+      const r = box.querySelector("[data-act=reset]"); if (r) r.addEventListener("click", () => { choice = {}; marks = {}; tries = 0; solved = false; msg = ""; draw(); });
+    }
+    redraws.push(draw); draw();
+  }
+
+  // Put steps in order
+  function startOrder(box, st, X){
+    const n = X.steps.length; let order = seededShuffle(n, st.id + "order", true), marks = {}, tries = 0, solved = false, msg = "";
+    function draw(){
+      box.innerHTML = `${xHead(X)}
+        <p class="phow">Use the arrows to move each step. Then press Check.</p>
+        <ol class="olist">${order.map((idx,k) => `<li class="orow ${marks[k]||""}"><span class="onum">${k+1}</span><span class="otext">${esc(X.steps[idx])}</span>
+          <span class="obtns"><button class="up" type="button" data-up="${k}" aria-label="Move step up" ${k===0||solved?"disabled":""}>↑</button><button class="up" type="button" data-down="${k}" aria-label="Move step down" ${k===n-1||solved?"disabled":""}>↓</button></span></li>`).join("")}</ol>
+        ${msg}
+        <div class="pfoot">${solved ? `<button class="btn line" type="button" data-act="reset">Start again</button>` : `<button class="btn" type="button" data-act="check">Check</button>${tries >= 2 ? `<button class="btn line" type="button" data-act="show">Show the answer</button>` : ""}`}</div>`;
+      const mv = (k, d) => { [order[k], order[k+d]] = [order[k+d], order[k]]; marks = {}; msg = ""; draw(); };
+      box.querySelectorAll("[data-up]").forEach(b => b.addEventListener("click", () => mv(+b.dataset.up, -1)));
+      box.querySelectorAll("[data-down]").forEach(b => b.addEventListener("click", () => mv(+b.dataset.down, 1)));
+      const c = box.querySelector("[data-act=check]"); if (c) c.addEventListener("click", () => {
+        marks = {}; let right = 0; order.forEach((idx,k) => { marks[k] = idx === k ? "ok" : "no"; if (idx === k) right++; });
+        if (right === n){ solved = true; msg = `<div class="pmsg good"><b>PERFECT ORDER!</b>${esc(X.explain||"")}</div>`; }
+        else { tries++; msg = `<div class="pmsg try"><b>NOT YET.</b>${right} of ${n} steps are in the right place (shown in green).</div>`; }
+        draw();
+      });
+      const s = box.querySelector("[data-act=show]"); if (s) s.addEventListener("click", () => { order = [...Array(n).keys()]; marks = Object.fromEntries(order.map(k => [k,"ok"])); solved = true; msg = `<div class="pmsg good"><b>THE ANSWER.</b>${esc(X.explain||"")}</div>`; draw(); });
+      const r = box.querySelector("[data-act=reset]"); if (r) r.addEventListener("click", () => { order = seededShuffle(n, st.id + "order", true); marks = {}; tries = 0; solved = false; msg = ""; draw(); });
+    }
+    redraws.push(draw); draw();
+  }
+
+  // Complete the code: choose the missing code for each gap
+  function startComplete(box, st, X){
+    const n = X.blanks.length;
+    let pick = {}, marks = {}, tries = 0, solved = false, msg = "";
+    const gapHTML = i => { const g = X.blanks[i]; return `<select class="gap ${marks[i]||""}" data-g="${i}" aria-label="Gap ${i+1}" ${solved?"disabled":""}><option value=""${pick[i]==null?" selected":""}>?</option>${g.options.map((o,k) => `<option value="${k}"${pick[i]===k?" selected":""}>${esc(o)}</option>`).join("")}</select>`; };
+    const lineWithGaps = l => codeLine(l.code.replace(/\{(\d+)\}/g, (_, d) => "⟦" + d + "⟧"), l.indent).replace(/⟦(\d+)⟧/g, (_, d) => gapHTML(+d));
+    function draw(){
+      const all = [...Array(n).keys()].every(i => pick[i] != null);
+      box.innerHTML = `${xHead(X)}
+        <p class="phow">Choose the right code for each gap, then press Check.</p>
+        <ol class="bprog">${X.lines.map(l => `<li><span class="cl stat${bm()}">${lineWithGaps(l)}</span></li>`).join("")}</ol>
+        ${msg}
+        <div class="pfoot">${solved ? `<button class="btn line" type="button" data-act="reset">Start again</button>` : `<button class="btn" type="button" data-act="check" ${all?"":"disabled"}>Check</button>${tries >= 2 ? `<button class="btn line" type="button" data-act="show">Show the answer</button>` : ""}`}</div>`;
+      box.querySelectorAll("select.gap").forEach(s => s.addEventListener("change", () => {
+        const i = +s.dataset.g; pick[i] = s.value === "" ? null : +s.value;
+        if (marks[i]){ delete marks[i]; s.classList.remove("ok","no"); }
+        const c = box.querySelector("[data-act=check]"); if (c) c.disabled = ![...Array(n).keys()].every(k => pick[k] != null);
+      }));
+      const c = box.querySelector("[data-act=check]"); if (c) c.addEventListener("click", () => {
+        marks = {}; let right = 0;
+        X.blanks.forEach((b,i) => { const ok = pick[i] === b.answer; marks[i] = ok ? "ok" : "no"; if (ok) right++; });
+        if (right === n){ solved = true; msg = `<div class="pmsg good"><b>IT WORKS!</b>${esc(X.explain||"")}</div>`; }
+        else { tries++; msg = `<div class="pmsg try"><b>NOT YET.</b>${right} of ${n} gaps are right (shown in green). ${tries >= 2 ? "Trace the program with the example in the task to see what each choice would do." : "Change the ones in red, then check again."}</div>`; }
+        draw();
+      });
+      const s = box.querySelector("[data-act=show]"); if (s) s.addEventListener("click", () => { X.blanks.forEach((b,i) => { pick[i] = b.answer; marks[i] = "ok"; }); solved = true; msg = `<div class="pmsg good"><b>THE ANSWER.</b>${esc(X.explain||"")}</div>`; draw(); });
+      const r = box.querySelector("[data-act=reset]"); if (r) r.addEventListener("click", () => { pick = {}; marks = {}; tries = 0; solved = false; msg = ""; draw(); });
+    }
+    redraws.push(draw); draw();
+  }
+
+  // Fact or opinion
+  function startFactop(box, st, X){
+    let ans = {};
+    function draw(){
+      const S = X.statements, done = S.every((_,i) => ans[i] != null);
+      const right = S.filter((s,i) => ans[i] === s.fact).length;
+      box.innerHTML = `${xHead(X)}
+        <ul class="flist">${S.map((s,i) => { const a = ans[i], ok = a === s.fact; return `<li class="frow"><p>${esc(s.text)}</p>
+          <div class="fbtns" role="group" aria-label="Fact or opinion">${[["Fact",true],["Opinion",false]].map(([lab,v]) => `<button class="btn line${a===v?" picked":""}" type="button" data-i="${i}" data-v="${v}" ${a!=null?"disabled":""}>${lab}</button>`).join("")}</div>
+          ${a != null ? `<p class="fx ${ok?"good":"try"}"><b>${ok?"Right.":"Not quite."}</b> ${esc(s.explain||"")}</p>` : ""}</li>`; }).join("")}</ul>
+        ${done ? `<div class="pmsg ${right===S.length?"good":"try"}"><b>${right} OUT OF ${S.length}.</b>${esc(X.explain||"")}</div><div class="pfoot"><button class="btn line" type="button" data-act="reset">Start again</button></div>` : ""}`;
+      box.querySelectorAll("[data-v]").forEach(b => b.addEventListener("click", () => { ans[+b.dataset.i] = b.dataset.v === "true"; draw(); }));
+      const r = box.querySelector("[data-act=reset]"); if (r) r.addEventListener("click", () => { ans = {}; draw(); });
+    }
+    redraws.push(draw); draw();
+  }
+
   // ---------- Parsons problem ----------
   const KW = /\b(SET|TO|IF|THEN|ELSE|END|WHILE|DO|REPEAT|TIMES|UNTIL|FOR|FROM|STEP|SEND|DISPLAY|RECEIVE|SENSOR|KEYBOARD|AND|OR|NOT|TRUE|FALSE)\b/g;
   function hl(code){
     return code.split(/("[^"]*")/).map(part => part.startsWith('"') ? `<span class="st">${esc(part)}</span>`
       : esc(part).replace(KW, '<span class="kw">$1</span>')).join("");
   }
-  function startParsons(st){
-    const box = $("#parsons"), P = st.parsons;
+  function startParsons(box, st, P){
     if (!P || !P.lines || !P.lines.length){ box.hidden = true; return; }
-    box.hidden = false;
     const items = P.lines.map((l,i)=>({id:"L"+i, idx:i, ...l})).concat((P.distractors||[]).map((l,i)=>({id:"D"+i, idx:-1, ...l})));
     const byId = Object.fromEntries(items.map(it=>[it.id,it]));
     const solution = P.lines.map((_,i)=>i);
     const valid = [solution].concat(P.alternatives||[]);
-    // Seeded shuffle that never matches the answer
     const r = rng(hash(st.id+"parsons"));
     let poolOrder = items.map(it=>it.id);
     for (let t=0; t<20; t++){
@@ -702,28 +1061,26 @@ footer li{margin-bottom:4px}
       if (poolOrder.slice(0,solution.length).join() !== solution.map(i=>"L"+i).join()) break;
     }
     let prog = [], marks = {}, tries = 0, solved = false, msg = "";
-    const lineHTML = (it, cls="") => `<button class="cl ${cls}" type="button" data-id="${it.id}" ${solved?"disabled":""} style="padding-left:${10+it.indent*28}px">${hl(it.code)}${marks[it.id]==="extra"?'<span class="flag">doesn\'t belong</span>':""}</button>`;
+    const lineHTML = (it, cls="") => `<button class="cl ${cls}${bm()}" type="button" data-id="${it.id}" ${solved?"disabled":""}>${codeLine(it.code, it.indent)}${marks[it.id]==="extra"?'<span class="flag">doesn\'t belong</span>':""}</button>`;
     function draw(){
       const pool = poolOrder.filter(id=>!prog.includes(id));
-      box.innerHTML = `<div class="ph"><h2 id="parsh">Code puzzle</h2><span class="sub">Parsons problem · ${esc(P.strand||"")}</span></div>
-        <p class="ptitle">${esc(P.title||"")}</p>
-        <p class="ptask">${esc(P.task)}</p>
+      box.innerHTML = `${xHead(P)}
         <p class="phow">Tap a line to add it to your program. Tap it again to send it back, or use ↑ to move it up.</p>
         <div class="pcols">
           <div class="pcol"><h3>Lines to use</h3><ol class="pool">${pool.length?pool.map(id=>`<li>${lineHTML(byId[id])}</li>`).join(""):'<li class="empty">All lines used.</li>'}</ol></div>
           <div class="pcol"><h3>Your program</h3><ol class="prog">${prog.length?prog.map((id,k)=>`<li>${lineHTML(byId[id], marks[id]==="ok"?"ok":marks[id]?"bad":"")}<button class="up" type="button" data-up="${k}" aria-label="Move line ${k+1} up" ${k===0||solved?"disabled":""}>↑</button></li>`).join(""):'<li class="empty">Your program is empty. Tap lines on the left to build it.</li>'}</ol></div>
         </div>
         <div class="pfoot">
-          ${solved?"":`<button class="btn" type="button" id="pCheck">Check my program</button>`}
-          <button class="btn line" type="button" id="pReset">${solved?"Try it again":"Start again"}</button>
-          ${!solved && tries>=2?`<button class="btn line" type="button" id="pShow">Show the solution</button>`:""}
+          ${solved?"":`<button class="btn" type="button" data-act="check">Check my program</button>`}
+          <button class="btn line" type="button" data-act="reset">${solved?"Try it again":"Start again"}</button>
+          ${!solved && tries>=2?`<button class="btn line" type="button" data-act="show">Show the solution</button>`:""}
         </div>${msg}`;
       box.querySelectorAll(".pool .cl").forEach(b=>b.addEventListener("click",()=>{ prog.push(b.dataset.id); marks={}; msg=""; draw(); }));
       box.querySelectorAll(".prog .cl").forEach(b=>b.addEventListener("click",()=>{ prog=prog.filter(id=>id!==b.dataset.id); marks={}; msg=""; draw(); }));
       box.querySelectorAll(".up").forEach(b=>b.addEventListener("click",()=>{ const k=+b.dataset.up; [prog[k-1],prog[k]]=[prog[k],prog[k-1]]; marks={}; msg=""; draw(); }));
-      const c=$("#pCheck"); if(c) c.addEventListener("click",check);
-      $("#pReset").addEventListener("click",()=>{ prog=[]; marks={}; msg=""; solved=false; tries=0; draw(); });
-      const s=$("#pShow"); if(s) s.addEventListener("click",()=>{ prog=solution.map(i=>"L"+i); marks=Object.fromEntries(prog.map(id=>[id,"ok"])); solved=true;
+      const c=box.querySelector("[data-act=check]"); if(c) c.addEventListener("click",check);
+      box.querySelector("[data-act=reset]").addEventListener("click",()=>{ prog=[]; marks={}; msg=""; solved=false; tries=0; draw(); });
+      const s=box.querySelector("[data-act=show]"); if(s) s.addEventListener("click",()=>{ prog=solution.map(i=>"L"+i); marks=Object.fromEntries(prog.map(id=>[id,"ok"])); solved=true;
         msg=`<div class="pmsg good"><b>SOLUTION.</b>${esc(P.explain||"")}</div>`; draw(); });
     }
     function check(){
@@ -733,7 +1090,6 @@ footer li{margin-bottom:4px}
       if (valid.some(v => v.length===idxs.length && v.every((x,k)=>x===idxs[k]))){
         solved = true; marks = Object.fromEntries(prog.map(id=>[id,"ok"]));
         msg = `<div class="pmsg good"><b>IT WORKS!</b>${esc(P.explain||"")}</div>`;
-        try{ const k="dc-parsons-"+st.id; store.set(k,true); }catch(e){}
         return draw();
       }
       tries++;
@@ -749,18 +1105,18 @@ footer li{margin-bottom:4px}
       msg = `<div class="pmsg try"><b>NOT YET.</b>${right} of ${need} lines are in the right place (shown in green). ${esc(hints.join(" "))}</div>`;
       draw();
     }
-    draw();
+    redraws.push(draw); draw();
   }
 
   // ---------- Links: #d2026-10-22, #d2026-10-22-quiz, #d2026-10-22-puzzle, #archive, #tag-binary ----------
   function route(){
     const hs = decodeURIComponent((location.hash||"").slice(1));
     const smooth = matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
-    const m = hs.match(/^d(\d{4}-\d{2}-\d{2})(?:-(quiz|links|puzzle))?$/);
+    const m = hs.match(/^d(\d{4}-\d{2}-\d{2})(?:-([a-z]+))?$/);
     if (m){
       const st = published().find(s => s.date === m[1]);
       show(st ? st.id : (pickDefault()||{}).id);
-      if (st && m[2]){ const go = () => { const el = $({quiz:"#quiz", links:"#links", puzzle:"#parsons"}[m[2]]); if (el) el.scrollIntoView({block:"start"}); }; setTimeout(go, 60); (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(go, 30)); }
+      if (st && m[2]){ const go = () => { const part = m[2] === "puzzle" ? "parsons" : m[2]; const el = part === "quiz" ? $("#quiz") : part === "links" ? $("#links") : document.getElementById("x-" + part); if (el) el.scrollIntoView({block:"start"}); }; setTimeout(go, 60); (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(go, 30)); }
       return;
     }
     show((pickDefault()||{}).id);
@@ -779,5 +1135,4 @@ footer li{margin-bottom:4px}
     .catch(() => { $("#main").innerHTML = `<div class="state">Today's story couldn't load. Refresh the page to try again.</div>`; });
 })();
 </script>
-
 </body></html>

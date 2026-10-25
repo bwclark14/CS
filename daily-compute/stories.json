@@ -85,52 +85,6 @@
         }
       ],
       "newsDate": "22 October 2026",
-      "parsons": {
-        "distractors": [
-          {
-            "code": "UNTIL label = \"Supported\"",
-            "indent": 0
-          }
-        ],
-        "explain": "The count starts at 0 before the loop. Inside the loop, the program receives a label and adds 1 only when it is \"Not supported\". The loop stops when the user types \"done\", then the total is shown. Stopping when the label is \"Supported\" would end the program at the first good claim and miss the rest.",
-        "lines": [
-          {
-            "code": "SET problems TO 0",
-            "indent": 0
-          },
-          {
-            "code": "REPEAT",
-            "indent": 0
-          },
-          {
-            "code": "RECEIVE label FROM KEYBOARD",
-            "indent": 1
-          },
-          {
-            "code": "IF label = \"Not supported\" THEN",
-            "indent": 1
-          },
-          {
-            "code": "SET problems TO problems + 1",
-            "indent": 2
-          },
-          {
-            "code": "END IF",
-            "indent": 1
-          },
-          {
-            "code": "UNTIL label = \"done\"",
-            "indent": 0
-          },
-          {
-            "code": "SEND \"Claims to check again: \" & problems TO DISPLAY",
-            "indent": 0
-          }
-        ],
-        "strand": "Designing, building and testing computing solutions",
-        "task": "Put the lines in order so the program keeps receiving a label for each claim until the user types \"done\". It counts how many claims are labelled \"Not supported\", then shows that count. One line doesn't belong.",
-        "title": "Claim counter"
-      },
       "quiz": [
         {
           "answer": 1,
@@ -224,7 +178,203 @@
         "Testing"
       ],
       "theme": "ai",
-      "whyItMatters": "More and more people use AI chatbots for homework and research. A chatbot can sound very confident even when it is wrong. Knowing how to check a source yourself is one of the most useful digital skills there is."
+      "whyItMatters": "More and more people use AI chatbots for homework and research. A chatbot can sound very confident even when it is wrong. Knowing how to check a source yourself is one of the most useful digital skills there is.",
+      "extras": [
+        {
+          "type": "parsons",
+          "why": "Builds a claim counter that keeps going until the user types \"done\", a REPEAT…UNTIL loop.",
+          "distractors": [
+            {
+              "code": "UNTIL label = \"Supported\"",
+              "indent": 0
+            }
+          ],
+          "explain": "The count starts at 0 before the loop. Inside the loop, the program receives a label and adds 1 only when it is \"Not supported\". The loop stops when the user types \"done\", then the total is shown. Stopping when the label is \"Supported\" would end the program at the first good claim and miss the rest.",
+          "lines": [
+            {
+              "code": "SET problems TO 0",
+              "indent": 0
+            },
+            {
+              "code": "REPEAT",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE label FROM KEYBOARD",
+              "indent": 1
+            },
+            {
+              "code": "IF label = \"Not supported\" THEN",
+              "indent": 1
+            },
+            {
+              "code": "SET problems TO problems + 1",
+              "indent": 2
+            },
+            {
+              "code": "END IF",
+              "indent": 1
+            },
+            {
+              "code": "UNTIL label = \"done\"",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Claims to check again: \" & problems TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "strand": "Designing, building and testing computing solutions",
+          "task": "Put the lines in order so the program keeps receiving a label for each claim until the user types \"done\". It counts how many claims are labelled \"Not supported\", then shows that count. One line doesn't belong.",
+          "title": "Claim counter"
+        },
+        {
+          "type": "bug",
+          "why": "The checking tool has to choose the right label for each claim, which is a decision inside a decision.",
+          "strand": "Designing, building and testing computing solutions",
+          "title": "Wrong label",
+          "task": "This checker asks two questions about a claim: was the source found, and does the source back up the claim? Testing shows it labels claims \"Supported\" when the source does NOT back them up. Find the bug, then choose the fix.",
+          "lines": [
+            {
+              "code": "RECEIVE sourceFound FROM KEYBOARD",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE backsUp FROM KEYBOARD",
+              "indent": 0
+            },
+            {
+              "code": "IF sourceFound = \"no\" THEN",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Cited article does not exist\" TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "ELSE",
+              "indent": 0
+            },
+            {
+              "code": "IF backsUp = \"no\" THEN",
+              "indent": 1
+            },
+            {
+              "code": "SEND \"Supported\" TO DISPLAY",
+              "indent": 2
+            },
+            {
+              "code": "ELSE",
+              "indent": 1
+            },
+            {
+              "code": "SEND \"Not supported\" TO DISPLAY",
+              "indent": 2
+            },
+            {
+              "code": "END IF",
+              "indent": 1
+            },
+            {
+              "code": "END IF",
+              "indent": 0
+            }
+          ],
+          "bug": 5,
+          "fixes": [
+            "IF sourceFound = \"yes\" THEN",
+            "IF backsUp = \"maybe\" THEN",
+            "IF backsUp = \"no\" OR sourceFound = \"no\" THEN",
+            "IF backsUp = \"yes\" THEN"
+          ],
+          "answer": 3,
+          "explain": "The inner IF tested for \"no\", so a source that disagreed with the claim got the label \"Supported\". Testing backsUp = \"yes\" gives \"Supported\" only when the source really agrees. Testing sourceFound again doesn't help, because inside the ELSE the source has already been found.",
+          "tests": [
+            {
+              "inputs": [
+                "yes",
+                "yes"
+              ],
+              "expect": [
+                "Supported"
+              ]
+            },
+            {
+              "inputs": [
+                "yes",
+                "no"
+              ],
+              "expect": [
+                "Not supported"
+              ]
+            },
+            {
+              "inputs": [
+                "no",
+                "yes"
+              ],
+              "expect": [
+                "Cited article does not exist"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "order",
+          "why": "The tool breaks a big checking job into small steps, which is decomposition, so putting its steps in order fits well.",
+          "strand": "Understanding the world through computational thinking",
+          "title": "How the checker works",
+          "task": "Put the tool's steps in the right order.",
+          "steps": [
+            "Split the writing into separate claims",
+            "Find the source each claim points to",
+            "Read the part of the source that matches the claim",
+            "Decide whether the source backs up the claim",
+            "Give the claim a label, such as Supported"
+          ],
+          "explain": "The tool can't check a source until it knows which claim to check, and it can't label a claim until it has decided whether the source agrees. Breaking one big job into small steps like this is called decomposition."
+        },
+        {
+          "type": "factop",
+          "why": "The discussion asks whether chatbots should always show their sources, so telling facts from opinions about AI sets that up.",
+          "strand": "Searching, processing and managing information responsibly",
+          "title": "Chatbots: fact or opinion?",
+          "task": "Is each statement a fact (it can be checked) or an opinion (what someone thinks)?",
+          "statements": [
+            {
+              "text": "The tool was described in a science journal on 22 October.",
+              "fact": true,
+              "explain": "You can check the date the journal published it."
+            },
+            {
+              "text": "AI chatbots are bad for homework.",
+              "fact": false,
+              "explain": "People disagree about this, so it's an opinion."
+            },
+            {
+              "text": "Some chatbots have listed articles that don't exist.",
+              "fact": true,
+              "explain": "Researchers have found and recorded examples of this."
+            },
+            {
+              "text": "Every chatbot answer should show where its facts came from.",
+              "fact": false,
+              "explain": "'Should' is a sign of an opinion. People weigh up the pros and cons differently."
+            },
+            {
+              "text": "The tool gives each claim one of six labels.",
+              "fact": true,
+              "explain": "This describes how the tool works, and it can be checked."
+            },
+            {
+              "text": "Chatbots are more useful than encyclopedias.",
+              "fact": false,
+              "explain": "'More useful' depends on what you need, so it's an opinion."
+            }
+          ],
+          "explain": "Facts can be checked against evidence. Opinions are what people think, often using words like 'should', 'bad' or 'more useful'. A chatbot can state an opinion as confidently as a fact, so it's worth checking which is which."
+        }
+      ]
     },
     {
       "body": [
@@ -310,52 +460,6 @@
         }
       ],
       "newsDate": "14 October 2026",
-      "parsons": {
-        "distractors": [
-          {
-            "code": "IF answer = \"no\" THEN",
-            "indent": 1
-          }
-        ],
-        "explain": "The count must start at 0 before the loop, or it would reset each time. Inside the loop the program receives an answer and only adds 1 when it is \"yes\". The total is shown once, after END REPEAT. Testing for \"no\" would count the items that are NOT e-waste.",
-        "lines": [
-          {
-            "code": "SET eWaste TO 0",
-            "indent": 0
-          },
-          {
-            "code": "REPEAT 5 TIMES",
-            "indent": 0
-          },
-          {
-            "code": "RECEIVE answer FROM KEYBOARD",
-            "indent": 1
-          },
-          {
-            "code": "IF answer = \"yes\" THEN",
-            "indent": 1
-          },
-          {
-            "code": "SET eWaste TO eWaste + 1",
-            "indent": 2
-          },
-          {
-            "code": "END IF",
-            "indent": 1
-          },
-          {
-            "code": "END REPEAT",
-            "indent": 0
-          },
-          {
-            "code": "SEND \"E-waste items: \" & eWaste TO DISPLAY",
-            "indent": 0
-          }
-        ],
-        "strand": "Designing, building and testing computing solutions",
-        "task": "Put the lines in order so the program asks about 5 old items, adds 1 to a count each time the answer is \"yes\" (it has a plug, cable, circuit board or battery), then shows how many items are e-waste. One line doesn't belong.",
-        "title": "E-waste counter"
-      },
       "quiz": [
         {
           "answer": 2,
@@ -449,7 +553,279 @@
         "Loops"
       ],
       "theme": "environment",
-      "whyItMatters": "Every gadget is a small computer system made from materials dug out of the ground. Around the world, only about a fifth of e-waste is known to be properly recycled. Small choices about what we buy, keep, fix and throw away really add up."
+      "whyItMatters": "Every gadget is a small computer system made from materials dug out of the ground. Around the world, only about a fifth of e-waste is known to be properly recycled. Small choices about what we buy, keep, fix and throw away really add up.",
+      "extras": [
+        {
+          "type": "parsons",
+          "why": "Builds an e-waste counter: a loop with a decision inside it.",
+          "distractors": [
+            {
+              "code": "IF answer = \"no\" THEN",
+              "indent": 1
+            }
+          ],
+          "explain": "The count must start at 0 before the loop, or it would reset each time. Inside the loop the program receives an answer and only adds 1 when it is \"yes\". The total is shown once, after END REPEAT. Testing for \"no\" would count the items that are NOT e-waste.",
+          "lines": [
+            {
+              "code": "SET eWaste TO 0",
+              "indent": 0
+            },
+            {
+              "code": "REPEAT 5 TIMES",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE answer FROM KEYBOARD",
+              "indent": 1
+            },
+            {
+              "code": "IF answer = \"yes\" THEN",
+              "indent": 1
+            },
+            {
+              "code": "SET eWaste TO eWaste + 1",
+              "indent": 2
+            },
+            {
+              "code": "END IF",
+              "indent": 1
+            },
+            {
+              "code": "END REPEAT",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"E-waste items: \" & eWaste TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "strand": "Designing, building and testing computing solutions",
+          "task": "Put the lines in order so the program asks about 5 old items, adds 1 to a count each time the answer is \"yes\" (it has a plug, cable, circuit board or battery), then shows how many items are e-waste. One line doesn't belong.",
+          "title": "E-waste counter"
+        },
+        {
+          "type": "predict",
+          "why": "Fast tech gets replaced again and again, which is exactly what a loop does.",
+          "strand": "Understanding the world through computational thinking",
+          "title": "Fan after fan",
+          "task": "Someone buys a cheap mini fan that only lasts 6 months, so they keep buying new ones. This program counts how many they buy in 2 years (24 months).",
+          "lines": [
+            {
+              "code": "SET months TO 0",
+              "indent": 0
+            },
+            {
+              "code": "SET fans TO 0",
+              "indent": 0
+            },
+            {
+              "code": "WHILE months < 24 DO",
+              "indent": 0
+            },
+            {
+              "code": "SET months TO months + 6",
+              "indent": 1
+            },
+            {
+              "code": "SET fans TO fans + 1",
+              "indent": 1
+            },
+            {
+              "code": "END WHILE",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Fans bought: \" & fans TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "question": "What will be displayed?",
+          "options": [
+            "Fans bought: 3",
+            "Fans bought: 24",
+            "Fans bought: 5",
+            "Fans bought: 4"
+          ],
+          "answer": 3,
+          "explain": "months goes 6, 12, 18, 24. When it reaches 24, months < 24 is no longer true, so the loop stops after 4 fans. 3 is tempting if you stop one step early. 24 is the number of months, not fans.",
+          "trace": {
+            "cols": [
+              "Step",
+              "months",
+              "fans",
+              "months < 24?"
+            ],
+            "rows": [
+              [
+                "Start",
+                "0",
+                "0",
+                "yes"
+              ],
+              [
+                "Loop 1",
+                "6",
+                "1",
+                "yes"
+              ],
+              [
+                "Loop 2",
+                "12",
+                "2",
+                "yes"
+              ],
+              [
+                "Loop 3",
+                "18",
+                "3",
+                "yes"
+              ],
+              [
+                "Loop 4",
+                "24",
+                "4",
+                "no, so stop"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "sort",
+          "why": "The organisers' rule for spotting e-waste is easy to practise, and some items are surprising.",
+          "strand": "Understanding and analysing computing technology",
+          "title": "Is it e-waste?",
+          "task": "Use the rule from the story: if it has a plug, a cable, a circuit board or a battery, it's e-waste, however small it is.",
+          "buckets": [
+            "E-waste",
+            "Not e-waste"
+          ],
+          "items": [
+            {
+              "text": "Mini desk fan",
+              "bucket": 0,
+              "explain": "It has a motor, wires and usually a battery or cable."
+            },
+            {
+              "text": "Birthday card that plays a tune",
+              "bucket": 0,
+              "explain": "It hides a tiny circuit board, speaker and battery."
+            },
+            {
+              "text": "Old earbuds",
+              "bucket": 0,
+              "explain": "They have wires and a tiny circuit inside, and often a battery."
+            },
+            {
+              "text": "Light-up trainers",
+              "bucket": 0,
+              "explain": "The lights need a battery and a small circuit."
+            },
+            {
+              "text": "Plastic phone case",
+              "bucket": 1,
+              "explain": "It's just plastic: no plug, cable, circuit board or battery."
+            },
+            {
+              "text": "Paper instruction leaflet",
+              "bucket": 1,
+              "explain": "Paper goes in normal recycling."
+            },
+            {
+              "text": "Wooden building blocks",
+              "bucket": 1,
+              "explain": "No electronics at all."
+            }
+          ],
+          "explain": "Anything with a plug, cable, circuit board or battery counts as e-waste, even a musical birthday card. These should go to a proper collection point so the metals can be recovered and batteries don't cause fires."
+        },
+        {
+          "type": "complete",
+          "why": "The e-waste rule is an IF with OR, which makes a neat code completion task.",
+          "strand": "Designing, building and testing computing solutions",
+          "title": "E-waste rule in code",
+          "task": "A simple version of the rule: if a gadget has a plug OR a battery, it's e-waste. Otherwise it isn't.",
+          "lines": [
+            {
+              "code": "RECEIVE hasPlug FROM KEYBOARD",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE hasBattery FROM KEYBOARD",
+              "indent": 0
+            },
+            {
+              "code": "IF hasPlug = \"yes\" {0} hasBattery = \"yes\" THEN",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"E-waste: take it to a collection point\" TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "{1}",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Not e-waste\" TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "END IF",
+              "indent": 0
+            }
+          ],
+          "blanks": [
+            {
+              "options": [
+                "AND",
+                "OR",
+                "NOT",
+                "="
+              ],
+              "answer": 1
+            },
+            {
+              "options": [
+                "END IF",
+                "THEN",
+                "ELSE",
+                "REPEAT"
+              ],
+              "answer": 2
+            }
+          ],
+          "explain": "OR means only one of the two needs to be true, so a gadget with just a battery still counts. AND would need both a plug and a battery, so a battery-only toy would be missed. ELSE gives the program a second path for everything else.",
+          "tests": [
+            {
+              "inputs": [
+                "yes",
+                "no"
+              ],
+              "expect": [
+                "E-waste: take it to a collection point"
+              ]
+            },
+            {
+              "inputs": [
+                "no",
+                "yes"
+              ],
+              "expect": [
+                "E-waste: take it to a collection point"
+              ]
+            },
+            {
+              "inputs": [
+                "no",
+                "no"
+              ],
+              "expect": [
+                "Not e-waste"
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "body": [
@@ -535,52 +911,6 @@
         }
       ],
       "newsDate": "20 October 2026",
-      "parsons": {
-        "distractors": [
-          {
-            "code": "IF slope < 15 THEN",
-            "indent": 1
-          }
-        ],
-        "explain": "The count starts at 0 before the loop so it is not reset each time. Inside the loop the rover reads a new slope, then the IF only adds 1 when the slope is more than 15. The display comes after END REPEAT so it shows the final total once. Using < 15 would count the safe, gentle slopes instead of the steep ones.",
-        "lines": [
-          {
-            "code": "SET risky TO 0",
-            "indent": 0
-          },
-          {
-            "code": "REPEAT 10 TIMES",
-            "indent": 0
-          },
-          {
-            "code": "RECEIVE slope FROM SENSOR",
-            "indent": 1
-          },
-          {
-            "code": "IF slope > 15 THEN",
-            "indent": 1
-          },
-          {
-            "code": "SET risky TO risky + 1",
-            "indent": 2
-          },
-          {
-            "code": "END IF",
-            "indent": 1
-          },
-          {
-            "code": "END REPEAT",
-            "indent": 0
-          },
-          {
-            "code": "SEND \"Risky spots: \" & risky TO DISPLAY",
-            "indent": 0
-          }
-        ],
-        "strand": "Designing, building and testing computing solutions",
-        "task": "FLIP checks the ground ahead 10 times. Each time, it receives the slope (in degrees) from its sensor. If the slope is more than 15 degrees, it adds 1 to a count of risky spots. At the end it displays the count. One line doesn't belong.",
-        "title": "Counting risky spots"
-      },
       "quiz": [
         {
           "answer": 2,
@@ -675,7 +1005,268 @@
         "Input & output"
       ],
       "theme": "space",
-      "whyItMatters": "Sending every photo back to Earth is slow, and controllers end up steering with old information. A computer that can process data on the rover could let future vehicles, including ones that carry astronauts, make safer decisions by themselves."
+      "whyItMatters": "Sending every photo back to Earth is slow, and controllers end up steering with old information. A computer that can process data on the rover could let future vehicles, including ones that carry astronauts, make safer decisions by themselves.",
+      "extras": [
+        {
+          "type": "parsons",
+          "why": "Builds the rover's risky-slope counter: a loop with a decision inside it.",
+          "distractors": [
+            {
+              "code": "IF slope < 15 THEN",
+              "indent": 1
+            }
+          ],
+          "explain": "The count starts at 0 before the loop so it is not reset each time. Inside the loop the rover reads a new slope, then the IF only adds 1 when the slope is more than 15. The display comes after END REPEAT so it shows the final total once. Using < 15 would count the safe, gentle slopes instead of the steep ones.",
+          "lines": [
+            {
+              "code": "SET risky TO 0",
+              "indent": 0
+            },
+            {
+              "code": "REPEAT 10 TIMES",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE slope FROM SENSOR",
+              "indent": 1
+            },
+            {
+              "code": "IF slope > 15 THEN",
+              "indent": 1
+            },
+            {
+              "code": "SET risky TO risky + 1",
+              "indent": 2
+            },
+            {
+              "code": "END IF",
+              "indent": 1
+            },
+            {
+              "code": "END REPEAT",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Risky spots: \" & risky TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "strand": "Designing, building and testing computing solutions",
+          "task": "FLIP checks the ground ahead 10 times. Each time, it receives the slope (in degrees) from its sensor. If the slope is more than 15 degrees, it adds 1 to a count of risky spots. At the end it displays the count. One line doesn't belong.",
+          "title": "Counting risky spots"
+        },
+        {
+          "type": "predict",
+          "why": "FLIP has to save its battery through long, freezing Moon nights, which suits a WHILE loop.",
+          "strand": "Understanding the world through computational thinking",
+          "title": "Battery saver",
+          "task": "FLIP stops driving when its battery is 20% or lower, so it has power left to survive the night. Each hour of driving uses 15% of the battery.",
+          "lines": [
+            {
+              "code": "SET battery TO 60",
+              "indent": 0
+            },
+            {
+              "code": "SET hours TO 0",
+              "indent": 0
+            },
+            {
+              "code": "WHILE battery > 20 DO",
+              "indent": 0
+            },
+            {
+              "code": "SET battery TO battery - 15",
+              "indent": 1
+            },
+            {
+              "code": "SET hours TO hours + 1",
+              "indent": 1
+            },
+            {
+              "code": "END WHILE",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Hours driven: \" & hours TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "question": "What will be displayed?",
+          "options": [
+            "Hours driven: 3",
+            "Hours driven: 4",
+            "Hours driven: 2",
+            "Hours driven: 15"
+          ],
+          "answer": 0,
+          "explain": "The battery goes 60, 45, 30, 15. After the third hour it is 15, which is not more than 20, so the loop stops. 4 is tempting if you keep going until the battery reaches 0. 15 is the battery left, not the number of hours.",
+          "trace": {
+            "cols": [
+              "Step",
+              "battery",
+              "hours",
+              "battery > 20?"
+            ],
+            "rows": [
+              [
+                "Start",
+                "60",
+                "0",
+                "yes"
+              ],
+              [
+                "Loop 1",
+                "45",
+                "1",
+                "yes"
+              ],
+              [
+                "Loop 2",
+                "30",
+                "2",
+                "yes"
+              ],
+              [
+                "Loop 3",
+                "15",
+                "3",
+                "no, so stop"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "sort",
+          "why": "The story is all about a computer taking in sensor data, working on it, then acting on it.",
+          "strand": "Understanding and analysing computing technology",
+          "title": "Inside the rover",
+          "task": "Is each part of FLIP's job an input, a process or an output?",
+          "buckets": [
+            "Input",
+            "Process",
+            "Output"
+          ],
+          "items": [
+            {
+              "text": "Camera taking pictures of the ground",
+              "bucket": 0,
+              "explain": "It collects data from the world, so it's an input."
+            },
+            {
+              "text": "Lidar measuring distances with light",
+              "bucket": 0,
+              "explain": "Lidar is a sensor. It collects data, so it's an input."
+            },
+            {
+              "text": "AI spotting craters in the pictures",
+              "bucket": 1,
+              "explain": "Working on data to find something is processing."
+            },
+            {
+              "text": "Matching hills it can see to a stored map",
+              "bucket": 1,
+              "explain": "Comparing data to work out where it is, is processing."
+            },
+            {
+              "text": "Wheels turning to steer round a crater",
+              "bucket": 2,
+              "explain": "Moving in the world is an output."
+            },
+            {
+              "text": "Radio sending a photo back to Earth",
+              "bucket": 2,
+              "explain": "Sending results out of the rover is an output."
+            }
+          ],
+          "explain": "Inputs collect data, processing works on it, and outputs act on the result. Every computer system, from a rover to a games console, follows this pattern."
+        },
+        {
+          "type": "complete",
+          "why": "FLIP has to decide when to use its camera, which practises loops and decisions together.",
+          "strand": "Designing, building and testing computing solutions",
+          "title": "Photos in the dark",
+          "task": "FLIP checks the light level 6 times. It only takes a photo when the light level is more than 50, and it counts the photos it takes.",
+          "lines": [
+            {
+              "code": "SET photos TO 0",
+              "indent": 0
+            },
+            {
+              "code": "REPEAT {0} TIMES",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE light FROM SENSOR",
+              "indent": 1
+            },
+            {
+              "code": "IF light {1} 50 THEN",
+              "indent": 1
+            },
+            {
+              "code": "SET photos TO photos {2} 1",
+              "indent": 2
+            },
+            {
+              "code": "END IF",
+              "indent": 1
+            },
+            {
+              "code": "END REPEAT",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Photos taken: \" & photos TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "blanks": [
+            {
+              "options": [
+                "5",
+                "6",
+                "50",
+                "photos"
+              ],
+              "answer": 1
+            },
+            {
+              "options": [
+                "<",
+                ">",
+                "=",
+                "<="
+              ],
+              "answer": 1
+            },
+            {
+              "options": [
+                "+",
+                "-",
+                "&",
+                "*"
+              ],
+              "answer": 0
+            }
+          ],
+          "explain": "The loop must run 6 times, one for each check. The test is light > 50 because photos are only taken when it's brighter than 50. Adding 1 to photos counts each picture. Using 50 in the first gap would confuse the light level with the number of checks.",
+          "tests": [
+            {
+              "inputs": [
+                10,
+                60,
+                70,
+                20,
+                80,
+                55
+              ],
+              "expect": [
+                "Photos taken: 4"
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "2026-10-22-supermarket-fridge-hack",
@@ -803,44 +1394,6 @@
           "url": "https://www.cbc.ca/news/business/france-fridge-hack-smart-devices-food-system-9.7379613"
         }
       ],
-      "parsons": {
-        "title": "Fridge temperature alarm",
-        "task": "Put the lines in order so the program reads the fridge temperature and warns staff if it is warmer than 5°C. One line doesn't belong.",
-        "lines": [
-          {
-            "code": "RECEIVE temperature FROM SENSOR",
-            "indent": 0
-          },
-          {
-            "code": "IF temperature > 5 THEN",
-            "indent": 0
-          },
-          {
-            "code": "SEND \"Too warm! Switching cooling ON\" TO DISPLAY",
-            "indent": 1
-          },
-          {
-            "code": "ELSE",
-            "indent": 0
-          },
-          {
-            "code": "SEND \"Temperature OK\" TO DISPLAY",
-            "indent": 1
-          },
-          {
-            "code": "END IF",
-            "indent": 0
-          }
-        ],
-        "distractors": [
-          {
-            "code": "IF temperature < 5 THEN",
-            "indent": 0
-          }
-        ],
-        "explain": "The program must have the temperature before it can test it, so RECEIVE comes first. The test is temperature > 5, because the alarm is for a fridge that is too warm. Using < 5 would warn when the fridge is nice and cold.",
-        "strand": "Designing, building and testing computing solutions"
-      },
       "tags": [
         "Cyber security",
         "Internet of Things",
@@ -892,7 +1445,199 @@
             "explain": "Software, hardware, firmware and malware. Firmware is the software built into devices like fridge controllers."
           }
         ]
-      }
+      },
+      "extras": [
+        {
+          "type": "parsons",
+          "why": "Builds the temperature alarm the supermarket fridges needed.",
+          "title": "Fridge temperature alarm",
+          "task": "Put the lines in order so the program reads the fridge temperature and warns staff if it is warmer than 5°C. One line doesn't belong.",
+          "lines": [
+            {
+              "code": "RECEIVE temperature FROM SENSOR",
+              "indent": 0
+            },
+            {
+              "code": "IF temperature > 5 THEN",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Too warm! Switching cooling ON\" TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "ELSE",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Temperature OK\" TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "END IF",
+              "indent": 0
+            }
+          ],
+          "distractors": [
+            {
+              "code": "IF temperature < 5 THEN",
+              "indent": 0
+            }
+          ],
+          "explain": "The program must have the temperature before it can test it, so RECEIVE comes first. The test is temperature > 5, because the alarm is for a fridge that is too warm. Using < 5 would warn when the fridge is nice and cold.",
+          "strand": "Designing, building and testing computing solutions"
+        },
+        {
+          "type": "bug",
+          "why": "Limiting password guesses is a real defence against the kind of attack in the story.",
+          "strand": "Cyber resilience and internet safety",
+          "title": "Three tries and you're out",
+          "task": "This program should lock the fridge controls after 3 wrong passwords. Testing shows a hacker could keep guessing for ever. Find the line with the bug, then choose the fix.",
+          "lines": [
+            {
+              "code": "SET attempts TO 0",
+              "indent": 0
+            },
+            {
+              "code": "SET unlocked TO FALSE",
+              "indent": 0
+            },
+            {
+              "code": "WHILE attempts < 3 AND unlocked = FALSE DO",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE password FROM KEYBOARD",
+              "indent": 1
+            },
+            {
+              "code": "IF password = \"c0ld-Store\" THEN",
+              "indent": 1
+            },
+            {
+              "code": "SET unlocked TO TRUE",
+              "indent": 2
+            },
+            {
+              "code": "END IF",
+              "indent": 1
+            },
+            {
+              "code": "SET attempts TO attempts - 1",
+              "indent": 1
+            },
+            {
+              "code": "END WHILE",
+              "indent": 0
+            },
+            {
+              "code": "IF unlocked = TRUE THEN",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Controls unlocked\" TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "ELSE",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Locked: too many tries\" TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "END IF",
+              "indent": 0
+            }
+          ],
+          "bug": 7,
+          "fixes": [
+            "SET attempts TO 0",
+            "SET attempts TO attempts - 3",
+            "SET attempts TO attempts + 1",
+            "SET unlocked TO FALSE"
+          ],
+          "answer": 2,
+          "explain": "attempts started at 0 and went down to -1, -2, -3, so it was always less than 3 and the loop never ended. Adding 1 after each try means the loop stops after the third wrong password. Setting attempts back to 0 would have the same problem.",
+          "tests": [
+            {
+              "inputs": [
+                "a",
+                "b",
+                "c"
+              ],
+              "expect": [
+                "Locked: too many tries"
+              ]
+            },
+            {
+              "inputs": [
+                "x",
+                "c0ld-Store"
+              ],
+              "expect": [
+                "Controls unlocked"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "binary",
+          "why": "The hackers pushed the fridges to 50°C, a real number from the story to convert.",
+          "strand": "Understanding and analysing computing technology",
+          "title": "50°C in binary",
+          "task": "Computers store every number as binary: 1s and 0s. Switch bits on to make 50.",
+          "target": 50,
+          "bits": 8,
+          "explain": "50 = 32 + 16 + 2, so in binary it's 00110010. Each place is worth double the one to its right."
+        },
+        {
+          "type": "sort",
+          "why": "A smart fridge is a clear example of an input, process and output system.",
+          "strand": "Understanding and analysing computing technology",
+          "title": "How a smart fridge works",
+          "task": "Sort each part of the fridge's control system.",
+          "buckets": [
+            "Input",
+            "Process",
+            "Output"
+          ],
+          "items": [
+            {
+              "text": "Temperature sensor",
+              "bucket": 0,
+              "explain": "It measures the temperature, so it's an input."
+            },
+            {
+              "text": "Keypad staff type a password on",
+              "bucket": 0,
+              "explain": "Typing gives the system data, so it's an input."
+            },
+            {
+              "text": "Comparing the temperature with 5°C",
+              "bucket": 1,
+              "explain": "Comparing values is processing."
+            },
+            {
+              "text": "Deciding whether to sound the alarm",
+              "bucket": 1,
+              "explain": "Making a decision is processing."
+            },
+            {
+              "text": "Cooling motor switching on",
+              "bucket": 2,
+              "explain": "It acts on the world, so it's an output."
+            },
+            {
+              "text": "Warning beep",
+              "bucket": 2,
+              "explain": "A sound the system makes is an output."
+            }
+          ],
+          "explain": "The sensor and keypad are inputs, the controller's decisions are processing, and the motor and beep are outputs. The hackers attacked the processing part, so the outputs did the wrong thing."
+        }
+      ]
     },
     {
       "id": "2026-10-21-mit-sando-drones",
@@ -1008,56 +1753,6 @@
           "url": "https://interestingengineering.com/innovation/mit-drone-planner-flight"
         }
       ],
-      "parsons": {
-        "title": "Drone flight loop",
-        "task": "The drone starts 100 metres from its goal. Each time round the loop it should check its sensor, replan if something is near, then move 10 metres closer. When it arrives it shows a message. One line doesn't belong.",
-        "lines": [
-          {
-            "code": "SET distanceToGoal TO 100",
-            "indent": 0
-          },
-          {
-            "code": "WHILE distanceToGoal > 0 DO",
-            "indent": 0
-          },
-          {
-            "code": "RECEIVE obstacleNear FROM SENSOR",
-            "indent": 1
-          },
-          {
-            "code": "IF obstacleNear = TRUE THEN",
-            "indent": 1
-          },
-          {
-            "code": "SEND \"Obstacle! Replanning route\" TO DISPLAY",
-            "indent": 2
-          },
-          {
-            "code": "END IF",
-            "indent": 1
-          },
-          {
-            "code": "SET distanceToGoal TO distanceToGoal - 10",
-            "indent": 1
-          },
-          {
-            "code": "END WHILE",
-            "indent": 0
-          },
-          {
-            "code": "SEND \"Goal reached\" TO DISPLAY",
-            "indent": 0
-          }
-        ],
-        "distractors": [
-          {
-            "code": "SET distanceToGoal TO distanceToGoal + 10",
-            "indent": 1
-          }
-        ],
-        "explain": "The distance must be set before the loop tests it. Inside the loop the drone senses, decides, then moves. Subtracting 10 brings it closer; adding 10 would move it further away and the loop would never end. \"Goal reached\" goes after END WHILE so it only shows once.",
-        "strand": "Designing, building and testing computing solutions"
-      },
       "tags": [
         "Robots",
         "Frontier tech",
@@ -1110,7 +1805,197 @@
             "explain": "Flight path, footpath, cycle path and garden path. SANDO plans flight paths."
           }
         ]
-      }
+      },
+      "extras": [
+        {
+          "type": "parsons",
+          "why": "Builds the drone's sense, decide and move loop.",
+          "title": "Drone flight loop",
+          "task": "The drone starts 100 metres from its goal. Each time round the loop it should check its sensor, replan if something is near, then move 10 metres closer. When it arrives it shows a message. One line doesn't belong.",
+          "lines": [
+            {
+              "code": "SET distanceToGoal TO 100",
+              "indent": 0
+            },
+            {
+              "code": "WHILE distanceToGoal > 0 DO",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE obstacleNear FROM SENSOR",
+              "indent": 1
+            },
+            {
+              "code": "IF obstacleNear = TRUE THEN",
+              "indent": 1
+            },
+            {
+              "code": "SEND \"Obstacle! Replanning route\" TO DISPLAY",
+              "indent": 2
+            },
+            {
+              "code": "END IF",
+              "indent": 1
+            },
+            {
+              "code": "SET distanceToGoal TO distanceToGoal - 10",
+              "indent": 1
+            },
+            {
+              "code": "END WHILE",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Goal reached\" TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "distractors": [
+            {
+              "code": "SET distanceToGoal TO distanceToGoal + 10",
+              "indent": 1
+            }
+          ],
+          "explain": "The distance must be set before the loop tests it. Inside the loop the drone senses, decides, then moves. Subtracting 10 brings it closer; adding 10 would move it further away and the loop would never end. \"Goal reached\" goes after END WHILE so it only shows once.",
+          "strand": "Designing, building and testing computing solutions"
+        },
+        {
+          "type": "predict",
+          "why": "Delivery drones have to plan around their battery, which suits a fixed REPEAT loop.",
+          "strand": "Understanding the world through computational thinking",
+          "title": "Delivery round",
+          "task": "A delivery drone uses 20% of its battery for each delivery. It makes 4 deliveries.",
+          "lines": [
+            {
+              "code": "SET battery TO 100",
+              "indent": 0
+            },
+            {
+              "code": "SET deliveries TO 0",
+              "indent": 0
+            },
+            {
+              "code": "REPEAT 4 TIMES",
+              "indent": 0
+            },
+            {
+              "code": "SET battery TO battery - 20",
+              "indent": 1
+            },
+            {
+              "code": "SET deliveries TO deliveries + 1",
+              "indent": 1
+            },
+            {
+              "code": "END REPEAT",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Battery left: \" & battery TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "question": "What will be displayed?",
+          "options": [
+            "Battery left: 80",
+            "Battery left: 20",
+            "Battery left: 0",
+            "Battery left: 40"
+          ],
+          "answer": 1,
+          "explain": "The loop runs exactly 4 times, taking 20 each time: 100, 80, 60, 40, 20. 0 is tempting if you think the loop runs 5 times. 80 is what you'd get if it only ran once.",
+          "trace": {
+            "cols": [
+              "Step",
+              "battery",
+              "deliveries"
+            ],
+            "rows": [
+              [
+                "Start",
+                "100",
+                "0"
+              ],
+              [
+                "Repeat 1",
+                "80",
+                "1"
+              ],
+              [
+                "Repeat 2",
+                "60",
+                "2"
+              ],
+              [
+                "Repeat 3",
+                "40",
+                "3"
+              ],
+              [
+                "Repeat 4",
+                "20",
+                "4"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "order",
+          "why": "SANDO is an algorithm, a set of steps in order, which makes it perfect for sequencing.",
+          "strand": "Understanding the world through computational thinking",
+          "title": "How SANDO plans a safe flight",
+          "task": "Put SANDO's steps in the right order.",
+          "steps": [
+            "The drone's cameras and sensors spot the obstacles",
+            "Work out the fastest each obstacle could move",
+            "Draw a bubble around everywhere each obstacle might reach",
+            "Build a safe tunnel that avoids every bubble",
+            "Pick the quickest route through the tunnel",
+            "Fly a short way, then repeat from the start"
+          ],
+          "explain": "The drone needs data (spotting obstacles) before it can predict where they might go, and it needs the bubbles before it can plan around them. The last step loops back to the first, so the plan keeps updating as things move."
+        },
+        {
+          "type": "factop",
+          "why": "The discussion asks whether drones should deliver in your street. Separating facts from opinions sets that debate up.",
+          "strand": "Searching, processing and managing information responsibly",
+          "title": "Drones in the news",
+          "task": "Is each statement a fact (it can be checked) or an opinion (what someone thinks)?",
+          "statements": [
+            {
+              "text": "SANDO was tested in 12 real flights.",
+              "fact": true,
+              "explain": "You can check this in the researchers' report."
+            },
+            {
+              "text": "Drone deliveries would make streets better.",
+              "fact": false,
+              "explain": "People disagree about this. It's an opinion."
+            },
+            {
+              "text": "SANDO uses the drone's own cameras and sensors.",
+              "fact": true,
+              "explain": "This describes how the system works, and it can be checked."
+            },
+            {
+              "text": "Drones are too noisy to fly near schools.",
+              "fact": false,
+              "explain": "'Too noisy' is a judgement. Someone could measure the noise, but whether it's too much is an opinion."
+            },
+            {
+              "text": "In simulations, SANDO reached its goal with no crashes.",
+              "fact": true,
+              "explain": "This is a result that was measured and reported."
+            },
+            {
+              "text": "Every town should use drones for search and rescue.",
+              "fact": false,
+              "explain": "'Should' is a sign of an opinion."
+            }
+          ],
+          "explain": "Facts can be checked against evidence. Opinions are what people think or feel, often with words like 'should', 'better' or 'too'. Good debates use facts to back up opinions."
+        }
+      ]
     },
     {
       "id": "2026-10-20-jupiter-rhea1-chip",
@@ -1225,77 +2110,6 @@
           "url": "https://www.electronicsworld.co.uk/sipearls-first-rhea1-cpus-to-go-into-jupiter-europes-fastest-operating-supercomputer/42574/"
         }
       ],
-      "parsons": {
-        "title": "Sharing work between cores",
-        "task": "A job has 80 pieces and the chip has 8 free cores. Each round, every core finishes one piece. Put the lines in order to count how many rounds the job takes. One line doesn't belong.",
-        "lines": [
-          {
-            "code": "SET piecesLeft TO 80",
-            "indent": 0
-          },
-          {
-            "code": "SET rounds TO 0",
-            "indent": 0
-          },
-          {
-            "code": "WHILE piecesLeft > 0 DO",
-            "indent": 0
-          },
-          {
-            "code": "SET piecesLeft TO piecesLeft - 8",
-            "indent": 1
-          },
-          {
-            "code": "SET rounds TO rounds + 1",
-            "indent": 1
-          },
-          {
-            "code": "END WHILE",
-            "indent": 0
-          },
-          {
-            "code": "SEND \"Rounds needed: \" & rounds TO DISPLAY",
-            "indent": 0
-          }
-        ],
-        "alternatives": [
-          [
-            1,
-            0,
-            2,
-            3,
-            4,
-            5,
-            6
-          ],
-          [
-            0,
-            1,
-            2,
-            4,
-            3,
-            5,
-            6
-          ],
-          [
-            1,
-            0,
-            2,
-            4,
-            3,
-            5,
-            6
-          ]
-        ],
-        "distractors": [
-          {
-            "code": "SET rounds TO rounds - 1",
-            "indent": 1
-          }
-        ],
-        "explain": "Both counters are set up before the loop. Each time round, 8 pieces are finished and 1 is added to rounds. The answer is 10. Taking 1 away from rounds would count backwards and give -10.",
-        "strand": "Designing, building and testing computing solutions"
-      },
       "tags": [
         "Hardware",
         "Supercomputers",
@@ -1347,7 +2161,241 @@
             "explain": "Each has a core in its centre. CPU was the red herring: chips have cores too, but it belongs with the computer parts."
           }
         ]
-      }
+      },
+      "extras": [
+        {
+          "type": "parsons",
+          "why": "Builds a program that splits a big job between cores.",
+          "title": "Sharing work between cores",
+          "task": "A job has 80 pieces and the chip has 8 free cores. Each round, every core finishes one piece. Put the lines in order to count how many rounds the job takes. One line doesn't belong.",
+          "lines": [
+            {
+              "code": "SET piecesLeft TO 80",
+              "indent": 0
+            },
+            {
+              "code": "SET rounds TO 0",
+              "indent": 0
+            },
+            {
+              "code": "WHILE piecesLeft > 0 DO",
+              "indent": 0
+            },
+            {
+              "code": "SET piecesLeft TO piecesLeft - 8",
+              "indent": 1
+            },
+            {
+              "code": "SET rounds TO rounds + 1",
+              "indent": 1
+            },
+            {
+              "code": "END WHILE",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Rounds needed: \" & rounds TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "alternatives": [
+            [
+              1,
+              0,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            [
+              0,
+              1,
+              2,
+              4,
+              3,
+              5,
+              6
+            ],
+            [
+              1,
+              0,
+              2,
+              4,
+              3,
+              5,
+              6
+            ]
+          ],
+          "distractors": [
+            {
+              "code": "SET rounds TO rounds - 1",
+              "indent": 1
+            }
+          ],
+          "explain": "Both counters are set up before the loop. Each time round, 8 pieces are finished and 1 is added to rounds. The answer is 10. Taking 1 away from rounds would count backwards and give -10.",
+          "strand": "Designing, building and testing computing solutions"
+        },
+        {
+          "type": "bug",
+          "why": "Real chips protect themselves from overheating with exactly this kind of check.",
+          "strand": "Designing, building and testing computing solutions",
+          "title": "Too hot to handle",
+          "task": "A chip should slow down when it gets hotter than 90°C, to protect itself. In testing it slows down when it's cool, and keeps racing when it's hot! Find the bug, then choose the fix.",
+          "lines": [
+            {
+              "code": "SET speed TO 3",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE temperature FROM SENSOR",
+              "indent": 0
+            },
+            {
+              "code": "IF temperature < 90 THEN",
+              "indent": 0
+            },
+            {
+              "code": "SET speed TO speed - 1",
+              "indent": 1
+            },
+            {
+              "code": "SEND \"Too hot! Speed now \" & speed TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "ELSE",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Temperature OK\" TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "END IF",
+              "indent": 0
+            }
+          ],
+          "bug": 2,
+          "fixes": [
+            "IF temperature = 90 THEN",
+            "IF speed > 90 THEN",
+            "IF temperature > 90 THEN",
+            "IF temperature < 9 THEN"
+          ],
+          "answer": 2,
+          "explain": "< means 'less than', so the chip slowed down whenever it was cooler than 90°C. Using > 90 slows it only when it's hotter. Using = 90 would only work at exactly 90°C, and speed is the wrong thing to test.",
+          "tests": [
+            {
+              "inputs": [
+                95
+              ],
+              "expect": [
+                "Too hot! Speed now 2"
+              ]
+            },
+            {
+              "inputs": [
+                50
+              ],
+              "expect": [
+                "Temperature OK"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "binary",
+          "why": "Rhea1's 80 cores give a real number from the story to convert.",
+          "strand": "Understanding and analysing computing technology",
+          "title": "80 cores in binary",
+          "task": "Switch bits on to make 80, the number of cores in the Rhea1 chip.",
+          "target": 80,
+          "bits": 8,
+          "explain": "80 = 64 + 16, so in binary it's 01010000. Each place is worth double the one to its right."
+        },
+        {
+          "type": "complete",
+          "why": "Chips need cooling to keep working, and a fan that speeds up while the chip stays hot is a natural WHILE loop.",
+          "strand": "Designing, building and testing computing solutions",
+          "title": "Cooling fan",
+          "task": "While the chip is hotter than 70°C, the fan speeds up by 1 and the temperature is checked again. When the chip has cooled to 70°C or below, the program shows the fan speed.",
+          "lines": [
+            {
+              "code": "SET fanSpeed TO 0",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE temperature FROM SENSOR",
+              "indent": 0
+            },
+            {
+              "code": "WHILE temperature {0} 70 DO",
+              "indent": 0
+            },
+            {
+              "code": "SET fanSpeed TO fanSpeed {1} 1",
+              "indent": 1
+            },
+            {
+              "code": "RECEIVE temperature FROM SENSOR",
+              "indent": 1
+            },
+            {
+              "code": "END WHILE",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Fan speed: \" & {2} TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "blanks": [
+            {
+              "options": [
+                ">=",
+                "<",
+                ">",
+                "="
+              ],
+              "answer": 2
+            },
+            {
+              "options": [
+                "-",
+                "+",
+                "*",
+                "/"
+              ],
+              "answer": 1
+            },
+            {
+              "options": [
+                "temperature",
+                "70",
+                "\"fanSpeed\"",
+                "fanSpeed"
+              ],
+              "answer": 3
+            }
+          ],
+          "explain": "The loop keeps going while the temperature is more than 70, so the test is > 70. Using >= would keep the fan speeding up even at exactly 70°C. Adding 1 speeds the fan up each time. The last gap needs the variable fanSpeed without quotes: in quotes it would display the word \"fanSpeed\" instead of the number.",
+          "tests": [
+            {
+              "inputs": [
+                85,
+                80,
+                72,
+                70
+              ],
+              "expect": [
+                "Fan speed: 3"
+              ]
+            }
+          ]
+        }
+      ]
     }
-  ]
+  ],
+  "schema": 2
 }

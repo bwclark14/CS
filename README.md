@@ -7,6 +7,7 @@ One real computing story a day for learners aged 10–14, with discussion points
 - Site: https://bwclark14.github.io/CS/daily-compute/
 - `daily-compute/index.html`: the page
 - `daily-compute/stories.json`: every published story and its activities
+- `tools/daily-compute/`: the checker the daily tasks use before saving or publishing a story
 
 New stories are drafted each evening, approved by a teacher, then published here each morning by a scheduled task. Please don't edit `stories.json` by hand while a publish might be running.
 
