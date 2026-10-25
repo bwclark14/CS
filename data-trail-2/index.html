@@ -391,6 +391,18 @@ input[type=range]{width:100%;accent-color:var(--bad)}
 .sig select{font:inherit;font-weight:400;padding:7px;border-radius:6px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
 @media (max-width:720px){.shopwrap{grid-template-columns:minmax(0,1fr)}}
 .bubcv{display:block;width:100%;height:auto;aspect-ratio:440/260;border-radius:8px;background:var(--bg)}
+.srcrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.88rem}
+.srcrow:last-of-type{border-bottom:0}
+.srcrow .sn{font-weight:700}
+.srcrow .sw{grid-column:1/-1;font-size:.8rem;color:var(--muted)}
+.srcrow .sb{grid-column:1/-1;height:6px;background:var(--bg);border-radius:3px;overflow:hidden}
+.srcrow .sb i{display:block;height:100%}
+.trust{font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.05em;padding:2px 7px;border-radius:4px;white-space:nowrap;align-self:start}
+.t-high{background:var(--good-soft);color:var(--good)}
+.t-mixed{background:var(--hi);color:var(--hi-ink)}
+.t-low{background:var(--bad-soft);color:var(--bad)}
+.checklist{margin:8px 0 0;padding-left:18px;font-size:.84rem}
+.checklist li{margin-bottom:3px}
 .teacher ol,.teacher ul{margin:8px 0 0;padding-left:20px}
 .teacher li{margin-bottom:6px}
 footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
@@ -623,6 +635,21 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
         <h3 style="margin-top:14px">From low-reliability sources</h3>
         <div class="meter" aria-hidden="true"><i id="nRelPin" style="left:0%"></i></div>
         <p class="small" style="margin-top:6px" id="nRelTxt"></p>
+      </div>
+      <div class="panel">
+        <h3>Sources in your feed</h3>
+        <p class="small">Who your last 15 headlines came from, and how far you can trust them. These outlets are made up for this activity.</p>
+        <div id="nSrcList" style="margin-top:6px"></div>
+        <details style="margin-top:10px"><summary style="cursor:pointer;font-weight:700;font-size:.88rem">How to check a real source</summary>
+          <ol class="checklist">
+            <li><b>Who wrote it?</b> Is there a named writer or organisation you can look up?</li>
+            <li><b>Where is the evidence?</b> Does it name its sources or link to the research?</li>
+            <li><b>Do others agree?</b> Search for the story. Do reliable outlets report the same facts?</li>
+            <li><b>Do they fix mistakes?</b> Trustworthy outlets publish corrections.</li>
+            <li><b>What is the headline doing?</b> If it is trying to make you shocked, angry or scared, slow down before you share.</li>
+          </ol>
+          <p class="small" style="margin-top:6px">You may also know this as the CRAAP test: Currency, Relevance, Authority, Accuracy, Purpose.</p>
+        </details>
       </div>
       <div class="panel"><h3>Debates: which side have you seen?</h3><div id="nSides"></div></div>
       <div><button class="btn" id="nReset">Reset the app (new reader)</button></div>
@@ -1400,6 +1427,18 @@ resetFeed();
 {
 const NT={local:["Local","#2D6A9F"],sport:["Sport","#1F7A4D"],science:["Science","#5B3FA8"],tech:["Tech","#0F6E87"],enviro:["Environment","#3C7A2F"],ents:["Entertainment","#B03A6F"],school:["School life","#B5651D"]};
 const LOWREL=new Set(["ShockFeed","ViralBuzz","TruthBlast"]);
+const SRCINFO={
+ "Glen Gazette":["high","Local newspaper with named reporters. Publishes corrections when it gets something wrong."],
+ "Scot News":["high","National news service. Checks facts with more than one source and follows a press standards code."],
+ "Science Now":["high","Science magazine written with scientists. Links to the research behind each story."],
+ "TechBite":["high","Tech advice site. Explains how it tests things and keeps adverts separate from articles."],
+ "SportDesk":["high","Sports news from reporters at the matches. Mostly results, reports and interviews."],
+ "Pupil Post":["high","News for young people, written and checked by trained journalists."],
+ "NewsNow24":["mixed","Fast 24-hour news. Facts are usually right, but headlines are often written to sound more dramatic than the story."],
+ "ShockFeed":["low","No named writers, exaggerated headlines and rarely says where information comes from. Does not correct mistakes."],
+ "ViralBuzz":["low","Makes money from clicks. Headlines often hold back or twist the key fact, and adverts are mixed in with stories."],
+ "TruthBlast":["low","Spreads conspiracy theories and claims with no evidence. No named authors."]
+};
 const ISS={phones:["Phone ban in schools","ban","For a ban","noban","Against a ban"],fourday:["Four-day school week","yes","For it","no","Against it"]};
 const NEWS=[
  ["New skate park opens in Dundee after pupils’ campaign","local","calm","Glen Gazette"],
@@ -1505,6 +1544,13 @@ function nRender(){
   const low=last.filter(r=>LOWREL.has(r.src)).length;
   document.getElementById("nRelPin").style.left="calc("+(last.length?low/last.length*100:0).toFixed(0)+"% - 2px)";
   document.getElementById("nRelTxt").textContent=low+" of your last "+last.length+" came from outlets with a poor track record for checking facts (ShockFeed, ViralBuzz, TruthBlast).";
+  const sc={}; recent.forEach(r=>sc[r.src]=(sc[r.src]||0)+1);
+  const srcs=Object.keys(sc).sort((a,b)=>sc[b]-sc[a]||a.localeCompare(b)), smax=Math.max(1,...Object.values(sc));
+  const TL={high:["HIGH TRUST","t-high","var(--good)"],mixed:["MIXED","t-mixed","#B86E00"],low:["LOW TRUST","t-low","var(--bad)"]};
+  document.getElementById("nSrcList").innerHTML=srcs.length?srcs.map(n=>{ const i=SRCINFO[n]||["mixed",""], t=TL[i[0]];
+    return "<div class='srcrow'><span class='sn'>"+esc(n)+" <span class='small' style='font-weight:400'>· "+sc[n]+" headline"+(sc[n]===1?"":"s")+"</span></span><span class='trust "+t[1]+"'>"+t[0]+"</span><span class='sb'><i style='width:"+(sc[n]/smax*100).toFixed(0)+"%;background:"+t[2]+"'></i></span><span class='sw'>"+esc(i[1])+"</span></div>"; }).join("")
+    +"<p class='small' style='margin-top:8px'><b>"+recent.filter(r=>(SRCINFO[r.src]||[])[0]==="high").length+"</b> high trust · <b>"+recent.filter(r=>(SRCINFO[r.src]||[])[0]==="mixed").length+"</b> mixed · <b>"+recent.filter(r=>(SRCINFO[r.src]||[])[0]==="low").length+"</b> low trust, from your last "+recent.length+" headlines.</p>"
+    :"<p class='small'>Read some headlines to see where they come from.</p>";
   document.getElementById("nSides").innerHTML=Object.keys(ISS).map(k=>{ const I=ISS[k], seen=[...recent].filter(r=>r.iss===k), a=seen.filter(r=>r.side===I[1]).length, b=seen.filter(r=>r.side===I[3]).length;
     const one=(a>=2&&b===0)||(b>=2&&a===0);
     return "<div class='side'><span><b>"+I[0]+"</b><br><span class='small'>"+I[2]+": "+a+" · "+I[4]+": "+b+"</span></span>"+(one?"<span class='flag1'>ONE-SIDED</span>":"<span class='small'>"+(a+b?"mixed":"not seen yet")+"</span>")+"</div>"; }).join("")+"<p class='small' style='margin-top:6px'>Counts from your last 15 headlines.</p>";
