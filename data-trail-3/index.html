@@ -855,6 +855,7 @@ footer{padding-block:32px;color:var(--muted);font-size:.85rem;border-top:1px sol
         <div style="flex:1;min-width:200px"><h3 style="margin-bottom:6px">Your last 10 posts</h3><div class="dots" id="rtDots"></div><p class="small" style="margin-top:6px" id="rtCount"></p></div>
       </div>
       <div class="panel" id="rtStatus"><p class="small">Make your first move.</p></div>
+      <div class="panel"><h3>Your bubble</h3><canvas id="rtBubCv" class="bubcv" role="img" aria-label="You in the middle of a small bubble with only football inside."></canvas><p class="small" style="margin-top:8px" id="rtBubTxt"></p><p class="small" style="margin-top:4px">You are in the middle. Topics outside the bubble are still out there; your feed just isn’t showing them. Break the bubble to let them back in.</p></div>
       <div class="panel"><h3>What the app thinks you’re into</h3><div class="bars" id="rtBars"></div></div>
       <div class="panel"><h3>Your attempts</h3><div class="tablewrap"><table class="restab"><thead><tr><th>Try</th><th>Moves</th><th>Not interested</th><th>Searches</th><th>Reset</th></tr></thead><tbody id="rtLog"><tr><td colspan="5" class="small" style="text-align:center">Finish the mission to log a try.</td></tr></tbody></table></div><button class="btn" id="rtAgain" style="margin-top:10px">Start again with the football bubble</button></div>
     </div>
@@ -1777,6 +1778,51 @@ $("#feedReset").onclick=resetFeed;
   size(); window.addEventListener("resize",()=>{ size(); if(reduce) draw(performance.now()); });
   if(reduce) draw(performance.now()); else requestAnimationFrame(draw);
 })();
+(function(){
+  const cv=document.getElementById("rtBubCv"); if(!cv||!cv.getContext) return;
+  const ctx=cv.getContext("2d");
+  let W=440,H=260,cx,cy,rmax,outer,sx,sy;
+  const keys=Object.keys(TOPICS), items=[];
+  const order=[]; for(let j=0;j<2;j++) keys.forEach(k=>order.push(k));
+  order.forEach((k,i)=>items.push({k,a:i*2.39996,f:Math.sqrt((i+0.5)/order.length),x:0,y:0,al:1,ph:Math.random()*6.28}));
+  let st={b:0,top:null,inSet:new Set(keys)}, r=null;
+  const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const cssv=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  function size(){ const w=cv.clientWidth||440, narrow=w<480; W=narrow?300:440; H=narrow?300:260;
+    cv.style.aspectRatio=W+"/"+H; const hh=w*H/W, d=window.devicePixelRatio||1;
+    cv.width=Math.round(w*d); cv.height=Math.round(hh*d); ctx.setTransform(d*w/W,0,0,d*w/W,0,0);
+    cx=W/2; cy=H/2+2; rmax=Math.min(112,H/2-16); outer=rmax+26; sx=(W/2-34)/outer; sy=(H/2-12)/outer;
+    if(r===null) r=rmax; items.forEach(it=>{ if(!it.x){ it.x=cx; it.y=cy; } }); }
+  function tgt(it,t){ const wob=reduce?0:Math.sin(t/1500+it.ph)*0.05;
+    if(st.inSet.has(it.k)){ const R=24+it.f*Math.max(8,r-36); return [cx+R*Math.cos(it.a+wob), cy+R*Math.sin(it.a+wob), 1]; }
+    const R=r+22+it.f*Math.max(14,outer-r-18); return [cx+R*Math.cos(it.a+wob)*Math.max(sx,1), cy+R*Math.sin(it.a+wob)*sy, 0.32]; }
+  function card(it){ const lab=it.k, col=TOPICS[it.k].c; ctx.font="600 10px system-ui, sans-serif"; const w=ctx.measureText(lab).width+12, h=17;
+    const x=Math.max(w/2+3,Math.min(W-w/2-3,it.x)), y=Math.max(h/2+3,Math.min(H-h/2-3,it.y));
+    ctx.globalAlpha=Math.max(0,Math.min(1,it.al)); ctx.fillStyle=col; ctx.beginPath(); if(ctx.roundRect) ctx.roundRect(x-w/2,y-h/2,w,h,5); else ctx.rect(x-w/2,y-h/2,w,h); ctx.fill();
+    ctx.fillStyle="#fff"; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillText(lab,x,y+0.5); ctx.globalAlpha=1; }
+  function draw(t){
+    const ink=cssv("--ink")||"#13202B", teal=cssv("--teal")||"#0C6E7C", bad=cssv("--bad")||"#B23A1C";
+    const rt=rmax-st.b*(rmax-44); r+=(rt-r)*(reduce?1:0.06);
+    items.forEach(it=>{ const g=tgt(it,t), e=reduce?1:0.07; it.x+=(g[0]-it.x)*e; it.y+=(g[1]-it.y)*e; it.al+=(g[2]-it.al)*e; });
+    ctx.clearRect(0,0,W,H);
+    items.filter(it=>!st.inSet.has(it.k)).forEach(card);
+    const edge=st.b>0.6?bad:teal;
+    ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.globalAlpha=0.10+st.b*0.12; ctx.fillStyle=edge; ctx.fill();
+    ctx.globalAlpha=0.55+st.b*0.4; ctx.lineWidth=2+st.b*2; ctx.strokeStyle=edge; ctx.stroke();
+    ctx.globalAlpha=0.35; ctx.beginPath(); ctx.arc(cx-r*0.4,cy-r*0.5,Math.max(3,r*0.1),0,Math.PI*2); ctx.fillStyle="#fff"; ctx.fill(); ctx.globalAlpha=1;
+    items.filter(it=>st.inSet.has(it.k)).forEach(card);
+    const glow=st.top&&st.b>0.15?TOPICS[st.top].c:"#9AA8B4";
+    ctx.fillStyle=ink; ctx.beginPath(); ctx.arc(cx,cy-14,8,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(cx-11,cy+16); ctx.quadraticCurveTo(cx,cy-10,cx+11,cy+16); ctx.closePath(); ctx.fill();
+    ctx.fillStyle=glow; ctx.fillRect(cx+6,cy-1,8,13); ctx.strokeStyle=ink; ctx.lineWidth=1.5; ctx.strokeRect(cx+6,cy-1,8,13);
+    if(!reduce) requestAnimationFrame(draw);
+  }
+  window.__rtBubble=function(b,top,inSet){ st={b,top,inSet}; const n=inSet.size;
+    cv.setAttribute("aria-label", b<0.15?"You in the middle, with posts on every topic inside your bubble.":"Your bubble has shrunk. Only "+n+" topic"+(n===1?"":"s")+" can get in; the rest are pushed outside.");
+    if(reduce) draw(performance.now()); };
+  size(); window.addEventListener("resize",()=>{ size(); if(reduce) draw(performance.now()); });
+  if(reduce) draw(performance.now()); else requestAnimationFrame(draw);
+})();
 resetFeed();
 
 /* ---------- 2.2b NEWS FEED ---------- */
@@ -2058,6 +2104,10 @@ function check(){ if(won) return; if(distinct()>=5){ won=true; tries.push({m:mov
 function render(){
   $$("rtMoves").textContent=moves;
   $$("rtDots").innerHTML=hist.map(t=>"<i title='"+t+"' style='background:"+TOPICS[t].c+"'></i>").join("");
+  { const c={}; hist.forEach(t=>c[t]=(c[t]||0)+1); const topK=Object.keys(c).sort((x,y)=>c[y]-c[x])[0], nd=Object.keys(c).length, bb=Math.max(0,Math.min(1,(5-nd)/4));
+    const inSet=new Set(nd>=5?keys:keys.filter(k=>c[k]));
+    if(window.__rtBubble) window.__rtBubble(bb,topK,inSet);
+    $$("rtBubTxt").textContent=nd>=5?"Bubble broken! "+nd+" topics in your last 10 posts, so every topic can get back in.":nd===1?"Tight bubble: all of your last 10 posts were #"+topK+". Only one topic can get in.":"Only "+nd+" topics are getting into your bubble so far. You need 5."; }
   const d=distinct(); $$("rtCount").textContent=d+" different topic"+(d===1?"":"s")+" · "+hist.filter(x=>x==="football").length+" of 10 are football";
   const ks=keys.slice().sort((a,b)=>sc[b]-sc[a]).slice(0,6), max=Math.max(...ks.map(k=>sc[k]));
   $$("rtBars").innerHTML=ks.map(k=>"<div class='bar'><span>"+k+"</span><div class='track'><div class='fill' style='width:"+(sc[k]/max*100).toFixed(0)+"%'></div></div><span class='num'>"+sc[k].toFixed(1)+"</span></div>").join("");
