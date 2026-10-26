@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Loop · Practice site</title>
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#F3F1FA;--card:#FFFFFF;--ink:#1C1730;--muted:#6B6585;--line:#E3DFF0;--brand:#6C3BF5;--brand2:#FF4F8B;--ok:#16A34A;--warn:#F59E0B}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:#E7E4F2;color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button{font:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.practice{background:#1C1730;color:#fff;font-size:12px;padding:6px 12px;text-align:center}
+.practice a{color:#FFD84D}
+.app{max-width:420px;margin:0 auto;background:var(--bg);min-height:calc(100% - 30px);position:relative;display:flex;flex-direction:column;box-shadow:0 0 40px rgba(28,23,48,.15)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.logo{font-weight:900;font-size:24px;letter-spacing:-1px;background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.icon{background:none;border:0;font-size:20px;padding:4px 6px;color:var(--ink)}
+.main{flex:1;overflow-y:auto;padding-bottom:70px}
+.nav{position:sticky;bottom:0;display:grid;grid-template-columns:repeat(5,1fr);background:var(--card);border-top:1px solid var(--line)}
+.nav button{background:none;border:0;padding:10px 0 12px;font-size:11px;color:var(--muted);display:grid;justify-items:center;gap:2px}
+.nav button b{font-size:18px;line-height:1}
+.nav button.on{color:var(--brand);font-weight:700}
+.pad{padding:16px}
+h1,h2,h3{margin:0}
+.btn{display:block;width:100%;border:0;border-radius:12px;padding:13px;font-weight:800;background:linear-gradient(90deg,var(--brand),var(--brand2));color:#fff;font-size:16px}
+.ghost{background:none;border:0;color:#A9A3BF;font-size:12px;text-decoration:underline;padding:6px;display:block;margin:4px auto 0}
+.field{display:grid;gap:4px;margin-bottom:12px;font-size:13px;font-weight:700}
+.field input,.field select{font:inherit;font-weight:400;padding:11px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+.row3{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:6px}
+.chk{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--muted);margin:6px 0}
+.chk input{margin-top:2px;accent-color:var(--brand)}
+.overlay{position:fixed;inset:0;background:rgba(28,23,48,.55);display:flex;align-items:flex-end;justify-content:center;z-index:50}
+.sheet{background:var(--card);width:100%;max-width:420px;border-radius:18px 18px 0 0;padding:20px 18px 24px;max-height:85vh;overflow-y:auto}
+.sheet.center{border-radius:18px;margin:auto 16px}
+.overlay.mid{align-items:center}
+.tog{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.tog small{display:block;color:var(--muted);font-size:12px}
+.sw{position:relative;width:44px;height:26px;flex:none}
+.sw input{opacity:0;width:0;height:0}
+.sw span{position:absolute;inset:0;background:#CFCBE0;border-radius:99px;transition:.2s}
+.sw span::after{content:"";position:absolute;width:20px;height:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+.sw input:checked+span{background:var(--brand)}
+.sw input:checked+span::after{transform:translateX(18px)}
+.streak{margin:12px 16px 0;padding:10px 12px;border-radius:12px;background:linear-gradient(90deg,#FFE7D1,#FFD3E3);font-size:13px;display:flex;gap:10px;align-items:center}
+.streak b{font-size:22px;color:#E8590C}
+.stories{display:flex;gap:10px;overflow-x:auto;padding:12px 16px}
+.story{flex:none;display:grid;justify-items:center;gap:4px;font-size:11px;color:var(--muted);background:none;border:0}
+.av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;flex:none}
+.story .av{width:56px;height:56px;outline:3px solid var(--brand2);outline-offset:2px}
+.post{background:var(--card);margin:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ph{display:flex;gap:10px;align-items:center;padding:10px 14px}
+.ph .who{flex:1;font-size:14px;font-weight:700}
+.ph .who small{display:block;font-weight:400;color:var(--muted);font-size:11px}
+.pimg{aspect-ratio:1/1;display:grid;place-items:center;color:#fff;font-weight:800;font-size:22px;text-align:center;padding:24px;position:relative}
+.pact{display:flex;gap:14px;padding:8px 14px;font-size:14px}
+.pact button{background:none;border:0;padding:4px 0;color:var(--ink);font-weight:700}
+.pact button.liked{color:var(--brand2)}
+.cap{padding:0 14px 12px;font-size:14px}
+.spons{font-size:9px;color:#C9C4DA}
+.cta{display:block;margin:0 14px 12px;background:#EFEAFE;color:var(--brand);border:0;border-radius:8px;padding:9px;font-weight:700;width:calc(100% - 28px)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);top:44px;width:calc(100% - 32px);max-width:388px;background:#1C1730;color:#fff;border-radius:14px;padding:12px 14px;z-index:60;font-size:13px;display:flex;gap:10px;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.toast b{display:block}
+.clip{height:calc(100vh - 170px);min-height:420px;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;color:#fff;position:relative}
+.clip .bar{position:absolute;top:0;left:0;height:4px;background:#fff;transition:width linear}
+.clip .next{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.35);padding:4px 10px;border-radius:99px;font-size:12px}
+.clip h3{font-size:22px}
+.list button{display:flex;justify-content:space-between;width:100%;background:var(--card);border:0;border-bottom:1px solid var(--line);padding:15px 16px;text-align:left;font-size:15px;color:var(--ink)}
+.list button span{color:var(--muted)}
+.sec{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:16px 16px 6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:#EFEAFE;color:var(--brand);border-radius:99px;padding:5px 10px;font-size:13px;font-weight:600;display:flex;gap:6px;align-items:center}
+.chip button{border:0;background:none;color:var(--muted);padding:0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.grid3 div{aspect-ratio:1/1}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;background:#E7F8EE;color:var(--ok)}
+.msg{display:flex;gap:10px;padding:12px 16px;background:var(--card);border-bottom:1px solid var(--line);align-items:center}
+.msg div{flex:1;font-size:14px}
+.msg small{color:var(--muted);display:block}
+textarea{font:inherit;width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px;min-height:90px}
+.note{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="practice">PRACTICE SITE for The Data Trail · Everything here is pretend and nothing you type leaves this page · Use made-up details · <a href="../../#audit">Back to the activity</a></div>
+<div class="app" id="app"></div>
+<div id="layer"></div>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const S={screen:"signup",tab:"home",cookies:null,partnersLI:true,user:{name:"",handle:"",loc:false,contacts:false,findable:true,ads:true,share:true,private:false,breaks:false,quiet:false,msgs:"Everyone"},notif:"ask",actions:0,streak:12,liked:new Set(),feedN:6,toastShown:false,interests:["Exam stress","Late-night user","Budget shopper","Trainers","Gaming","Anxiety tips","Snacks"],posts:[],deleted:false};
+const COLS=["#6C3BF5","#FF4F8B","#0EA5E9","#F59E0B","#10B981","#EF4444","#8B5CF6","#14B8A6"];
+const PEOPLE=["Alex","Sam","Jordan","Riley","Kai","Robin","Morgan","Casey","Jamie","Charlie","Ash","Rowan"];
+const CAPS=["Sunset from the top of Arthur's Seat","Rate my new setup 1–10","Tried the 3-ingredient pasta. Worth it?","Day 4 of learning guitar","When the Wi-Fi drops mid-game","Snow day!!","New trainers, who dis","My dog vs the hoover","Exam season survival kit","Late-night study vibes","Glasgow street art walk","Who else is still up?"];
+const ADS=[["SnackBox","Hungry? Late-night snacks delivered in 20 mins","Order now"],["Bargo","Those trainers you looked at are back in stock","Shop now"],["Starforge","Your friends are playing. Join them!","Play free"],["CalmApp","Stressed about exams? Try 7 days free","Start trial"]];
+let rid=0;const pick=a=>a[(rid++*7+3)%a.length];
+function genPost(i){ if(i%4===3){const ad=ADS[(i>>2)%ADS.length]; return {ad:true,who:ad[0],cap:ad[1],cta:ad[2],col:COLS[i%COLS.length],likes:0,id:"p"+i};}
+  const p=PEOPLE[(i*5)%PEOPLE.length]; return {who:p,cap:CAPS[(i*7)%CAPS.length],col:COLS[(i*3)%COLS.length],likes:40+((i*37)%900),id:"p"+i,video:i%3===1}; }
+for(let i=0;i<60;i++) S.posts.push(genPost(i));
+function act(){ S.actions++; if(S.actions%5===0&&S.notif!=="allowed") askNotif(); if(S.actions===7&&!S.toastShown){ S.toastShown=true; toast("23:41 · 5 friends are online now","Don't miss out! Open Loop to see what they're doing."); } }
+function toast(t,b){ const d=document.createElement("div"); d.className="toast"; d.innerHTML="<div class='av' style='background:linear-gradient(135deg,#6C3BF5,#FF4F8B);width:34px;height:34px'>L</div><div><b>"+esc(t)+"</b>"+esc(b)+"</div>"; document.body.appendChild(d); setTimeout(()=>d.remove(),5000); }
+function modal(html,mid){ $("#layer").innerHTML="<div class='overlay"+(mid?" mid":"")+"'><div class='sheet"+(mid?" center":"")+"'>"+html+"</div></div>"; }
+function close(){ $("#layer").innerHTML=""; }
+function askNotif(){ modal("<h2 style='margin-bottom:6px'>Turn on notifications?</h2><p class='note' style='margin:0 0 16px'>Never miss what your friends are up to! Get alerts when friends post, go live or are online.</p><button class='btn' id='nAllow'>Allow</button><button class='ghost' id='nLater'>Ask me later</button>",true);
+  $("#nAllow").onclick=()=>{S.notif="allowed";close();toast("Notifications on","You'll hear from us day and night.");}; $("#nLater").onclick=()=>{S.notif="later";close();}; }
+
+/* ---------- cookie banner ---------- */
+function cookieBanner(){
+  modal("<h3 style='margin-bottom:6px'>We value your privacy</h3><p class='note' style='margin:0 0 14px'>Loop and our 148 partners use cookies and similar technologies to personalise your experience, show you relevant ads and measure how you use Loop.</p><button class='btn' id='cAll'>Accept all &amp; continue</button><button class='ghost' id='cMan'>Manage settings</button>");
+  $("#cAll").onclick=()=>{S.cookies={ads:true,partners:true,analytics:true};close();};
+  $("#cMan").onclick=manageCookies;
+}
+function manageCookies(){
+  modal("<h3>Cookie settings</h3><p class='note'>Choose which cookies Loop can use.</p>"+
+  tog("ck_need","Strictly necessary","Needed for Loop to work",true,true)+tog("ck_ads","Personalised advertising","Show ads based on your activity",true)+tog("ck_an","Analytics","Help us improve Loop",true)+tog("ck_par","Share with partners","148 partners",true)+
+  "<details style='margin:10px 0;font-size:13px'><summary style='color:var(--muted);cursor:pointer'>Legitimate interest</summary><p class='note'>Some partners use your data without asking, because they say they have a legitimate interest.</p>"+tog("ck_li","Allow legitimate interest (148 partners)","",true)+"</details>"+
+  "<button class='btn' id='cAll2'>Accept all</button><button class='ghost' id='cSave' style='font-size:13px;color:var(--muted)'>Confirm my choices</button>");
+  $("#cAll2").onclick=()=>{S.cookies={ads:true,partners:true,analytics:true};S.partnersLI=true;close();};
+  $("#cSave").onclick=()=>{S.cookies={ads:$("#ck_ads").checked,partners:$("#ck_par").checked,analytics:$("#ck_an").checked};S.partnersLI=$("#ck_li").checked;close();};
+}
+function tog(id,t,s,on,dis){ return "<label class='tog'><span>"+t+(s?"<small>"+s+"</small>":"")+"</span><span class='sw'><input type='checkbox' id='"+id+"'"+(on?" checked":"")+(dis?" disabled":"")+"><span></span></span></label>"; }
+
+/* ---------- sign up flow ---------- */
+function signup(){
+  const yrs=[]; for(let y=2020;y>=1960;y--) yrs.push(y);
+  $("#app").innerHTML="<div class='top'><span class='logo'>loop</span></div><div class='main pad'>"+
+  "<h1 style='font-size:26px;margin:10px 0 4px'>Join Loop</h1><p class='note' style='margin:0 0 18px'>Share moments. Find your people.</p>"+
+  "<label class='field'>Username<input id='su_h' placeholder='e.g. pixel_fox_22' autocomplete='off'></label>"+
+  "<label class='field'>Email or phone<input id='su_e' placeholder='made-up@example.com' autocomplete='off'></label>"+
+  "<div class='field'>Date of birth<div class='row3'><select id='su_d' aria-label='Day'>"+Array.from({length:31},(_,i)=>"<option>"+(i+1)+"</option>").join("")+"</select><select id='su_m' aria-label='Month'>"+["January","February","March","April","May","June","July","August","September","October","November","December"].map(m=>"<option>"+m+"</option>").join("")+"</select><select id='su_y' aria-label='Year'>"+yrs.map(y=>"<option"+(y===2000?" selected":"")+">"+y+"</option>").join("")+"</select></div></div>"+
+  "<label class='chk'><input type='checkbox' id='su_f' checked> Let people find me using my email or phone number</label>"+
+  "<label class='chk'><input type='checkbox' id='su_a' checked> Use my activity to show me personalised ads</label>"+
+  "<label class='chk'><input type='checkbox' id='su_s' checked> Share my info with Loop partners for better offers</label>"+
+  "<p id='su_err' class='note' style='color:#DC2626;min-height:18px'></p>"+
+  "<button class='btn' id='su_go'>Sign up</button><p class='note' style='text-align:center;margin-top:10px'>By signing up you agree to our Terms, Data Policy (4,200 words) and Cookie Policy.</p></div>";
+  $("#su_go").onclick=()=>{ const h=$("#su_h").value.trim()||"new_user"; const age=2026-(+$("#su_y").value);
+    if(age<13){ $("#su_err").textContent="Sorry, you need to be 13 or older to use Loop. Please check your date of birth."; return; }
+    S.user.handle=h.replace(/[^a-z0-9_]/gi,"").slice(0,20)||"new_user"; S.user.findable=$("#su_f").checked; S.user.ads=$("#su_a").checked; S.user.share=$("#su_s").checked; S.screen="contacts"; render(); };
+}
+function contacts(){
+  $("#app").innerHTML="<div class='top'><span class='logo'>loop</span></div><div class='main pad' style='text-align:center'>"+
+  "<div style='font-size:64px;margin:30px 0 10px'>&#128101;</div><h2>Find your friends</h2><p class='note' style='margin:8px 0 22px'>Loop is better with friends. Sync your contacts to see who's already here. We'll keep your contacts updated so we can suggest new friends.</p>"+
+  "<button class='btn' id='ct_y'>Sync contacts</button><button class='ghost' id='ct_n'>Skip</button></div>";
+  $("#ct_y").onclick=()=>{S.user.contacts=true; modal("<h3>We found 23 friends!</h3><p class='note'>We've also uploaded your 214 contacts so people who have your number can find you.</p><button class='btn' id='okc'>Great!</button>",true); $("#okc").onclick=()=>{close();S.screen="location";render();};};
+  $("#ct_n").onclick=()=>{S.screen="location";render();};
+}
+function locStep(){
+  $("#app").innerHTML="<div class='top'><span class='logo'>loop</span></div><div class='main pad' style='text-align:center'>"+
+  "<div style='font-size:64px;margin:30px 0 10px'>&#128205;</div><h2>See what's happening near you</h2><p class='note' style='margin:8px 0 22px'>Turn on location to discover posts, events and people nearby.</p>"+
+  "<button class='btn' id='lo_y'>Allow location</button><button class='ghost' id='lo_n'>Not now</button></div>";
+  $("#lo_y").onclick=()=>{S.user.loc=true;S.screen="main";render();act();};
+  $("#lo_n").onclick=()=>{S.screen="main";render();};
+}
+
+/* ---------- main tabs ---------- */
+function shell(inner,title){
+  const tabs=[["home","&#8962;","Home"],["clips","&#9654;","Clips"],["create","&#43;","Create"],["inbox","&#9993;","Inbox"],["me","&#9786;","Profile"]];
+  $("#app").innerHTML="<div class='top'><span class='logo'>loop</span><span>"+(S.tab==="me"?"<button class='icon' id='gear' aria-label='Settings'>&#9881;</button>":"<button class='icon' aria-label='Notifications' id='bell'>&#128276;</button>")+"</span></div><div class='main' id='main'>"+inner+"</div><nav class='nav'>"+tabs.map(t=>"<button data-tab='"+t[0]+"' class='"+(S.tab===t[0]?"on":"")+"'><b>"+t[1]+"</b>"+t[2]+"</button>").join("")+"</nav>";
+  document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{S.tab=b.dataset.tab;S.sub=null;render();act();});
+  const g=$("#gear"); if(g) g.onclick=()=>{S.tab="settings";render();};
+  const bl=$("#bell"); if(bl) bl.onclick=()=>{ if(S.notif!=="allowed") askNotif(); else toast("Activity","Jordan, Riley and 14 others liked posts you might like."); };
+}
+function postHTML(p){
+  if(p.ad) return "<div class='post'><div class='ph'><div class='av' style='background:"+p.col+"'>"+p.who[0]+"</div><div class='who'>"+p.who+"<small><span class='spons'>Sponsored</span></small></div></div><div class='pimg' style='background:linear-gradient(135deg,"+p.col+",#1C1730)'>"+esc(p.cap)+"</div><button class='cta' data-ad='"+p.who+"'>"+p.cta+" &rsaquo;</button></div>";
+  const liked=S.liked.has(p.id);
+  return "<div class='post'><div class='ph'><div class='av' style='background:"+p.col+"'>"+p.who[0]+"</div><div class='who'>"+p.who.toLowerCase()+"_"+(p.likes%90)+"<small>"+(p.video?"Video · ":"")+"Suggested for you</small></div><button class='icon' aria-label='More'>&#8943;</button></div><div class='pimg' style='background:linear-gradient(160deg,"+p.col+",#1C1730)'>"+(p.video?"&#9654; ":"")+esc(p.cap)+"</div><div class='pact'><button data-like='"+p.id+"' class='"+(liked?"liked":"")+"'>"+(liked?"&#9829;":"&#9825;")+" "+(p.likes+(liked?1:0))+"</button><button data-cm='1'>&#128172; "+(p.likes%40)+"</button><button data-sh='1'>&#10150; Share</button></div></div>";
+}
+function home(){
+  shell("<div class='streak'><b>&#128293; "+S.streak+"</b><div><strong>"+S.streak+"-day streak!</strong><br>Post something today or your streak goes back to 0.</div></div>"+
+  "<div class='stories'>"+["You"].concat(PEOPLE.slice(0,8)).map((p,i)=>"<button class='story'><span class='av' style='background:"+COLS[i%8]+"'>"+p[0]+"</span>"+p+"</button>").join("")+"</div>"+
+  (S.user.contacts?"<div class='pad' style='padding-top:0'><div style='background:var(--card);border-radius:12px;padding:12px'><b style='font-size:14px'>People you may know</b><p class='note' style='margin:2px 0 8px'>From your contacts</p><div style='display:flex;gap:8px;overflow-x:auto'>"+["Morgan","Casey","Ash","Rowan"].map((p,i)=>"<div style='flex:none;text-align:center;font-size:12px;width:72px'><div class='av' style='margin:0 auto 4px;background:"+COLS[(i+3)%8]+"'>"+p[0]+"</div>"+p+"<br><span class='note'>"+(3+i)+" mutual</span></div>").join("")+"</div></div></div>":"")+
+  "<div id='feed'>"+S.posts.slice(0,S.feedN).map(postHTML).join("")+"</div><p class='note' style='text-align:center' id='more'>Loading more posts…</p>");
+  bindFeed();
+  const m=$("#main"); const more=()=>{ const f=$("#feed"); if(!f||S.tab!=="home") return; const near=(m.scrollTop+m.clientHeight>m.scrollHeight-300&&m.scrollHeight>m.clientHeight)||(window.innerHeight+window.scrollY>document.body.scrollHeight-300);
+    if(near && S.feedN<S.posts.length){ const k=S.feedN; S.feedN+=4; f.insertAdjacentHTML("beforeend",S.posts.slice(k,S.feedN).map(postHTML).join("")); bindFeed(); } };
+  m.onscroll=more; window.onscroll=more;
+}
+function bindFeed(){
+  document.querySelectorAll("[data-like]").forEach(b=>b.onclick=()=>{ const id=b.dataset.like; if(S.liked.has(id)) S.liked.delete(id); else S.liked.add(id); const p=S.posts.find(x=>x.id===id); const l=S.liked.has(id); b.className=l?"liked":""; b.innerHTML=(l?"&#9829;":"&#9825;")+" "+(p.likes+(l?1:0)); act(); });
+  document.querySelectorAll("[data-cm]").forEach(b=>b.onclick=()=>{ modal("<h3>Comments</h3><p class='note'>Comments from people you follow and people Loop thinks you'll like.</p><div class='msg' style='padding:10px 0'><div class='av' style='background:#0EA5E9;width:32px;height:32px'>R</div><div>riley_44 <small>this is so good</small></div></div><div class='field' style='margin-top:10px'><input placeholder='Add a comment…' id='cmIn'></div><button class='btn' id='cmGo'>Post</button>"); $("#cmGo").onclick=()=>{close();act();toast("Comment posted","Everyone can see it, including people you don't follow.");}; });
+  document.querySelectorAll("[data-sh]").forEach(b=>b.onclick=()=>{ act(); toast("Shared to your story","Your story is public. Change this in Settings."); });
+  document.querySelectorAll("[data-ad]").forEach(b=>b.onclick=()=>{ modal("<h3>Leaving Loop</h3><p class='note'>You're going to "+esc(b.dataset.ad)+". Loop has shared that you clicked this ad, so "+esc(b.dataset.ad)+" can show you more ads around the web.</p><button class='btn' id='adok'>Continue</button><button class='ghost' id='adno'>Stay on Loop</button>",true); $("#adok").onclick=()=>{close();toast("This is a practice site","In a real app you'd now be on the advertiser's website.");}; $("#adno").onclick=close; act(); });
+}
+let clipTimer=null;
+function clips(){
+  const vids=S.posts.filter(p=>p.video); let i=S.clipI||0;
+  function show(){ clearInterval(clipTimer); const p=vids[i%vids.length]; let t=0;
+    $("#main").innerHTML="<div class='clip' style='background:linear-gradient(180deg,"+p.col+",#1C1730)'><div class='bar' id='cbar' style='width:0%'></div><span class='next' id='cnext'>Autoplay on</span><h3>"+esc(p.cap)+"</h3><p style='margin:6px 0 14px'>@"+p.who.toLowerCase()+" · "+(p.likes*13)+" views</p><div class='pact' style='padding:0;color:#fff'><button style='color:#fff' data-cl='1'>&#9825; Like</button><button style='color:#fff' id='cskip'>Next &darr;</button></div></div>";
+    clipTimer=setInterval(()=>{ t+=100; const b=$("#cbar"); if(!b){clearInterval(clipTimer);return;} b.style.width=Math.min(100,t/60)+"%"; if(t>=6000){ const n=$("#cnext"); n.textContent="Next clip in "+Math.ceil((9000-t)/1000); } if(t>=9000){ i++; S.clipI=i; act(); show(); } },100);
+    $("#cskip").onclick=()=>{i++;S.clipI=i;act();show();}; $("[data-cl]").onclick=()=>{act();toast("Liked","We'll show you more clips like this.");}; }
+  shell(""); show();
+}
+function create(){
+  shell("<div class='pad'><h2 style='margin-bottom:12px'>New post</h2><textarea id='cr_t' placeholder=\"What's happening?\"></textarea><div style='aspect-ratio:16/9;background:#E3DFF0;border-radius:12px;display:grid;place-items:center;margin:10px 0;color:var(--muted)'>+ Add photo</div>"+
+  "<label class='tog'><span>Who can see this?<small>Change audience</small></span><select id='cr_aud' style='font:inherit;padding:6px;border-radius:8px'><option selected>Everyone</option><option>Followers</option><option>Close friends</option></select></label>"+
+  "<label class='tog'><span>Add my location"+(S.user.loc?"<small>Glasgow, Scotland</small>":"<small>Location is off</small>")+"</span><span class='sw'><input type='checkbox' id='cr_loc'"+(S.user.loc?" checked":"")+"><span></span></span></label>"+
+  "<label class='tog'><span>Allow remixes and downloads</span><span class='sw'><input type='checkbox' checked><span></span></span></label>"+
+  "<button class='btn' style='margin-top:14px' id='cr_go'>Post</button></div>");
+  $("#cr_go").onclick=()=>{ const aud=$("#cr_aud").value, loc=$("#cr_loc").checked; S.streak=13; act(); toast("Posted! Streak saved: 13 days","Visible to "+aud.toLowerCase()+(loc?" · tagged at Glasgow":"")+"."); S.tab="home"; render(); };
+}
+function inbox(){
+  shell("<div class='sec'>Messages</div>"+
+  "<div class='msg'><div class='av' style='background:#0EA5E9'>R</div><div>riley_44<small>are you online? 23:12</small></div></div>"+
+  "<div class='msg'><div class='av' style='background:#10B981'>J</div><div>jordan.k<small>sent you a clip</small></div></div>"+
+  "<div class='sec'>Message requests · 3</div><p class='note' style='padding:0 16px'>From people you don't follow. Anyone can message you (change in Settings).</p>"+
+  "<div class='msg'><div class='av' style='background:#EF4444'>?</div><div>free.gift.cards<small>Claim your prize! Click here</small></div></div>"+
+  "<div class='msg'><div class='av' style='background:#F59E0B'>?</div><div>new_friend_2009<small>hey whats ur snap</small></div></div>"+
+  "<div class='sec'>From Loop</div><div class='msg'><div class='av' style='background:linear-gradient(135deg,#6C3BF5,#FF4F8B)'>L</div><div>Loop Team<small>You have 3 new followers! See who's checking out your profile.</small></div></div>");
+}
+function me(){
+  shell("<div class='pad' style='text-align:center'><div class='av' style='width:84px;height:84px;font-size:30px;margin:4px auto 8px;background:linear-gradient(135deg,#6C3BF5,#FF4F8B)'>"+(S.user.handle[0]||"Y").toUpperCase()+"</div><h2>@"+esc(S.user.handle)+"</h2>"+
+  "<p style='margin:6px 0'><span class='badge'>"+(S.user.private?"Private account":"Public account")+"</span></p>"+
+  (S.user.loc?"<p class='note' style='margin:2px 0'>&#128205; Glasgow, Scotland · Active now</p>":"<p class='note' style='margin:2px 0'>Active now</p>")+
+  "<div style='display:flex;justify-content:center;gap:26px;margin:14px 0'><div><b>4</b><br><span class='note'>Posts</span></div><div><b>"+(S.user.contacts?31:3)+"</b><br><span class='note'>Followers</span></div><div><b>"+(S.user.contacts?27:5)+"</b><br><span class='note'>Following</span></div></div>"+
+  "<p class='note'>&#128293; "+S.streak+"-day streak · On Loop "+Math.max(1,Math.round(S.actions*2.5))+" min today</p></div><div class='grid3'>"+COLS.slice(0,6).map(c=>"<div style='background:linear-gradient(135deg,"+c+",#1C1730)'></div>").join("")+"</div>");
+}
+function settings(){
+  const sub=S.sub;
+  if(!sub){ shell("<div class='sec'>Settings</div><div class='list'>"+[["acct","Account"],["priv","Privacy and safety"],["ads","Ads and your interests"],["time","Your time on Loop"],["notif","Notifications"],["data","Download your data"],["del","Delete account"]].map(x=>"<button data-sub='"+x[0]+"'>"+x[1]+"<span>&rsaquo;</span></button>").join("")+"</div><p class='note pad'>Loop version 12.4.1</p>"); }
+  else if(sub==="priv"){ shell("<div class='sec'>Privacy and safety</div><div class='pad' style='padding-top:0'>"+
+    tog("pv_find","Let people find you by email or phone","",S.user.findable)+tog("pv_tag","Allow anyone to tag you","",true)+tog("pv_act","Show when you're active","",true)+
+    "<label class='tog'><span>Who can message you</span><select id='pv_msg' style='font:inherit;padding:6px;border-radius:8px'><option"+(S.user.msgs==="Everyone"?" selected":"")+">Everyone</option><option"+(S.user.msgs==="Followers"?" selected":"")+">Followers</option><option>No one</option></select></label>"+
+    "<details style='margin-top:12px'><summary style='color:var(--muted);font-size:13px;cursor:pointer'>Advanced</summary>"+tog("pv_priv","Private account","Only approved followers can see your posts",S.user.private)+tog("pv_loc","Location services","",S.user.loc)+"</details></div><div class='list'><button data-sub=''>&lsaquo; Back<span></span></button></div>");
+    ["pv_find","pv_priv","pv_loc"].forEach(id=>{const e=$("#"+id); if(e) e.onchange=()=>{ if(id==="pv_find") S.user.findable=e.checked; if(id==="pv_priv"){ S.user.private=e.checked; if(e.checked) toast("Private account on","Some features like Clips reach and remixes are now limited."); } if(id==="pv_loc") S.user.loc=e.checked; };});
+    $("#pv_msg").onchange=e=>S.user.msgs=e.target.value; }
+  else if(sub==="ads"){ shell("<div class='sec'>Your interests</div><div class='pad' style='padding-top:0'><p class='note' style='margin-top:0'>Based on what you watch, like, search and when you use Loop, we think you're interested in:</p><div class='chips' id='ints'>"+S.interests.map((t,i)=>"<span class='chip'>"+t+" <button data-rm='"+i+"' aria-label='Remove "+t+"'>&times;</button></span>").join("")+"</div><p class='note'>Removing an interest may not stop all related ads.</p>"+tog("ad_p","Personalised ads","",S.user.ads)+tog("ad_s","Share data with partners","",S.user.share)+"<p class='note'>Turning off personalised ads means you'll still see the same number of ads, but they may be less relevant.</p></div><div class='list'><button data-sub=''>&lsaquo; Back<span></span></button></div>");
+    document.querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{ S.interests.splice(+b.dataset.rm,1); settings(); toast("Interest removed","We'll still show you ads based on your activity."); }); }
+  else if(sub==="time"){ shell("<div class='sec'>Your time on Loop</div><div class='pad' style='padding-top:0'><p style='margin-top:0'>Today: <b>"+Math.max(1,Math.round(S.actions*2.5))+" min</b> · Daily average: <b>2 h 48 min</b></p>"+tog("tm_b","Remind me to take a break","",S.user.breaks)+tog("tm_q","Quiet mode at night","Pause notifications 22:00–07:00",S.user.quiet)+tog("tm_a","Autoplay clips","",true)+"</div><div class='list'><button data-sub=''>&lsaquo; Back<span></span></button></div>"); }
+  else if(sub==="notif"){ shell("<div class='sec'>Notifications</div><div class='pad' style='padding-top:0'>"+tog("nt_1","Friends online","",true)+tog("nt_2","Streak reminders","",true)+tog("nt_3","Suggested posts","",true)+tog("nt_4","Offers from partners","",true)+"<p class='note'>Status: "+(S.notif==="allowed"?"allowed":"not allowed yet")+"</p></div><div class='list'><button data-sub=''>&lsaquo; Back<span></span></button></div>"); }
+  else if(sub==="data"){ shell("<div class='sec'>Download your data</div><div class='pad' style='padding-top:0'><p style='margin-top:0'>Get a copy of what you've shared on Loop.</p><button class='btn' id='dl'>Request download</button><p class='note' id='dlm'></p></div><div class='list'><button data-sub=''>&lsaquo; Back<span></span></button></div>"); $("#dl").onclick=()=>{$("#dlm").textContent="Request received. Your file will be ready within 30 days. It will include posts and messages. Interests and ad data are not included.";}; }
+  else if(sub==="acct"){ shell("<div class='sec'>Account</div><div class='pad' style='padding-top:0'><p style='margin-top:0'>Username: @"+esc(S.user.handle)+"</p><p>Contacts synced: "+(S.user.contacts?"Yes, updated daily":"No")+"</p><p>Logged in with this device: Yes · Device ID stored for security and ads</p></div><div class='list'><button data-sub=''>&lsaquo; Back<span></span></button></div>"); }
+  else if(sub==="del"){ delFlow(1); return; }
+  document.querySelectorAll("[data-sub]").forEach(b=>b.onclick=()=>{S.sub=b.dataset.sub||null;settings();});
+}
+function delFlow(step){
+  if(step===1){ shell("<div class='pad' style='text-align:center'><div style='font-size:56px;margin:20px 0 6px'>&#128546;</div><h2>Are you sure?</h2><p class='note'>Your "+S.streak+"-day streak, your memories and your friends will be lost forever. Your friends will miss you.</p><button class='btn' id='k1' style='margin-top:16px'>Keep my account</button><button class='ghost' id='d1'>Continue to delete</button></div>"); $("#k1").onclick=()=>{S.sub=null;settings();}; $("#d1").onclick=()=>delFlow(2); }
+  else if(step===2){ shell("<div class='pad'><h2>Why are you leaving?</h2><p class='note'>Please tell us so we can improve.</p><label class='field'>Reason<select id='rs'><option value=''>Choose a reason</option><option>I spend too much time on Loop</option><option>Privacy worries</option><option>I don't use it</option><option>Something else</option></select></label><p class='note' id='rse' style='color:#DC2626'></p><button class='btn' id='d2'>Next</button><button class='ghost' id='k2'>Cancel</button></div>"); $("#d2").onclick=()=>{ if(!$("#rs").value){$("#rse").textContent="Please choose a reason to continue.";return;} delFlow(3); }; $("#k2").onclick=()=>{S.sub=null;settings();}; }
+  else if(step===3){ shell("<div class='pad'><h2>Take a break instead?</h2><p class='note'>Deactivate your account and come back any time. Nothing will be lost.</p><button class='btn' id='dz'>Deactivate instead (recommended)</button><button class='ghost' id='d3'>Delete permanently</button></div>"); $("#dz").onclick=()=>{ toast("Account deactivated","Log in any time to reactivate. Your data is kept."); S.sub=null; settings(); }; $("#d3").onclick=()=>delFlow(4); }
+  else { shell("<div class='pad'><h2>Delete permanently</h2><p class='note'>Type DELETE to confirm.</p><label class='field'><input id='dt' autocomplete='off'></label><button class='btn' id='d4' style='background:#DC2626'>Delete my account</button><p class='note' id='dm'></p></div>"); $("#d4").onclick=()=>{ if($("#dt").value.trim()!=="DELETE"){$("#dm").textContent="Please type DELETE in capitals.";return;} $("#dm").innerHTML="<b>Your account will be deleted in 30 days.</b> If you log in before then, deletion will be cancelled. Some information may be kept for longer for legal and business reasons."; }; }
+}
+function render(){
+  clearInterval(clipTimer);
+  if(S.screen==="signup") signup(); else if(S.screen==="contacts") contacts(); else if(S.screen==="location") locStep();
+  else { if(S.tab==="home") home(); else if(S.tab==="clips") clips(); else if(S.tab==="create") create(); else if(S.tab==="inbox") inbox(); else if(S.tab==="me") me(); else settings(); }
+}
+render(); cookieBanner();
+})();
+</script>
+</body>
+</html>

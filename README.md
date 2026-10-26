@@ -23,3 +23,9 @@ A second version adds rule-based vs data-driven systems, data poisoning, accessi
 - Site: https://bwclark14.github.io/CS/data-trail-2/
 - `data-trail-2/index.html`: the second version
 - `data-trail-2/sites/`: three practice apps for the Practice audit activity, all simulated: Loop (social media), Bargo (online shop) and Starforge (mobile game). Each has built-in data, privacy and dark-pattern issues for pupils to find; the answer key is in the teacher notes.
+
+Version 3 adds a more balanced view, showing when data and AI genuinely help as well as when they harm. New activities: device fingerprinting, Worth the trade? cards, writing a recommendation recipe, retraining a feed out of a filter bubble, and a positive case file on AI that spots eye disease.
+
+- Site: https://bwclark14.github.io/CS/data-trail-3/
+- `data-trail-3/index.html`: version 3
+- `data-trail-3/sites/`: copies of the three practice apps for version 3
