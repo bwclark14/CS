@@ -1,0 +1,2123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Future Proof</title>
+<meta name="description" content="An interactive unit for ages 13 to 15: how computers think and talk, what the 1980s got right and wrong about the future, building smart tech with the BBC micro:bit, frontier technologies, and a five-year prediction sealed in a time capsule.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23141B33%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%229%22 fill=%22none%22 stroke=%22%23F2A93B%22 stroke-width=%223%22/%3E%3Cpath d=%22M16 10v6l4 3%22 stroke=%22%238B7BFF%22 stroke-width=%223%22 fill=%22none%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=VT323&display=swap">
+<style>
+/* Three timelines, three colours: PAST is amber, PRESENT is teal, FUTURE is violet. Ink-navy frames everything. */
+:root{
+  --bg:#EEF0F5; --paper:#FFFFFF; --ink:#141B33; --muted:#565F75; --line:#CDD2DE;
+  --past:#B86A00; --past-soft:#FCEBD0; --past-hi:#F2A93B;
+  --now:#0B7A75; --now-soft:#D3EFEC; --now-hi:#2EC4B6;
+  --fut:#5B45D6; --fut-soft:#E6E1FF; --fut-hi:#8B7BFF;
+  --good:#1E7A44; --good-soft:#DDF2E4; --bad:#B23A1C; --bad-soft:#F8E1DA; --mid:#8A6A00; --mid-soft:#FBF1C9;
+  --tt-bg:#05060B; --tt-y:#FFE600; --tt-c:#00E5FF; --tt-g:#3CFF6B; --tt-w:#F4F4F4; --tt-m:#FF4FD8;
+  --display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --tt:"VT323","JetBrains Mono",ui-monospace,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D1120; --paper:#171C2E; --ink:#E7EAF4; --muted:#9CA4BA; --line:#2C3450;
+  --past:#F2A93B; --past-soft:#3A2810; --past-hi:#F2A93B;
+  --now:#43D2C4; --now-soft:#123532; --now-hi:#2EC4B6;
+  --fut:#A497FF; --fut-soft:#251F4D; --fut-hi:#8B7BFF;
+  --good:#5BC98A; --good-soft:#163525; --bad:#F08A6C; --bad-soft:#3D2018; --mid:#E9C64E; --mid-soft:#3A3212; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D1120; --paper:#171C2E; --ink:#E7EAF4; --muted:#9CA4BA; --line:#2C3450;
+  --past:#F2A93B; --past-soft:#3A2810; --past-hi:#F2A93B;
+  --now:#43D2C4; --now-soft:#123532; --now-hi:#2EC4B6;
+  --fut:#A497FF; --fut-soft:#251F4D; --fut-hi:#8B7BFF;
+  --good:#5BC98A; --good-soft:#163525; --bad:#F08A6C; --bad-soft:#3D2018; --mid:#E9C64E; --mid-soft:#3A3212; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-text-size-adjust:100%}
+img,svg{max-width:100%}
+[hidden]{display:none!important}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.08;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.8rem,4.5vw,2.6rem);font-weight:800;letter-spacing:-.01em}
+h3{font-size:1.2rem;font-weight:700}
+h4{font-size:1rem;font-weight:700}
+p{margin:0}
+ul,ol{margin:0;padding-left:1.2em}
+li+li{margin-top:4px}
+a{color:var(--now)}
+button{font:inherit;cursor:pointer;color:inherit}
+input,select,textarea{font:inherit;color:var(--ink)}
+button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--fut-hi);outline-offset:2px}
+.prose{display:grid;gap:12px;max-width:68ch}
+.small{font-size:.86rem;color:var(--muted)}
+.lede{color:var(--muted);max-width:64ch}
+.mono{font-family:var(--mono)}
+.past{color:var(--past)} .now{color:var(--now)} .fut{color:var(--fut)}
+.tag{display:inline-block;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:99px;font-weight:600;vertical-align:middle}
+.tag.past{background:var(--past-soft);color:var(--past)} .tag.now{background:var(--now-soft);color:var(--now)} .tag.fut{background:var(--fut-soft);color:var(--fut)}
+.kw{display:inline-block;font-family:var(--mono);font-size:.76rem;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:1px 6px}
+
+/* nav */
+nav.top{position:sticky;top:0;z-index:20;background:#141B33;color:#F3F4FA;padding-top:env(safe-area-inset-top,0px)}
+nav.top .wrap{display:flex;align-items:center;gap:14px;padding-block:10px}
+nav.top .brand{font-family:var(--display);font-weight:800;white-space:nowrap;color:#F3F4FA;text-decoration:none;display:flex;align-items:center;gap:8px}
+nav.top .brand i{width:10px;height:10px;border-radius:50%;background:linear-gradient(90deg,var(--past-hi) 0 33%,var(--now-hi) 33% 66%,var(--fut-hi) 66%)}
+nav.top .links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1}
+nav.top .links::-webkit-scrollbar{display:none}
+nav.top a{color:#F3F4FA;text-decoration:none;font-size:.86rem;padding:6px 10px;border-radius:99px;white-space:nowrap;opacity:.82}
+nav.top a:hover{opacity:1;background:rgba(255,255,255,.12)}
+nav.top a.proj{background:var(--fut-hi);color:#0D1120;opacity:1;font-weight:700}
+nav.top .theme{background:none;border:1px solid rgba(255,255,255,.35);color:#F3F4FA;border-radius:99px;padding:5px 10px;font-size:.8rem;white-space:nowrap}
+
+/* hero */
+.hero{padding-block:48px 36px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fut);font-weight:600}
+.hero h1{font-size:clamp(2.7rem,8vw,5.4rem);font-weight:800;letter-spacing:-.03em;margin-top:10px}
+.hero h1 span{background:linear-gradient(90deg,var(--past),var(--now) 50%,var(--fut));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lede{font-size:1.15rem;margin-top:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{font-family:var(--mono);font-size:.76rem;border:1px solid var(--line);border-radius:99px;padding:4px 10px;background:var(--paper);color:var(--muted)}
+
+/* teletext screen (hero + retro bits) */
+.tt{background:var(--tt-bg);color:var(--tt-w);font-family:var(--tt);font-size:1.32rem;line-height:1.05;border-radius:14px;padding:16px 16px 18px;box-shadow:0 0 0 8px #1B2033,0 18px 40px -18px rgba(0,0,0,.6);position:relative;overflow:hidden}
+.tt::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px);pointer-events:none}
+.tt .hdr{display:flex;justify-content:space-between;color:var(--tt-w);gap:8px}
+.tt .bar{background:var(--tt-c);color:var(--tt-bg);padding:2px 8px;margin:8px 0;display:flex;justify-content:space-between}
+.tt .y{color:var(--tt-y)} .tt .c{color:var(--tt-c)} .tt .g{color:var(--tt-g)} .tt .m{color:var(--tt-m)}
+.tt .row{display:flex;justify-content:space-between;gap:10px;padding:2px 0}
+.tt .row span:last-child{white-space:nowrap}
+.tt .foot{display:grid;grid-template-columns:repeat(4,1fr);margin-top:12px;text-align:center;font-size:1.1rem}
+.tt .foot span:nth-child(1){background:#E0261B;color:#fff} .tt .foot span:nth-child(2){background:#21C04B;color:#000} .tt .foot span:nth-child(3){background:var(--tt-y);color:#000} .tt .foot span:nth-child(4){background:var(--tt-c);color:#000}
+.blink{animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.blink{animation:none}}
+
+/* route */
+.route{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-top:8px}
+.route a{display:grid;gap:4px;align-content:start;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--line);border-radius:8px;padding:10px;font-size:.84rem}
+.route a:hover{border-color:var(--ink)}
+.route a b{font-family:var(--display);font-size:.98rem;line-height:1.15}
+.route a > span{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.06em}
+.route a.r-now{border-top-color:var(--now)} .route a.r-past{border-top-color:var(--past)} .route a.r-fut{border-top-color:var(--fut)}
+.route a.p{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.route a.p span{color:var(--fut-hi)}
+.howto{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.howto div{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:.92rem}
+.howto b{font-family:var(--display);display:block;font-size:1.02rem;margin-bottom:4px}
+
+/* parts and sections */
+.part{color:#F3F4FA;margin-top:24px;background:var(--ink)}
+:root .part{background:#141B33}
+.part .wrap{padding-block:40px;display:grid;gap:10px}
+.part .num{font-family:var(--mono);font-size:.8rem;letter-spacing:.14em}
+.part.p-now .num{color:var(--now-hi)} .part.p-past .num{color:var(--past-hi)} .part.p-fut .num{color:var(--fut-hi)}
+.part.p-now{box-shadow:inset 0 6px 0 var(--now-hi)} .part.p-past{box-shadow:inset 0 6px 0 var(--past-hi)} .part.p-fut{box-shadow:inset 0 6px 0 var(--fut-hi)}
+.part h2{color:#F3F4FA}
+.part p{color:#C2C7D8;max-width:62ch}
+section.block{padding-block:48px;border-top:1px solid var(--line)}
+section.block.first{border-top:0}
+.sec-head{display:grid;gap:10px;margin-bottom:24px}
+.mission{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px;min-width:0}
+.panel h3{margin-bottom:10px;font-size:1.05rem}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+.stack{display:grid;gap:12px}
+.row-btns{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:8px;padding:9px 14px;font-weight:700;font-size:.94rem;line-height:1.2}
+.btn:hover{background:var(--ink);color:var(--bg)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn.primary:hover{background:var(--fut);border-color:var(--fut);color:#fff}
+.btn.sm{padding:6px 10px;font-size:.84rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.task{border-left:4px solid var(--fut);padding:12px 14px;background:var(--paper);border-radius:0 8px 8px 0;margin-top:20px;max-width:78ch}
+.task.t-past{border-left-color:var(--past)} .task.t-now{border-left-color:var(--now)}
+.task b{font-family:var(--display)}
+.key{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px}
+.key div{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px;font-size:.9rem}
+.key b{font-family:var(--display);display:block;font-size:1rem;margin-bottom:2px}
+.fbbox{margin-top:12px;padding:12px;border-radius:8px;background:var(--now-soft);font-size:.95rem}
+.fbbox.good{background:var(--good-soft)} .fbbox.bad{background:var(--bad-soft)}
+label.fld{display:grid;gap:4px;font-size:.88rem;font-weight:700}
+label.fld span.small{font-weight:400}
+textarea,input[type=text],input[type=number],select{width:100%;padding:9px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg)}
+textarea{min-height:84px;resize:vertical;line-height:1.45}
+input[type=range]{width:100%;accent-color:var(--now)}
+details.more{margin-top:14px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 14px}
+details.more summary{cursor:pointer;font-weight:700}
+details.more[open] summary{margin-bottom:8px}
+.saved{font-family:var(--mono);font-size:.74rem;color:var(--good)}
+
+/* video cards */
+.watch{margin-top:24px}
+.watch .wh{font-family:var(--mono);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+a.vid{display:grid;grid-template-columns:56px minmax(0,1fr);gap:12px;align-items:start;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px}
+a.vid:hover{border-color:var(--ink)}
+a.vid .play{width:56px;height:56px;border-radius:8px;background:#141B33;display:grid;place-items:center;position:relative}
+a.vid .play::before{content:"";border-left:16px solid var(--past-hi);border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
+a.vid.v-now .play::before{border-left-color:var(--now-hi)} a.vid.v-fut .play::before{border-left-color:var(--fut-hi)}
+a.vid .yr{position:absolute;bottom:3px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:.6rem;color:#C2C7D8}
+a.vid b{font-family:var(--display);font-size:1rem;display:block;line-height:1.2}
+a.vid .by{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+a.vid .use{font-size:.85rem;margin-top:4px;display:block}
+
+/* tabs */
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:16px;scrollbar-width:thin}
+.tabs button{border:1.5px solid var(--line);background:var(--paper);border-radius:99px;padding:8px 14px;white-space:nowrap;font-weight:700;font-size:.9rem}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* ---------- PART 1: CPU ---------- */
+.cpu-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:20px;align-items:start}
+.machine{background:#141B33;color:#E7EAF4;border-radius:14px;padding:16px;display:grid;gap:12px}
+.machine .lbl{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#9CA4BA}
+.cpu-box{border:2px solid #3B4566;border-radius:10px;padding:12px;display:grid;gap:10px;position:relative}
+.cpu-box.active{border-color:var(--now-hi)}
+.regs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.reg{background:#0D1120;border:1.5px solid #3B4566;border-radius:8px;padding:6px 4px;text-align:center;transition:border-color .2s,background .2s}
+.reg b{display:block;font-family:var(--mono);font-size:.68rem;color:#9CA4BA;letter-spacing:.06em}
+.reg span{font-family:var(--mono);font-size:1rem;font-weight:600;font-variant-numeric:tabular-nums}
+.reg.flash{border-color:var(--past-hi);background:#2A2210}
+.units{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.unit{border:1.5px dashed #3B4566;border-radius:8px;padding:6px 8px;font-size:.8rem;text-align:center}
+.unit.on{border-style:solid;border-color:var(--now-hi);background:#0E2E2C}
+.buses{display:flex;gap:6px;flex-wrap:wrap}
+.bus{font-family:var(--mono);font-size:.7rem;padding:3px 8px;border-radius:99px;border:1px solid #3B4566;color:#9CA4BA}
+.bus.on{background:var(--past-hi);color:#141B33;border-color:var(--past-hi);font-weight:600}
+.ram{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+.cell{background:#0D1120;border:1.5px solid #2C3450;border-radius:6px;padding:4px 5px;font-family:var(--mono);font-size:.72rem;display:grid;gap:1px;min-width:0}
+.cell i{font-style:normal;color:#6F7896;font-size:.62rem}
+.cell span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cell.pc{border-color:var(--now-hi)}
+.cell.touch{border-color:var(--past-hi);background:#2A2210}
+.phase{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.phase span{text-align:center;font-family:var(--mono);font-size:.74rem;padding:6px;border-radius:6px;background:#0D1120;color:#6F7896;letter-spacing:.06em}
+.phase span.on{background:var(--now-hi);color:#0D1120;font-weight:600}
+.out{font-family:var(--tt);font-size:1.4rem;color:var(--tt-g);background:#05060B;border-radius:8px;padding:6px 10px;min-height:38px;word-break:break-all}
+.narr{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--now);border-radius:0 8px 8px 0;padding:12px 14px;min-height:96px;font-size:.95rem}
+.narr b{font-family:var(--display)}
+.asm{font-family:var(--mono);font-size:.84rem;min-height:210px;line-height:1.5}
+.isa{font-size:.82rem}
+.isa td,.isa th{padding:3px 6px}
+
+/* memory hierarchy */
+.mem-list{display:grid;gap:8px}
+.mem{display:grid;grid-template-columns:150px minmax(0,1fr) 112px;gap:10px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 12px;text-align:left;color:var(--ink)}
+.mem:hover{border-color:var(--ink)}
+.mem b{font-family:var(--display);font-size:1rem;display:block}
+.mem small{font-size:.75rem;color:var(--muted);display:block}
+.mem .track{height:14px;background:var(--bg);border-radius:7px;overflow:hidden}
+.mem .fill{height:100%;width:0;background:var(--now);border-radius:7px}
+.mem .t{font-family:var(--mono);font-size:.82rem;text-align:right;font-variant-numeric:tabular-nums}
+
+/* packet journey */
+.hops{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.hop{border:1.5px solid var(--line);background:var(--paper);border-radius:10px;padding:10px;text-align:left;display:grid;gap:4px;color:var(--ink)}
+.hop:hover{border-color:var(--ink)}
+.hop .ic{font-size:1.4rem;line-height:1}
+.hop b{font-family:var(--display);font-size:.95rem}
+.hop span{font-size:.75rem;color:var(--muted)}
+.hop.used{opacity:.35}
+.route-built{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:48px;padding:10px;border:1.5px dashed var(--line);border-radius:10px;background:var(--paper)}
+.route-built .rb{font-size:.84rem;font-weight:700;background:var(--now-soft);color:var(--ink);border-radius:99px;padding:5px 10px}
+.route-built .rb.bad{background:var(--bad-soft)}
+.route-built .arr{color:var(--muted)}
+.net{width:100%;height:auto;display:block;background:var(--paper);border:1px solid var(--line);border-radius:10px}
+.net text{font-family:var(--body);fill:var(--ink);font-size:12px}
+.net .sub{font-family:var(--mono);font-size:9.5px;fill:var(--muted)}
+.net .link{stroke:var(--line);stroke-width:3}
+.net .link.down{stroke:var(--bad);stroke-dasharray:6 5}
+.net .node{fill:var(--bg);stroke:var(--ink);stroke-width:1.5}
+.net .node.down{stroke:var(--bad);fill:var(--bad-soft)}
+.net .pkt{stroke:var(--paper);stroke-width:1.5}
+.reasm{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.reasm span{font-family:var(--mono);font-size:.8rem;padding:4px 8px;border-radius:6px;background:var(--bg);border:1px solid var(--line)}
+.reasm span.in{background:var(--now-soft);border-color:var(--now)}
+
+/* bandwidth */
+.bw-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:20px;align-items:start}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{border:1.5px solid var(--line);background:var(--paper);border-radius:99px;padding:6px 12px;font-size:.86rem;font-weight:700}
+.opt[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.bwrows{display:grid;gap:8px}
+.bwr{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px;align-items:center;font-size:.86rem}
+.bwr b{font-family:var(--display);font-size:.95rem;display:block}
+.bwr small{color:var(--muted);font-size:.74rem}
+.bwr .track{height:22px;background:var(--bg);border-radius:6px;overflow:hidden;position:relative}
+.bwr .fill{height:100%;border-radius:6px;transition:width .5s}
+.bwr .val{position:absolute;left:8px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:.76rem;font-weight:600;white-space:nowrap;color:var(--ink)}
+
+/* ---------- PART 2: retro ---------- */
+.pred-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.pred{background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid;align-content:start}
+.pred .ph{background:#05060B;color:var(--tt-w);font-family:var(--tt);padding:10px 12px;font-size:1.2rem;line-height:1.05;display:grid;gap:4px}
+.pred .ph .y{color:var(--tt-y)} .pred .ph .c{color:var(--tt-c)}
+.pred .pb{padding:12px 14px;display:grid;gap:10px}
+.pred .src{font-size:.78rem;color:var(--muted)}
+.vote{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.vote button{border:1.5px solid var(--line);background:var(--bg);border-radius:8px;padding:7px 4px;font-size:.82rem;font-weight:700}
+.vote button:hover{border-color:var(--ink)}
+.vote button.pick{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.verdict{border-radius:8px;padding:10px 12px;font-size:.9rem;display:grid;gap:6px}
+.verdict.hit{background:var(--good-soft)} .verdict.miss{background:var(--bad-soft)} .verdict.part{background:var(--mid-soft)}
+.verdict b{font-family:var(--display)}
+.verdict dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 10px;margin:0;font-size:.84rem}
+.verdict dt{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:2px}
+.verdict dd{margin:0}
+.score-strip{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px;font-size:.92rem}
+.score-strip b{font-family:var(--display);font-size:1.3rem}
+.myths{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.myth{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:10px;align-content:start}
+.myth q{font-family:var(--display);font-size:1.15rem;font-weight:700;quotes:"“" "”"}
+.myth .who{font-family:var(--mono);font-size:.76rem;color:var(--muted)}
+.spec{display:grid;gap:14px}
+.spec-row{display:grid;grid-template-columns:130px minmax(0,1fr);gap:12px;align-items:center}
+.spec-row > b{font-family:var(--display);font-size:.95rem}
+.spec-bars{display:grid;gap:5px}
+.sb{display:grid;grid-template-columns:120px minmax(0,1fr) 92px;gap:8px;align-items:center;font-size:.8rem}
+.sb .track{height:12px;background:var(--bg);border-radius:6px;overflow:hidden}
+.sb .fill{height:100%;border-radius:6px;transition:width .6s}
+.sb .v{font-family:var(--mono);font-size:.74rem;text-align:right;font-variant-numeric:tabular-nums}
+.matrix{width:100%;border-collapse:collapse;font-size:.88rem;min-width:720px}
+.matrix th{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px;border-bottom:2px solid var(--line);vertical-align:bottom}
+.matrix td{border-bottom:1px solid var(--line);padding:6px;vertical-align:top}
+.matrix textarea{min-height:58px;font-size:.86rem;padding:6px 8px}
+.matrix select{font-size:.84rem;padding:6px}
+.tablewrap{overflow-x:auto}
+table.plain{border-collapse:collapse;width:100%;font-size:.88rem}
+table.plain th,table.plain td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+table.plain th{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.casefile{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.timeline{display:grid;gap:0;border-left:3px solid var(--past);margin-left:6px}
+.timeline div{position:relative;padding:0 0 14px 18px;font-size:.92rem}
+.timeline div::before{content:"";position:absolute;left:-8px;top:5px;width:13px;height:13px;border-radius:50%;background:var(--paper);border:3px solid var(--past)}
+.timeline b{font-family:var(--mono);font-size:.78rem;color:var(--past);display:block}
+
+/* ---------- PART 3: micro:bit ---------- */
+.ipo{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.ipo div{background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--now);border-radius:10px;padding:12px;font-size:.9rem}
+.ipo b{font-family:var(--display);font-size:1.05rem;display:block}
+.ipo span{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.08em}
+.mb-stage{display:grid;grid-template-columns:minmax(0,1fr) 110px minmax(0,1fr);gap:12px;align-items:center}
+.mb-col{display:grid;gap:10px;justify-items:center;min-width:0}
+.mb-name{font-family:var(--mono);font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center}
+.mb{width:100%;max-width:230px;aspect-ratio:1.18/1;background:#1A1A1A;border-radius:18px;position:relative;padding:14% 18% 18%;box-shadow:0 10px 24px -14px rgba(0,0,0,.7);display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8%}
+.mb .ab{width:22px;height:22px;border-radius:50%;background:#3A3A3A;border:3px solid #0E0E0E;color:#bbb;font-family:var(--mono);font-size:.62rem;display:grid;place-items:center;padding:0}
+.mb .ab:hover{background:#555}
+.mb .ab:active{transform:scale(.92)}
+.leds{display:grid;grid-template-columns:repeat(5,1fr);gap:16%;aspect-ratio:1/1}
+.led{border-radius:2px;background:#3B1A1A;width:100%;aspect-ratio:1/2.2;justify-self:center;align-self:center;transition:background .15s,box-shadow .15s}
+.led.on{background:#FF2A1A;box-shadow:0 0 8px 2px rgba(255,60,30,.75)}
+.mb .logo{position:absolute;top:5%;left:50%;transform:translateX(-50%);width:26px;height:12px;border:2px solid #777;border-radius:8px}
+.mb .edge{position:absolute;bottom:0;left:6%;right:6%;height:12%;background:repeating-linear-gradient(90deg,#C9A43A 0 6px,#1A1A1A 6px 9px);border-radius:0 0 4px 4px;opacity:.9}
+.mb .grp{position:absolute;top:6%;right:7%;font-family:var(--mono);font-size:.62rem;color:#999}
+.mb.shake{animation:shake .35s}
+@keyframes shake{20%{transform:translate(-4px,1px) rotate(-2deg)}40%{transform:translate(4px,-1px) rotate(2deg)}60%{transform:translate(-3px,0) rotate(-1deg)}80%{transform:translate(3px,0)}}
+@media (prefers-reduced-motion:reduce){.mb.shake{animation:none}}
+.air{position:relative;height:90px;display:grid;place-items:center}
+.air .wave{font-family:var(--mono);font-size:.7rem;color:var(--muted);text-align:center}
+.air .msg{position:absolute;top:30px;left:0;font-family:var(--mono);font-size:.74rem;background:var(--now);color:#fff;border-radius:99px;padding:3px 8px;white-space:nowrap;opacity:0}
+.air .msg.go{animation:fly 1s ease-in-out forwards}
+.air .msg.lost{background:var(--bad)}
+@keyframes fly{0%{left:-10%;opacity:0}15%{opacity:1}85%{opacity:1}100%{left:70%;opacity:0}}
+.mb-ctrls{display:grid;gap:10px;width:100%}
+.ctl{display:grid;grid-template-columns:110px minmax(0,1fr) 52px;gap:8px;align-items:center;font-size:.86rem}
+.ctl output{font-family:var(--mono);font-size:.8rem;text-align:right}
+.ctl.short{grid-template-columns:110px minmax(0,1fr)}
+.mb-log{font-family:var(--mono);font-size:.74rem;background:#141B33;color:#BFF5E8;border-radius:8px;padding:10px 12px;height:150px;overflow-y:auto;line-height:1.6}
+.mb-log .w{color:var(--past-hi)} .mb-log .e{color:#FF9C8A} .mb-log .s{color:#A497FF}
+.code{font-family:var(--mono);font-size:.8rem;background:#141B33;color:#E7EAF4;border-radius:10px;padding:14px;overflow-x:auto;line-height:1.55;white-space:pre;margin:0;tab-size:4}
+.code .k{color:#FF9EC4} .code .f{color:#7FE3D8} .code .n{color:#F2C46B} .code .s{color:#B8F28B} .code .c{color:#8A93AD;font-style:italic}
+.codehead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.kit{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.kit div{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:.88rem}
+.kit b{font-family:var(--display);display:block}
+.steps{counter-reset:s;display:grid;gap:10px;list-style:none;padding:0}
+.steps li{counter-increment:s;display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;align-items:start;margin:0}
+.steps li::before{content:counter(s);width:30px;height:30px;border-radius:50%;background:var(--now);color:#fff;display:grid;place-items:center;font-family:var(--mono);font-size:.82rem;font-weight:600}
+.check-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.chk{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:10px;align-content:start}
+.chk .q{font-weight:700}
+.chk .ans{display:flex;gap:6px;flex-wrap:wrap}
+.chk .ans button{flex:1;border:1.5px solid var(--line);background:var(--bg);border-radius:8px;padding:7px 6px;font-size:.84rem;font-weight:700;min-width:90px}
+.chk.right{border-color:var(--good);background:var(--good-soft)}
+.chk.wrong{border-color:var(--bad);background:var(--bad-soft)}
+
+/* ---------- PART 4: frontier ---------- */
+.pillar{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:20px;align-items:start}
+.pillar .facts{display:grid;gap:10px}
+.fact{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px}
+.fact .fl{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--fut);font-weight:600;margin-bottom:4px}
+.hype{display:grid;gap:8px}
+.hype-scale{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.hype-scale button{border:1.5px solid var(--line);background:var(--bg);border-radius:8px;padding:8px 2px;font-size:.74rem;font-weight:700;line-height:1.15}
+.hype-scale button.pick{background:var(--fut);color:#fff;border-color:var(--fut)}
+.qubit-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:20px;align-items:start}
+.coin{width:120px;height:120px;border-radius:50%;margin:8px auto;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:2.4rem;background:conic-gradient(var(--fut) 0 var(--p,50%),var(--now) var(--p,50%) 100%);color:#fff;transition:transform .5s}
+.coin.spin{animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotateY(360deg)}}
+@media (prefers-reduced-motion:reduce){.coin.spin{animation:none}}
+.tally{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+.tally div{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px;text-align:center}
+.tally b{display:block;font-family:var(--display);font-size:1.8rem}
+.heads{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.headline{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:10px;align-content:start}
+.headline .hl{font-family:var(--display);font-weight:700;font-size:1.08rem;line-height:1.2}
+.headline .outlet{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.headline .ans{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.headline .ans button{border:1.5px solid var(--line);background:var(--bg);border-radius:8px;padding:7px 4px;font-size:.84rem;font-weight:700}
+.headline.right{border-color:var(--good);background:var(--good-soft)}
+.headline.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.organiser{display:grid;gap:14px}
+.reliab{display:grid;gap:6px}
+.reliab label{display:flex;gap:8px;align-items:flex-start;font-size:.9rem}
+.reliab input{margin-top:4px;accent-color:var(--fut)}
+
+/* ---------- PART 5: pitch + capsule ---------- */
+.pitch-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.pitchcard{background:#141B33;color:#E7EAF4;border-radius:14px;padding:20px;display:grid;gap:12px;position:sticky;top:70px}
+.pitchcard .pk{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fut-hi)}
+.pitchcard h3{font-size:1.6rem;color:#fff}
+.pitchcard p{font-size:.92rem;color:#C2C7D8}
+.pitchcard .sect b{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--now-hi);display:block;margin-bottom:2px}
+.pitchcard .conf{height:10px;border-radius:5px;background:#2C3450;overflow:hidden}
+.pitchcard .conf i{display:block;height:100%;background:linear-gradient(90deg,var(--past-hi),var(--fut-hi))}
+.links-check{display:grid;gap:6px}
+.links-check label{display:flex;gap:8px;align-items:flex-start;font-size:.9rem;font-weight:400}
+.links-check input{margin-top:4px;accent-color:var(--fut)}
+.capsule{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.vault{background:radial-gradient(circle at 30% 20%,#2A2F57,#141B33 70%);color:#E7EAF4;border-radius:16px;padding:24px;display:grid;gap:14px;text-align:center;min-height:300px;align-content:center}
+.vault .dial{width:120px;height:120px;border-radius:50%;margin:0 auto;border:8px solid #3B4566;display:grid;place-items:center;font-family:var(--mono);font-size:.9rem;position:relative;background:#0D1120}
+.vault .dial::before{content:"";position:absolute;inset:10px;border-radius:50%;border:2px dashed #3B4566}
+.vault.sealed .dial{border-color:var(--fut-hi);box-shadow:0 0 30px -4px var(--fut-hi)}
+.vault .when{font-family:var(--tt);font-size:2rem;color:var(--tt-y)}
+.vault p{color:#C2C7D8;font-size:.92rem}
+
+/* quiz */
+.quiz{display:grid;gap:14px;max-width:780px}
+.qz{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px}
+.qz .qq{font-weight:700;margin-bottom:10px}
+.qz .qo{display:grid;gap:6px}
+.qz .qo button{text-align:left;border:1.5px solid var(--line);background:var(--bg);border-radius:8px;padding:9px 12px}
+.qz .qo button:hover{border-color:var(--ink)}
+.qz .qo button.right{border-color:var(--good);background:var(--good-soft)}
+.qz .qo button.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.qz .qe{margin-top:8px;font-size:.9rem;color:var(--muted)}
+.qscore{font-family:var(--display);font-size:1.3rem;font-weight:800}
+
+/* project */
+.proj-hero{background:linear-gradient(135deg,#141B33 0%,#2A1F6B 100%);color:#F3F4FA}
+.proj-hero .wrap{padding-block:48px;display:grid;gap:12px}
+.proj-hero .num{font-family:var(--mono);font-size:.8rem;letter-spacing:.14em;color:var(--fut-hi)}
+.proj-hero h2{color:#fff;font-size:clamp(2rem,5vw,3.2rem)}
+.proj-hero p{color:#C9CBEA;max-width:64ch}
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.path{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:8px;align-content:start}
+.path .pl{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--fut);font-weight:600}
+.stages{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.stage{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:6px;align-content:start;font-size:.9rem}
+.stage .sn{font-family:var(--mono);font-size:.72rem;color:var(--fut);letter-spacing:.1em}
+.stage b{font-family:var(--display);font-size:1.02rem}
+.roles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.role{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:.9rem;display:grid;gap:4px;align-content:start}
+.role b{font-family:var(--display);font-size:1.02rem}
+.rubric{min-width:680px}
+.rubric td:first-child{font-weight:700;font-family:var(--display)}
+.planner{display:grid;gap:12px}
+.plan-check{display:grid;gap:6px}
+.plan-check label{display:flex;gap:8px;align-items:flex-start;font-size:.92rem;font-weight:400}
+.plan-check input{margin-top:4px;accent-color:var(--fut)}
+.teacher .panel{font-size:.94rem}
+.teacher ul,.teacher ol{font-size:.92rem}
+footer{padding-block:32px 48px;color:var(--muted);font-size:.86rem;border-top:1px solid var(--line)}
+
+.track,.track .fill{display:block}
+
+/* responsive */
+@media (max-width:900px){
+  .hero-grid,.two,.cpu-grid,.bw-grid,.casefile,.pillar,.qubit-grid,.pitch-grid,.capsule,.paths{grid-template-columns:minmax(0,1fr)}
+  .route{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .three,.howto{grid-template-columns:minmax(0,1fr)}
+  .stages{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .roles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ipo{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pitchcard{position:static}
+  .hero .tt{max-width:440px}
+}
+@media (max-width:600px){
+  body{font-size:16px}
+  .route{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mb-stage{grid-template-columns:minmax(0,1fr) 60px minmax(0,1fr);gap:6px}
+  .mb{padding:14% 12% 18%;gap:5%}
+  .mb .ab{width:18px;height:18px;font-size:.55rem;border-width:2px}
+  .regs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .mem{grid-template-columns:minmax(0,1fr) 90px}
+  .mem .track{grid-column:1/-1;grid-row:2}
+  .bwr{grid-template-columns:minmax(0,1fr)}
+  .sb{grid-template-columns:96px minmax(0,1fr) 78px}
+  .spec-row{grid-template-columns:minmax(0,1fr)}
+  .ctl{grid-template-columns:90px minmax(0,1fr) 46px}
+  .ctl.short{grid-template-columns:90px minmax(0,1fr)}
+  .stages,.roles,.ipo{grid-template-columns:minmax(0,1fr)}
+  .tt{font-size:1.05rem;padding:12px}
+  section.block{padding-block:36px}
+  .hype-scale button{font-size:.66rem}
+}
+@media print{nav.top,.btn,.tabs{display:none!important} .part,.proj-hero{background:#fff!important;color:#000!important;box-shadow:none} .part h2,.proj-hero h2,.part p{color:#000!important}}
+</style>
+</head>
+<body>
+<nav class="top" aria-label="Unit sections">
+  <div class="wrap">
+    <a class="brand" href="#start"><i aria-hidden="true"></i>Future Proof</a>
+    <div class="links">
+      <a href="#p1">1 Think &amp; talk</a>
+      <a href="#p2">2 Retro futures</a>
+      <a href="#p3">3 Smart tech</a>
+      <a href="#p4">4 Frontiers</a>
+      <a href="#p5">5 Pitch &amp; capsule</a>
+      <a class="proj" href="#project">Project</a>
+      <a href="#teacher">Teachers</a>
+    </div>
+    <button class="theme" id="themeBtn" type="button" aria-label="Switch light or dark theme">Theme</button>
+  </div>
+</nav>
+
+<header class="hero" id="start">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Computing Science · ages 13–15</span>
+      <h1>Every future was once a <span>guess.</span></h1>
+      <p class="lede">In the 1980s, TV shows confidently predicted what our homes, cars and computers would be like by now. Some were spot on. Some were wildly wrong. In this unit you find out how computers really work, judge the past’s predictions, build your own smart device, explore the technology that’s coming next, and then make a prediction of your own that gets sealed away for five years.</p>
+      <div class="chips">
+        <span class="chip">5 parts + project</span>
+        <span class="chip">BBC micro:bit (real or simulated)</span>
+        <span class="chip">Archive TV clips</span>
+        <span class="chip">Time capsule</span>
+      </div>
+    </div>
+    <div class="tt" role="img" aria-label="A teletext-style screen from 1989 listing predictions for 2020 and whether they came true">
+      <div class="hdr"><span>P301</span><span class="c">CEEFAX-ISH</span><span>1989 <span class="blink">▮</span></span></div>
+      <div class="bar"><span>FORECAST: HOMES IN 2020</span><span>1/1</span></div>
+      <div class="row"><span class="y">Music on voice command</span><span class="g">CAME TRUE</span></div>
+      <div class="row"><span class="y">Heating learns routine</span><span class="g">CAME TRUE</span></div>
+      <div class="row"><span class="y">Lights follow you</span><span class="g">CAME TRUE</span></div>
+      <div class="row"><span class="y">Walls turn see-through</span><span class="m">NOT YET</span></div>
+      <div class="row"><span class="y">Charge from wall pads</span><span class="c">SORT OF</span></div>
+      <div class="row" style="margin-top:8px"><span class="c">YOUR PREDICTION FOR 2031</span><span class="y">???</span></div>
+      <div class="foot"><span>Past</span><span>Now</span><span>Next</span><span>2031</span></div>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:36px">
+    <div class="route">
+      <a class="r-now" href="#p1"><span>PART 1</span><b>How computers think and talk</b></a>
+      <a class="r-past" href="#p2"><span>PART 2</span><b>Retro futures</b></a>
+      <a class="r-now" href="#p3"><span>PART 3</span><b>Smart tech with micro:bit</b></a>
+      <a class="r-fut" href="#p4"><span>PART 4</span><b>Frontier tech</b></a>
+      <a class="r-fut" href="#p5"><span>PART 5</span><b>Pitch and time capsule</b></a>
+      <a class="r-fut" href="#quiz"><span>CHECK</span><b>Quiz</b></a>
+      <a class="p" href="#project"><span>PROJECT</span><b>The <span class="cYear">2031</span> Broadcast</b></a>
+    </div>
+    <div class="howto">
+      <div><b><span class="past">■</span> Past</b>What people in the 1970s and 80s thought was coming, and why they were right or wrong.</div>
+      <div><b><span class="now">■</span> Present</b>How today’s computers, networks and smart devices actually work. You’ll build one.</div>
+      <div><b><span class="fut">■</span> Future</b>Technologies being researched now, and a prediction of your own for five years from today.</div>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= PART 1 ======================= -->
+<div class="part p-now" id="p1"><div class="wrap"><span class="num">PART 1 OF 5</span><h2>How computers think and talk</h2><p>Every prediction about the future of technology depends on two things: how fast computers can process data, and how fast they can share it. Here you go inside a processor, race through the memory hierarchy, and follow a message across the internet.</p></div></div>
+
+<section class="block first" id="fde"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">1.1 · INSIDE THE PROCESSOR</span>
+    <h2>The fetch–decode–execute cycle</h2>
+    <p class="lede">Almost every computer since the 1940s follows the <b>von Neumann</b> design: instructions and data sit together in memory, and the processor works through them one at a time. This tiny computer has 16 memory locations. Step through a program and watch each part of the cycle happen.</p>
+  </div>
+  <div class="cpu-grid">
+    <div class="machine" aria-label="Simulated computer">
+      <div class="phase" aria-live="polite"><span id="phF">FETCH</span><span id="phD">DECODE</span><span id="phE">EXECUTE</span></div>
+      <div class="cpu-box" id="cpuBox">
+        <span class="lbl">Processor (CPU)</span>
+        <div class="regs">
+          <div class="reg" id="rPC"><b>PC</b><span>0</span></div>
+          <div class="reg" id="rMAR"><b>MAR</b><span>0</span></div>
+          <div class="reg" id="rMDR"><b>MDR</b><span>0</span></div>
+          <div class="reg" id="rCIR"><b>CIR</b><span>–</span></div>
+          <div class="reg" id="rACC"><b>ACC</b><span>0</span></div>
+        </div>
+        <div class="units"><div class="unit" id="uCU">Control unit</div><div class="unit" id="uALU">ALU</div></div>
+      </div>
+      <div class="buses"><span class="bus" id="bA">address bus</span><span class="bus" id="bD">data bus</span><span class="bus" id="bC">control bus</span></div>
+      <span class="lbl">Main memory (RAM)</span>
+      <div class="ram" id="ram"></div>
+      <span class="lbl">Output</span>
+      <div class="out" id="cpuOut" aria-live="polite"></div>
+    </div>
+    <div class="stack">
+      <div class="narr" id="cpuNarr" aria-live="polite"><b>Ready.</b> Pick a program, then press <b>Step</b> to move through one stage of the cycle at a time.</div>
+      <div class="row-btns">
+        <button class="btn primary" id="cpuStep" type="button">Step</button>
+        <button class="btn" id="cpuRun" type="button">Run</button>
+        <button class="btn" id="cpuReset" type="button">Reset</button>
+        <label class="small" style="display:flex;gap:6px;align-items:center">Speed <input type="range" id="cpuSpeed" min="1" max="5" value="3" style="width:90px"></label>
+      </div>
+      <label class="fld">Program
+        <select id="cpuPreset">
+          <option value="add">Add two sensor readings</option>
+          <option value="count">Countdown from 3</option>
+          <option value="thermo">Thermostat: is it warm enough?</option>
+        </select>
+      </label>
+      <details class="more">
+        <summary>Edit the program (assembly code)</summary>
+        <p class="small" style="margin-bottom:8px">One instruction per line, starting at address 0. A blank line leaves a location empty. <b>INP</b> reads the temperature sensor.</p>
+        <textarea class="asm" id="cpuAsm" spellcheck="false" aria-label="Assembly program"></textarea>
+        <div class="row-btns" style="margin-top:8px"><button class="btn sm" id="cpuLoad" type="button">Load into memory</button><span class="small" id="cpuAsmMsg"></span></div>
+        <table class="plain isa" style="margin-top:10px">
+          <tr><th>Code</th><th>What it does</th></tr>
+          <tr><td>LDA n</td><td>Load the value at address n into the accumulator</td></tr>
+          <tr><td>STA n</td><td>Store the accumulator at address n</td></tr>
+          <tr><td>ADD n / SUB n</td><td>Add or subtract the value at address n (done by the ALU)</td></tr>
+          <tr><td>INP / OUT</td><td>Read the sensor into the accumulator / output the accumulator</td></tr>
+          <tr><td>BRA n</td><td>Always jump to address n</td></tr>
+          <tr><td>BRZ n / BRP n</td><td>Jump to n if the accumulator is zero / zero or more</td></tr>
+          <tr><td>HLT</td><td>Stop</td></tr>
+          <tr><td>DAT n</td><td>Not an instruction: a stored number</td></tr>
+        </table>
+      </details>
+    </div>
+  </div>
+  <div class="key">
+    <div><b>PC · program counter</b>Holds the address of the next instruction.</div>
+    <div><b>MAR · memory address register</b>Holds the address the CPU wants to read or write.</div>
+    <div><b>MDR · memory data register</b>Holds the data that has just come from, or is going to, memory.</div>
+    <div><b>CIR · current instruction register</b>Holds the instruction being decoded and executed.</div>
+    <div><b>ACC · accumulator</b>Holds the result of the latest calculation.</div>
+    <div><b>Buses</b>Wires that carry addresses, data and control signals between the CPU and memory.</div>
+  </div>
+  <div class="task t-now"><b>Try it.</b> 1) Run <i>Add two sensor readings</i> and count how many times the cycle repeats. 2) Change the program so it adds <b>three</b> readings (you’ll need another DAT line and another ADD). 3) In <i>Thermostat</i>, change the sensor slider below the code and predict the output before you run it. <span class="small">Why does the von Neumann design make a computer slower when instructions and data both have to travel along the same bus?</span></div>
+  <div style="max-width:420px;margin-top:14px" class="ctl"><span class="small">Temperature sensor</span><input type="range" id="cpuSensor" min="0" max="35" value="17" aria-label="Temperature sensor value"><output id="cpuSensorOut">17°C</output></div>
+</div></section>
+
+<section class="block" id="memory"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">1.2 · THE MEMORY HIERARCHY</span>
+    <h2>If one tick of the processor took one second…</h2>
+    <p class="lede">A modern processor ticks about three billion times a second. That’s too fast to imagine, so let’s slow everything down: pretend one tick lasts a whole second. Now tap each kind of storage to see how long the processor would wait for data.</p>
+  </div>
+  <div class="mem-list" id="memList"></div>
+  <div class="two" style="margin-top:20px">
+    <div class="panel"><h3>Why have a hierarchy?</h3><p>Fast memory is expensive and small. Slow storage is cheap and huge. So computers keep what they need <i>right now</i> close to the processor (registers and cache), what they’re working on in <b>RAM</b>, and everything else in <b>secondary storage</b>. RAM is <b>volatile</b>: switch off and it forgets. SSDs and hard disks keep data without power.</p></div>
+    <div class="panel"><h3>Link to the future</h3><p>A smart speaker sends your voice to a data centre because the AI model is too big for the speaker. On the scale above, that trip takes <i>years</i>. That delay is why companies now try to run AI <b>on the device</b> (called <i>edge AI</i>). Keep this in mind for Part 4.</p></div>
+  </div>
+  <p class="small" style="margin-top:12px">Times are typical round figures for a 3 GHz processor in 2026. Real values vary by device.</p>
+</div></section>
+
+<section class="block" id="packets"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">1.3 · NETWORKS</span>
+    <h2>Ding dong: follow the doorbell</h2>
+    <p class="lede">Someone presses a smart doorbell. Two seconds later your phone buzzes at school. Build the route the message takes, then watch it travel as <b>packets</b>.</p>
+  </div>
+  <div class="two">
+    <div class="stack">
+      <h3>Step 1: build the route</h3>
+      <p class="small">Tap the stops in the order the message visits them.</p>
+      <div class="hops" id="hops"></div>
+      <div class="route-built" id="routeBuilt" aria-live="polite"><span class="small">Your route will appear here.</span></div>
+      <div class="row-btns"><button class="btn sm" id="routeUndo" type="button">Undo</button><button class="btn sm" id="routeClear" type="button">Clear</button></div>
+      <div class="fbbox" id="routeFb" hidden></div>
+    </div>
+    <div class="stack">
+      <h3>Step 2: send the packets</h3>
+      <svg class="net" id="netSvg" viewBox="0 0 520 300" role="img" aria-label="Network diagram showing packets travelling from a home router through four internet routers to a data centre"></svg>
+      <div class="row-btns">
+        <button class="btn primary" id="netSend" type="button">Send photo (6 packets)</button>
+        <button class="btn" id="netBreak" type="button">Break a router</button>
+        <button class="btn" id="netFix" type="button">Fix all</button>
+      </div>
+      <div><span class="small">Arriving at the data centre, in order received:</span><div class="reasm" id="reasm"></div></div>
+      <p class="small" id="netMsg" aria-live="polite">Press send. Each packet carries a sequence number, the sender’s address and the destination address.</p>
+    </div>
+  </div>
+  <div class="key">
+    <div><b>LAN</b>Local area network: devices in one building, like your home Wi-Fi.</div>
+    <div><b>WAN</b>Wide area network: links networks across cities and countries. The internet is the biggest WAN.</div>
+    <div><b>Router</b>Reads a packet’s destination IP address and forwards it a step closer.</div>
+    <div><b>Packet switching</b>Data is split into packets that can take different routes and get put back in order at the end.</div>
+    <div><b>The cloud</b>Someone else’s computers in a data centre, reached over the internet.</div>
+    <div><b>Protocol</b>Agreed rules for communicating, e.g. TCP/IP for the internet, or the micro:bit radio group in Part 3.</div>
+  </div>
+  <div class="task t-now"><b>Pupil task: draw the data map.</b> On paper or a slide, draw how a smart home sensor (pick one: doorbell, thermostat or plant sensor) sends data over Wi-Fi, through routers, to a cloud data centre, and back to a phone. Label each stop with: the device, LAN or WAN, and what happens to the data there. Add one thing that could go wrong at each stop, and what the network does about it.</div>
+</div></section>
+
+<section class="block" id="bandwidth"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">1.4 · THEN VS NOW</span>
+    <h2>How long would it take?</h2>
+    <p class="lede">By 1983 a few people in the UK could already bank and shop from home on Prestel, using a modem and their TV. So why didn’t online shopping take off until the 2000s? Pick a file and compare download times.</p>
+  </div>
+  <div class="bw-grid">
+    <div class="stack">
+      <span class="small">Choose a file</span>
+      <div class="opts" id="bwFiles" role="group" aria-label="File to download"></div>
+      <p class="small" id="bwNote"></p>
+      <div class="panel" style="margin-top:6px"><h3>Bits and bytes</h3><p class="small">Connection speeds are measured in <b>bits per second</b>. File sizes are measured in <b>bytes</b>. 1 byte = 8 bits. 1 MB = 1,000,000 bytes. So time = (file size in bytes × 8) ÷ speed in bits per second.</p></div>
+    </div>
+    <div class="bwrows" id="bwRows" aria-live="polite"></div>
+  </div>
+  <div class="task t-now"><b>Think about it.</b> Which of these would make watching films online impossible, even if everyone wanted to? What does this tell you about why a prediction can be right about <i>what</i> people want, but wrong about <i>when</i>?</div>
+</div></section>
+
+<!-- ======================= PART 2 ======================= -->
+<div class="part p-past" id="p2"><div class="wrap"><span class="num">PART 2 OF 5</span><h2>Retro futures</h2><p>From 1965 to 2003 the BBC programme <i>Tomorrow’s World</i> showed viewers the inventions that would change their lives. Now you are living in their future. Watch what they predicted, decide who got it right, and work out <i>why</i>.</p></div></div>
+
+<section class="block first" id="clips"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">2.1 · FROM THE ARCHIVE</span>
+    <h2>Watch the future, as seen from the past</h2>
+    <p class="lede">These clips open in a new tab on the BBC Archive and other official pages. Watch one or two as a class, then use the questions underneath.</p>
+  </div>
+  <div class="vids">
+    <a class="vid" href="https://www.facebook.com/BBCArchive/videos/1989-tomorrows-world-home-of-the-future/3302778606515317/" target="_blank" rel="noopener"><span class="play" aria-hidden="true"><span class="yr">1989</span></span><span><b>Tomorrow’s World: Home of the future</b><span class="by">BBC Archive · Facebook</span><span class="use">What homes would be like by 2020: voice-controlled music, learning heating, see-through walls. The main clip for this part.</span></span></a>
+    <a class="vid" href="https://www.youtube.com/results?search_query=Arthur+C+Clarke+1974+ABC+computer+prediction" target="_blank" rel="noopener"><span class="play" aria-hidden="true"><span class="yr">1974</span></span><span><b>Arthur C. Clarke predicts the home computer</b><span class="by">ABC (Australia) · YouTube search</span><span class="use">Standing beside a room-sized computer, the author describes the computer you now carry in your pocket.</span></span></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=w6Ka42eyudA" target="_blank" rel="noopener"><span class="play" aria-hidden="true"><span class="yr">1967</span></span><span><b>The man with a home computer</b><span class="by">BBC Archive · YouTube</span><span class="use">A home computer more than a decade before anyone could buy one. What did people imagine it was for?</span></span></a>
+    <a class="vid" href="https://www.facebook.com/BBCArchive/videos/1979-tomorrows-world-mobile-telephone/544337806891005/" target="_blank" rel="noopener"><span class="play" aria-hidden="true"><span class="yr">1979</span></span><span><b>Tomorrow’s World: Mobile telephone</b><span class="by">BBC Archive · Facebook</span><span class="use">A phone you can carry around. Look at the size of it, and listen for what it can’t do.</span></span></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=b6URa-PTqfA" target="_blank" rel="noopener"><span class="play" aria-hidden="true"><span class="yr">1979</span></span><span><b>Will word processors start a home working revolution?</b><span class="by">BBC Archive · YouTube</span><span class="use">Working from home, forty years before most people actually did it.</span></span></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=GL1NaenGPdw" target="_blank" rel="noopener"><span class="play" aria-hidden="true"><span class="yr">1986</span></span><span><b>The joy of e-mail</b><span class="by">BBC Archive · YouTube</span><span class="use">Electronic mail explained for viewers who had never seen it.</span></span></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=EpA8Lf8Gt1Q" target="_blank" rel="noopener"><span class="play" aria-hidden="true"><span class="yr">1986</span></span><span><b>Satellite navigation for cars of the future</b><span class="by">BBC Archive · YouTube</span><span class="use">In-car maps before the GPS satellite network was finished.</span></span></a>
+    <a class="vid" href="https://www.youtube.com/watch?v=6ui1fzt6mU4" target="_blank" rel="noopener"><span class="play" aria-hidden="true"><span class="yr">1984</span></span><span><b>A CD player for your car?!</b><span class="by">BBC Archive · YouTube</span><span class="use">Brand-new digital music, and a test of whether it skips over bumps.</span></span></a>
+    <a class="vid" href="https://www.youtube.com/playlist?list=PL7BF1EE29FE99E7FF" target="_blank" rel="noopener"><span class="play" aria-hidden="true"><span class="yr">MORE</span></span><span><b>Tomorrow’s World playlist</b><span class="by">BBC Archive · YouTube</span><span class="use">More clips to choose from for the evaluation matrix.</span></span></a>
+  </div>
+  <div class="task t-past"><b>While you watch.</b> Note down: 1) the prediction, 2) the year, 3) what the technology needed to work (speed, memory, network, power), and 4) one thing the presenter didn’t imagine. You’ll use these notes in the evaluation matrix (2.4).</div>
+</div></section>
+
+<section class="block" id="predlab"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">2.2 · PREDICTION LAB</span>
+    <h2>Hit, partly, or miss?</h2>
+    <p class="lede">Each card is a real prediction or plan from the past. Vote first, then reveal what actually happened. Look for patterns: what kind of predictions tend to come true?</p>
+  </div>
+  <div class="score-strip" aria-live="polite"><span>Your calls matched history: <b id="plScore">0 / 0</b></span><button class="btn sm" id="plReset" type="button">Reset</button></div>
+  <div class="pred-grid" id="predGrid"></div>
+  <div class="two" style="margin-top:22px">
+    <div class="panel"><h3>Patterns to look for</h3><ul>
+      <li>Predictions about <b>what people want</b> (to talk, shop, find their way) often come true. Predictions about <b>how</b> it will look often don’t.</li>
+      <li>Many “hits” arrived 20–30 years late, once processing power, memory, batteries and networks caught up.</li>
+      <li>Some misses weren’t about computing at all: flying cars stalled on energy, safety and law.</li>
+    </ul></div>
+    <div class="panel"><h3>Discuss</h3><ul>
+      <li>Which miss do you think will come true eventually? Why?</li>
+      <li>Which technology that you use daily did <i>nobody</i> on these cards predict?</li>
+      <li>Is a prediction that comes true 30 years late a hit?</li>
+    </ul></div>
+  </div>
+</div></section>
+
+<section class="block" id="myths"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">2.3 · CHECK THE SOURCE</span>
+    <h2>Did they really say that?</h2>
+    <p class="lede">The internet is full of famous “wrong predictions” used to make people from the past look silly. Some are real. Some were never said at all. Decide, then reveal.</p>
+  </div>
+  <div class="myths" id="myths"></div>
+  <div class="task t-past"><b>Media literacy rule.</b> Before you share a quote, find where it first appeared: a recording, a dated newspaper, a book. If the oldest source you can find is decades later than the quote, be suspicious. Write one sentence explaining why misquotes like these spread so easily.</div>
+</div></section>
+
+<section class="block" id="specs"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">2.4 · HARDWARE THEN AND NOW</span>
+    <h2>The bottleneck was the hardware</h2>
+    <p class="lede">In 1981 the BBC Micro arrived in schools across the UK. Compare it with the micro:bit you’ll use in Part 3 and a typical phone in 2026. The bars use a <b>log scale</b>: each step is ten times bigger.</p>
+  </div>
+  <div class="spec panel" id="specBars"></div>
+  <p class="small" style="margin-top:10px">Phone figures are typical for a mid-range 2026 smartphone with an 8-core processor; the clock speed shown is for one core.</p>
+
+  <div class="sec-head" style="margin-top:36px">
+    <h3 style="font-size:1.5rem">Your evaluation matrix</h3>
+    <p class="lede">Use your clip notes and the prediction lab. Two rows are started for you. Add at least three more. Your answers are saved in this browser only.</p>
+  </div>
+  <div class="tablewrap panel" style="padding:8px">
+    <table class="matrix" id="matrix">
+      <thead><tr><th>Prediction (year)</th><th>Modern equivalent</th><th>Hardware bottleneck then</th><th>Enabling tech today</th><th>Verdict</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div class="row-btns" style="margin-top:10px"><button class="btn sm" id="mxAdd" type="button">Add a row</button><button class="btn sm" id="mxCsv" type="button">Download as spreadsheet (CSV)</button><button class="btn sm" id="mxReset" type="button">Start again</button><span class="saved" id="mxSaved" aria-live="polite"></span></div>
+</div></section>
+
+<section class="block" id="domesday"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">2.5 · CASE FILE</span>
+    <h2>The time capsule nobody could open</h2>
+    <p class="lede">In 1986 the BBC made a digital “Domesday Book” to mark 900 years since the original. It should have been a gift to the future. Within about fifteen years, almost nobody could read it.</p>
+  </div>
+  <div class="casefile">
+    <div class="timeline">
+      <div><b>1086</b>The original Domesday Book records England. It is written on parchment and can still be read today.</div>
+      <div><b>1984–86</b>Schoolchildren and members of the public across the UK write about their local area. Around a million people take part. Acorn, Philips, Logica and the BBC build the system.</div>
+      <div><b>1986</b>It is published on special laser discs that need a Philips player connected to a BBC Master computer.</div>
+      <div><b>~2000</b>The players and computers are obsolete. Very few still work and the discs are starting to decay. Paper from 1086 is easier to read than discs from 1986.</div>
+      <div><b>2002–2010</b>Volunteers and researchers rescue the data, repair a working system and copy everything. An online version follows in 2010.</div>
+    </div>
+    <div class="panel"><h3>Why this matters for your time capsule</h3>
+      <p>In Part 5 you will seal a prediction to open in five years. Digital files only survive if <b>something can still read them</b>. That needs the file format, the software, the storage and, if you encrypt it, the key.</p>
+      <h3 style="margin-top:16px">Discuss</h3>
+      <ul>
+        <li>Which file format would you trust to still open in 2031: a .txt file, a .docx, a phone video, or a page on a website? Why?</li>
+        <li>Who should be responsible for keeping digital things readable: the person who made them, the company, or libraries and museums?</li>
+        <li>Name something you’ve made that you might not be able to open in five years.</li>
+      </ul>
+      <p class="small" style="margin-top:12px">Digital obsolescence: when data still exists, but the hardware or software needed to read it doesn’t.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ======================= PART 3 ======================= -->
+<div class="part p-now" id="p3"><div class="wrap"><span class="num">PART 3 OF 5</span><h2>Smart tech with the micro:bit</h2><p>The 1989 “home of the future” is now called the <b>Internet of Things</b>: everyday objects with sensors, a small processor and a network connection. You’re going to build one. Use the simulator first, then build it for real on BBC micro:bits.</p></div></div>
+
+<section class="block first" id="iot"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">3.1 · HOW A SMART DEVICE WORKS</span>
+    <h2>Sense, decide, send, act</h2>
+    <p class="lede">Every smart device, from a doorbell to a fitness tracker, does the same four jobs. The micro:bit can do all four.</p>
+  </div>
+  <div class="ipo">
+    <div><span>INPUT</span><b>Sense</b>A sensor measures the real world: light, temperature, movement, sound.</div>
+    <div><span>PROCESS</span><b>Decide</b>The processor compares the reading with a rule, like “if it’s darker than 50…”.</div>
+    <div><span>COMMUNICATE</span><b>Send</b>A radio sends a message to another device, often across a network.</div>
+    <div><span>OUTPUT</span><b>Act</b>The receiving device does something: shows an icon, sounds an alarm, logs the data.</div>
+  </div>
+  <div class="key">
+    <div><b>Light sensor</b>Uses the LEDs. Reads 0 (dark) to 255 (bright).</div>
+    <div><b>Temperature</b>Reads the processor’s temperature in °C, close to the room temperature.</div>
+    <div><b>Accelerometer</b>Measures movement and tilt. Detects shakes, so it can count steps.</div>
+    <div><b>Radio</b>Sends short messages to other micro:bits nearby. Only micro:bits on the same <b>radio group</b> hear them.</div>
+  </div>
+</div></section>
+
+<section class="block" id="sim"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">3.2 · SIMULATOR</span>
+    <h2>Two micro:bits, one radio network</h2>
+    <p class="lede">The <b>sensor</b> micro:bit measures and decides. The <b>receiver</b> micro:bit waits for messages and shows an alert. Choose a scenario, change the readings, and watch what gets sent.</p>
+  </div>
+  <div class="tabs" role="tablist" id="scTabs" aria-label="Scenario"></div>
+  <p id="scDesc" class="lede" style="margin-bottom:16px"></p>
+  <div class="mb-stage">
+    <div class="mb-col">
+      <span class="mb-name">Sensor micro:bit</span>
+      <div class="mb" id="mbA"><span class="logo"></span><span class="grp" id="grpA">G1</span><button class="ab" type="button" id="mbA_a" aria-label="Sensor button A">A</button><div class="leds" id="ledsA" aria-hidden="true"></div><button class="ab" type="button" id="mbA_b" aria-label="Sensor button B">B</button><span class="edge"></span></div>
+    </div>
+    <div class="air" aria-hidden="true"><span class="wave">((( radio )))</span><span class="msg" id="airMsg"></span></div>
+    <div class="mb-col">
+      <span class="mb-name">Receiver micro:bit</span>
+      <div class="mb" id="mbB"><span class="logo"></span><span class="grp" id="grpB">G1</span><button class="ab" type="button" id="mbB_a" aria-label="Receiver button A">A</button><div class="leds" id="ledsB" aria-hidden="true"></div><button class="ab" type="button" id="mbB_b" aria-label="Receiver button B">B</button><span class="edge"></span></div>
+    </div>
+  </div>
+  <div class="two" style="margin-top:20px">
+    <div class="panel stack">
+      <h3>The real world</h3>
+      <div class="mb-ctrls" id="scCtrls"></div>
+      <h3 style="margin-top:6px">The rule</h3>
+      <div class="ctl"><span class="small" id="thLabel">Threshold</span><input type="range" id="thIn" min="0" max="255" value="50"><output id="thOut">50</output></div>
+      <h3 style="margin-top:6px">The network</h3>
+      <div class="ctl short"><span class="small">Sensor group</span><select id="gA" aria-label="Sensor radio group"></select></div>
+      <div class="ctl short"><span class="small">Receiver group</span><select id="gB" aria-label="Receiver radio group"></select></div>
+      <label class="small" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="spy"> Add a nosy neighbour’s micro:bit on group 1</label>
+      <label class="small" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="scramble"> Scramble messages with a shared secret (extension)</label>
+    </div>
+    <div class="stack">
+      <h3>Radio log</h3>
+      <div class="mb-log" id="mbLog" aria-live="polite" role="log"></div>
+      <div class="fbbox" id="mbTip"></div>
+    </div>
+  </div>
+  <div class="task t-now"><b>Investigate.</b> 1) Find the threshold where the alert switches on. 2) Put the two micro:bits on different radio groups. What happens and why? 3) Turn on the nosy neighbour. What can they see? 4) Turn on scrambling. What can the neighbour see now, and what would happen if the secret was leaked?</div>
+</div></section>
+
+<section class="block" id="build"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">3.3 · BUILD IT FOR REAL</span>
+    <h2>Build your prototype</h2>
+    <p class="lede">Work in pairs: one person programs the sensor, the other the receiver. The code below updates to match the scenario and threshold you chose in the simulator.</p>
+  </div>
+  <div class="kit">
+    <div><b>2 × BBC micro:bit</b>V1 or V2. V2 adds a speaker and microphone.</div>
+    <div><b>2 × USB cable</b>Or battery packs once the code is on.</div>
+    <div><b>A browser</b>MakeCode at makecode.microbit.org, or the Python editor at python.microbit.org.</div>
+    <div><b>Optional extras</b>Soil moisture sensor, PIR motion sensor or LEDs on crocodile clips.</div>
+  </div>
+  <ol class="steps" style="margin-top:18px">
+    <li><span>Agree a <b>radio group</b> number with your partner (0–255). Use one nobody else in the room is using, or your messages will mix.</span></li>
+    <li><span>Open the editor, choose <b>JavaScript</b> or <b>Python</b>, and paste in the sensor code or the receiver code. Change the group number to yours.</span></li>
+    <li><span>Test in the editor’s on-screen simulator first. Then download and copy the .hex file to the micro:bit (or use WebUSB to flash it directly).</span></li>
+    <li><span>Test with real readings: cover the light sensor, warm the micro:bit in your hand, or shake it. Write down the readings so you can choose a sensible threshold.</span></li>
+    <li><span><b>Improve it.</b> Pick one: send the actual reading, not just an alert; add a “cancel” message with button B; make the receiver keep a count; or add the scrambling extension.</span></li>
+  </ol>
+  <div class="tabs" role="tablist" id="langTabs" aria-label="Programming language" style="margin-top:22px">
+    <button type="button" role="tab" aria-selected="true" data-lang="js">MakeCode JavaScript</button>
+    <button type="button" role="tab" aria-selected="false" data-lang="py">MicroPython</button>
+  </div>
+  <div class="two">
+    <div><div class="codehead"><h3>Sensor micro:bit</h3><button class="btn sm" type="button" data-copy="codeA">Copy</button></div><pre class="code" id="codeA"></pre></div>
+    <div><div class="codehead"><h3>Receiver micro:bit</h3><button class="btn sm" type="button" data-copy="codeB">Copy</button></div><pre class="code" id="codeB"></pre></div>
+  </div>
+  <p class="small" style="margin-top:10px">MakeCode tip: paste into the JavaScript view, then switch to Blocks to see the same program as blocks.</p>
+  <details class="more">
+    <summary>Not working? Debug checklist</summary>
+    <ul>
+      <li>Nothing received: are both on the <b>same radio group</b>? Is the receiver running and powered?</li>
+      <li>Alert never fires: print the raw reading (<span class="kw">basic.showNumber</span> or <span class="kw">display.scroll</span>) and check your threshold makes sense.</li>
+      <li>Alert fires constantly: your threshold is the wrong way round, or you need to send only when the reading <i>changes</i>.</li>
+      <li>Messages from other pairs: change your radio group.</li>
+      <li>Python: is <span class="kw">radio.on()</span> there? Radio is off until you switch it on.</li>
+    </ul>
+  </details>
+</div></section>
+
+<section class="block" id="secure"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">3.4 · SMART BUT SAFE?</span>
+    <h2>When things join the internet, so do hackers</h2>
+    <p class="lede">Your micro:bits only talk across a room. Real smart devices talk across the internet, which means anyone, anywhere, might try to talk to them too.</p>
+  </div>
+  <div class="two">
+    <div class="panel"><h3>The law changed in 2024</h3>
+      <p>Since 29 April 2024, UK law (the Product Security and Telecommunications Infrastructure Act) says smart devices sold here must:</p>
+      <ul style="margin-top:8px">
+        <li>not come with an easy default password like “admin” or “12345”,</li>
+        <li>tell you how to report a security problem,</li>
+        <li>say how long the device will get security updates.</li>
+      </ul>
+      <p style="margin-top:8px">The UK was the first country to bring in rules like these.</p>
+    </div>
+    <div class="panel"><h3>Link back</h3>
+      <p>The 1989 “home of the future” never mentioned hackers, privacy or updates. Why do you think the people making those predictions didn’t think about security?</p>
+      <p style="margin-top:8px">Think about your simulator: the nosy neighbour could read every message on group 1. Scrambling helped, but only while the secret stayed secret.</p>
+    </div>
+  </div>
+  <h3 style="margin:26px 0 12px">Safe or risky?</h3>
+  <div class="check-grid" id="secCheck"></div>
+</div></section>
+
+<!-- ======================= PART 4 ======================= -->
+<div class="part p-fut" id="p4"><div class="wrap"><span class="num">PART 4 OF 5</span><h2>Frontier tech</h2><p>Researchers today are working on technologies that might shape the next twenty years. Some will change everything. Some are mostly hype. Your job is to tell the difference, using what you now know about hardware, networks and past predictions.</p></div></div>
+
+<section class="block first" id="pillars"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">4.1 · FOUR FRONTIERS</span>
+    <h2>What’s being built right now</h2>
+    <p class="lede">Explore each frontier. For every one, ask the same three questions you’ll use in your research. Then rate how much hype you think surrounds it.</p>
+  </div>
+  <div class="tabs" role="tablist" id="pTabs" aria-label="Frontier technology"></div>
+  <div class="pillar" id="pBody"></div>
+</div></section>
+
+<section class="block" id="qubit"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">4.2 · A TASTE OF QUANTUM</span>
+    <h2>Bit or qubit?</h2>
+    <p class="lede">An ordinary bit is always 0 or 1, like a coin lying flat. A qubit can be in a <b>superposition</b>: more like a spinning coin. While it spins, it isn’t heads or tails yet. When you <b>measure</b> it, it lands, and you only ever see 0 or 1.</p>
+  </div>
+  <div class="qubit-grid">
+    <div class="panel stack">
+      <div class="coin" id="coin" aria-live="polite">?</div>
+      <div class="ctl"><span class="small">Chance of 1</span><input type="range" id="qP" min="0" max="100" value="50" aria-label="Chance of measuring 1"><output id="qPOut">50%</output></div>
+      <div class="row-btns"><button class="btn primary" id="qOne" type="button">Measure once</button><button class="btn" id="qMany" type="button">Measure 100 times</button><button class="btn" id="qClear" type="button">Clear</button></div>
+      <div class="tally"><div><span class="small">Measured 0</span><b id="q0">0</b></div><div><span class="small">Measured 1</span><b id="q1">0</b></div></div>
+    </div>
+    <div class="panel"><h3>So why is quantum computing powerful?</h3>
+      <p>Two ordinary bits hold one of 4 patterns at a time (00, 01, 10, 11). Two qubits can be in a superposition of all 4. Every extra qubit doubles it:</p>
+      <div class="tablewrap" style="margin:10px 0"><table class="plain" id="qTable"><tr><th>Qubits</th><th>Patterns held at once</th></tr></table></div>
+      <p>Clever quantum programs make the wrong answers cancel out and the right answer more likely when you measure. That only works for <b>some</b> problems, like simulating molecules for new medicines. It won’t make your games faster.</p>
+      <p class="small" style="margin-top:10px">The catch: qubits are fragile. Heat, vibration or stray signals make them collapse early, so many machines are kept colder than outer space. That’s the hardware bottleneck today.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="block" id="hype"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">4.3 · HYPE OR HOPE?</span>
+    <h2>Spot the hype</h2>
+    <p class="lede">These headlines are made up, but they’re written like real ones. Decide which is backed by evidence and which is hype. Look for: who is saying it, whether something was actually measured, and whether the claim is specific.</p>
+  </div>
+  <div class="heads" id="heads"></div>
+</div></section>
+
+<section class="block" id="research"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">4.4 · YOUR RESEARCH</span>
+    <h2>Research organiser</h2>
+    <p class="lede">Pick one frontier technology (it can be one not listed here) and answer the three key questions. This becomes the evidence behind your pitch. Saved in this browser only.</p>
+  </div>
+  <div class="two">
+    <div class="panel organiser">
+      <label class="fld">Technology I’m researching<input type="text" id="rTech" data-save="r.tech" placeholder="e.g. brain–computer interfaces"></label>
+      <label class="fld">1. What problem does it solve? <span class="small">Who has this problem now?</span><textarea id="rQ1" data-save="r.q1"></textarea></label>
+      <label class="fld">2. What hardware or network advances does it need to go mainstream? <span class="small">Think: processing power, memory, sensors, batteries, network speed, cost.</span><textarea id="rQ2" data-save="r.q2"></textarea></label>
+      <label class="fld">3. What are the ethical, privacy or environmental concerns? <span class="small">Who could be harmed, left out, or watched?</span><textarea id="rQ3" data-save="r.q3"></textarea></label>
+      <label class="fld">Where is it now?
+        <select id="rStage" data-save="r.stage"><option value="">Choose…</option><option>Idea or lab experiment</option><option>Early trials with real people</option><option>On sale but rare or expensive</option><option>Mainstream</option></select>
+      </label>
+    </div>
+    <div class="panel organiser">
+      <label class="fld">Sources <span class="small">Title, who made it, date, link. At least three.</span><textarea id="rSrc" data-save="r.src" style="min-height:140px"></textarea></label>
+      <div>
+        <h3>Is my source reliable?</h3>
+        <div class="reliab">
+          <label><input type="checkbox" data-save="r.c1"> I know who wrote it, and why they might want me to believe it.</label>
+          <label><input type="checkbox" data-save="r.c2"> It’s dated, and recent enough for a fast-moving topic.</label>
+          <label><input type="checkbox" data-save="r.c3"> It describes something measured or tested, not just a promise.</label>
+          <label><input type="checkbox" data-save="r.c4"> Another independent source says the same thing.</label>
+          <label><input type="checkbox" data-save="r.c5"> If it’s a company talking about its own product, I’ve found a second opinion.</label>
+        </div>
+      </div>
+      <div class="row-btns"><button class="btn sm" id="rDownload" type="button">Download my research</button><span class="saved" id="rSaved" aria-live="polite"></span></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ======================= PART 5 ======================= -->
+<div class="part p-fut" id="p5"><div class="wrap"><span class="num">PART 5 OF 5</span><h2>Pitch and time capsule</h2><p>Now it’s your turn to be the futurist. Make a prediction about what will exist in five years, back it up with evidence, and seal it away. In five years, someone will open it and decide: hit, partly, or miss?</p></div></div>
+
+<section class="block first" id="pitch"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">5.1 · PITCH BUILDER</span>
+    <h2>Make your five-year forecast</h2>
+    <p class="lede">A good prediction is specific enough that someone could check it later. “AI will be better” can’t be wrong. “Most new cars sold in Scotland will be able to drive themselves on motorways” can.</p>
+  </div>
+  <div class="pitch-grid">
+    <div class="panel stack">
+      <label class="fld">Name of your idea<input type="text" id="ptTitle" data-save="p.title" placeholder="e.g. The plant that texts you"></label>
+      <label class="fld">The problem <span class="small">What’s wrong, difficult or missing today?</span><textarea id="ptProblem" data-save="p.problem"></textarea></label>
+      <label class="fld">The vision <span class="small">What will exist in five years that doesn’t today? Who uses it?</span><textarea id="ptVision" data-save="p.vision"></textarea></label>
+      <div class="fld"><span>Under the hood <span class="small">Tick what it relies on, then explain.</span></span>
+        <div class="links-check" id="ptLinks">
+          <label><input type="checkbox" value="Faster processors" data-save="p.l1"> Faster or smaller processors (1.1)</label>
+          <label><input type="checkbox" value="More memory or storage" data-save="p.l2"> More memory or storage (1.2)</label>
+          <label><input type="checkbox" value="Faster or wider networks" data-save="p.l3"> Faster or wider networks (1.3, 1.4)</label>
+          <label><input type="checkbox" value="Sensors" data-save="p.l4"> Sensors (3.1)</label>
+          <label><input type="checkbox" value="AI" data-save="p.l5"> AI or machine learning (4.1)</label>
+          <label><input type="checkbox" value="Better batteries or energy" data-save="p.l6"> Better batteries or energy (4.1)</label>
+        </div>
+      </div>
+      <label class="fld">How it works <span class="small">Explain the technology using the words from Parts 1 and 3.</span><textarea id="ptHow" data-save="p.how"></textarea></label>
+      <label class="fld">Lesson from the past <span class="small">Which old prediction is yours most like? What did it get wrong that you’ve avoided?</span><textarea id="ptPast" data-save="p.past"></textarea></label>
+      <label class="fld">Ethics check <span class="small">Privacy, who can afford it, who’s left out, what laws are needed, energy and waste.</span><textarea id="ptEthics" data-save="p.ethics"></textarea></label>
+      <label class="fld">What would prove you wrong in five years?<textarea id="ptWrong" data-save="p.wrong" style="min-height:60px"></textarea></label>
+      <div class="ctl"><span class="small">Confidence</span><input type="range" id="ptConf" data-save="p.conf" min="0" max="100" value="60" aria-label="Confidence in your prediction"><output id="ptConfOut">60%</output></div>
+      <div class="row-btns"><button class="btn sm" id="ptDownload" type="button">Download pitch notes</button><span class="saved" id="ptSaved" aria-live="polite"></span></div>
+    </div>
+    <div class="pitchcard" aria-live="polite">
+      <span class="pk">Forecast for <span id="pcYear">2031</span></span>
+      <h3 id="pcTitle">Your idea</h3>
+      <div class="sect"><b>The problem</b><p id="pcProblem">…</p></div>
+      <div class="sect"><b>The vision</b><p id="pcVision">…</p></div>
+      <div class="sect"><b>Under the hood</b><p id="pcLinks">…</p></div>
+      <div class="sect"><b>Ethics</b><p id="pcEthics">…</p></div>
+      <div class="sect"><b>Confidence</b><div class="conf"><i id="pcConf" style="width:60%"></i></div></div>
+      <p class="small" style="color:#9CA4BA">Pitch structure: <b style="color:#fff">problem → vision → under the hood → ethics</b>. Aim for 2–3 minutes.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="block" id="capsule"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">5.2 · SEAL THE CAPSULE</span>
+    <h2>The five-year time capsule</h2>
+    <p class="lede">After your pitch, write your prediction as one or two clear sentences and seal it. Your teacher collects the capsule files and keeps them safe until they can be opened.</p>
+  </div>
+  <div class="capsule">
+    <div class="panel stack">
+      <label class="fld">First name or team name <span class="small">No surnames. Someone else will read this in five years.</span><input type="text" id="cName" maxlength="40" data-save="c.name"></label>
+      <label class="fld">Class<input type="text" id="cClass" maxlength="30" data-save="c.class" placeholder="e.g. S2B"></label>
+      <label class="fld">My prediction <span class="small">Specific enough to check. Starts “By <span class="cYear">2031</span>…”</span><textarea id="cPred" data-save="c.pred" maxlength="900"></textarea></label>
+      <label class="fld">One piece of evidence behind it<textarea id="cEvid" data-save="c.evid" maxlength="600" style="min-height:60px"></textarea></label>
+      <label class="fld">A message to whoever opens this<textarea id="cMsg" data-save="c.msg" maxlength="400" style="min-height:60px"></textarea></label>
+      <label class="fld">Class passphrase <span class="small">Your teacher may give you one. It locks the file so it can’t be read without it.</span><input type="text" id="cPass" autocomplete="off" spellcheck="false"></label>
+      <div class="row-btns"><button class="btn primary" id="cSeal" type="button">Seal and download</button><button class="btn" id="cPrint" type="button">Print a paper copy</button></div>
+      <p class="small" id="cMsgOut" aria-live="polite"></p>
+    </div>
+    <div class="vault" id="vault">
+      <div class="dial" id="vDial">OPEN</div>
+      <div class="when" id="vWhen">2031</div>
+      <p id="vText">Fill in your prediction, then seal it. The capsule file says the date it may be opened.</p>
+      <p class="small" style="color:#9CA4BA">Lesson from Domesday: the file is plain JSON text so it should still open in 2031. A printed copy is a good backup.</p>
+    </div>
+  </div>
+  <details class="more">
+    <summary>How does the lock work?</summary>
+    <p>If you add a passphrase, your prediction is <b>encrypted</b> with AES, the same kind of encryption used by banks and messaging apps. The passphrase is turned into a key; without it, the file is just scrambled numbers. The file also stores an “open after” date, but that is only a label: anyone with the passphrase could open it early. Real delayed-release systems need a trusted keeper, which is your teacher’s job. And if the passphrase is lost, nobody can ever open it. That’s exactly the Domesday problem again.</p>
+  </details>
+</div></section>
+
+<section class="block" id="quiz"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">CHECK YOUR UNDERSTANDING</span>
+    <h2>Quiz</h2>
+    <p class="lede">Twelve questions across the whole unit. You get feedback straight away.</p>
+  </div>
+  <div class="quiz" id="quizBox"></div>
+  <div class="row-btns" style="margin-top:16px"><span class="qscore" id="qScore" aria-live="polite">0 / 12</span><button class="btn sm" id="qReset" type="button">Try again</button></div>
+</div></section>
+
+<!-- ======================= PROJECT ======================= -->
+<div class="proj-hero" id="project"><div class="wrap"><span class="num">FINAL PROJECT</span><h2>The <span class="cYear">2031</span> Broadcast</h2><p>In the 1980s, science TV told viewers what the future would bring. Now your team makes that broadcast, for an audience watching in five years’ time. Present a research-backed prediction, explain the technology inside it, and seal your forecast in the class time capsule.</p></div></div>
+
+<section class="block first" id="proj-paths"><div class="wrap">
+  <div class="sec-head"><span class="mission">TWO WAYS TO COMPLETE IT</span><h2>Choose your format</h2></div>
+  <div class="paths">
+    <div class="path"><span class="pl">Path A</span><h3>The broadcast</h3><p>A 3–4 minute presentation, live or recorded, in the style of a science TV segment. Open with a clip or prediction from the past, then present your forecast.</p><ul><li>Script and slides, or a short video</li><li>A diagram of how it works, using Part 1 ideas</li><li>A “then vs now” comparison</li></ul></div>
+    <div class="path"><span class="pl">Path B</span><h3>The working prototype</h3><p>Build a small micro:bit version of your idea and demonstrate it live, then explain how the full-size 2031 version would work.</p><ul><li>A working micro:bit prototype with at least one sensor and radio</li><li>Annotated code</li><li>A 2-minute demo and pitch</li></ul></div>
+  </div>
+</div></section>
+
+<section class="block" id="proj-stages"><div class="wrap">
+  <div class="sec-head"><span class="mission">PROJECT STAGES</span><h2>From research to sealed capsule</h2></div>
+  <div class="stages">
+    <div class="stage"><span class="sn">STAGE 1</span><b>Research</b>Complete the research organiser (4.4) with at least three sources.</div>
+    <div class="stage"><span class="sn">STAGE 2</span><b>Predict</b>Use the pitch builder (5.1). Make the prediction specific and checkable.</div>
+    <div class="stage"><span class="sn">STAGE 3</span><b>Under the hood</b>Draw how data moves through your device and the network, like the data map in 1.3.</div>
+    <div class="stage"><span class="sn">STAGE 4</span><b>Make</b>Write the script and slides (Path A) or build and test the prototype (Path B).</div>
+    <div class="stage"><span class="sn">STAGE 5</span><b>Present and seal</b>Present to the class, take questions, then seal your capsule (5.2).</div>
+  </div>
+</div></section>
+
+<section class="block" id="proj-roles"><div class="wrap">
+  <div class="sec-head"><span class="mission">WHO DOES WHAT</span><h2>Team roles</h2><p class="lede">Teams of three or four. Everyone contributes to the research; each person leads one part.</p></div>
+  <div class="roles">
+    <div class="role"><b>Presenter</b>Leads the script and delivery. Makes sure the pitch follows problem → vision → under the hood → ethics.</div>
+    <div class="role"><b>Historian</b>Finds the past prediction to compare with and explains what it got right and wrong.</div>
+    <div class="role"><b>Engineer</b>Explains the hardware and network, and leads the diagram or prototype.</div>
+    <div class="role"><b>Ethics lead</b>Leads on privacy, access, law and environmental impact, and prepares answers to tough questions.</div>
+  </div>
+</div></section>
+
+<section class="block" id="rubric"><div class="wrap">
+  <div class="sec-head"><span class="mission">SUCCESS CRITERIA</span><h2>What a great broadcast includes</h2></div>
+  <div class="tablewrap panel" style="padding:8px">
+    <table class="plain rubric">
+      <tr><th></th><th>Developing</th><th>Secure</th><th>Excellent</th></tr>
+      <tr><td>Prediction</td><td>A general idea about the future.</td><td>A clear prediction for five years’ time.</td><td>A specific, checkable prediction with a confidence level and what would prove it wrong.</td></tr>
+      <tr><td>Under the hood</td><td>Names some technology involved.</td><td>Explains how it processes, stores and sends data.</td><td>Explains the hardware and network accurately, and identifies today’s bottleneck.</td></tr>
+      <tr><td>Learning from the past</td><td>Mentions an old prediction.</td><td>Compares with a past prediction and says if it came true.</td><td>Explains <i>why</i> the past prediction succeeded or failed and applies that lesson.</td></tr>
+      <tr><td>Evidence</td><td>Uses one source.</td><td>Uses three or more sources.</td><td>Uses reliable, dated sources and separates evidence from hype.</td></tr>
+      <tr><td>Ethics</td><td>Mentions one concern.</td><td>Discusses privacy, access or regulation.</td><td>Weighs benefits against harms for different groups and suggests safeguards.</td></tr>
+      <tr><td>Communication</td><td>Information is presented.</td><td>Clear, well structured, on time.</td><td>Engaging, confident, answers questions with evidence.</td></tr>
+    </table>
+  </div>
+</div></section>
+
+<section class="block" id="planner"><div class="wrap">
+  <div class="sec-head"><span class="mission">YOUR TEAM’S PLANNER</span><h2>Plan your broadcast</h2><p class="lede">Saved in this browser only. Use the download button to share it with your team.</p></div>
+  <div class="two">
+    <div class="panel planner">
+      <label class="fld">Team name<input type="text" data-save="pl.team"></label>
+      <label class="fld">Path<select data-save="pl.path"><option value="">Choose…</option><option>A: The broadcast</option><option>B: The working prototype</option></select></label>
+      <label class="fld">Who is in each role?<textarea data-save="pl.roles" placeholder="Presenter: &#10;Historian: &#10;Engineer: &#10;Ethics lead: "></textarea></label>
+      <label class="fld">Our prediction in one sentence<textarea data-save="pl.pred" style="min-height:60px"></textarea></label>
+    </div>
+    <div class="panel planner">
+      <h3>Checklist</h3>
+      <div class="plan-check">
+        <label><input type="checkbox" data-save="pl.k1"> Research organiser done, with three sources</label>
+        <label><input type="checkbox" data-save="pl.k2"> Past prediction chosen and evaluated</label>
+        <label><input type="checkbox" data-save="pl.k3"> Diagram of how the data moves</label>
+        <label><input type="checkbox" data-save="pl.k4"> Ethics: benefits, harms and safeguards</label>
+        <label><input type="checkbox" data-save="pl.k5"> Script or prototype finished and tested</label>
+        <label><input type="checkbox" data-save="pl.k6"> Rehearsed and timed (3–4 minutes)</label>
+        <label><input type="checkbox" data-save="pl.k7"> Capsule sealed and handed in</label>
+      </div>
+      <label class="fld">Next steps and who’s doing them<textarea data-save="pl.next"></textarea></label>
+      <div class="row-btns"><button class="btn sm" id="plDownload" type="button">Download planner</button><span class="saved" id="plSaved" aria-live="polite"></span></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ======================= TEACHER NOTES ======================= -->
+<section class="block" id="teacher"><div class="wrap">
+  <div class="sec-head"><span class="mission">FOR TEACHERS</span><h2>Teacher notes</h2></div>
+  <div class="two teacher">
+    <div class="panel stack">
+      <div><h3>Learning intentions</h3><ul>
+        <li>Describe the von Neumann architecture and the fetch–decode–execute cycle, including the roles of the PC, MAR, MDR, CIR, accumulator, ALU, control unit and buses.</li>
+        <li>Explain why computers use a memory hierarchy, and the difference between volatile and non-volatile storage.</li>
+        <li>Describe LANs, WANs, routers and packet switching, and calculate transfer times from file size and bandwidth.</li>
+        <li>Evaluate historic technology predictions, identifying hardware and network bottlenecks and enabling technologies.</li>
+        <li>Design, implement and test a physical computing system that uses sensors, selection and radio communication.</li>
+        <li>Research an emerging technology, judge the reliability of sources and separate evidence from hype.</li>
+        <li>Discuss the ethical, legal, privacy and environmental implications of current and emerging technologies.</li>
+      </ul></div>
+      <div><h3>Suggested sequence</h3><ol>
+        <li><b>Lesson 1:</b> Part 1. Fetch–decode–execute simulator, memory hierarchy, doorbell route and packets, bandwidth comparison. Set the data map task.</li>
+        <li><b>Lesson 2:</b> Part 2. One or two archive clips (the 1989 home of the future works well), prediction lab, misquotes, hardware comparison, evaluation matrix. Domesday case file as a plenary.</li>
+        <li><b>Lesson 3:</b> Part 3. IoT model, simulator investigation, then build on real micro:bits. Security cards as a plenary.</li>
+        <li><b>Lesson 4:</b> Part 4. Explore the four frontiers (jigsaw groups work well), qubit demo, hype headlines, research organiser.</li>
+        <li><b>Lesson 5:</b> Part 5. Pitch builder, short pitches, seal the capsule, quiz.</li>
+        <li><b>Extended project (2–4 further lessons):</b> The 2031 Broadcast, Path A or B.</li>
+      </ol></div>
+      <div><h3>Answers</h3>
+        <p class="small"><b>Prediction lab:</b> verdicts and reasons appear on each card after voting. Several are deliberately debatable (Picturephone, the paperless office, the CD); the reasoning matters more than the label.</p>
+        <p class="small" style="margin-top:6px"><b>Misquotes:</b> Gates “640K” and Watson “five computers” have no reliable contemporary source. Olsen’s 1977 remark is real but usually quoted out of context. The Clarke 1974 interview is on film.</p>
+        <p class="small" style="margin-top:6px"><b>Hype headlines:</b> all are fictional. Answers appear on reveal.</p>
+      </div>
+    </div>
+    <div class="panel stack">
+      <div><h3>Videos and links</h3><p class="small">Clips open on the original site in a new tab. Check them before the lesson and that YouTube and Facebook are accessible on your network; Facebook is often blocked in schools, so you may need to play the 1989 clip from a staff device. The Clarke link opens a YouTube search so you can choose the upload you prefer. The Tomorrow’s World playlist has many more clips for the evaluation matrix.</p></div>
+      <div><h3>How the simulations work</h3>
+        <p class="small"><b>Fetch–decode–execute:</b> a 16-location accumulator machine with an LMC-style instruction set (LDA, STA, ADD, SUB, INP, OUT, BRA, BRZ, BRP, HLT, DAT). Each Step shows one phase. INP reads the temperature slider. Values are kept between −999 and 999.</p>
+        <p class="small" style="margin-top:6px"><b>Memory hierarchy:</b> latencies of about 0.3 ns (register), 1 ns (cache), 100 ns (RAM), 100 µs (SSD), 10 ms (hard disk) and 60 ms (cloud round trip), scaled so one 0.3 ns clock tick = 1 second. Animation length is on a log scale.</p>
+        <p class="small" style="margin-top:6px"><b>Packets:</b> six packets choose randomly between the working routes through four routers, so they arrive out of order and are sorted by sequence number. Breaking a router forces traffic onto the remaining paths.</p>
+        <p class="small" style="margin-top:6px"><b>Bandwidth:</b> time = bytes × 8 ÷ bits per second, with no protocol overhead. Real downloads are a little slower.</p>
+        <p class="small" style="margin-top:6px"><b>micro:bit simulator:</b> the sensor checks its reading every half-second and sends a message when the rule is met (light and temperature) or on each shake (steps). Messages are only received on a matching radio group. The “nosy neighbour” is always on group 1. Scrambling is a simple Caesar shift on letters, to show the idea of a shared key; it is not real security. The generated code uses the standard MakeCode and MicroPython radio APIs.</p>
+        <p class="small" style="margin-top:6px"><b>Qubit:</b> each measurement returns 1 with the chosen probability. It models measurement only, not interference or entanglement.</p>
+      </div>
+      <div><h3>The time capsule</h3>
+        <p class="small">Each pupil downloads a .json capsule file (plain text, so it will stay readable). If a class passphrase is used, the prediction is encrypted in the browser with AES-GCM (key from PBKDF2-SHA-256, 200,000 iterations); nothing is uploaded. Store the passphrase somewhere separate and permanent (for example, in the department handbook), save the files in a shared drive folder named with the opening date, and consider printing paper copies too. Pupils should use first names only.</p>
+        <div class="stack" style="margin-top:10px;padding:12px;border:1px dashed var(--line);border-radius:8px">
+          <b style="font-family:var(--display)">Open capsules</b>
+          <label class="fld">Capsule files<input type="file" id="tFiles" accept=".json,application/json" multiple></label>
+          <label class="fld">Passphrase (if used)<input type="text" id="tPass" autocomplete="off" spellcheck="false"></label>
+          <label class="small" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="tEarly"> Open even if the date hasn’t arrived (for checking)</label>
+          <button class="btn sm" id="tOpen" type="button">Open</button>
+          <div id="tOut" class="stack"></div>
+        </div>
+      </div>
+      <div><h3>Privacy</h3><p class="small">Everything pupils type is saved only in their own browser (localStorage) and in files they choose to download. Nothing is sent anywhere. On shared computers, pupils should download their work before they leave.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <p><b>Future Proof</b> · An interactive Computing Science unit for ages 13–15. Archive clips belong to their owners and open on their original sites. Headlines in 4.3 are fictional. micro:bit is a trademark of the Micro:bit Educational Foundation.</p>
+  <p style="margin-top:6px">Sources for facts used: BBC Archive; Centre for Computing History (Domesday); Michael Aldrich Archive (1984 teleshopping); International Energy Agency, <i>Energy and AI</i> (2025); UK National Cyber Security Centre guidance on the PSTI Act (2024).</p>
+</div></footer>
+<script>
+"use strict";
+/* ---------- helpers ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const store = {
+  get(k){ try { return localStorage.getItem("fp." + k); } catch(e){ return null; } },
+  set(k,v){ try { localStorage.setItem("fp." + k, v); } catch(e){} },
+  del(k){ try { localStorage.removeItem("fp." + k); } catch(e){} },
+  json(k, d){ try { const v = this.get(k); return v ? JSON.parse(v) : d; } catch(e){ return d; } }
+};
+const reduced = () => window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+function download(name, text, mime = "text/plain"){
+  const blob = new Blob([text], {type: mime + ";charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+function fmtDur(s){
+  if (s < 1) return (s < 0.01 ? s.toPrecision(2) : s.toFixed(2)) + " s";
+  if (s < 60) return (s < 10 ? s.toFixed(1) : Math.round(s)) + " s";
+  if (s < 3600) return Math.round(s / 60) + " min";
+  if (s < 86400) { const h = s / 3600; return (h < 10 ? h.toFixed(1) : Math.round(h)) + " hours"; }
+  if (s < 86400 * 365) { const d = s / 86400; return (d < 10 ? d.toFixed(1) : Math.round(d)) + " days"; }
+  const y = s / (86400 * 365); return (y < 10 ? y.toFixed(1) : Math.round(y).toLocaleString("en-GB")) + " years";
+}
+function flash(el){ if (!el) return; el.textContent = "Saved"; clearTimeout(el._t); el._t = setTimeout(() => el.textContent = "", 1400); }
+
+/* ---------- theme ---------- */
+(function(){
+  const root = document.documentElement, btn = $("#themeBtn");
+  const saved = store.get("theme");
+  if (saved) root.setAttribute("data-theme", saved);
+  const isDark = () => root.getAttribute("data-theme") ? root.getAttribute("data-theme") === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  const label = () => btn.textContent = isDark() ? "Light" : "Dark";
+  label();
+  btn.addEventListener("click", () => { const t = isDark() ? "light" : "dark"; root.setAttribute("data-theme", t); store.set("theme", t); label(); });
+})();
+
+/* ---------- autosave for [data-save] ---------- */
+const savedFor = {"r.": "#rSaved", "p.": "#ptSaved", "pl.": "#plSaved"};
+function bindSave(el){
+  const k = el.dataset.save, v = store.get("s." + k);
+  if (v !== null){ if (el.type === "checkbox") el.checked = v === "1"; else el.value = v; }
+  const ev = (el.type === "checkbox" || el.tagName === "SELECT") ? "change" : "input";
+  el.addEventListener(ev, () => {
+    store.set("s." + k, el.type === "checkbox" ? (el.checked ? "1" : "0") : el.value);
+    const pre = Object.keys(savedFor).find(p => k.startsWith(p));
+    if (pre) flash($(savedFor[pre]));
+  });
+}
+$$("[data-save]").forEach(bindSave);
+
+/* =========================================================
+   PART 1.1  Fetch–decode–execute
+   ========================================================= */
+(function(){
+  const OPS = {ADD:100, SUB:200, STA:300, LDA:500, BRA:600, BRZ:700, BRP:800};
+  const NAMES = {1:"ADD",2:"SUB",3:"STA",5:"LDA",6:"BRA",7:"BRZ",8:"BRP"};
+  const PRESETS = {
+    add: "LDA 6\nADD 7\nSTA 8\nOUT\nHLT\n\nDAT 21\nDAT 19\nDAT 0",
+    count: "LDA 7\nOUT\nSUB 8\nBRZ 5\nBRA 1\nOUT\nHLT\nDAT 3\nDAT 1",
+    thermo: "INP\nSUB 9\nBRP 6\nLDA 11\nOUT\nHLT\nLDA 10\nOUT\nHLT\nDAT 20\nDAT 1\nDAT 0"
+  };
+  const INTRO = {
+    add: "Adds two readings stored at addresses 6 and 7, stores the answer at 8 and outputs it.",
+    count: "Outputs 3, 2, 1, 0 using a loop. Watch BRA and BRZ change the program counter.",
+    thermo: "Reads the temperature sensor. Outputs 1 if it is 20°C or more (heating off), or 0 if it is colder (heating on)."
+  };
+  const S = {mem: Array(16).fill(0), isData: Array(16).fill(false), pc:0, mar:0, mdr:0, cir:null, acc:0, phase:0, halted:false, out:[], cycles:0, timer:null};
+  const ram = $("#ram"), narr = $("#cpuNarr");
+  for (let i = 0; i < 16; i++){ const c = document.createElement("div"); c.className = "cell"; c.innerHTML = `<i>${i}</i><span></span>`; ram.appendChild(c); }
+  const clamp = v => Math.max(-999, Math.min(999, v));
+  function decodeText(v, data){
+    if (data) return "DAT " + v;
+    if (v === 901) return "INP"; if (v === 902) return "OUT";
+    const op = Math.floor(v / 100), a = v % 100;
+    if (v === 0) return "HLT";
+    if (NAMES[op]) return NAMES[op] + " " + a;
+    return String(v);
+  }
+  function assemble(src){
+    const lines = src.split("\n").map(l => l.replace(/(;|\/\/).*$/, "").trim());
+    const mem = Array(16).fill(0), isData = Array(16).fill(false);
+    let addr = 0;
+    for (let i = 0; i < lines.length; i++){
+      const l = lines[i];
+      if (!l) { if (addr < 16 && i < lines.length - 1 && lines.slice(i+1).some(x => x)) { addr++; } continue; }
+      if (addr > 15) return {err: "Too many lines: this computer only has 16 memory locations (0–15)."};
+      const [m, n] = l.toUpperCase().split(/\s+/);
+      const num = n === undefined ? null : Number(n);
+      if (m === "INP") mem[addr] = 901;
+      else if (m === "OUT") mem[addr] = 902;
+      else if (m === "HLT") mem[addr] = 0;
+      else if (m === "DAT"){ if (num === null || isNaN(num) || Math.abs(num) > 999) return {err: `Line ${i+1}: DAT needs a number from −999 to 999.`}; mem[addr] = Math.round(num); isData[addr] = true; }
+      else if (OPS[m] !== undefined){ if (num === null || isNaN(num) || num < 0 || num > 15) return {err: `Line ${i+1}: ${m} needs an address from 0 to 15.`}; mem[addr] = OPS[m] + num; }
+      else return {err: `Line ${i+1}: I don’t know “${esc(m)}”.`};
+      addr++;
+    }
+    return {mem, isData};
+  }
+  function load(src){
+    const r = assemble(src);
+    if (r.err){ $("#cpuAsmMsg").innerHTML = r.err; return false; }
+    S.mem = r.mem; S.isData = r.isData; $("#cpuAsmMsg").textContent = "Loaded."; reset(); return true;
+  }
+  function reset(keepMsg){
+    stop(); S.pc = 0; S.mar = 0; S.mdr = 0; S.cir = null; S.acc = 0; S.phase = 0; S.halted = false; S.out = []; S.cycles = 0;
+    render({});
+    if (!keepMsg) narr.innerHTML = `<b>Ready.</b> ${INTRO[$("#cpuPreset").value] || "Your program is loaded."} Press <b>Step</b>.`;
+  }
+  function render(h){
+    $("#rPC span").textContent = S.pc; $("#rMAR span").textContent = S.mar; $("#rMDR span").textContent = S.mdr;
+    $("#rCIR span").textContent = S.cir === null ? "–" : S.cir; $("#rACC span").textContent = S.acc;
+    ["PC","MAR","MDR","CIR","ACC"].forEach(r => $("#r" + r).classList.toggle("flash", !!(h.regs && h.regs.includes(r))));
+    $("#uCU").classList.toggle("on", !!h.cu); $("#uALU").classList.toggle("on", !!h.alu);
+    $("#bA").classList.toggle("on", !!h.a); $("#bD").classList.toggle("on", !!h.d); $("#bC").classList.toggle("on", !!h.c);
+    ["F","D","E"].forEach((p, i) => $("#ph" + p).classList.toggle("on", h.phase === i));
+    $$(".cell", ram).forEach((c, i) => {
+      c.querySelector("span").textContent = (S.isData[i] ? "" : S.mem[i] + " ") + decodeText(S.mem[i], S.isData[i]);
+      c.classList.toggle("pc", i === S.pc && !S.halted);
+      c.classList.toggle("touch", h.cell === i);
+      c.title = `Address ${i}: ${S.mem[i]}`;
+    });
+    $("#cpuOut").textContent = S.out.join("  ");
+    $("#cpuBox").classList.toggle("active", h.phase !== undefined);
+  }
+  function step(){
+    if (S.halted){ narr.innerHTML = "<b>Halted.</b> Press Reset to run it again."; stop(); return; }
+    if (S.phase === 0){ // FETCH
+      if (S.pc > 15){ S.halted = true; narr.innerHTML = "<b>Stopped.</b> The program counter ran past address 15 without reaching HLT."; render({}); stop(); return; }
+      S.mar = S.pc; S.mdr = S.mem[S.mar]; S.cir = S.mdr; const was = S.pc; S.pc++;
+      narr.innerHTML = `<b>Fetch.</b> The PC holds <b>${was}</b>, so that address is copied to the MAR and sent along the <b>address bus</b>. Memory sends back <b>${S.mdr}</b> along the <b>data bus</b> into the MDR, and it is copied to the CIR. The PC goes up to <b>${S.pc}</b>, ready for next time.`;
+      render({phase:0, regs:["PC","MAR","MDR","CIR"], a:1, d:1, c:1, cell:S.mar}); S.phase = 1; return;
+    }
+    const v = S.cir, op = Math.floor(v / 100), a = v % 100;
+    const name = v === 901 ? "INP" : v === 902 ? "OUT" : v === 0 ? "HLT" : (NAMES[op] || "?");
+    if (S.phase === 1){ // DECODE
+      const what = {INP:"read the sensor",OUT:"output the accumulator",HLT:"stop",LDA:`load from address ${a}`,STA:`store to address ${a}`,ADD:`add the value at address ${a}`,SUB:`subtract the value at address ${a}`,BRA:`jump to address ${a}`,BRZ:`jump to ${a} if the accumulator is zero`,BRP:`jump to ${a} if the accumulator is zero or more`,"?":"(not a valid instruction)"}[name];
+      narr.innerHTML = `<b>Decode.</b> The control unit splits <b>${v}</b> into an opcode and an operand: <b>${name}</b>${["INP","OUT","HLT"].includes(name) ? "" : " " + a}, meaning “${what}”.`;
+      render({phase:1, regs:["CIR"], cu:1, c:1}); S.phase = 2; return;
+    }
+    // EXECUTE
+    let h = {phase:2, cu:1, c:1}, msg = "";
+    S.cycles++;
+    switch (name){
+      case "LDA": S.mar = a; S.mdr = S.mem[a]; S.acc = S.mdr; h = {...h, regs:["MAR","MDR","ACC"], a:1, d:1, cell:a}; msg = `Address ${a} goes to the MAR. The value <b>${S.mdr}</b> comes back into the MDR and is copied to the accumulator.`; break;
+      case "STA": S.mar = a; S.mdr = S.acc; S.mem[a] = S.acc; S.isData[a] = true; h = {...h, regs:["MAR","MDR"], a:1, d:1, cell:a}; msg = `The accumulator’s value <b>${S.acc}</b> goes into the MDR and is written to address ${a}.`; break;
+      case "ADD": case "SUB": { S.mar = a; S.mdr = S.mem[a]; const before = S.acc; S.acc = clamp(name === "ADD" ? S.acc + S.mdr : S.acc - S.mdr); h = {...h, regs:["MAR","MDR","ACC"], a:1, d:1, alu:1, cell:a}; msg = `The value <b>${S.mdr}</b> is fetched from address ${a}. The <b>ALU</b> works out ${before} ${name === "ADD" ? "+" : "−"} ${S.mdr} = <b>${S.acc}</b>.`; break; }
+      case "INP": S.acc = Number($("#cpuSensor").value); h = {...h, regs:["ACC"]}; msg = `The temperature sensor reads <b>${S.acc}°C</b> and the value goes into the accumulator.`; break;
+      case "OUT": S.out.push(S.acc); h = {...h, regs:["ACC"]}; msg = `The accumulator’s value <b>${S.acc}</b> is sent to the output.`; break;
+      case "BRA": S.pc = a; h = {...h, regs:["PC"]}; msg = `The PC is set to <b>${a}</b>, so the next fetch comes from there. This is how loops work.`; break;
+      case "BRZ": if (S.acc === 0){ S.pc = a; h.regs = ["PC"]; msg = `The accumulator is 0, so the PC jumps to <b>${a}</b>.`; } else msg = `The accumulator is ${S.acc}, not 0, so nothing changes. The PC stays at ${S.pc}.`; break;
+      case "BRP": if (S.acc >= 0){ S.pc = a; h.regs = ["PC"]; msg = `The accumulator (${S.acc}) is zero or more, so the PC jumps to <b>${a}</b>.`; } else msg = `The accumulator is ${S.acc}, which is negative, so the PC stays at ${S.pc}.`; break;
+      case "HLT": S.halted = true; msg = `The program stops after <b>${S.cycles}</b> cycles.`; break;
+      default: S.halted = true; msg = `<b>${v}</b> isn’t a valid instruction. Did the program run into its data? The computer stops.`;
+    }
+    narr.innerHTML = `<b>Execute.</b> ${msg}`;
+    render(h); S.phase = 0;
+    if (S.halted) stop();
+  }
+  function stop(){ clearInterval(S.timer); S.timer = null; $("#cpuRun").textContent = "Run"; }
+  $("#cpuStep").addEventListener("click", () => { stop(); step(); });
+  $("#cpuRun").addEventListener("click", () => {
+    if (S.timer){ stop(); return; }
+    if (S.halted) reset(true);
+    const ms = [1600, 1100, 700, 380, 160][Number($("#cpuSpeed").value) - 1];
+    $("#cpuRun").textContent = "Pause"; step();
+    S.timer = setInterval(() => { step(); if (S.halted) stop(); }, ms);
+  });
+  $("#cpuReset").addEventListener("click", () => reset());
+  $("#cpuPreset").addEventListener("change", e => { $("#cpuAsm").value = PRESETS[e.target.value]; load(PRESETS[e.target.value]); $("#cpuAsmMsg").textContent = ""; });
+  $("#cpuLoad").addEventListener("click", () => { if (load($("#cpuAsm").value)) narr.innerHTML = "<b>Loaded.</b> Your program is in memory. Press <b>Step</b> or <b>Run</b>."; });
+  $("#cpuSensor").addEventListener("input", e => $("#cpuSensorOut").textContent = e.target.value + "°C");
+  $("#cpuAsm").value = PRESETS.add; load(PRESETS.add); $("#cpuAsmMsg").textContent = "";
+})();
+
+/* =========================================================
+   PART 1.2  Memory hierarchy
+   ========================================================= */
+(function(){
+  const TICK = 0.3e-9;
+  const M = [
+    {n:"Registers", d:"Inside the CPU", t:0.3e-9},
+    {n:"Cache", d:"On the CPU chip", t:1e-9},
+    {n:"RAM", d:"Main memory, volatile", t:100e-9},
+    {n:"SSD", d:"Secondary storage", t:100e-6},
+    {n:"Hard disk", d:"Spinning secondary storage", t:10e-3},
+    {n:"Cloud server", d:"Across the internet", t:60e-3}
+  ];
+  const real = t => t < 1e-6 ? Math.round(t * 1e9 * 10) / 10 + " ns" : t < 1e-3 ? Math.round(t * 1e6) + " µs" : Math.round(t * 1e3) + " ms";
+  const box = $("#memList");
+  M.forEach(m => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "mem";
+    b.innerHTML = `<span><b>${m.n}</b><small>${m.d} · real: ${real(m.t)}</small></span><span class="track"><span class="fill"></span></span><span class="t">tap</span>`;
+    b.setAttribute("aria-label", `${m.n}: tap to see the scaled waiting time`);
+    b.addEventListener("click", () => {
+      const scaled = m.t / TICK, fill = b.querySelector(".fill"), out = b.querySelector(".t");
+      const dur = reduced() ? 0 : 250 + 380 * Math.log10(scaled + 1);
+      fill.style.transition = "none"; fill.style.width = "0";
+      out.textContent = "waiting…";
+      requestAnimationFrame(() => requestAnimationFrame(() => { fill.style.transition = `width ${dur}ms linear`; fill.style.width = "100%"; }));
+      setTimeout(() => out.textContent = "≈ " + fmtDur(scaled), dur);
+    });
+    box.appendChild(b);
+  });
+})();
+
+/* =========================================================
+   PART 1.3  Route builder + packets
+   ========================================================= */
+(function(){
+  const HOPS = [
+    {id:"bell", ic:"🔔", n:"Doorbell camera", s:"Sensor and camera"},
+    {id:"wifi", ic:"📶", n:"Home router", s:"Wi-Fi, on the LAN"},
+    {id:"isp", ic:"🏢", n:"Internet service provider", s:"Your broadband company"},
+    {id:"net", ic:"🌐", n:"Internet routers", s:"Across the WAN"},
+    {id:"dc", ic:"🗄️", n:"Cloud data centre", s:"Doorbell company’s servers"},
+    {id:"mast", ic:"📡", n:"Mobile phone mast", s:"4G or 5G network"},
+    {id:"phone", ic:"📱", n:"Your phone", s:"The app shows the alert"}
+  ];
+  const order = HOPS.map(h => h.id);
+  const shuffled = HOPS.slice().sort(() => Math.random() - .5);
+  let built = [];
+  const hopsEl = $("#hops"), rb = $("#routeBuilt"), fb = $("#routeFb");
+  shuffled.forEach(h => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "hop"; b.dataset.id = h.id;
+    b.innerHTML = `<span class="ic" aria-hidden="true">${h.ic}</span><b>${h.n}</b><span>${h.s}</span>`;
+    b.addEventListener("click", () => { if (built.includes(h.id)) return; built.push(h.id); draw(); });
+    hopsEl.appendChild(b);
+  });
+  function draw(){
+    $$(".hop", hopsEl).forEach(b => { const u = built.includes(b.dataset.id); b.classList.toggle("used", u); b.disabled = u; });
+    if (!built.length){ rb.innerHTML = '<span class="small">Your route will appear here.</span>'; fb.hidden = true; return; }
+    const done = built.length === order.length;
+    rb.innerHTML = built.map((id, i) => { const h = HOPS.find(x => x.id === id); const bad = done && id !== order[i]; return `<span class="rb${bad ? " bad" : ""}">${i + 1}. ${h.n}</span>`; }).join('<span class="arr" aria-hidden="true">→</span>');
+    if (done){
+      fb.hidden = false;
+      const right = built.every((id, i) => id === order[i]);
+      fb.className = "fbbox " + (right ? "good" : "bad");
+      fb.innerHTML = right
+        ? "<b>Correct.</b> The doorbell sends packets over your home <b>LAN</b> (Wi-Fi) to the router, which forwards them to your provider and across the internet <b>WAN</b> to the data centre. The company’s servers store the video and send a notification out through the mobile network to your phone. The whole trip takes about a second."
+        : "<b>Not quite.</b> The red stops are in the wrong place. Hint: the data has to reach the company’s servers before your phone can be told about it. Press Clear and try again.";
+    }
+  }
+  $("#routeUndo").addEventListener("click", () => { built.pop(); draw(); });
+  $("#routeClear").addEventListener("click", () => { built = []; draw(); });
+
+  // network
+  const svg = $("#netSvg"), NS = "http://www.w3.org/2000/svg";
+  const N = {home:[40,150,"Home router","LAN → WAN"], isp:[135,150,"ISP","exchange"], r1:[245,62,"Router A",""], r2:[245,238,"Router B",""], r3:[365,62,"Router C",""], r4:[365,238,"Router D",""], dc:[475,150,"Data centre","cloud"]};
+  const L = [["home","isp"],["isp","r1"],["isp","r2"],["r1","r3"],["r2","r4"],["r1","r4"],["r2","r3"],["r3","dc"],["r4","dc"]];
+  const down = new Set();
+  const PATHS = [["home","isp","r1","r3","dc"],["home","isp","r1","r4","dc"],["home","isp","r2","r4","dc"],["home","isp","r2","r3","dc"]];
+  const colors = ["#F2A93B","#2EC4B6","#8B7BFF","#E85D75","#4FA3F7","#7BC950"];
+  function mk(tag, a){ const e = document.createElementNS(NS, tag); for (const k in a) e.setAttribute(k, a[k]); return e; }
+  function drawNet(){
+    svg.innerHTML = "";
+    L.forEach(([a, b]) => { const dn = down.has(a) || down.has(b); svg.appendChild(mk("line", {x1:N[a][0], y1:N[a][1], x2:N[b][0], y2:N[b][1], class:"link" + (dn ? " down" : "")})); });
+    for (const k in N){
+      const [x, y, t, s] = N[k], dn = down.has(k);
+      svg.appendChild(mk("circle", {cx:x, cy:y, r:k === "home" || k === "dc" ? 24 : 18, class:"node" + (dn ? " down" : "")}));
+      const tx = mk("text", {x, y:y + (y > 200 ? 40 : y < 100 ? -28 : 40), "text-anchor":"middle"}); tx.textContent = dn ? t + " ✕" : t; svg.appendChild(tx);
+      if (s){ const st = mk("text", {x, y:y + (y > 200 ? 53 : y < 100 ? -15 : 53), "text-anchor":"middle", class:"sub"}); st.textContent = s; svg.appendChild(st); }
+    }
+  }
+  drawNet();
+  let sending = false;
+  function livePaths(){ return PATHS.filter(p => !p.some(n => down.has(n))); }
+  $("#netBreak").addEventListener("click", () => {
+    if (sending) return;
+    const cand = ["r1","r2","r3","r4"].filter(r => !down.has(r)).sort(() => Math.random() - .5);
+    for (const r of cand){ down.add(r); if (livePaths().length) { drawNet(); $("#netMsg").innerHTML = `<b>${N[r][2]} has failed.</b> Send again: packets will be routed around it.`; return; } down.delete(r); }
+    $("#netMsg").innerHTML = "Breaking another router would cut the data centre off completely, so the simulator won’t let you. Real networks have many extra routes for this reason.";
+  });
+  $("#netFix").addEventListener("click", () => { if (sending) return; down.clear(); drawNet(); $("#netMsg").textContent = "All routers working."; });
+  $("#netSend").addEventListener("click", () => {
+    if (sending) return;
+    const paths = livePaths(); if (!paths.length) return;
+    sending = true; drawNet();
+    const re = $("#reasm"); re.innerHTML = ""; const arrived = [];
+    $("#netMsg").textContent = "Packets are on their way. Each router picks a working route…";
+    const total = 6; let done = 0;
+    for (let i = 0; i < total; i++){
+      const p = paths[Math.floor(Math.random() * paths.length)];
+      const pts = p.map(n => [N[n][0], N[n][1]]);
+      const segs = []; let len = 0;
+      for (let j = 0; j < pts.length - 1; j++){ const d = Math.hypot(pts[j+1][0] - pts[j][0], pts[j+1][1] - pts[j][1]); segs.push(d); len += d; }
+      const g = mk("g", {}); const c = mk("circle", {r:9, class:"pkt", fill:colors[i], cx:pts[0][0], cy:pts[0][1]});
+      const t = mk("text", {"text-anchor":"middle", "font-size":"10", "font-weight":"700", fill:"#141B33", x:pts[0][0], y:pts[0][1] + 3.5}); t.textContent = i + 1;
+      g.appendChild(c); g.appendChild(t); svg.appendChild(g);
+      const delay = reduced() ? i * 60 : i * 260, dur = reduced() ? 200 : 1400 + Math.random() * 1400 + (len - 450) * 3;
+      const start = performance.now() + delay;
+      const tick = now => {
+        const k = Math.min(1, Math.max(0, (now - start) / dur));
+        let dist = k * len, j = 0; while (j < segs.length - 1 && dist > segs[j]){ dist -= segs[j]; j++; }
+        const f = segs[j] ? dist / segs[j] : 1;
+        const x = pts[j][0] + (pts[j+1][0] - pts[j][0]) * f, y = pts[j][1] + (pts[j+1][1] - pts[j][1]) * f;
+        c.setAttribute("cx", x); c.setAttribute("cy", y); t.setAttribute("x", x); t.setAttribute("y", y + 3.5);
+        if (k < 1) requestAnimationFrame(tick);
+        else {
+          g.remove(); arrived.push(i + 1); done++;
+          re.innerHTML = arrived.map(n => `<span class="in" style="border-left:4px solid ${colors[n-1]}">${n}</span>`).join("");
+          if (done === total){
+            const inOrder = arrived.every((n, x) => n === x + 1);
+            re.innerHTML += `<span style="border:0;background:none">→ reassembled: ${[1,2,3,4,5,6].join(" ")} ✓</span>`;
+            $("#netMsg").innerHTML = inOrder ? "This time they happened to arrive in order. Send again and watch for overtaking." : "<b>They arrived out of order</b> because they took different routes. The data centre uses the sequence numbers to put the photo back together. If one never arrived, it would ask for it to be sent again.";
+            sending = false;
+          }
+        }
+      };
+      requestAnimationFrame(tick);
+    }
+  });
+})();
+
+/* =========================================================
+   PART 1.4  Bandwidth
+   ========================================================= */
+(function(){
+  const FILES = [
+    {n:"Email", b:5e3, note:"A short text email, about 5 KB."},
+    {n:"Photo", b:4e6, note:"A phone photo, about 4 MB."},
+    {n:"Song", b:5e6, note:"A three-minute song, about 5 MB."},
+    {n:"HD film", b:4e9, note:"A two-hour film in HD, about 4 GB."},
+    {n:"Game update", b:50e9, note:"A big console game download, about 50 GB."}
+  ];
+  const NETS = [
+    {n:"1983 Prestel modem", s:"1,200 bit/s", bps:1200, c:"var(--past)"},
+    {n:"1996 dial-up", s:"28.8 kbit/s", bps:28800, c:"var(--past)"},
+    {n:"2008 broadband", s:"8 Mbit/s", bps:8e6, c:"var(--now)"},
+    {n:"2026 4G phone", s:"~40 Mbit/s", bps:40e6, c:"var(--now)"},
+    {n:"2026 full fibre", s:"900 Mbit/s", bps:900e6, c:"var(--fut)"}
+  ];
+  let cur = 1;
+  const fEl = $("#bwFiles"), rows = $("#bwRows");
+  FILES.forEach((f, i) => { const b = document.createElement("button"); b.type = "button"; b.className = "opt"; b.textContent = f.n; b.addEventListener("click", () => { cur = i; draw(); }); fEl.appendChild(b); });
+  NETS.forEach(n => { const r = document.createElement("div"); r.className = "bwr"; r.innerHTML = `<span><b>${n.n}</b><small>${n.s}</small></span><span class="track"><span class="fill" style="background:${n.c};opacity:.35"></span><span class="val"></span></span>`; rows.appendChild(r); });
+  function draw(){
+    $$(".opt", fEl).forEach((b, i) => b.setAttribute("aria-pressed", i === cur));
+    const f = FILES[cur]; $("#bwNote").textContent = f.note;
+    const ts = NETS.map(n => f.b * 8 / n.bps);
+    const lo = Math.log10(0.001), hi = Math.log10(Math.max(...ts) * 1.2);
+    $$(".bwr", rows).forEach((r, i) => {
+      const w = Math.max(3, (Math.log10(Math.max(ts[i], 0.001)) - lo) / (hi - lo) * 100);
+      r.querySelector(".fill").style.width = w + "%"; r.querySelector(".val").textContent = fmtDur(ts[i]);
+    });
+  }
+  draw();
+})();
+
+/* =========================================================
+   PART 2.2  Prediction lab
+   ========================================================= */
+(function(){
+  const P = [
+    {y:"1974", who:"Arthur C. Clarke, ABC TV interview", p:"A child today will have a computer at home that gives them bank statements, theatre bookings and all the information they need, and people will be able to work from anywhere.", v:"hit", happened:"Online banking, booking and remote working are everyday life.", then:"Computers filled rooms and cost a fortune. No public network linked homes.", now:"Microprocessors, cheap memory, the internet and broadband."},
+    {y:"1979", who:"Tomorrow’s World", p:"You will carry a telephone with you and make calls on the move.", v:"hit", happened:"Most UK secondary pupils own a smartphone.", then:"Heavy batteries, few masts, analogue radio, large chips.", now:"Cellular networks, lithium-ion batteries and tiny low-power chips."},
+    {y:"1979", who:"BBC report on word processors", p:"Word processors will start a home working revolution: office work done from home.", v:"part", happened:"It came true, but about 40 years later: home working only became normal for millions during 2020.", then:"No fast home network to share documents. Offices expected people at desks.", now:"Broadband, cloud documents, video calls, and a pandemic that forced the change."},
+    {y:"1984", who:"Gateshead teleshopping trial", p:"Older people will order their groceries from home using a TV and phone line. (72-year-old Jane Snowball did it in May 1984.)", v:"hit", happened:"Online grocery shopping is normal, but took about 20 years to become common.", then:"A specially modified TV, slow phone-line connections, very few users.", now:"Home broadband, smartphones, secure online payments and delivery networks."},
+    {y:"1986", who:"Tomorrow’s World", p:"Email will let people send messages instantly to anyone with a computer.", v:"hit", happened:"Billions of emails are sent every day, and messaging apps went even further.", then:"Few people had a computer, modems were slow and networks didn’t link up.", now:"The internet joined the world’s networks together; everyone has a device."},
+    {y:"1986", who:"Tomorrow’s World", p:"Cars will have screens showing a map and your position, guiding you to where you want to go.", v:"hit", happened:"Sat nav is built into phones and cars.", then:"The GPS satellite network wasn’t finished, and its accuracy for public use was deliberately limited.", now:"A full GPS constellation (plus others), colour screens, and live traffic over mobile data."},
+    {y:"1981", who:"Tomorrow’s World, compact disc launch", p:"The compact disc is tough enough to survive rough treatment and will give perfect sound for ever.", v:"miss", happened:"CDs scratch and can fail. And for most people they were replaced by downloads, then streaming.", then:"CDs were brand new and only lab-tested.", now:"Fast networks made physical music media unnecessary for most listeners."},
+    {y:"1989", who:"Tomorrow’s World, home of the future", p:"By 2020, music will play when you ask for it out loud.", v:"hit", happened:"Smart speakers and voice assistants do exactly this.", then:"Speech recognition needed far more processing power than a home could afford.", now:"Cloud data centres, machine learning trained on huge amounts of speech, and fast home Wi-Fi."},
+    {y:"1989", who:"Tomorrow’s World, home of the future", p:"By 2020, heating will learn your routine and only heat rooms that are being used.", v:"hit", happened:"Smart thermostats and room-by-room smart valves exist, though not every home has them.", then:"No cheap sensors or home networks to connect them.", now:"Cheap temperature and motion sensors, Wi-Fi and phone apps."},
+    {y:"1989", who:"Tomorrow’s World, home of the future", p:"By 2020, walls will switch from solid to see-through and show films.", v:"miss", happened:"Smart glass exists but is expensive and rare in homes. TVs got thin instead of walls getting smart.", then:"No large flat displays; no switchable glass at a sensible price.", now:"Still limited by cost and energy, not by computing."},
+    {y:"1986", who:"BBC Domesday Project", p:"Recording Britain on digital laser discs will preserve it for future generations.", v:"miss", happened:"Within about fifteen years almost nothing could read the discs. Volunteers had to rescue the data.", then:"Special hardware that was soon obsolete.", now:"Open file formats and copying data to new storage regularly (digital preservation)."},
+    {y:"1960s", who:"Popular magazines and films", p:"By the year 2000, families will travel by flying car.", v:"miss", happened:"Some prototypes and air-taxi trials exist, but no one commutes by flying car.", then:"Energy, noise, safety and air-traffic rules, not computing.", now:"Batteries and drones help, but safety, cost and regulation are still the bottleneck."},
+    {y:"1964", who:"AT&T Picturephone at the New York World’s Fair", p:"People will make video calls from home, seeing each other as they talk.", v:"part", happened:"Picturephone flopped: it was too expensive. Video calling only took off around 2010, on phones and laptops.", then:"Video needs a lot of bandwidth, and few people had one to call.", now:"Video compression, broadband, front cameras on every phone."},
+    {y:"1965", who:"Gordon Moore, chip engineer", p:"The number of components on a chip will keep doubling at a steady rate (later updated to every two years).", v:"hit", happened:"“Moore’s law” held for about fifty years, and it’s why your phone beats a 1990s supercomputer. It is now slowing down.", then:"A few dozen components per chip.", now:"Tens of billions of transistors on one chip."},
+    {y:"1975", who:"Business magazine forecast", p:"Computers will create the “paperless office”.", v:"part", happened:"Offices actually used more paper for decades because printing got easy. Paper use is only now falling.", then:"Screens were poor and documents couldn’t be shared easily.", now:"Cloud documents, e-signatures and tablets, though many people still print."}
+  ];
+  const LABEL = {hit:"Hit", part:"Partly", miss:"Miss"};
+  const votes = store.json("pl", {});
+  const grid = $("#predGrid");
+  function score(){ const k = Object.keys(votes); $("#plScore").textContent = `${k.filter(i => votes[i] === P[i].v).length} / ${k.length}`; }
+  function card(i){
+    const d = P[i], v = votes[i], el = document.createElement("article"); el.className = "pred";
+    el.innerHTML = `<div class="ph"><span><span class="y">${d.y}</span> · <span class="c">PREDICTION</span></span><span>${esc(d.p)}</span></div>
+      <div class="pb"><span class="src">${esc(d.who)}</span>
+      <div class="vote" role="group" aria-label="Your verdict">${["hit","part","miss"].map(k => `<button type="button" data-k="${k}" class="${v === k ? "pick" : ""}">${LABEL[k]}</button>`).join("")}</div>
+      ${v ? `<div class="verdict ${d.v}"><b>History says: ${LABEL[d.v]}${v === d.v ? " · you agreed" : ""}</b><span>${esc(d.happened)}</span><dl><dt>Then</dt><dd>${esc(d.then)}</dd><dt>Now</dt><dd>${esc(d.now)}</dd></dl></div>` : ""}</div>`;
+    $$(".vote button", el).forEach(b => b.addEventListener("click", () => { votes[i] = b.dataset.k; store.set("pl", JSON.stringify(votes)); el.replaceWith(card(i)); score(); }));
+    return el;
+  }
+  P.forEach((_, i) => grid.appendChild(card(i)));
+  score();
+  $("#plReset").addEventListener("click", () => { for (const k in votes) delete votes[k]; store.del("pl"); grid.innerHTML = ""; P.forEach((_, i) => grid.appendChild(card(i))); score(); });
+})();
+
+/* =========================================================
+   PART 2.3  Myths
+   ========================================================= */
+(function(){
+  const M = [
+    {q:"640K ought to be enough for anybody.", who:"Said to be Bill Gates, Microsoft, 1981", a:"none", ex:"Nobody has found a recording or article from the time. Gates has said he never said it. It seems to have appeared years later and spread because it sounds funny."},
+    {q:"I think there is a world market for maybe five computers.", who:"Said to be Thomas Watson, IBM, 1943", a:"none", ex:"There’s no evidence from 1943. The quote first turns up decades later. Early computers were huge and rare, which is why people believed it."},
+    {q:"There is no reason for any individual to have a computer in their home.", who:"Ken Olsen, Digital Equipment Corporation, 1977", a:"context", ex:"He did say something like this, but he later explained he meant a computer that controlled your whole house, not a personal computer. His company made personal computers."},
+    {q:"…it will be as natural to him as we find the telephone.", who:"Arthur C. Clarke, ABC TV, 1974, describing a child’s future home computer", a:"real", ex:"It’s on film, with the date, the broadcaster and Clarke on camera. That’s what a strong primary source looks like."}
+  ];
+  const L = {real:"Real", context:"Real, but out of context", none:"No good evidence"};
+  const box = $("#myths");
+  M.forEach(m => {
+    const el = document.createElement("div"); el.className = "myth";
+    el.innerHTML = `<q>${esc(m.q)}</q><span class="who">${esc(m.who)}</span><div class="vote" style="grid-template-columns:1fr">${Object.keys(L).map(k => `<button type="button" data-k="${k}">${L[k]}</button>`).join("")}</div><div class="fb"></div>`;
+    $$("button", el).forEach(b => b.addEventListener("click", () => {
+      $$("button", el).forEach(x => x.classList.toggle("pick", x === b));
+      const ok = b.dataset.k === m.a;
+      el.querySelector(".fb").innerHTML = `<div class="verdict ${ok ? "hit" : "miss"}"><b>${ok ? "Yes" : "Not quite"}: ${L[m.a]}.</b><span>${esc(m.ex)}</span></div>`;
+    }));
+    box.appendChild(el);
+  });
+})();
+
+/* =========================================================
+   PART 2.4  Spec comparison + matrix
+   ========================================================= */
+(function(){
+  const D = [
+    {m:"Clock speed", u:"MHz", rows:[["BBC Micro (1981)",2,"2 MHz"],["micro:bit V2 (2020)",64,"64 MHz"],["Phone (2026)",3200,"~3.2 GHz"]]},
+    {m:"RAM", u:"KB", rows:[["BBC Micro (1981)",32,"32 KB"],["micro:bit V2 (2020)",128,"128 KB"],["Phone (2026)",8e6,"~8 GB"]]},
+    {m:"Storage", u:"KB", rows:[["BBC Micro (1981)",100,"100 KB disk"],["micro:bit V2 (2020)",512,"512 KB"],["Phone (2026)",256e6,"~256 GB"]]}
+  ];
+  const col = ["var(--past)","var(--now)","var(--fut)"];
+  const box = $("#specBars");
+  D.forEach(d => {
+    const max = Math.log10(Math.max(...d.rows.map(r => r[1]))) + .3;
+    const r = document.createElement("div"); r.className = "spec-row";
+    r.innerHTML = `<b>${d.m}</b><div class="spec-bars">${d.rows.map((x, i) => `<div class="sb"><span>${x[0]}</span><span class="track"><span class="fill" data-w="${Math.max(3, Math.log10(x[1]) / max * 100)}" style="background:${col[i]};width:0"></span></span><span class="v">${x[2]}</span></div>`).join("")}</div>`;
+    box.appendChild(r);
+  });
+  box.insertAdjacentHTML("beforeend", `<p class="small">The micro:bit you’ll program in Part 3 is <b>32 times faster</b> than the BBC Micro and has <b>4 times the memory</b>. A 2026 phone has about <b>250,000 times</b> the BBC Micro’s RAM.</p>`);
+  const grow = () => $$(".fill[data-w]", box).forEach(f => f.style.width = f.dataset.w + "%");
+  if ("IntersectionObserver" in window){ const io = new IntersectionObserver(e => { if (e.some(x => x.isIntersecting)){ grow(); io.disconnect(); } }, {threshold:.3}); io.observe(box); } else grow();
+
+  // matrix
+  const DEF = [
+    {pred:"Home automation consoles (1980s)", modern:"Voice assistants such as Alexa and Siri", then:"Dial-up internet, very little RAM", now:"Fast Wi-Fi, cloud AI", v:"Hit"},
+    {pred:"In-car map systems (1986)", modern:"Live GPS and traffic apps", then:"GPS network not finished, no colour flat screens", now:"GPS satellites, 4G and 5G, smartphones", v:"Hit"}
+  ];
+  let rows = store.json("mx", null) || JSON.parse(JSON.stringify(DEF));
+  const tb = $("#matrix tbody");
+  const save = () => { store.set("mx", JSON.stringify(rows)); flash($("#mxSaved")); };
+  function draw(){
+    tb.innerHTML = "";
+    rows.forEach((r, i) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = ["pred","modern","then","now"].map(k => `<td><textarea data-k="${k}" aria-label="${k}">${esc(r[k])}</textarea></td>`).join("") +
+        `<td><select data-k="v" aria-label="Verdict">${["","Hit","Partly","Miss","Not yet"].map(o => `<option${o === r.v ? " selected" : ""}>${o}</option>`).join("")}</select></td><td><button class="btn sm" type="button" aria-label="Delete row">✕</button></td>`;
+      $$("[data-k]", tr).forEach(el => el.addEventListener(el.tagName === "SELECT" ? "change" : "input", () => { rows[i][el.dataset.k] = el.value; save(); }));
+      tr.querySelector("button").addEventListener("click", () => { rows.splice(i, 1); save(); draw(); });
+      tb.appendChild(tr);
+    });
+  }
+  draw();
+  $("#mxAdd").addEventListener("click", () => { rows.push({pred:"", modern:"", then:"", now:"", v:""}); save(); draw(); $$("textarea", tb).slice(-4)[0].focus(); });
+  $("#mxReset").addEventListener("click", () => { if (!confirm("Clear your matrix and start again?")) return; rows = JSON.parse(JSON.stringify(DEF)); save(); draw(); });
+  $("#mxCsv").addEventListener("click", () => {
+    const q = s => `"${String(s ?? "").replace(/"/g, '""')}"`;
+    const csv = [["Prediction (year)","Modern equivalent","Hardware bottleneck then","Enabling tech today","Verdict"].map(q).join(","), ...rows.map(r => [r.pred, r.modern, r.then, r.now, r.v].map(q).join(","))].join("\r\n");
+    download("evaluation-matrix.csv", "﻿" + csv, "text/csv");
+  });
+})();
+
+/* =========================================================
+   PART 3  micro:bit simulator + code
+   ========================================================= */
+(function(){
+  const IC = {
+    Yes:"00000 00001 00010 10100 01000", No:"10001 01010 00100 01010 10001", Happy:"00000 01010 00000 10001 01110",
+    Sad:"00000 01010 00000 01110 10001", Heart:"01010 11111 11111 01110 00100", SmallDiamond:"00000 00100 01010 00100 00000",
+    Asleep:"00000 11011 00000 01110 00000", Blank:"00000 00000 00000 00000 00000"
+  };
+  function mkLeds(el){ el.innerHTML = ""; for (let i = 0; i < 25; i++){ const d = document.createElement("span"); d.className = "led"; el.appendChild(d); } }
+  const LA = $("#ledsA"), LB = $("#ledsB"); mkLeds(LA); mkLeds(LB);
+  function show(el, pat){ const bits = pat.replace(/ /g, ""); $$(".led", el).forEach((l, i) => l.classList.toggle("on", bits[i] === "1")); }
+  function bars(el, v, max){ // like led.plotBarGraph: fills from bottom
+    const n = Math.round(Math.max(0, Math.min(1, v / max)) * 25); let s = "";
+    for (let r = 0; r < 5; r++) for (let c = 0; c < 5; c++){ const idx = (4 - r) * 5 + c; s += idx < n ? "1" : "0"; }
+    show(el, s);
+  }
+  const SC = {
+    greenhouse: {tab:"Smart greenhouse", desc:"A sensor in the greenhouse warns the gardener’s receiver when plants get too cold (or too dark). It only sends a message when things <b>change</b>, so it doesn’t flood the network."},
+    security: {tab:"Silent alarm", desc:"The sensor micro:bit sits on something valuable. If it’s moved, it silently sends an alert to the monitoring station. Button A on the sensor arms and disarms it. Button A on the receiver clears the alert."},
+    health: {tab:"Step tracker", desc:"The sensor is worn like a fitness tracker. Each shake counts as a step. When you hit your goal it tells a friend’s micro:bit. Button B on the sensor resets the count."}
+  };
+  const S = {sc:"greenhouse", gMeasure:"temp", temp:18, light:120, strength:1024, armed:true, steps:0, sent:false, cold:false, lastAlert:0, th:{temp:10, light:50, security:1500, health:20}, gA:1, gB:1, lang:"js"};
+  const log = $("#mbLog"), tip = $("#mbTip");
+  function addLog(html, cls){ const d = document.createElement("div"); if (cls) d.className = cls; d.innerHTML = html; log.appendChild(d); while (log.children.length > 60) log.firstChild.remove(); log.scrollTop = log.scrollHeight; }
+  const shift = (s, k) => s.replace(/[A-Z]/g, c => String.fromCharCode((c.charCodeAt(0) - 65 + k + 26) % 26 + 65));
+  function send(msg){
+    const scr = $("#scramble").checked, wire = scr ? shift(msg, 3) : msg;
+    const air = $("#airMsg"); air.textContent = wire; air.classList.remove("go","lost"); void air.offsetWidth;
+    const ok = S.gA === S.gB; air.classList.add("go"); if (!ok) air.classList.add("lost");
+    addLog(`<span class="s">sensor → group ${S.gA}:</span> "${esc(wire)}"`);
+    if ($("#spy").checked && S.gA === 1) addLog(`neighbour on group 1 heard: "${esc(wire)}"${scr ? " (looks like nonsense)" : ""}`, "e");
+    setTimeout(() => {
+      if (!ok){ addLog(`receiver on group ${S.gB} heard nothing`, "w"); tip.innerHTML = `<b>Nothing arrived.</b> The sensor is on group ${S.gA} but the receiver is listening on group ${S.gB}. A radio group is part of the <b>protocol</b>: both sides must agree.`; return; }
+      const got = scr ? shift(wire, -3) : wire;
+      receive(got, scr);
+    }, reduced() ? 50 : 650);
+  }
+  function receive(m, scr){
+    addLog(`receiver got: "${esc(m)}"${scr ? " (unscrambled with the shared secret)" : ""}`);
+    if (m === "COLD" || m === "DARK"){ show(LB, IC.Sad); tip.innerHTML = `<b>Alert received.</b> The receiver shows a sad face${m === "COLD" ? " and would beep" : ""}. In a real greenhouse this could switch on a heater or text the gardener.`; }
+    else if (m === "OK"){ show(LB, IC.Happy); tip.innerHTML = "<b>Back to normal.</b> The sensor only sent this because the reading crossed back over the threshold."; }
+    else if (m === "ALERT"){ show(LB, IC.No); tip.innerHTML = "<b>Alarm!</b> The monitoring station shows a cross and sounds a tone. The sensor stayed silent, so a thief wouldn’t know. Press A on the receiver to clear it."; }
+    else if (m === "GOAL"){ show(LB, IC.Heart); tip.innerHTML = "<b>Goal reached.</b> Your friend’s micro:bit shows a heart. Notice the tracker only sent <i>one</i> message, not every single step."; }
+  }
+  function ctrls(){
+    const c = $("#scCtrls"), th = $("#thIn");
+    if (S.sc === "greenhouse"){
+      c.innerHTML = `<div class="ctl short"><span class="small">Measure</span><select id="gm"><option value="temp">Temperature</option><option value="light">Light level</option></select></div>
+        <div class="ctl"><span class="small">Temperature</span><input type="range" id="sTemp" min="-5" max="35" value="${S.temp}" aria-label="Temperature"><output id="oTemp">${S.temp}°C</output></div>
+        <div class="ctl"><span class="small">Light level</span><input type="range" id="sLight" min="0" max="255" value="${S.light}" aria-label="Light level"><output id="oLight">${S.light}</output></div>`;
+      $("#gm").value = S.gMeasure;
+      $("#gm").addEventListener("change", e => { S.gMeasure = e.target.value; S.cold = false; show(LA, IC.Happy); show(LB, IC.Yes); thSetup(); code(); });
+      $("#sTemp").addEventListener("input", e => { S.temp = +e.target.value; $("#oTemp").textContent = S.temp + "°C"; });
+      $("#sLight").addEventListener("input", e => { S.light = +e.target.value; $("#oLight").textContent = S.light; });
+    } else if (S.sc === "security"){
+      c.innerHTML = `<div class="row-btns"><button class="btn sm" type="button" data-f="1300">Nudge it</button><button class="btn sm" type="button" data-f="2100">Pick it up</button><button class="btn sm" type="button" data-f="3000">Grab and run</button></div>
+        <p class="small">At rest the accelerometer reads about <b>1024</b> (gravity). Movement adds to it. Now: <b id="oStr">1024</b></p>`;
+      $$("[data-f]", c).forEach(b => b.addEventListener("click", () => { S.strength = +b.dataset.f; $("#oStr").textContent = S.strength; $("#mbA").classList.remove("shake"); void $("#mbA").offsetWidth; $("#mbA").classList.add("shake"); clearTimeout(S._st); S._st = setTimeout(() => { S.strength = 1024; $("#oStr").textContent = 1024; }, 900); }));
+    } else {
+      c.innerHTML = `<div class="row-btns"><button class="btn sm" type="button" id="step1">Take a step (shake)</button><button class="btn sm" type="button" id="step10">Walk 10 steps</button></div><p class="small">Steps counted: <b id="oSteps">${S.steps}</b></p>`;
+      $("#step1").addEventListener("click", () => stepOnce());
+      $("#step10").addEventListener("click", () => { let n = 0; const t = setInterval(() => { stepOnce(); if (++n >= 10) clearInterval(t); }, reduced() ? 20 : 180); });
+    }
+  }
+  function thSetup(){
+    const th = $("#thIn");
+    const cfg = S.sc === "greenhouse" ? (S.gMeasure === "temp" ? {min:-5, max:35, k:"temp", l:"Cold below", u:"°C"} : {min:0, max:255, k:"light", l:"Dark below", u:""})
+      : S.sc === "security" ? {min:1100, max:3000, k:"security", l:"Alarm above", u:""} : {min:5, max:50, k:"health", l:"Step goal", u:""};
+    th.min = cfg.min; th.max = cfg.max; th.value = S.th[cfg.k]; th.dataset.k = cfg.k; th.dataset.u = cfg.u;
+    $("#thLabel").textContent = cfg.l; $("#thOut").textContent = S.th[cfg.k] + cfg.u;
+  }
+  $("#thIn").addEventListener("input", e => { const k = e.target.dataset.k; S.th[k] = +e.target.value; $("#thOut").textContent = e.target.value + (e.target.dataset.u || ""); code(); });
+  function stepOnce(){
+    if (S.sc !== "health") return;
+    S.steps++; const o = $("#oSteps"); if (o) o.textContent = S.steps;
+    $("#mbA").classList.remove("shake"); void $("#mbA").offsetWidth; $("#mbA").classList.add("shake");
+    const goal = S.th.health;
+    if (S.steps >= goal && !S.sent){ S.sent = true; show(LA, IC.Heart); send("GOAL"); }
+    else if (!S.sent) bars(LA, S.steps, goal);
+  }
+  function loop(){
+    if (S.sc === "greenhouse"){
+      const isT = S.gMeasure === "temp", r = isT ? S.temp : S.light, th = isT ? S.th.temp : S.th.light;
+      if (r < th && !S.cold){ S.cold = true; show(LA, IC.Sad); send(isT ? "COLD" : "DARK"); }
+      else if (r >= th && S.cold){ S.cold = false; show(LA, IC.Happy); send("OK"); }
+    } else if (S.sc === "security"){
+      if (S.armed && S.strength > S.th.security && Date.now() - S.lastAlert > 2000){ S.lastAlert = Date.now(); send("ALERT"); }
+    }
+  }
+  setInterval(loop, 500);
+  // buttons on the boards
+  $("#mbA_a").addEventListener("click", () => {
+    if (S.sc === "security"){ S.armed = !S.armed; show(LA, S.armed ? IC.SmallDiamond : IC.Asleep); addLog(`sensor ${S.armed ? "armed" : "disarmed"} (button A)`, "w"); }
+    else if (S.sc === "greenhouse"){ addLog(`sensor shows reading: ${S.gMeasure === "temp" ? S.temp + "°C" : S.light} (button A)`, "w"); }
+    else addLog(`sensor shows step count: ${S.steps} (button A)`, "w");
+  });
+  $("#mbA_b").addEventListener("click", () => { if (S.sc === "health"){ S.steps = 0; S.sent = false; show(LA, IC.Blank); const o = $("#oSteps"); if (o) o.textContent = 0; addLog("steps reset (button B)", "w"); } });
+  $("#mbB_a").addEventListener("click", () => { if (S.sc === "security"){ show(LB, IC.Blank); addLog("receiver: alert cleared (button A)", "w"); } });
+  $("#mbB_b").addEventListener("click", () => {});
+  function setScenario(k){
+    S.sc = k; S.cold = false; S.steps = 0; S.sent = false; S.armed = true; S.strength = 1024;
+    $$("#scTabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.k === k));
+    $("#scDesc").innerHTML = SC[k].desc;
+    show(LA, k === "security" ? IC.SmallDiamond : k === "greenhouse" ? IC.Happy : IC.Blank); show(LB, IC.Yes);
+    log.innerHTML = ""; addLog(`scenario: ${SC[k].tab}`, "w");
+    tip.innerHTML = {greenhouse:"Drag the temperature below the threshold and watch the radio log.", security:"Try “Nudge it”. Does it set off the alarm? Then try picking it up.", health:"Walk until you hit the goal. How many messages were sent?"}[k];
+    ctrls(); thSetup(); code();
+  }
+  const tabs = $("#scTabs");
+  Object.keys(SC).forEach(k => { const b = document.createElement("button"); b.type = "button"; b.role = "tab"; b.dataset.k = k; b.textContent = SC[k].tab; b.addEventListener("click", () => setScenario(k)); tabs.appendChild(b); });
+  // groups
+  ["gA","gB"].forEach(id => { const s = $("#" + id); for (let g = 0; g <= 9; g++){ const o = document.createElement("option"); o.value = g; o.textContent = "Group " + g; s.appendChild(o); } s.value = 1;
+    s.addEventListener("change", () => { S[id] = +s.value; $(id === "gA" ? "#grpA" : "#grpB").textContent = "G" + s.value; if (id === "gA") code(); addLog(`${id === "gA" ? "sensor" : "receiver"} now on group ${s.value}`, "w"); }); });
+  $("#spy").addEventListener("change", e => { addLog(e.target.checked ? "a neighbour’s micro:bit is listening on group 1" : "neighbour gone", "e"); });
+  $("#scramble").addEventListener("change", e => { addLog(e.target.checked ? "scrambling on: letters shift 3 places (shared secret: 3)" : "scrambling off", "w"); code(); });
+
+  /* ---- code generation ---- */
+  function codeFor(){
+    const g = S.gA, scr = $("#scramble").checked;
+    if (S.sc === "greenhouse"){
+      const t = S.gMeasure === "temp", th = t ? S.th.temp : S.th.light, rd = t ? "input.temperature()" : "input.lightLevel()", pyrd = t ? "temperature()" : "display.read_light_level()", w = t ? "COLD" : "DARK";
+      return {
+        jsA: `// Smart greenhouse: SENSOR micro:bit\nradio.setGroup(${g})\nlet alert = false\nbasic.showIcon(IconNames.Happy)\n\nbasic.forever(function () {\n    let reading = ${rd}\n    if (reading < ${th} && !alert) {\n        alert = true\n        radio.sendString(${scr ? `scramble("${w}")` : `"${w}"`})\n        basic.showIcon(IconNames.Sad)\n    } else if (reading >= ${th} && alert) {\n        alert = false\n        radio.sendString(${scr ? `scramble("OK")` : `"OK"`})\n        basic.showIcon(IconNames.Happy)\n    }\n    basic.pause(500)\n})\n\n// Button A shows the current reading\ninput.onButtonPressed(Button.A, function () {\n    basic.showNumber(${rd})\n})`,
+        jsB: `// Smart greenhouse: RECEIVER micro:bit\nradio.setGroup(${g})\nbasic.showIcon(IconNames.Yes)\n\nradio.onReceivedString(function (receivedString) {\n    let message = ${scr ? "unscramble(receivedString)" : "receivedString"}\n    if (message == "${w}") {\n        basic.showIcon(IconNames.Sad)\n        music.playTone(262, music.beat(BeatFraction.Half))\n    } else if (message == "OK") {\n        basic.showIcon(IconNames.Happy)\n    }\n})`,
+        pyA: `# Smart greenhouse: SENSOR micro:bit\nfrom microbit import *\nimport radio\n\nradio.on()\nradio.config(group=${g})\nalert = False\ndisplay.show(Image.HAPPY)\n\nwhile True:\n    reading = ${pyrd}\n    if reading < ${th} and not alert:\n        alert = True\n        radio.send(${scr ? `scramble("${w}")` : `"${w}"`})\n        display.show(Image.SAD)\n    elif reading >= ${th} and alert:\n        alert = False\n        radio.send(${scr ? `scramble("OK")` : `"OK"`})\n        display.show(Image.HAPPY)\n    if button_a.was_pressed():\n        display.scroll(str(${pyrd}))\n    sleep(500)`,
+        pyB: `# Smart greenhouse: RECEIVER micro:bit\nfrom microbit import *\nimport radio\nimport music\n\nradio.on()\nradio.config(group=${g})\ndisplay.show(Image.YES)\n\nwhile True:\n    message = radio.receive()\n    if message:\n        message = ${scr ? "unscramble(message)" : "message"}\n        if message == "${w}":\n            display.show(Image.SAD)\n            music.play(music.BA_DING)\n        elif message == "OK":\n            display.show(Image.HAPPY)\n    sleep(50)`
+      };
+    }
+    if (S.sc === "security"){
+      const th = S.th.security;
+      return {
+        jsA: `// Silent alarm: SENSOR micro:bit\nradio.setGroup(${g})\nlet armed = true\nbasic.showIcon(IconNames.SmallDiamond)\n\n// Button A arms and disarms\ninput.onButtonPressed(Button.A, function () {\n    armed = !armed\n    if (armed) {\n        basic.showIcon(IconNames.SmallDiamond)\n    } else {\n        basic.showIcon(IconNames.Asleep)\n    }\n})\n\nbasic.forever(function () {\n    if (armed && input.acceleration(Dimension.Strength) > ${th}) {\n        radio.sendString(${scr ? `scramble("ALERT")` : `"ALERT"`})\n        basic.pause(2000) // don't flood the network\n    }\n    basic.pause(100)\n})`,
+        jsB: `// Silent alarm: RECEIVER (monitoring station)\nradio.setGroup(${g})\n\nradio.onReceivedString(function (receivedString) {\n    if (${scr ? "unscramble(receivedString)" : "receivedString"} == "ALERT") {\n        basic.showIcon(IconNames.No)\n        music.playTone(880, music.beat(BeatFraction.Whole))\n    }\n})\n\n// Button A clears the alert\ninput.onButtonPressed(Button.A, function () {\n    basic.clearScreen()\n})`,
+        pyA: `# Silent alarm: SENSOR micro:bit\nfrom microbit import *\nimport radio\n\nradio.on()\nradio.config(group=${g})\narmed = True\ndisplay.show(Image.DIAMOND_SMALL)\n\nwhile True:\n    if button_a.was_pressed():\n        armed = not armed\n        display.show(Image.DIAMOND_SMALL if armed else Image.ASLEEP)\n    x, y, z = accelerometer.get_values()\n    strength = (x * x + y * y + z * z) ** 0.5\n    if armed and strength > ${th}:\n        radio.send(${scr ? `scramble("ALERT")` : `"ALERT"`})\n        sleep(2000)  # don't flood the network\n    sleep(100)`,
+        pyB: `# Silent alarm: RECEIVER (monitoring station)\nfrom microbit import *\nimport radio\nimport music\n\nradio.on()\nradio.config(group=${g})\n\nwhile True:\n    message = radio.receive()\n    if message and ${scr ? "unscramble(message)" : "message"} == "ALERT":\n        display.show(Image.NO)\n        music.play(music.JUMP_UP)\n    if button_a.was_pressed():\n        display.clear()\n    sleep(50)`
+      };
+    }
+    const goal = S.th.health;
+    return {
+      jsA: `// Step tracker: SENSOR micro:bit (worn)\nradio.setGroup(${g})\nlet steps = 0\nlet sent = false\n\ninput.onGesture(Gesture.Shake, function () {\n    steps += 1\n    led.plotBarGraph(steps, ${goal})\n    if (steps >= ${goal} && !sent) {\n        sent = true\n        radio.sendString(${scr ? `scramble("GOAL")` : `"GOAL"`})\n        basic.showIcon(IconNames.Heart)\n    }\n})\n\n// Button A shows the count, button B resets\ninput.onButtonPressed(Button.A, function () {\n    basic.showNumber(steps)\n})\ninput.onButtonPressed(Button.B, function () {\n    steps = 0\n    sent = false\n    basic.clearScreen()\n})`,
+      jsB: `// Step tracker: RECEIVER (a friend's micro:bit)\nradio.setGroup(${g})\nbasic.showIcon(IconNames.Yes)\n\nradio.onReceivedString(function (receivedString) {\n    if (${scr ? "unscramble(receivedString)" : "receivedString"} == "GOAL") {\n        basic.showIcon(IconNames.Heart)\n        music.playTone(523, music.beat(BeatFraction.Half))\n    }\n})`,
+      pyA: `# Step tracker: SENSOR micro:bit (worn)\nfrom microbit import *\nimport radio\n\nradio.on()\nradio.config(group=${g})\nsteps = 0\nsent = False\n\nwhile True:\n    if accelerometer.was_gesture("shake"):\n        steps += 1\n        if steps >= ${goal} and not sent:\n            sent = True\n            radio.send(${scr ? `scramble("GOAL")` : `"GOAL"`})\n            display.show(Image.HEART)\n    if button_a.was_pressed():\n        display.scroll(str(steps))\n    if button_b.was_pressed():\n        steps = 0\n        sent = False\n        display.clear()\n    sleep(50)`,
+      pyB: `# Step tracker: RECEIVER (a friend's micro:bit)\nfrom microbit import *\nimport radio\nimport music\n\nradio.on()\nradio.config(group=${g})\ndisplay.show(Image.YES)\n\nwhile True:\n    message = radio.receive()\n    if message and ${scr ? "unscramble(message)" : "message"} == "GOAL":\n        display.show(Image.HEART)\n        music.play(music.POWER_UP)\n    sleep(50)`
+    };
+  }
+  const SCR_JS = `\n\n// Extension: scramble with a shared secret (shift letters by 3)\nfunction shiftText(text: string, key: number): string {\n    let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"\n    let out = ""\n    for (let i = 0; i < text.length; i++) {\n        let p = alphabet.indexOf(text.charAt(i))\n        if (p < 0) {\n            out = out + text.charAt(i)\n        } else {\n            out = out + alphabet.charAt((p + key + 26) % 26)\n        }\n    }\n    return out\n}\nfunction scramble(text: string): string {\n    return shiftText(text, 3)\n}\nfunction unscramble(text: string): string {\n    return shiftText(text, -3)\n}`;
+  const SCR_PY = `\n\n# Extension: scramble with a shared secret (shift letters by 3)\nALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"\n\ndef shift_text(text, key):\n    out = ""\n    for ch in text:\n        p = ALPHABET.find(ch)\n        out += ch if p < 0 else ALPHABET[(p + key) % 26]\n    return out\n\ndef scramble(text):\n    return shift_text(text, 3)\n\ndef unscramble(text):\n    return shift_text(text, -3)`;
+  const KW = new Set("let const function if else return while for in import from as def elif and or not True False true false None".split(" "));
+  function hl(src){
+    let out = "", i = 0;
+    while (i < src.length){
+      const ch = src[i], rest = src.slice(i);
+      let m;
+      if ((m = rest.match(/^(\/\/[^\n]*|#[^\n]*)/))) { out += `<span class="c">${esc(m[0])}</span>`; i += m[0].length; continue; }
+      if ((m = rest.match(/^("[^"\n]*"|'[^'\n]*')/))) { out += `<span class="s">${esc(m[0])}</span>`; i += m[0].length; continue; }
+      if ((m = rest.match(/^\d+(\.\d+)?/)) && !/[A-Za-z_]/.test(src[i-1] || "")) { out += `<span class="n">${m[0]}</span>`; i += m[0].length; continue; }
+      if ((m = rest.match(/^[A-Za-z_][A-Za-z0-9_]*/))) {
+        const w = m[0], next = src[i + w.length];
+        out += KW.has(w) ? `<span class="k">${w}</span>` : next === "(" ? `<span class="f">${w}</span>` : w;
+        i += w.length; continue;
+      }
+      out += esc(ch); i++;
+    }
+    return out;
+  }
+  let last = {};
+  function code(){
+    const c = codeFor(), scr = $("#scramble").checked, js = S.lang === "js";
+    let a = js ? c.jsA : c.pyA, b = js ? c.jsB : c.pyB;
+    if (scr){ if (js){ a += SCR_JS; b += SCR_JS; } else { a = a.replace("\n\nradio.on()", SCR_PY + "\n\nradio.on()"); b = b.replace("\n\nradio.on()", SCR_PY + "\n\nradio.on()"); } }
+    last = {codeA:a, codeB:b};
+    $("#codeA").innerHTML = hl(a); $("#codeB").innerHTML = hl(b);
+  }
+  $$("#langTabs button").forEach(b => b.addEventListener("click", () => { S.lang = b.dataset.lang; $$("#langTabs button").forEach(x => x.setAttribute("aria-selected", x === b)); code(); }));
+  $$("[data-copy]").forEach(b => b.addEventListener("click", async () => {
+    const t = last[b.dataset.copy] || "";
+    try { await navigator.clipboard.writeText(t); b.textContent = "Copied"; } catch(e){ const r = document.createRange(); r.selectNodeContents($("#" + b.dataset.copy)); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Selected: press Ctrl+C"; }
+    setTimeout(() => b.textContent = "Copy", 1600);
+  }));
+  setScenario("greenhouse");
+})();
+
+/* =========================================================
+   PART 3.4  Security check
+   ========================================================= */
+(function(){
+  const Q = [
+    {q:"A smart camera that comes with the password “admin”.", a:"risky", ex:"Default passwords are published online, so anyone can log in. Since April 2024 it’s illegal to sell devices like this in the UK."},
+    {q:"A smart plug that installs security updates automatically for at least five years.", a:"safe", ex:"Updates fix security holes after they’re discovered. The law now says makers must tell you how long updates last."},
+    {q:"Your micro:bit alarm uses radio group 1, the same as everyone else’s first try.", a:"risky", ex:"Anyone on the same group hears every message, and could send fake ones. Choose an unusual group, and add scrambling."},
+    {q:"A baby monitor that streams video over the internet without encryption.", a:"risky", ex:"Unencrypted video can be intercepted. Always look for encrypted (scrambled) connections."},
+    {q:"A thermostat that keeps working with its own controls if the internet goes down.", a:"safe", ex:"Local control means you aren’t stuck if the company’s servers or your broadband fail."},
+    {q:"A cheap doorbell from a brand with no way to report a security problem.", a:"risky", ex:"If someone finds a flaw, there’s nobody to tell, so it may never be fixed. UK law now requires a contact point."}
+  ];
+  const box = $("#secCheck");
+  Q.forEach(d => {
+    const el = document.createElement("div"); el.className = "chk";
+    el.innerHTML = `<span class="q">${esc(d.q)}</span><div class="ans"><button type="button" data-k="safe">Safer</button><button type="button" data-k="risky">Risky</button></div><span class="fb small"></span>`;
+    $$("button", el).forEach(b => b.addEventListener("click", () => {
+      const ok = b.dataset.k === d.a; el.classList.toggle("right", ok); el.classList.toggle("wrong", !ok);
+      el.querySelector(".fb").innerHTML = `<b>${ok ? "Yes" : "Think again"}.</b> ${esc(d.ex)}`;
+      el.querySelector(".fb").style.color = "var(--ink)";
+    }));
+    box.appendChild(el);
+  });
+})();
+
+/* =========================================================
+   PART 4.1  Frontier pillars
+   ========================================================= */
+(function(){
+  const P = [
+    {k:"ai", t:"AI and robotics", what:"Neural networks are programs that learn patterns from huge numbers of examples instead of following rules a person wrote. Robots and self-driving vehicles use them to make sense of cameras and sensors.",
+      problem:"Tasks too messy for written rules: spotting disease in a scan, translating speech, recognising a cyclist in the rain, sorting recycling.",
+      needs:"Data centres full of specialised chips to train models; huge amounts of data; and small, efficient “edge AI” chips so phones, cars and robots can run models without waiting for the cloud (remember the memory hierarchy).",
+      concerns:"Bias in training data, deepfakes and misinformation, jobs changing, who is responsible when an autonomous system gets it wrong, and the energy and water used by data centres.",
+      now:"Already everywhere for some jobs (translation, recommendations, chatbots). Driverless taxis carry passengers in some cities. General-purpose household robots are still at the research and early-trial stage."},
+    {k:"quantum", t:"Quantum computing", what:"Computers that use qubits, which can be in a superposition of 0 and 1, to tackle certain problems in a completely different way from ordinary computers.",
+      problem:"Problems where the possibilities explode: simulating molecules to design medicines, batteries and fertilisers, and some hard optimisation problems.",
+      needs:"Qubits that stay stable for long enough, usually cooled close to absolute zero; error correction, which may need hundreds or thousands of physical qubits to make one reliable “logical” qubit; and new algorithms.",
+      concerns:"A large enough quantum computer could break some of the encryption that protects the internet today, so “post-quantum” encryption is already being rolled out. Also cost, who gets access, and a lot of hype.",
+      now:"In research labs and cloud test services. Error correction is improving, but machines aren’t yet reliable enough for most useful tasks. Quantum won’t replace your laptop."},
+    {k:"bci", t:"Brain–computer interfaces and health tech", what:"Devices that read signals from the brain or body and turn them into commands or health data. Some are implanted by surgery; others are worn, like headsets and smartwatches.",
+      problem:"Helping people with paralysis communicate or control a computer by thought; spotting health problems early, like an irregular heartbeat.",
+      needs:"Tiny low-power chips, wireless links that work through the body, batteries that last, AI to decode noisy signals, and years of safety testing.",
+      concerns:"Brain data could be the most private data there is. Who owns it? Could an implant be hacked? Surgery has risks. Will only rich people get the benefits?",
+      now:"Implants are in small clinical trials with a few dozen people worldwide, with some striking results. Some smartwatches can already warn about an irregular heart rhythm."},
+    {k:"green", t:"Green computing and energy", what:"Making computing use less energy, and using computing to run cleaner energy systems: smart grids, micro-grids and better batteries.",
+      problem:"Data centres used about 1.5% of the world’s electricity in 2024 (about 415 TWh), and the International Energy Agency expects that to more than double by 2030, mostly because of AI. Renewable energy also needs smart control because the wind and sun vary.",
+      needs:"More efficient chips, liquid cooling, data centres powered by renewables, reusing waste heat, better batteries, and sensors and networks to balance supply and demand.",
+      concerns:"E-waste, mining for battery metals, water used for cooling, and where new data centres are built. Smart meters also collect data about when you’re home.",
+      now:"Growing fast. Some data centres already pass their waste heat to homes or swimming pools; smart meters are common in UK homes."}
+  ];
+  const H = ["All hype","Mostly hype","Half and half","Mostly real","Already real"];
+  const rate = store.json("hype", {});
+  const tabs = $("#pTabs"), body = $("#pBody");
+  function show(i){
+    const d = P[i];
+    $$("button", tabs).forEach((b, j) => b.setAttribute("aria-selected", i === j));
+    body.innerHTML = `<div class="facts">
+      <div class="fact"><div class="fl">What it is</div>${esc(d.what)}</div>
+      <div class="fact"><div class="fl">1 · What problem does it solve?</div>${esc(d.problem)}</div>
+      <div class="fact"><div class="fl">2 · What hardware or network advances does it need?</div>${esc(d.needs)}</div>
+      <div class="fact"><div class="fl">3 · What are the concerns?</div>${esc(d.concerns)}</div></div>
+      <div class="stack"><div class="panel"><h3>Where is it now? (2026)</h3><p>${esc(d.now)}</p></div>
+      <div class="panel hype"><h3>Your hype rating</h3><div class="hype-scale" role="group" aria-label="Hype rating">${H.map((h, j) => `<button type="button" data-j="${j}" class="${rate[d.k] === j ? "pick" : ""}">${h}</button>`).join("")}</div><p class="small">There’s no right answer. Compare ratings with your class and give a reason.</p></div></div>`;
+    $$(".hype-scale button", body).forEach(b => b.addEventListener("click", () => { rate[d.k] = +b.dataset.j; store.set("hype", JSON.stringify(rate)); $$(".hype-scale button", body).forEach(x => x.classList.toggle("pick", x === b)); }));
+  }
+  P.forEach((d, i) => { const b = document.createElement("button"); b.type = "button"; b.role = "tab"; b.textContent = d.t; b.addEventListener("click", () => show(i)); tabs.appendChild(b); });
+  show(0);
+})();
+
+/* =========================================================
+   PART 4.2  Qubit
+   ========================================================= */
+(function(){
+  let c0 = 0, c1 = 0, busy = false;
+  const coin = $("#coin"), p = $("#qP");
+  const setP = () => { $("#qPOut").textContent = p.value + "%"; coin.style.setProperty("--p", (100 - p.value) + "%"); };
+  p.addEventListener("input", setP); setP();
+  const measure = () => Math.random() * 100 < +p.value ? 1 : 0;
+  const upd = () => { $("#q0").textContent = c0; $("#q1").textContent = c1; };
+  $("#qOne").addEventListener("click", () => {
+    if (busy) return; busy = true; coin.textContent = ""; coin.classList.add("spin");
+    setTimeout(() => { const r = measure(); coin.classList.remove("spin"); coin.textContent = r; r ? c1++ : c0++; upd(); busy = false; }, reduced() ? 50 : 650);
+  });
+  $("#qMany").addEventListener("click", () => { for (let i = 0; i < 100; i++) measure() ? c1++ : c0++; upd(); coin.textContent = "×100"; });
+  $("#qClear").addEventListener("click", () => { c0 = c1 = 0; upd(); coin.textContent = "?"; });
+  const t = $("#qTable");
+  [[1,"2"],[2,"4"],[3,"8"],[10,"1,024"],[20,"1,048,576"],[50,"about 1 quadrillion"],[300,"more than the number of atoms in the observable universe"]].forEach(([n, v]) => t.insertAdjacentHTML("beforeend", `<tr><td>${n}</td><td>${v}</td></tr>`));
+})();
+
+/* =========================================================
+   PART 4.3  Hype or hope
+   ========================================================= */
+(function(){
+  const D = [
+    {h:"Peer-reviewed study: quantum computer simulates a small molecule more accurately than classical methods", o:"Science news site", a:"ev", ex:"A specific, measured result, checked by other scientists (peer review). Notice it says “small molecule”, not “cures disease”."},
+    {h:"This brain chip will let you download a new language by 2028, says founder", o:"Interview with a company boss", a:"hype", ex:"A huge promise, a short deadline, and the only source is the person selling it. Nothing has been measured."},
+    {h:"Hospital trial of 80,000 scans: AI plus doctors found more early cancers than doctors alone", o:"Health news", a:"ev", ex:"A large trial with a measured comparison. Next questions: who ran it, and has it been repeated?"},
+    {h:"Quantum laptops will be in every home within three years", o:"Tech blog", a:"hype", ex:"No evidence, and it ignores the bottleneck: qubits need extreme cooling and error correction."},
+    {h:"Self-driving lorries will replace ALL drivers next year", o:"Social media post", a:"hype", ex:"“ALL” and “next year” are warning signs. No source, no data."},
+    {h:"Researchers measure 500 data centres and find cooling uses about a third of their energy", o:"University report", a:"ev", ex:"Lots of measurements, a named source type, and a specific finding you could check."},
+    {h:"Startup’s battery ‘charges in ten seconds and lasts for ever’, now seeking investors", o:"Press release", a:"hype", ex:"“For ever” breaks the laws of physics, and a press release asking for money is not independent."},
+    {h:"Smart meter trial: homes with energy displays cut use by 3% on average", o:"Government report", a:"ev", ex:"A small, specific, measured change. Real evidence often sounds less exciting than hype."}
+  ];
+  const box = $("#heads");
+  D.forEach(d => {
+    const el = document.createElement("div"); el.className = "headline";
+    el.innerHTML = `<span class="outlet">${esc(d.o)}</span><span class="hl">${esc(d.h)}</span><div class="ans"><button type="button" data-k="ev">Evidence</button><button type="button" data-k="hype">Hype</button></div><span class="fb small"></span>`;
+    $$("button", el).forEach(b => b.addEventListener("click", () => {
+      const ok = b.dataset.k === d.a; el.classList.toggle("right", ok); el.classList.toggle("wrong", !ok);
+      const f = el.querySelector(".fb"); f.style.color = "var(--ink)"; f.innerHTML = `<b>${d.a === "ev" ? "Evidence" : "Hype"}.</b> ${esc(d.ex)}`;
+    }));
+    box.appendChild(el);
+  });
+})();
+
+/* ---------- research download ---------- */
+$("#rDownload").addEventListener("click", () => {
+  const v = id => $("#" + id).value.trim();
+  const checks = $$("#research .reliab input").map(c => (c.checked ? "[x] " : "[ ] ") + c.parentElement.textContent.trim());
+  const txt = `FUTURE PROOF: RESEARCH ORGANISER\n\nTechnology: ${v("rTech")}\nWhere is it now: ${v("rStage")}\n\n1. What problem does it solve?\n${v("rQ1")}\n\n2. What hardware or network advances does it need?\n${v("rQ2")}\n\n3. Ethical, privacy or environmental concerns\n${v("rQ3")}\n\nSources\n${v("rSrc")}\n\nReliability check\n${checks.join("\n")}\n`;
+  download("research-" + (v("rTech") || "notes").replace(/[^a-z0-9]+/gi, "-").toLowerCase() + ".txt", txt);
+});
+
+/* =========================================================
+   PART 5.1  Pitch card
+   ========================================================= */
+const OPEN_YEAR = new Date().getFullYear() + 5;
+$("#pcYear").textContent = OPEN_YEAR;
+$$(".cYear").forEach(e => e.textContent = OPEN_YEAR);
+(function(){
+  const g = id => $("#" + id).value.trim();
+  function upd(){
+    $("#pcTitle").textContent = g("ptTitle") || "Your idea";
+    $("#pcProblem").textContent = g("ptProblem") || "…";
+    $("#pcVision").textContent = g("ptVision") || "…";
+    const links = $$("#ptLinks input:checked").map(i => i.value);
+    $("#pcLinks").textContent = (links.length ? links.join(" · ") : "Tick what it relies on") + (g("ptHow") ? ". " + g("ptHow") : "");
+    $("#pcEthics").textContent = g("ptEthics") || "…";
+    $("#pcConf").style.width = $("#ptConf").value + "%"; $("#ptConfOut").textContent = $("#ptConf").value + "%";
+  }
+  $$("#pitch input, #pitch textarea").forEach(el => el.addEventListener("input", upd)); $$("#ptLinks input").forEach(el => el.addEventListener("change", upd));
+  upd();
+  $("#ptDownload").addEventListener("click", () => {
+    const links = $$("#ptLinks input:checked").map(i => i.value).join(", ");
+    const txt = `FUTURE PROOF: PITCH NOTES (forecast for ${OPEN_YEAR})\n\n${g("ptTitle")}\n\nTHE PROBLEM\n${g("ptProblem")}\n\nTHE VISION\n${g("ptVision")}\n\nUNDER THE HOOD\nRelies on: ${links}\n${g("ptHow")}\n\nLESSON FROM THE PAST\n${g("ptPast")}\n\nETHICS\n${g("ptEthics")}\n\nWHAT WOULD PROVE US WRONG\n${g("ptWrong")}\n\nConfidence: ${$("#ptConf").value}%\n`;
+    download("pitch-" + (g("ptTitle") || "notes").replace(/[^a-z0-9]+/gi, "-").toLowerCase() + ".txt", txt);
+  });
+})();
+
+/* =========================================================
+   PART 5.2  Time capsule
+   ========================================================= */
+const b64 = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
+const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function keyFrom(pass, salt){
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pass), "PBKDF2", false, ["deriveKey"]);
+  return crypto.subtle.deriveKey({name:"PBKDF2", salt, iterations:200000, hash:"SHA-256"}, base, {name:"AES-GCM", length:256}, false, ["encrypt","decrypt"]);
+}
+(function(){
+  const g = id => $("#" + id).value.trim();
+  const out = $("#cMsgOut"), vault = $("#vault");
+  const openDate = () => { const d = new Date(); d.setFullYear(d.getFullYear() + 5); return d; };
+  $("#vWhen").textContent = OPEN_YEAR;
+  function payload(){ return {name:g("cName"), class:g("cClass"), prediction:g("cPred"), evidence:g("cEvid"), message:g("cMsg"), confidence:Number($("#ptConf").value)}; }
+  $("#cSeal").addEventListener("click", async () => {
+    const p = payload();
+    if (!p.name || !p.prediction){ out.textContent = "Add your name and your prediction first."; return; }
+    if (p.prediction.length < 20){ out.textContent = "Your prediction is very short. Make it specific enough to check in five years."; return; }
+    const sealed = new Date(), opens = openDate();
+    const cap = {format:"future-proof-capsule", version:1, label:`${p.name}${p.class ? " · " + p.class : ""}`, sealedOn:sealed.toISOString().slice(0,10), openAfter:opens.toISOString().slice(0,10), encrypted:false};
+    const pass = $("#cPass").value;
+    try {
+      if (pass){
+        if (!window.crypto || !crypto.subtle) throw new Error("no-crypto");
+        const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+        const key = await keyFrom(pass, salt);
+        const ct = await crypto.subtle.encrypt({name:"AES-GCM", iv}, key, new TextEncoder().encode(JSON.stringify(p)));
+        Object.assign(cap, {encrypted:true, cipher:"AES-GCM-256, PBKDF2-SHA256 200000", salt:b64(salt), iv:b64(iv), data:b64(ct)});
+      } else cap.contents = p;
+    } catch(e){ out.textContent = "This browser couldn’t encrypt the file. Try without a passphrase, or use a different browser."; return; }
+    const fname = `capsule-${(p.class ? p.class + "-" : "") + p.name}-open-${cap.openAfter}`.replace(/[^a-z0-9-]+/gi, "-").replace(/-+/g, "-").toLowerCase() + ".json";
+    download(fname, JSON.stringify(cap, null, 2), "application/json");
+    vault.classList.add("sealed"); $("#vDial").textContent = "SEALED";
+    $("#vText").innerHTML = `Sealed on ${sealed.toLocaleDateString("en-GB", {day:"numeric", month:"long", year:"numeric"})}. Do not open until <b>${opens.toLocaleDateString("en-GB", {day:"numeric", month:"long", year:"numeric"})}</b>.`;
+    out.innerHTML = `Downloaded <b>${esc(fname)}</b>. ${pass ? "It’s locked with the class passphrase." : "It isn’t locked, so anyone with the file can read it."} Hand it to your teacher.`;
+  });
+  $("#cPrint").addEventListener("click", () => {
+    const p = payload(), opens = openDate().toLocaleDateString("en-GB", {day:"numeric", month:"long", year:"numeric"});
+    const w = window.open("", "_blank");
+    if (!w){ out.textContent = "Your browser blocked the print window. Allow pop-ups for this page and try again."; return; }
+    w.document.write(`<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Time capsule</title><style>body{font:16px/1.5 Georgia,serif;max-width:640px;margin:40px auto;padding:0 20px;color:#111}h1{font:800 28px system-ui,sans-serif;margin:0 0 4px}.k{font:12px monospace;letter-spacing:.1em;text-transform:uppercase;color:#555;margin-top:18px}.box{border:2px solid #111;padding:16px;margin-top:20px}</style></head><body><h1>Future Proof time capsule</h1><div>${esc(p.name)}${p.class ? " · " + esc(p.class) : ""} · sealed ${new Date().toLocaleDateString("en-GB")}</div><div class="box"><b>DO NOT OPEN UNTIL ${esc(opens.toUpperCase())}</b></div><div class="k">My prediction</div><p>${esc(p.prediction)}</p><div class="k">Evidence</div><p>${esc(p.evidence)}</p><div class="k">Confidence</div><p>${p.confidence}%</p><div class="k">Message to whoever opens this</div><p>${esc(p.message)}</p><div class="k">When opened: hit, partly or miss?</div><p>☐ Hit &nbsp; ☐ Partly &nbsp; ☐ Miss &nbsp; Why: ______________________________</p></body></html>`);
+    w.document.close(); w.focus(); setTimeout(() => w.print(), 300);
+  });
+
+  // teacher opener
+  $("#tOpen").addEventListener("click", async () => {
+    const files = Array.from($("#tFiles").files || []), pass = $("#tPass").value, early = $("#tEarly").checked, o = $("#tOut");
+    o.innerHTML = "";
+    if (!files.length){ o.innerHTML = '<p class="small">Choose one or more capsule files.</p>'; return; }
+    const today = new Date().toISOString().slice(0,10);
+    for (const f of files){
+      let html;
+      try {
+        const cap = JSON.parse(await f.text());
+        if (cap.format !== "future-proof-capsule") throw new Error("not a capsule");
+        if (cap.openAfter > today && !early){ html = `<b>${esc(cap.label)}</b><br><span class="small">Still sealed until ${esc(cap.openAfter)}.</span>`; }
+        else {
+          let c = cap.contents;
+          if (cap.encrypted){
+            if (!pass) throw new Error("This capsule needs the passphrase.");
+            try { const key = await keyFrom(pass, unb64(cap.salt)); const pt = await crypto.subtle.decrypt({name:"AES-GCM", iv:unb64(cap.iv)}, key, unb64(cap.data)); c = JSON.parse(new TextDecoder().decode(pt)); }
+            catch(e){ throw new Error("Wrong passphrase, or the file has been changed."); }
+          }
+          html = `<b>${esc(cap.label)}</b> <span class="small">sealed ${esc(cap.sealedOn)} · open after ${esc(cap.openAfter)}${cap.openAfter > today ? " (opened early)" : ""}</span><p style="margin-top:6px">${esc(c.prediction)}</p>${c.evidence ? `<p class="small"><b>Evidence:</b> ${esc(c.evidence)}</p>` : ""}<p class="small"><b>Confidence:</b> ${esc(c.confidence)}%${c.message ? ` · <b>Message:</b> ${esc(c.message)}` : ""}</p>`;
+        }
+      } catch(e){ html = `<b>${esc(f.name)}</b><br><span class="small">${esc(e.message === "not a capsule" ? "This isn’t a Future Proof capsule file." : e.message)}</span>`; }
+      o.insertAdjacentHTML("beforeend", `<div class="fact">${html}</div>`);
+    }
+  });
+})();
+
+/* =========================================================
+   QUIZ
+   ========================================================= */
+(function(){
+  const Q = [
+    {q:"Which register holds the address of the next instruction to be fetched?", o:["Accumulator","Program counter","Memory data register","Current instruction register"], a:1, e:"The program counter (PC) holds the next address, and goes up by one during each fetch."},
+    {q:"In the von Neumann design, where are program instructions stored?", o:["In the ALU","In the same memory as the data","On a separate chip from all data","In the control bus"], a:1, e:"Instructions and data share the same memory. That’s why a program can accidentally run into its data."},
+    {q:"Which part of the processor does the calculation in ADD and SUB?", o:["Control unit","Arithmetic logic unit (ALU)","Address bus","MAR"], a:1, e:"The ALU does arithmetic and logic. The control unit decodes instructions and coordinates everything."},
+    {q:"Why does a computer have cache as well as RAM?", o:["Cache stores files when the power is off","Cache is faster and closer to the CPU, so frequently used data is quicker to reach","Cache is cheaper per gigabyte","RAM can only hold instructions"], a:1, e:"Cache is small and fast; RAM is bigger but slower. Secondary storage is bigger and slower still."},
+    {q:"What happens if packets from the same photo take different routes?", o:["The photo is lost","They may arrive out of order and are put back together using sequence numbers","The router merges them into one packet","They all have to restart"], a:1, e:"Packet switching lets packets take different routes. Sequence numbers let the receiver reassemble them."},
+    {q:"A 4 MB photo is 32,000,000 bits. Roughly how long does it take at 8 Mbit/s?", o:["0.5 seconds","4 seconds","32 seconds","8 minutes"], a:1, e:"32,000,000 ÷ 8,000,000 = 4 seconds."},
+    {q:"Why did many 1980s predictions take 20–30 years to come true?", o:["People didn’t want the technology","Processing power, memory, batteries and networks weren’t good or cheap enough yet","They were banned","TV presenters made them up"], a:1, e:"The idea was often right; the hardware bottleneck decided the timing."},
+    {q:"What is digital obsolescence?", o:["A computer virus","When data still exists but the hardware or software to read it doesn’t","Deleting old files","When a phone battery stops working"], a:1, e:"The 1986 Domesday Project became unreadable within about fifteen years for this reason."},
+    {q:"Two micro:bits are on radio groups 1 and 4. What happens when one sends a message?", o:["The other receives it anyway","The other doesn’t receive it","It is sent to every group","The micro:bit crashes"], a:1, e:"Both must use the same radio group: an agreed rule, or protocol."},
+    {q:"Since April 2024, what can’t smart devices sold in the UK come with?", o:["Wi-Fi","An easy default password like “admin”","Software updates","A battery"], a:1, e:"The PSTI Act bans default passwords and requires a way to report security problems and a stated update period."},
+    {q:"Which is the best evidence that a frontier technology works?", o:["The company’s boss says it will","A post with lots of likes","A measured, independent study","A very confident headline"], a:2, e:"Look for measured results, independent sources and peer review, not promises."},
+    {q:"Why is a passphrase-locked time capsule a risk as well as a protection?", o:["Encryption makes files bigger","If the passphrase is lost, nobody can ever open it","Anyone can read encrypted files","Passphrases expire after five years"], a:1, e:"Strong encryption can’t be undone without the key. Keeping data readable means keeping the key safe too."}
+  ];
+  const box = $("#quizBox"); const ans = {};
+  function score(){ $("#qScore").textContent = `${Object.values(ans).filter(Boolean).length} / ${Q.length}`; }
+  function draw(){
+    box.innerHTML = "";
+    Q.forEach((d, i) => {
+      const el = document.createElement("div"); el.className = "qz";
+      el.innerHTML = `<div class="qq">${i + 1}. ${esc(d.q)}</div><div class="qo">${d.o.map((o, j) => `<button type="button" data-j="${j}">${esc(o)}</button>`).join("")}</div><div class="qe" aria-live="polite"></div>`;
+      $$("button", el).forEach(b => b.addEventListener("click", () => {
+        if (i in ans) return;
+        const j = +b.dataset.j, ok = j === d.a; ans[i] = ok;
+        b.classList.add(ok ? "right" : "wrong"); if (!ok) $$("button", el)[d.a].classList.add("right");
+        el.querySelector(".qe").textContent = (ok ? "Correct. " : "Not quite. ") + d.e; score();
+      }));
+      box.appendChild(el);
+    });
+    score();
+  }
+  draw();
+  $("#qReset").addEventListener("click", () => { for (const k in ans) delete ans[k]; draw(); });
+})();
+
+/* ---------- planner download ---------- */
+$("#plDownload").addEventListener("click", () => {
+  const v = k => (store.get("s." + k) || "").trim();
+  const items = $$("#planner .plan-check label").map(l => (l.querySelector("input").checked ? "[x] " : "[ ] ") + l.textContent.trim());
+  const txt = `THE ${OPEN_YEAR} BROADCAST: TEAM PLANNER\n\nTeam: ${v("pl.team")}\nPath: ${v("pl.path")}\n\nRoles\n${v("pl.roles")}\n\nOur prediction\n${v("pl.pred")}\n\nChecklist\n${items.join("\n")}\n\nNext steps\n${v("pl.next")}\n`;
+  download("team-planner.txt", txt);
+});
+</script>
+</body>
+</html>

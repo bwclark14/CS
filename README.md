@@ -29,3 +29,13 @@ Version 3 adds a more balanced view, showing when data and AI genuinely help as 
 - Site: https://bwclark14.github.io/CS/data-trail-3/
 - `data-trail-3/index.html`: version 3
 - `data-trail-3/sites/`: copies of the three practice apps for version 3
+
+## Future Proof
+
+An interactive unit for learners aged 13–15: past predictions, present tech and future frontiers. Five parts: how computers think and talk (a fetch–decode–execute simulator, the memory hierarchy, packet switching and bandwidth), retro futures (archive Tomorrow's World clips, a prediction lab, misquotes and an evaluation matrix), smart tech with the BBC micro:bit (a two-board radio simulator plus MakeCode and MicroPython code for real hardware), frontier tech (AI, quantum, brain–computer interfaces, green computing, spotting hype) and a pitch with a five-year time capsule. Ends with a team project, The 2031 Broadcast.
+
+- Site: https://bwclark14.github.io/CS/future-proof/
+- `future-proof/index.html`: the whole resource in one self-contained page
+- `future-proof/src/`: the source pieces; run `sh future-proof/src/build.sh` to rebuild `index.html` after editing them
+
+Time capsule files are plain JSON, optionally encrypted in the browser with a class passphrase. The teacher notes include a tool to open them.

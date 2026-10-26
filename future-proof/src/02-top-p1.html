@@ -1,0 +1,204 @@
+<body>
+<nav class="top" aria-label="Unit sections">
+  <div class="wrap">
+    <a class="brand" href="#start"><i aria-hidden="true"></i>Future Proof</a>
+    <div class="links">
+      <a href="#p1">1 Think &amp; talk</a>
+      <a href="#p2">2 Retro futures</a>
+      <a href="#p3">3 Smart tech</a>
+      <a href="#p4">4 Frontiers</a>
+      <a href="#p5">5 Pitch &amp; capsule</a>
+      <a class="proj" href="#project">Project</a>
+      <a href="#teacher">Teachers</a>
+    </div>
+    <button class="theme" id="themeBtn" type="button" aria-label="Switch light or dark theme">Theme</button>
+  </div>
+</nav>
+
+<header class="hero" id="start">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Computing Science · ages 13–15</span>
+      <h1>Every future was once a <span>guess.</span></h1>
+      <p class="lede">In the 1980s, TV shows confidently predicted what our homes, cars and computers would be like by now. Some were spot on. Some were wildly wrong. In this unit you find out how computers really work, judge the past’s predictions, build your own smart device, explore the technology that’s coming next, and then make a prediction of your own that gets sealed away for five years.</p>
+      <div class="chips">
+        <span class="chip">5 parts + project</span>
+        <span class="chip">BBC micro:bit (real or simulated)</span>
+        <span class="chip">Archive TV clips</span>
+        <span class="chip">Time capsule</span>
+      </div>
+    </div>
+    <div class="tt" role="img" aria-label="A teletext-style screen from 1989 listing predictions for 2020 and whether they came true">
+      <div class="hdr"><span>P301</span><span class="c">CEEFAX-ISH</span><span>1989 <span class="blink">▮</span></span></div>
+      <div class="bar"><span>FORECAST: HOMES IN 2020</span><span>1/1</span></div>
+      <div class="row"><span class="y">Music on voice command</span><span class="g">CAME TRUE</span></div>
+      <div class="row"><span class="y">Heating learns routine</span><span class="g">CAME TRUE</span></div>
+      <div class="row"><span class="y">Lights follow you</span><span class="g">CAME TRUE</span></div>
+      <div class="row"><span class="y">Walls turn see-through</span><span class="m">NOT YET</span></div>
+      <div class="row"><span class="y">Charge from wall pads</span><span class="c">SORT OF</span></div>
+      <div class="row" style="margin-top:8px"><span class="c">YOUR PREDICTION FOR 2031</span><span class="y">???</span></div>
+      <div class="foot"><span>Past</span><span>Now</span><span>Next</span><span>2031</span></div>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:36px">
+    <div class="route">
+      <a class="r-now" href="#p1"><span>PART 1</span><b>How computers think and talk</b></a>
+      <a class="r-past" href="#p2"><span>PART 2</span><b>Retro futures</b></a>
+      <a class="r-now" href="#p3"><span>PART 3</span><b>Smart tech with micro:bit</b></a>
+      <a class="r-fut" href="#p4"><span>PART 4</span><b>Frontier tech</b></a>
+      <a class="r-fut" href="#p5"><span>PART 5</span><b>Pitch and time capsule</b></a>
+      <a class="r-fut" href="#quiz"><span>CHECK</span><b>Quiz</b></a>
+      <a class="p" href="#project"><span>PROJECT</span><b>The <span class="cYear">2031</span> Broadcast</b></a>
+    </div>
+    <div class="howto">
+      <div><b><span class="past">■</span> Past</b>What people in the 1970s and 80s thought was coming, and why they were right or wrong.</div>
+      <div><b><span class="now">■</span> Present</b>How today’s computers, networks and smart devices actually work. You’ll build one.</div>
+      <div><b><span class="fut">■</span> Future</b>Technologies being researched now, and a prediction of your own for five years from today.</div>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= PART 1 ======================= -->
+<div class="part p-now" id="p1"><div class="wrap"><span class="num">PART 1 OF 5</span><h2>How computers think and talk</h2><p>Every prediction about the future of technology depends on two things: how fast computers can process data, and how fast they can share it. Here you go inside a processor, race through the memory hierarchy, and follow a message across the internet.</p></div></div>
+
+<section class="block first" id="fde"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">1.1 · INSIDE THE PROCESSOR</span>
+    <h2>The fetch–decode–execute cycle</h2>
+    <p class="lede">Almost every computer since the 1940s follows the <b>von Neumann</b> design: instructions and data sit together in memory, and the processor works through them one at a time. This tiny computer has 16 memory locations. Step through a program and watch each part of the cycle happen.</p>
+  </div>
+  <div class="cpu-grid">
+    <div class="machine" aria-label="Simulated computer">
+      <div class="phase" aria-live="polite"><span id="phF">FETCH</span><span id="phD">DECODE</span><span id="phE">EXECUTE</span></div>
+      <div class="cpu-box" id="cpuBox">
+        <span class="lbl">Processor (CPU)</span>
+        <div class="regs">
+          <div class="reg" id="rPC"><b>PC</b><span>0</span></div>
+          <div class="reg" id="rMAR"><b>MAR</b><span>0</span></div>
+          <div class="reg" id="rMDR"><b>MDR</b><span>0</span></div>
+          <div class="reg" id="rCIR"><b>CIR</b><span>–</span></div>
+          <div class="reg" id="rACC"><b>ACC</b><span>0</span></div>
+        </div>
+        <div class="units"><div class="unit" id="uCU">Control unit</div><div class="unit" id="uALU">ALU</div></div>
+      </div>
+      <div class="buses"><span class="bus" id="bA">address bus</span><span class="bus" id="bD">data bus</span><span class="bus" id="bC">control bus</span></div>
+      <span class="lbl">Main memory (RAM)</span>
+      <div class="ram" id="ram"></div>
+      <span class="lbl">Output</span>
+      <div class="out" id="cpuOut" aria-live="polite"></div>
+    </div>
+    <div class="stack">
+      <div class="narr" id="cpuNarr" aria-live="polite"><b>Ready.</b> Pick a program, then press <b>Step</b> to move through one stage of the cycle at a time.</div>
+      <div class="row-btns">
+        <button class="btn primary" id="cpuStep" type="button">Step</button>
+        <button class="btn" id="cpuRun" type="button">Run</button>
+        <button class="btn" id="cpuReset" type="button">Reset</button>
+        <label class="small" style="display:flex;gap:6px;align-items:center">Speed <input type="range" id="cpuSpeed" min="1" max="5" value="3" style="width:90px"></label>
+      </div>
+      <label class="fld">Program
+        <select id="cpuPreset">
+          <option value="add">Add two sensor readings</option>
+          <option value="count">Countdown from 3</option>
+          <option value="thermo">Thermostat: is it warm enough?</option>
+        </select>
+      </label>
+      <details class="more">
+        <summary>Edit the program (assembly code)</summary>
+        <p class="small" style="margin-bottom:8px">One instruction per line, starting at address 0. A blank line leaves a location empty. <b>INP</b> reads the temperature sensor.</p>
+        <textarea class="asm" id="cpuAsm" spellcheck="false" aria-label="Assembly program"></textarea>
+        <div class="row-btns" style="margin-top:8px"><button class="btn sm" id="cpuLoad" type="button">Load into memory</button><span class="small" id="cpuAsmMsg"></span></div>
+        <table class="plain isa" style="margin-top:10px">
+          <tr><th>Code</th><th>What it does</th></tr>
+          <tr><td>LDA n</td><td>Load the value at address n into the accumulator</td></tr>
+          <tr><td>STA n</td><td>Store the accumulator at address n</td></tr>
+          <tr><td>ADD n / SUB n</td><td>Add or subtract the value at address n (done by the ALU)</td></tr>
+          <tr><td>INP / OUT</td><td>Read the sensor into the accumulator / output the accumulator</td></tr>
+          <tr><td>BRA n</td><td>Always jump to address n</td></tr>
+          <tr><td>BRZ n / BRP n</td><td>Jump to n if the accumulator is zero / zero or more</td></tr>
+          <tr><td>HLT</td><td>Stop</td></tr>
+          <tr><td>DAT n</td><td>Not an instruction: a stored number</td></tr>
+        </table>
+      </details>
+    </div>
+  </div>
+  <div class="key">
+    <div><b>PC · program counter</b>Holds the address of the next instruction.</div>
+    <div><b>MAR · memory address register</b>Holds the address the CPU wants to read or write.</div>
+    <div><b>MDR · memory data register</b>Holds the data that has just come from, or is going to, memory.</div>
+    <div><b>CIR · current instruction register</b>Holds the instruction being decoded and executed.</div>
+    <div><b>ACC · accumulator</b>Holds the result of the latest calculation.</div>
+    <div><b>Buses</b>Wires that carry addresses, data and control signals between the CPU and memory.</div>
+  </div>
+  <div class="task t-now"><b>Try it.</b> 1) Run <i>Add two sensor readings</i> and count how many times the cycle repeats. 2) Change the program so it adds <b>three</b> readings (you’ll need another DAT line and another ADD). 3) In <i>Thermostat</i>, change the sensor slider below the code and predict the output before you run it. <span class="small">Why does the von Neumann design make a computer slower when instructions and data both have to travel along the same bus?</span></div>
+  <div style="max-width:420px;margin-top:14px" class="ctl"><span class="small">Temperature sensor</span><input type="range" id="cpuSensor" min="0" max="35" value="17" aria-label="Temperature sensor value"><output id="cpuSensorOut">17°C</output></div>
+</div></section>
+
+<section class="block" id="memory"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">1.2 · THE MEMORY HIERARCHY</span>
+    <h2>If one tick of the processor took one second…</h2>
+    <p class="lede">A modern processor ticks about three billion times a second. That’s too fast to imagine, so let’s slow everything down: pretend one tick lasts a whole second. Now tap each kind of storage to see how long the processor would wait for data.</p>
+  </div>
+  <div class="mem-list" id="memList"></div>
+  <div class="two" style="margin-top:20px">
+    <div class="panel"><h3>Why have a hierarchy?</h3><p>Fast memory is expensive and small. Slow storage is cheap and huge. So computers keep what they need <i>right now</i> close to the processor (registers and cache), what they’re working on in <b>RAM</b>, and everything else in <b>secondary storage</b>. RAM is <b>volatile</b>: switch off and it forgets. SSDs and hard disks keep data without power.</p></div>
+    <div class="panel"><h3>Link to the future</h3><p>A smart speaker sends your voice to a data centre because the AI model is too big for the speaker. On the scale above, that trip takes <i>years</i>. That delay is why companies now try to run AI <b>on the device</b> (called <i>edge AI</i>). Keep this in mind for Part 4.</p></div>
+  </div>
+  <p class="small" style="margin-top:12px">Times are typical round figures for a 3 GHz processor in 2026. Real values vary by device.</p>
+</div></section>
+
+<section class="block" id="packets"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">1.3 · NETWORKS</span>
+    <h2>Ding dong: follow the doorbell</h2>
+    <p class="lede">Someone presses a smart doorbell. Two seconds later your phone buzzes at school. Build the route the message takes, then watch it travel as <b>packets</b>.</p>
+  </div>
+  <div class="two">
+    <div class="stack">
+      <h3>Step 1: build the route</h3>
+      <p class="small">Tap the stops in the order the message visits them.</p>
+      <div class="hops" id="hops"></div>
+      <div class="route-built" id="routeBuilt" aria-live="polite"><span class="small">Your route will appear here.</span></div>
+      <div class="row-btns"><button class="btn sm" id="routeUndo" type="button">Undo</button><button class="btn sm" id="routeClear" type="button">Clear</button></div>
+      <div class="fbbox" id="routeFb" hidden></div>
+    </div>
+    <div class="stack">
+      <h3>Step 2: send the packets</h3>
+      <svg class="net" id="netSvg" viewBox="0 0 520 300" role="img" aria-label="Network diagram showing packets travelling from a home router through four internet routers to a data centre"></svg>
+      <div class="row-btns">
+        <button class="btn primary" id="netSend" type="button">Send photo (6 packets)</button>
+        <button class="btn" id="netBreak" type="button">Break a router</button>
+        <button class="btn" id="netFix" type="button">Fix all</button>
+      </div>
+      <div><span class="small">Arriving at the data centre, in order received:</span><div class="reasm" id="reasm"></div></div>
+      <p class="small" id="netMsg" aria-live="polite">Press send. Each packet carries a sequence number, the sender’s address and the destination address.</p>
+    </div>
+  </div>
+  <div class="key">
+    <div><b>LAN</b>Local area network: devices in one building, like your home Wi-Fi.</div>
+    <div><b>WAN</b>Wide area network: links networks across cities and countries. The internet is the biggest WAN.</div>
+    <div><b>Router</b>Reads a packet’s destination IP address and forwards it a step closer.</div>
+    <div><b>Packet switching</b>Data is split into packets that can take different routes and get put back in order at the end.</div>
+    <div><b>The cloud</b>Someone else’s computers in a data centre, reached over the internet.</div>
+    <div><b>Protocol</b>Agreed rules for communicating, e.g. TCP/IP for the internet, or the micro:bit radio group in Part 3.</div>
+  </div>
+  <div class="task t-now"><b>Pupil task: draw the data map.</b> On paper or a slide, draw how a smart home sensor (pick one: doorbell, thermostat or plant sensor) sends data over Wi-Fi, through routers, to a cloud data centre, and back to a phone. Label each stop with: the device, LAN or WAN, and what happens to the data there. Add one thing that could go wrong at each stop, and what the network does about it.</div>
+</div></section>
+
+<section class="block" id="bandwidth"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">1.4 · THEN VS NOW</span>
+    <h2>How long would it take?</h2>
+    <p class="lede">By 1983 a few people in the UK could already bank and shop from home on Prestel, using a modem and their TV. So why didn’t online shopping take off until the 2000s? Pick a file and compare download times.</p>
+  </div>
+  <div class="bw-grid">
+    <div class="stack">
+      <span class="small">Choose a file</span>
+      <div class="opts" id="bwFiles" role="group" aria-label="File to download"></div>
+      <p class="small" id="bwNote"></p>
+      <div class="panel" style="margin-top:6px"><h3>Bits and bytes</h3><p class="small">Connection speeds are measured in <b>bits per second</b>. File sizes are measured in <b>bytes</b>. 1 byte = 8 bits. 1 MB = 1,000,000 bytes. So time = (file size in bytes × 8) ÷ speed in bits per second.</p></div>
+    </div>
+    <div class="bwrows" id="bwRows" aria-live="polite"></div>
+  </div>
+  <div class="task t-now"><b>Think about it.</b> Which of these would make watching films online impossible, even if everyone wanted to? What does this tell you about why a prediction can be right about <i>what</i> people want, but wrong about <i>when</i>?</div>
+</div></section>

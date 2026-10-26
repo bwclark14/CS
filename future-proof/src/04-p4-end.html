@@ -1,0 +1,293 @@
+
+<!-- ======================= PART 4 ======================= -->
+<div class="part p-fut" id="p4"><div class="wrap"><span class="num">PART 4 OF 5</span><h2>Frontier tech</h2><p>Researchers today are working on technologies that might shape the next twenty years. Some will change everything. Some are mostly hype. Your job is to tell the difference, using what you now know about hardware, networks and past predictions.</p></div></div>
+
+<section class="block first" id="pillars"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">4.1 · FOUR FRONTIERS</span>
+    <h2>What’s being built right now</h2>
+    <p class="lede">Explore each frontier. For every one, ask the same three questions you’ll use in your research. Then rate how much hype you think surrounds it.</p>
+  </div>
+  <div class="tabs" role="tablist" id="pTabs" aria-label="Frontier technology"></div>
+  <div class="pillar" id="pBody"></div>
+</div></section>
+
+<section class="block" id="qubit"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">4.2 · A TASTE OF QUANTUM</span>
+    <h2>Bit or qubit?</h2>
+    <p class="lede">An ordinary bit is always 0 or 1, like a coin lying flat. A qubit can be in a <b>superposition</b>: more like a spinning coin. While it spins, it isn’t heads or tails yet. When you <b>measure</b> it, it lands, and you only ever see 0 or 1.</p>
+  </div>
+  <div class="qubit-grid">
+    <div class="panel stack">
+      <div class="coin" id="coin" aria-live="polite">?</div>
+      <div class="ctl"><span class="small">Chance of 1</span><input type="range" id="qP" min="0" max="100" value="50" aria-label="Chance of measuring 1"><output id="qPOut">50%</output></div>
+      <div class="row-btns"><button class="btn primary" id="qOne" type="button">Measure once</button><button class="btn" id="qMany" type="button">Measure 100 times</button><button class="btn" id="qClear" type="button">Clear</button></div>
+      <div class="tally"><div><span class="small">Measured 0</span><b id="q0">0</b></div><div><span class="small">Measured 1</span><b id="q1">0</b></div></div>
+    </div>
+    <div class="panel"><h3>So why is quantum computing powerful?</h3>
+      <p>Two ordinary bits hold one of 4 patterns at a time (00, 01, 10, 11). Two qubits can be in a superposition of all 4. Every extra qubit doubles it:</p>
+      <div class="tablewrap" style="margin:10px 0"><table class="plain" id="qTable"><tr><th>Qubits</th><th>Patterns held at once</th></tr></table></div>
+      <p>Clever quantum programs make the wrong answers cancel out and the right answer more likely when you measure. That only works for <b>some</b> problems, like simulating molecules for new medicines. It won’t make your games faster.</p>
+      <p class="small" style="margin-top:10px">The catch: qubits are fragile. Heat, vibration or stray signals make them collapse early, so many machines are kept colder than outer space. That’s the hardware bottleneck today.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="block" id="hype"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">4.3 · HYPE OR HOPE?</span>
+    <h2>Spot the hype</h2>
+    <p class="lede">These headlines are made up, but they’re written like real ones. Decide which is backed by evidence and which is hype. Look for: who is saying it, whether something was actually measured, and whether the claim is specific.</p>
+  </div>
+  <div class="heads" id="heads"></div>
+</div></section>
+
+<section class="block" id="research"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">4.4 · YOUR RESEARCH</span>
+    <h2>Research organiser</h2>
+    <p class="lede">Pick one frontier technology (it can be one not listed here) and answer the three key questions. This becomes the evidence behind your pitch. Saved in this browser only.</p>
+  </div>
+  <div class="two">
+    <div class="panel organiser">
+      <label class="fld">Technology I’m researching<input type="text" id="rTech" data-save="r.tech" placeholder="e.g. brain–computer interfaces"></label>
+      <label class="fld">1. What problem does it solve? <span class="small">Who has this problem now?</span><textarea id="rQ1" data-save="r.q1"></textarea></label>
+      <label class="fld">2. What hardware or network advances does it need to go mainstream? <span class="small">Think: processing power, memory, sensors, batteries, network speed, cost.</span><textarea id="rQ2" data-save="r.q2"></textarea></label>
+      <label class="fld">3. What are the ethical, privacy or environmental concerns? <span class="small">Who could be harmed, left out, or watched?</span><textarea id="rQ3" data-save="r.q3"></textarea></label>
+      <label class="fld">Where is it now?
+        <select id="rStage" data-save="r.stage"><option value="">Choose…</option><option>Idea or lab experiment</option><option>Early trials with real people</option><option>On sale but rare or expensive</option><option>Mainstream</option></select>
+      </label>
+    </div>
+    <div class="panel organiser">
+      <label class="fld">Sources <span class="small">Title, who made it, date, link. At least three.</span><textarea id="rSrc" data-save="r.src" style="min-height:140px"></textarea></label>
+      <div>
+        <h3>Is my source reliable?</h3>
+        <div class="reliab">
+          <label><input type="checkbox" data-save="r.c1"> I know who wrote it, and why they might want me to believe it.</label>
+          <label><input type="checkbox" data-save="r.c2"> It’s dated, and recent enough for a fast-moving topic.</label>
+          <label><input type="checkbox" data-save="r.c3"> It describes something measured or tested, not just a promise.</label>
+          <label><input type="checkbox" data-save="r.c4"> Another independent source says the same thing.</label>
+          <label><input type="checkbox" data-save="r.c5"> If it’s a company talking about its own product, I’ve found a second opinion.</label>
+        </div>
+      </div>
+      <div class="row-btns"><button class="btn sm" id="rDownload" type="button">Download my research</button><span class="saved" id="rSaved" aria-live="polite"></span></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ======================= PART 5 ======================= -->
+<div class="part p-fut" id="p5"><div class="wrap"><span class="num">PART 5 OF 5</span><h2>Pitch and time capsule</h2><p>Now it’s your turn to be the futurist. Make a prediction about what will exist in five years, back it up with evidence, and seal it away. In five years, someone will open it and decide: hit, partly, or miss?</p></div></div>
+
+<section class="block first" id="pitch"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">5.1 · PITCH BUILDER</span>
+    <h2>Make your five-year forecast</h2>
+    <p class="lede">A good prediction is specific enough that someone could check it later. “AI will be better” can’t be wrong. “Most new cars sold in Scotland will be able to drive themselves on motorways” can.</p>
+  </div>
+  <div class="pitch-grid">
+    <div class="panel stack">
+      <label class="fld">Name of your idea<input type="text" id="ptTitle" data-save="p.title" placeholder="e.g. The plant that texts you"></label>
+      <label class="fld">The problem <span class="small">What’s wrong, difficult or missing today?</span><textarea id="ptProblem" data-save="p.problem"></textarea></label>
+      <label class="fld">The vision <span class="small">What will exist in five years that doesn’t today? Who uses it?</span><textarea id="ptVision" data-save="p.vision"></textarea></label>
+      <div class="fld"><span>Under the hood <span class="small">Tick what it relies on, then explain.</span></span>
+        <div class="links-check" id="ptLinks">
+          <label><input type="checkbox" value="Faster processors" data-save="p.l1"> Faster or smaller processors (1.1)</label>
+          <label><input type="checkbox" value="More memory or storage" data-save="p.l2"> More memory or storage (1.2)</label>
+          <label><input type="checkbox" value="Faster or wider networks" data-save="p.l3"> Faster or wider networks (1.3, 1.4)</label>
+          <label><input type="checkbox" value="Sensors" data-save="p.l4"> Sensors (3.1)</label>
+          <label><input type="checkbox" value="AI" data-save="p.l5"> AI or machine learning (4.1)</label>
+          <label><input type="checkbox" value="Better batteries or energy" data-save="p.l6"> Better batteries or energy (4.1)</label>
+        </div>
+      </div>
+      <label class="fld">How it works <span class="small">Explain the technology using the words from Parts 1 and 3.</span><textarea id="ptHow" data-save="p.how"></textarea></label>
+      <label class="fld">Lesson from the past <span class="small">Which old prediction is yours most like? What did it get wrong that you’ve avoided?</span><textarea id="ptPast" data-save="p.past"></textarea></label>
+      <label class="fld">Ethics check <span class="small">Privacy, who can afford it, who’s left out, what laws are needed, energy and waste.</span><textarea id="ptEthics" data-save="p.ethics"></textarea></label>
+      <label class="fld">What would prove you wrong in five years?<textarea id="ptWrong" data-save="p.wrong" style="min-height:60px"></textarea></label>
+      <div class="ctl"><span class="small">Confidence</span><input type="range" id="ptConf" data-save="p.conf" min="0" max="100" value="60" aria-label="Confidence in your prediction"><output id="ptConfOut">60%</output></div>
+      <div class="row-btns"><button class="btn sm" id="ptDownload" type="button">Download pitch notes</button><span class="saved" id="ptSaved" aria-live="polite"></span></div>
+    </div>
+    <div class="pitchcard" aria-live="polite">
+      <span class="pk">Forecast for <span id="pcYear">2031</span></span>
+      <h3 id="pcTitle">Your idea</h3>
+      <div class="sect"><b>The problem</b><p id="pcProblem">…</p></div>
+      <div class="sect"><b>The vision</b><p id="pcVision">…</p></div>
+      <div class="sect"><b>Under the hood</b><p id="pcLinks">…</p></div>
+      <div class="sect"><b>Ethics</b><p id="pcEthics">…</p></div>
+      <div class="sect"><b>Confidence</b><div class="conf"><i id="pcConf" style="width:60%"></i></div></div>
+      <p class="small" style="color:#9CA4BA">Pitch structure: <b style="color:#fff">problem → vision → under the hood → ethics</b>. Aim for 2–3 minutes.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="block" id="capsule"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">5.2 · SEAL THE CAPSULE</span>
+    <h2>The five-year time capsule</h2>
+    <p class="lede">After your pitch, write your prediction as one or two clear sentences and seal it. Your teacher collects the capsule files and keeps them safe until they can be opened.</p>
+  </div>
+  <div class="capsule">
+    <div class="panel stack">
+      <label class="fld">First name or team name <span class="small">No surnames. Someone else will read this in five years.</span><input type="text" id="cName" maxlength="40" data-save="c.name"></label>
+      <label class="fld">Class<input type="text" id="cClass" maxlength="30" data-save="c.class" placeholder="e.g. S2B"></label>
+      <label class="fld">My prediction <span class="small">Specific enough to check. Starts “By <span class="cYear">2031</span>…”</span><textarea id="cPred" data-save="c.pred" maxlength="900"></textarea></label>
+      <label class="fld">One piece of evidence behind it<textarea id="cEvid" data-save="c.evid" maxlength="600" style="min-height:60px"></textarea></label>
+      <label class="fld">A message to whoever opens this<textarea id="cMsg" data-save="c.msg" maxlength="400" style="min-height:60px"></textarea></label>
+      <label class="fld">Class passphrase <span class="small">Your teacher may give you one. It locks the file so it can’t be read without it.</span><input type="text" id="cPass" autocomplete="off" spellcheck="false"></label>
+      <div class="row-btns"><button class="btn primary" id="cSeal" type="button">Seal and download</button><button class="btn" id="cPrint" type="button">Print a paper copy</button></div>
+      <p class="small" id="cMsgOut" aria-live="polite"></p>
+    </div>
+    <div class="vault" id="vault">
+      <div class="dial" id="vDial">OPEN</div>
+      <div class="when" id="vWhen">2031</div>
+      <p id="vText">Fill in your prediction, then seal it. The capsule file says the date it may be opened.</p>
+      <p class="small" style="color:#9CA4BA">Lesson from Domesday: the file is plain JSON text so it should still open in 2031. A printed copy is a good backup.</p>
+    </div>
+  </div>
+  <details class="more">
+    <summary>How does the lock work?</summary>
+    <p>If you add a passphrase, your prediction is <b>encrypted</b> with AES, the same kind of encryption used by banks and messaging apps. The passphrase is turned into a key; without it, the file is just scrambled numbers. The file also stores an “open after” date, but that is only a label: anyone with the passphrase could open it early. Real delayed-release systems need a trusted keeper, which is your teacher’s job. And if the passphrase is lost, nobody can ever open it. That’s exactly the Domesday problem again.</p>
+  </details>
+</div></section>
+
+<section class="block" id="quiz"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">CHECK YOUR UNDERSTANDING</span>
+    <h2>Quiz</h2>
+    <p class="lede">Twelve questions across the whole unit. You get feedback straight away.</p>
+  </div>
+  <div class="quiz" id="quizBox"></div>
+  <div class="row-btns" style="margin-top:16px"><span class="qscore" id="qScore" aria-live="polite">0 / 12</span><button class="btn sm" id="qReset" type="button">Try again</button></div>
+</div></section>
+
+<!-- ======================= PROJECT ======================= -->
+<div class="proj-hero" id="project"><div class="wrap"><span class="num">FINAL PROJECT</span><h2>The <span class="cYear">2031</span> Broadcast</h2><p>In the 1980s, science TV told viewers what the future would bring. Now your team makes that broadcast, for an audience watching in five years’ time. Present a research-backed prediction, explain the technology inside it, and seal your forecast in the class time capsule.</p></div></div>
+
+<section class="block first" id="proj-paths"><div class="wrap">
+  <div class="sec-head"><span class="mission">TWO WAYS TO COMPLETE IT</span><h2>Choose your format</h2></div>
+  <div class="paths">
+    <div class="path"><span class="pl">Path A</span><h3>The broadcast</h3><p>A 3–4 minute presentation, live or recorded, in the style of a science TV segment. Open with a clip or prediction from the past, then present your forecast.</p><ul><li>Script and slides, or a short video</li><li>A diagram of how it works, using Part 1 ideas</li><li>A “then vs now” comparison</li></ul></div>
+    <div class="path"><span class="pl">Path B</span><h3>The working prototype</h3><p>Build a small micro:bit version of your idea and demonstrate it live, then explain how the full-size 2031 version would work.</p><ul><li>A working micro:bit prototype with at least one sensor and radio</li><li>Annotated code</li><li>A 2-minute demo and pitch</li></ul></div>
+  </div>
+</div></section>
+
+<section class="block" id="proj-stages"><div class="wrap">
+  <div class="sec-head"><span class="mission">PROJECT STAGES</span><h2>From research to sealed capsule</h2></div>
+  <div class="stages">
+    <div class="stage"><span class="sn">STAGE 1</span><b>Research</b>Complete the research organiser (4.4) with at least three sources.</div>
+    <div class="stage"><span class="sn">STAGE 2</span><b>Predict</b>Use the pitch builder (5.1). Make the prediction specific and checkable.</div>
+    <div class="stage"><span class="sn">STAGE 3</span><b>Under the hood</b>Draw how data moves through your device and the network, like the data map in 1.3.</div>
+    <div class="stage"><span class="sn">STAGE 4</span><b>Make</b>Write the script and slides (Path A) or build and test the prototype (Path B).</div>
+    <div class="stage"><span class="sn">STAGE 5</span><b>Present and seal</b>Present to the class, take questions, then seal your capsule (5.2).</div>
+  </div>
+</div></section>
+
+<section class="block" id="proj-roles"><div class="wrap">
+  <div class="sec-head"><span class="mission">WHO DOES WHAT</span><h2>Team roles</h2><p class="lede">Teams of three or four. Everyone contributes to the research; each person leads one part.</p></div>
+  <div class="roles">
+    <div class="role"><b>Presenter</b>Leads the script and delivery. Makes sure the pitch follows problem → vision → under the hood → ethics.</div>
+    <div class="role"><b>Historian</b>Finds the past prediction to compare with and explains what it got right and wrong.</div>
+    <div class="role"><b>Engineer</b>Explains the hardware and network, and leads the diagram or prototype.</div>
+    <div class="role"><b>Ethics lead</b>Leads on privacy, access, law and environmental impact, and prepares answers to tough questions.</div>
+  </div>
+</div></section>
+
+<section class="block" id="rubric"><div class="wrap">
+  <div class="sec-head"><span class="mission">SUCCESS CRITERIA</span><h2>What a great broadcast includes</h2></div>
+  <div class="tablewrap panel" style="padding:8px">
+    <table class="plain rubric">
+      <tr><th></th><th>Developing</th><th>Secure</th><th>Excellent</th></tr>
+      <tr><td>Prediction</td><td>A general idea about the future.</td><td>A clear prediction for five years’ time.</td><td>A specific, checkable prediction with a confidence level and what would prove it wrong.</td></tr>
+      <tr><td>Under the hood</td><td>Names some technology involved.</td><td>Explains how it processes, stores and sends data.</td><td>Explains the hardware and network accurately, and identifies today’s bottleneck.</td></tr>
+      <tr><td>Learning from the past</td><td>Mentions an old prediction.</td><td>Compares with a past prediction and says if it came true.</td><td>Explains <i>why</i> the past prediction succeeded or failed and applies that lesson.</td></tr>
+      <tr><td>Evidence</td><td>Uses one source.</td><td>Uses three or more sources.</td><td>Uses reliable, dated sources and separates evidence from hype.</td></tr>
+      <tr><td>Ethics</td><td>Mentions one concern.</td><td>Discusses privacy, access or regulation.</td><td>Weighs benefits against harms for different groups and suggests safeguards.</td></tr>
+      <tr><td>Communication</td><td>Information is presented.</td><td>Clear, well structured, on time.</td><td>Engaging, confident, answers questions with evidence.</td></tr>
+    </table>
+  </div>
+</div></section>
+
+<section class="block" id="planner"><div class="wrap">
+  <div class="sec-head"><span class="mission">YOUR TEAM’S PLANNER</span><h2>Plan your broadcast</h2><p class="lede">Saved in this browser only. Use the download button to share it with your team.</p></div>
+  <div class="two">
+    <div class="panel planner">
+      <label class="fld">Team name<input type="text" data-save="pl.team"></label>
+      <label class="fld">Path<select data-save="pl.path"><option value="">Choose…</option><option>A: The broadcast</option><option>B: The working prototype</option></select></label>
+      <label class="fld">Who is in each role?<textarea data-save="pl.roles" placeholder="Presenter: &#10;Historian: &#10;Engineer: &#10;Ethics lead: "></textarea></label>
+      <label class="fld">Our prediction in one sentence<textarea data-save="pl.pred" style="min-height:60px"></textarea></label>
+    </div>
+    <div class="panel planner">
+      <h3>Checklist</h3>
+      <div class="plan-check">
+        <label><input type="checkbox" data-save="pl.k1"> Research organiser done, with three sources</label>
+        <label><input type="checkbox" data-save="pl.k2"> Past prediction chosen and evaluated</label>
+        <label><input type="checkbox" data-save="pl.k3"> Diagram of how the data moves</label>
+        <label><input type="checkbox" data-save="pl.k4"> Ethics: benefits, harms and safeguards</label>
+        <label><input type="checkbox" data-save="pl.k5"> Script or prototype finished and tested</label>
+        <label><input type="checkbox" data-save="pl.k6"> Rehearsed and timed (3–4 minutes)</label>
+        <label><input type="checkbox" data-save="pl.k7"> Capsule sealed and handed in</label>
+      </div>
+      <label class="fld">Next steps and who’s doing them<textarea data-save="pl.next"></textarea></label>
+      <div class="row-btns"><button class="btn sm" id="plDownload" type="button">Download planner</button><span class="saved" id="plSaved" aria-live="polite"></span></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ======================= TEACHER NOTES ======================= -->
+<section class="block" id="teacher"><div class="wrap">
+  <div class="sec-head"><span class="mission">FOR TEACHERS</span><h2>Teacher notes</h2></div>
+  <div class="two teacher">
+    <div class="panel stack">
+      <div><h3>Learning intentions</h3><ul>
+        <li>Describe the von Neumann architecture and the fetch–decode–execute cycle, including the roles of the PC, MAR, MDR, CIR, accumulator, ALU, control unit and buses.</li>
+        <li>Explain why computers use a memory hierarchy, and the difference between volatile and non-volatile storage.</li>
+        <li>Describe LANs, WANs, routers and packet switching, and calculate transfer times from file size and bandwidth.</li>
+        <li>Evaluate historic technology predictions, identifying hardware and network bottlenecks and enabling technologies.</li>
+        <li>Design, implement and test a physical computing system that uses sensors, selection and radio communication.</li>
+        <li>Research an emerging technology, judge the reliability of sources and separate evidence from hype.</li>
+        <li>Discuss the ethical, legal, privacy and environmental implications of current and emerging technologies.</li>
+      </ul></div>
+      <div><h3>Suggested sequence</h3><ol>
+        <li><b>Lesson 1:</b> Part 1. Fetch–decode–execute simulator, memory hierarchy, doorbell route and packets, bandwidth comparison. Set the data map task.</li>
+        <li><b>Lesson 2:</b> Part 2. One or two archive clips (the 1989 home of the future works well), prediction lab, misquotes, hardware comparison, evaluation matrix. Domesday case file as a plenary.</li>
+        <li><b>Lesson 3:</b> Part 3. IoT model, simulator investigation, then build on real micro:bits. Security cards as a plenary.</li>
+        <li><b>Lesson 4:</b> Part 4. Explore the four frontiers (jigsaw groups work well), qubit demo, hype headlines, research organiser.</li>
+        <li><b>Lesson 5:</b> Part 5. Pitch builder, short pitches, seal the capsule, quiz.</li>
+        <li><b>Extended project (2–4 further lessons):</b> The 2031 Broadcast, Path A or B.</li>
+      </ol></div>
+      <div><h3>Answers</h3>
+        <p class="small"><b>Prediction lab:</b> verdicts and reasons appear on each card after voting. Several are deliberately debatable (Picturephone, the paperless office, the CD); the reasoning matters more than the label.</p>
+        <p class="small" style="margin-top:6px"><b>Misquotes:</b> Gates “640K” and Watson “five computers” have no reliable contemporary source. Olsen’s 1977 remark is real but usually quoted out of context. The Clarke 1974 interview is on film.</p>
+        <p class="small" style="margin-top:6px"><b>Hype headlines:</b> all are fictional. Answers appear on reveal.</p>
+      </div>
+    </div>
+    <div class="panel stack">
+      <div><h3>Videos and links</h3><p class="small">Clips open on the original site in a new tab. Check them before the lesson and that YouTube and Facebook are accessible on your network; Facebook is often blocked in schools, so you may need to play the 1989 clip from a staff device. The Clarke link opens a YouTube search so you can choose the upload you prefer. The Tomorrow’s World playlist has many more clips for the evaluation matrix.</p></div>
+      <div><h3>How the simulations work</h3>
+        <p class="small"><b>Fetch–decode–execute:</b> a 16-location accumulator machine with an LMC-style instruction set (LDA, STA, ADD, SUB, INP, OUT, BRA, BRZ, BRP, HLT, DAT). Each Step shows one phase. INP reads the temperature slider. Values are kept between −999 and 999.</p>
+        <p class="small" style="margin-top:6px"><b>Memory hierarchy:</b> latencies of about 0.3 ns (register), 1 ns (cache), 100 ns (RAM), 100 µs (SSD), 10 ms (hard disk) and 60 ms (cloud round trip), scaled so one 0.3 ns clock tick = 1 second. Animation length is on a log scale.</p>
+        <p class="small" style="margin-top:6px"><b>Packets:</b> six packets choose randomly between the working routes through four routers, so they arrive out of order and are sorted by sequence number. Breaking a router forces traffic onto the remaining paths.</p>
+        <p class="small" style="margin-top:6px"><b>Bandwidth:</b> time = bytes × 8 ÷ bits per second, with no protocol overhead. Real downloads are a little slower.</p>
+        <p class="small" style="margin-top:6px"><b>micro:bit simulator:</b> the sensor checks its reading every half-second and sends a message when the rule is met (light and temperature) or on each shake (steps). Messages are only received on a matching radio group. The “nosy neighbour” is always on group 1. Scrambling is a simple Caesar shift on letters, to show the idea of a shared key; it is not real security. The generated code uses the standard MakeCode and MicroPython radio APIs.</p>
+        <p class="small" style="margin-top:6px"><b>Qubit:</b> each measurement returns 1 with the chosen probability. It models measurement only, not interference or entanglement.</p>
+      </div>
+      <div><h3>The time capsule</h3>
+        <p class="small">Each pupil downloads a .json capsule file (plain text, so it will stay readable). If a class passphrase is used, the prediction is encrypted in the browser with AES-GCM (key from PBKDF2-SHA-256, 200,000 iterations); nothing is uploaded. Store the passphrase somewhere separate and permanent (for example, in the department handbook), save the files in a shared drive folder named with the opening date, and consider printing paper copies too. Pupils should use first names only.</p>
+        <div class="stack" style="margin-top:10px;padding:12px;border:1px dashed var(--line);border-radius:8px">
+          <b style="font-family:var(--display)">Open capsules</b>
+          <label class="fld">Capsule files<input type="file" id="tFiles" accept=".json,application/json" multiple></label>
+          <label class="fld">Passphrase (if used)<input type="text" id="tPass" autocomplete="off" spellcheck="false"></label>
+          <label class="small" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="tEarly"> Open even if the date hasn’t arrived (for checking)</label>
+          <button class="btn sm" id="tOpen" type="button">Open</button>
+          <div id="tOut" class="stack"></div>
+        </div>
+      </div>
+      <div><h3>Privacy</h3><p class="small">Everything pupils type is saved only in their own browser (localStorage) and in files they choose to download. Nothing is sent anywhere. On shared computers, pupils should download their work before they leave.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <p><b>Future Proof</b> · An interactive Computing Science unit for ages 13–15. Archive clips belong to their owners and open on their original sites. Headlines in 4.3 are fictional. micro:bit is a trademark of the Micro:bit Educational Foundation.</p>
+  <p style="margin-top:6px">Sources for facts used: BBC Archive; Centre for Computing History (Domesday); Michael Aldrich Archive (1984 teleshopping); International Energy Agency, <i>Energy and AI</i> (2025); UK National Cyber Security Centre guidance on the PSTI Act (2024).</p>
+</div></footer>
