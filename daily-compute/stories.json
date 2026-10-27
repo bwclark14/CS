@@ -1,6 +1,391 @@
 {
- "updated": "2026-10-26",
+ "updated": "2026-10-27",
  "stories": [
+  {
+   "body": [
+    "A hinge is the bendy part that lets something open, close or fold, like a door or the joints in your fingers. A team from MIT in the USA and Tianjin University in China has found a way to 3D-print hinges that can feel how much they bend. They call them X-Hinges, and they will show them at a computing conference in November.",
+    "The trick is printing with three materials at once. The main body is a soft, bendy plastic. Inside it, a special plastic that carries electricity forms the sensors. When the hinge bends, the electricity flows through the sensor a little differently, and a computer reads that change as movement. A second conducting plastic acts like wires, carrying the signal away without muddling it.",
+    "Older printed sensors could usually measure only one kind of movement, because their signals got mixed up, a bit like hearing two radio stations at once. X-Hinges can measure three: bending side to side, bending up and down, and being squashed.",
+    "The team used their design software to make several gadgets. A glove records how each finger bends and sends this to a robot hand, which copies the movement. A folding lamp changes its brightness when you pinch it. A game controller shaped like a sea creature has a tail that works like a joystick.",
+    "The objects still need checking before use. Each printed copy gives slightly different readings, so the team uses a camera to calibrate them, matching readings to real movements. In one test, a hinge was bent more than 400,000 times without breaking. Next, the researchers want printed objects that can move by themselves as well as sense."
+   ],
+   "connections": {
+    "groups": [
+     {
+      "explain": "Each one bends or swings at a hinge. Finger has hinge joints too, but it is needed in another group.",
+      "name": "Things with a hinge",
+      "words": [
+       "Door",
+       "Laptop",
+       "Knee",
+       "Gate"
+      ]
+     },
+     {
+      "explain": "Sensors can turn each of these into data, just as X-Hinges turn bending into data.",
+      "name": "Things sensors measure",
+      "words": [
+       "Light",
+       "Sound",
+       "Pressure",
+       "Heat"
+      ]
+     },
+     {
+      "explain": "These are building blocks used to write programs, like the one that reads the glove.",
+      "name": "Programming ideas",
+      "words": [
+       "Sequence",
+       "Selection",
+       "Loop",
+       "Variable"
+      ]
+     },
+     {
+      "explain": "Fingerprint, footprint, pawprint and blueprint. Finger might look like it belongs with the hinges, but here it joins the word print, like 3D printing.",
+      "name": "___print",
+      "words": [
+       "Finger",
+       "Foot",
+       "Paw",
+       "Blue"
+      ]
+     }
+    ],
+    "title": "Bend and sense"
+   },
+   "date": "2026-10-27",
+   "discussion": [
+    "The glove lets a robot hand copy your fingers. What jobs could a robot learn this way, and are there any jobs you think a robot should never be taught?",
+    "Why do you think every printed copy needs calibrating before it is used? What could go wrong if a robot hand used readings that were a little bit off?",
+    "A glove that records your movements collects data about your body. Some people think this could help doctors and coaches. Others worry about who might see it. Who do you think should be allowed to see that data, and why?",
+    "The team bent one hinge more than 400,000 times. Why is testing something so many times important for a gadget people use every day?",
+    "Design challenge: invent a 3D-printed object for your classroom that senses bending or squeezing. Say what it senses (input), what it decides (process) and what it does (output)."
+   ],
+   "extras": [
+    {
+     "alternatives": [
+      [
+       0,
+       1,
+       2,
+       3,
+       5,
+       4,
+       6,
+       7,
+       8
+      ]
+     ],
+     "distractors": [
+      {
+       "code": "IF bend < 30 THEN",
+       "indent": 1
+      }
+     ],
+     "explain": "The count starts at 0 before the loop, each reading is received inside the loop, and the total is shown once at the end. The line IF bend < 30 is tempting, but it would bend the robot finger when the real finger is nearly straight.",
+     "lines": [
+      {
+       "code": "SET bent TO 0",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT 4 TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE bend FROM SENSOR",
+       "indent": 1
+      },
+      {
+       "code": "IF bend > 30 THEN",
+       "indent": 1
+      },
+      {
+       "code": "SEND \"Robot finger bends\" TO DISPLAY",
+       "indent": 2
+      },
+      {
+       "code": "SET bent TO bent + 1",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Fingers bent: \" & bent TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "strand": "Designing, building and testing computing solutions",
+     "task": "The robot hand reads 4 finger bends from the glove, in degrees. If a finger bends more than 30 degrees, the robot finger bends too. At the end it shows how many fingers bent. Put the lines in order. One line doesn't belong.",
+     "tests": [
+      {
+       "expect": [
+        "Robot finger bends",
+        "Robot finger bends",
+        "Fingers bent: 2"
+       ],
+       "inputs": [
+        10,
+        45,
+        60,
+        20
+       ]
+      },
+      {
+       "expect": [
+        "Robot finger bends",
+        "Robot finger bends",
+        "Fingers bent: 2"
+       ],
+       "inputs": [
+        31,
+        30,
+        90,
+        0
+       ]
+      }
+     ],
+     "title": "Copy my fingers",
+     "type": "parsons",
+     "why": "The glove reads finger bends again and again and the robot hand reacts, which is a loop with a decision inside."
+    },
+    {
+     "blanks": [
+      {
+       "answer": 1,
+       "options": [
+        "2",
+        "3",
+        "4",
+        "10"
+       ]
+      },
+      {
+       "answer": 1,
+       "options": [
+        ">",
+        ">=",
+        "<",
+        "="
+       ]
+      },
+      {
+       "answer": 2,
+       "options": [
+        "SET brightness TO 10",
+        "SET brightness TO brightness - 10",
+        "SET brightness TO brightness + 10",
+        "SET squeeze TO squeeze + 10"
+       ]
+      }
+     ],
+     "explain": "The loop runs 3 times for 3 readings, >= includes a reading of exactly 20, and brightness + 10 adds to the old value. > is the most tempting wrong choice, but it ignores a pinch of exactly 20, so the first test would show 60.",
+     "lines": [
+      {
+       "code": "SET brightness TO 50",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT {0} TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE squeeze FROM SENSOR",
+       "indent": 1
+      },
+      {
+       "code": "IF squeeze {1} 20 THEN",
+       "indent": 1
+      },
+      {
+       "code": "{2}",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Brightness: \" & brightness TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "strand": "Understanding the world through computational thinking",
+     "task": "The lamp starts at brightness 50 and checks its pinch sensor 3 times. A pinch reading of 20 or more makes it 10 brighter; lighter touches are ignored. Fill the gaps. Test it with readings 20, 5 and 35: it should show Brightness: 70.",
+     "tests": [
+      {
+       "expect": [
+        "Brightness: 70"
+       ],
+       "inputs": [
+        20,
+        5,
+        35
+       ]
+      },
+      {
+       "expect": [
+        "Brightness: 70"
+       ],
+       "inputs": [
+        10,
+        25,
+        20
+       ]
+      }
+     ],
+     "title": "Pinch to brighten",
+     "type": "complete",
+     "why": "The folding lamp changes its brightness when it is pinched, so the program must repeat, check the sensor and change a variable."
+    },
+    {
+     "explain": "You design first, then print, then test and calibrate, and only then use it. Using it before calibrating is tempting, but the readings could not yet be trusted.",
+     "steps": [
+      "Choose a shape in the design software and say how each part should move",
+      "The software places sensors where the object will bend",
+      "Print the object using soft plastic and two conducting plastics at once",
+      "Calibrate it with a camera, matching readings to real movements",
+      "Bend the object, and the computer reads the change in its signal",
+      "The program uses the reading to do something, like changing a lamp's brightness"
+     ],
+     "strand": "Designing, building and testing computing solutions",
+     "task": "Put the steps for making and using an X-Hinge gadget in the right order.",
+     "title": "From design to gadget",
+     "type": "order",
+     "why": "The story describes how an X-Hinge gadget is designed, made, checked and used, step by step."
+    }
+   ],
+   "headline": "3D-printed hinges that can feel how they bend",
+   "id": "2026-10-27-sensing-hinges",
+   "illustration": "chip",
+   "imageAlt": "Illustration of a bendy 3D-printed hinge with a glowing sensor strip inside, sending a wavy signal to a small screen showing bars.",
+   "keywords": [
+    {
+     "meaning": "A part that measures something in the real world, such as bending, light or heat, and sends it to a computer as input.",
+     "term": "Sensor"
+    },
+    {
+     "meaning": "Making a solid object by building it up layer by layer from a design on a computer.",
+     "term": "3D printing"
+    },
+    {
+     "meaning": "Able to carry electricity. The sensors and wires in X-Hinges are made from conductive plastic.",
+     "term": "Conductive"
+    },
+    {
+     "meaning": "Checking a sensor against known, real values so that its readings can be trusted.",
+     "term": "Calibration"
+    }
+   ],
+   "newsDate": "22 October 2026",
+   "quiz": [
+    {
+     "answer": 0,
+     "explain": "The glove senses how each finger bends and a robot hand copies it. The joystick is a real detail from the story, but it belongs to the sea creature game controller, not the glove.",
+     "options": [
+      "Make a robot hand copy your finger movements",
+      "Turn your hand into a joystick for games",
+      "Measure how fast your heart is beating",
+      "3D-print a robot hand while you wear it"
+     ],
+     "q": "What can the glove made with X-Hinges do?",
+     "strand": "The news"
+    },
+    {
+     "answer": 2,
+     "explain": "It senses three: side to side, up and down, and being squashed. One is tempting because that is all most older printed sensors could manage.",
+     "options": [
+      "One",
+      "Two",
+      "Three",
+      "Four"
+     ],
+     "q": "How many different kinds of movement can one X-Hinge sense?",
+     "strand": "The news"
+    },
+    {
+     "answer": 3,
+     "explain": "The input is the information going into the computer: the pinch measured by the sensor. The light coming out is the output, and choosing the brightness is the processing.",
+     "options": [
+      "The light shining from the lamp",
+      "The program choosing a new brightness",
+      "The plastic the lamp is printed from",
+      "The pinch measured by the hinge sensor"
+     ],
+     "q": "You pinch the folding lamp and it gets brighter. What is the input in this system?",
+     "strand": "Understanding and analysing computing technology"
+    },
+    {
+     "answer": 1,
+     "explain": "Tiny differences in printing mean two copies give different readings, so each is checked against real movements. Saving readings is about storage, which does not make them any more accurate.",
+     "options": [
+      "To make the plastic softer and bendier",
+      "Each copy gives slightly different readings",
+      "To save its readings in the computer's storage",
+      "To make the program run more quickly"
+     ],
+     "q": "Why does each printed X-Hinge need to be calibrated?",
+     "strand": "Designing, building and testing computing solutions"
+    },
+    {
+     "answer": 0,
+     "explain": "A loop repeats the same instructions. Selection is tempting because the program also makes decisions, but an IF only chooses between options, it does not repeat them.",
+     "options": [
+      "Repetition (a loop)",
+      "Selection (an IF)",
+      "Sequence (one step after another)",
+      "A variable"
+     ],
+     "q": "The glove's program checks every finger sensor again and again, many times each second. Which programming idea makes code run over and over?",
+     "strand": "Understanding the world through computational thinking"
+    },
+    {
+     "answer": 2,
+     "explain": "30 degrees is 3 steps of 10, so 20 + 3 x 4 = 32. 36 comes from counting one step too many, and 120 forgets the starting reading and multiplies 30 by 4.",
+     "options": [
+      "24",
+      "36",
+      "32",
+      "120"
+     ],
+     "q": "Challenge: a hinge sensor reads 20 when the hinge is straight. Its reading goes up by 4 for every 10 degrees of bend. What will it read at a 30 degree bend?",
+     "strand": "Understanding the world through computational thinking"
+    }
+   ],
+   "sources": [
+    {
+     "title": "MIT News: This design software reimagines everyday objects as self-aware devices",
+     "url": "https://news.mit.edu/2026/design-software-reimagines-everyday-objects-as-self-aware-devices-1022"
+    },
+    {
+     "title": "Fabbaloo: X-Hinges Print Motion Sensors Into Flexible Joints",
+     "url": "https://www.fabbaloo.com/?p=240324"
+    }
+   ],
+   "standfirst": "Researchers have made a way to 3D-print objects that sense their own movement. One printed glove can even teach a robot hand to copy your fingers.",
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><rect x=\"60\" y=\"150\" width=\"150\" height=\"70\" rx=\"12\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><path d=\"M210 185 Q250 140 290 175 Q320 205 330 150\" fill=\"none\" stroke=\"var(--ink)\" stroke-width=\"30\" stroke-linecap=\"round\"/><path d=\"M210 185 Q250 140 290 175 Q320 205 330 150\" fill=\"none\" stroke=\"var(--card)\" stroke-width=\"20\" stroke-linecap=\"round\"/><path d=\"M214 183 Q250 146 288 178 Q318 206 328 152\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"6\" stroke-linecap=\"round\"/><rect x=\"300\" y=\"60\" width=\"70\" height=\"100\" rx=\"12\" transform=\"rotate(25 335 110)\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><path d=\"M380 250 q15 -30 30 0 t30 0 t30 0 t30 0\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"5\" stroke-linecap=\"round\"/><line x1=\"270\" y1=\"215\" x2=\"370\" y2=\"250\" stroke=\"var(--ink)\" stroke-width=\"3\" stroke-dasharray=\"8 6\"/><rect x=\"470\" y=\"190\" width=\"130\" height=\"110\" rx=\"10\" fill=\"var(--ink)\"/><rect x=\"490\" y=\"260\" width=\"16\" height=\"25\" fill=\"var(--accent)\"/><rect x=\"515\" y=\"240\" width=\"16\" height=\"45\" fill=\"var(--accent)\"/><rect x=\"540\" y=\"215\" width=\"16\" height=\"70\" fill=\"var(--hot)\"/><rect x=\"565\" y=\"230\" width=\"16\" height=\"55\" fill=\"var(--accent)\"/></svg>",
+   "tags": [
+    "Robots",
+    "Hardware",
+    "Sensors",
+    "Selection",
+    "Loops",
+    "Testing"
+   ],
+   "theme": "robots",
+   "whyItMatters": "Adding sensors to a gadget usually means fitting tiny parts and wires by hand. Printing the sensors inside an object could let designers make custom controllers, tools and toys that react to touch. Teaching a robot by simply moving your own hand could also make robots easier to program."
+  },
   {
    "body": [
     "Most screens are hard and flat, made of glass and plastic. A team at the National University of Singapore wanted to make one that is soft, bendy and part of your clothes. Their results were published in the science journal Nature on 21 October.",
