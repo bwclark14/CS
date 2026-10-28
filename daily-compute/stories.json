@@ -1,6 +1,397 @@
 {
- "updated": "2026-10-27",
+ "updated": "2026-10-28",
  "stories": [
+  {
+   "body": [
+    "Since 1972, the world has set its official time using atomic clocks. These clocks are amazingly accurate, but the Earth is not. Its spin speeds up and slows down by tiny amounts, so a day is not always exactly the same length.",
+    "To stop clock time drifting away from the Sun, timekeepers have sometimes added one extra second, called a leap second. On those nights, the last minute of the day had 61 seconds, and clocks were meant to show 23:59:60. This has happened 27 times, most recently at the end of 2016.",
+    "Leap seconds are a problem for computers. Many programs expect every minute to have exactly 60 seconds. In 2012, a leap second caused problems for computer systems around the world, including an airline booking system and the website Reddit. Some big tech companies now spread the extra second out by making their clocks run very slightly slower for a few hours.",
+    "Things could have got even trickier. In recent years the Earth has been spinning a little faster, so scientists might soon have needed to take a second away instead. That has never been done, and experts worried that lots of software would not cope.",
+    "Now, at a meeting in France on 15 October, countries voted to stop adding leap seconds from May 2027. Clock time will slowly drift away from the Earth's spin, but only by a tiny amount. Experts think it will take about 3,000 years before the gap reaches a whole hour, and they may then add a leap hour."
+   ],
+   "connections": {
+    "groups": [
+     {
+      "explain": "Each of these is used to show or measure time. Clock looks like it belongs here too, but it is needed in another group.",
+      "name": "Things that tell the time",
+      "words": [
+       "Sundial",
+       "Hourglass",
+       "Wristwatch",
+       "Stopwatch"
+      ]
+     },
+     {
+      "explain": "Each is a length of time. Year, Second and Day are units of time too, but they all belong in the last group.",
+      "name": "Units of time",
+      "words": [
+       "Minute",
+       "Fortnight",
+       "Decade",
+       "Century"
+      ]
+     },
+     {
+      "explain": "These are all parts of a computer. Every computer has a clock chip that keeps time and a clock signal that keeps the processor in step.",
+      "name": "Inside a computer",
+      "words": [
+       "Processor",
+       "Memory",
+       "Storage",
+       "Clock"
+      ]
+     },
+     {
+      "explain": "Leapfrog, leap year, leap second and leap day. Year, Second and Day look like plain units of time, but here they each follow the word leap.",
+      "name": "Leap ___",
+      "words": [
+       "Frog",
+       "Year",
+       "Second",
+       "Day"
+      ]
+     }
+    ],
+    "title": "Time to compute"
+   },
+   "date": "2026-10-28",
+   "discussion": [
+    "Why do you think so many programmers wrote code that expected every minute to have exactly 60 seconds? How could they have spotted the problem before it happened?",
+    "Astronomers and scientists who study earthquakes say ending leap seconds means more work for them, while tech companies are pleased. Whose needs do you think should matter most when choosing how the world keeps time, and why?",
+    "Make a list of things in your home or school that need to know the right time. What would happen to each one if its clock was 1 second wrong? What about 1 hour wrong?",
+    "Some companies spread the leap second out by slowing their clocks slightly for a few hours, instead of adding 23:59:60. What are the good and bad points of this idea?",
+    "Design challenge: plan a set of test values for a digital clock program. Include normal times, times right at the edge (like 23:59:59) and unusual times (like 23:59:60). Say what the clock should show for each one."
+   ],
+   "extras": [
+    {
+     "answer": 2,
+     "explain": "The seconds go 58, 59, 60, then 61 becomes 0, then 1. Seconds: 2 is tempting if you treat it as a normal 60-second minute and skip 60, Seconds: 0 stops one tick early, and 62 forgets the reset.",
+     "lines": [
+      {
+       "code": "SET seconds TO 57",
+       "indent": 0
+      },
+      {
+       "code": "SET limit TO 61",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT 5 TIMES",
+       "indent": 0
+      },
+      {
+       "code": "SET seconds TO seconds + 1",
+       "indent": 1
+      },
+      {
+       "code": "IF seconds = limit THEN",
+       "indent": 1
+      },
+      {
+       "code": "SET seconds TO 0",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Seconds: \" & seconds TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "options": [
+      "Seconds: 2",
+      "Seconds: 0",
+      "Seconds: 1",
+      "Seconds: 62"
+     ],
+     "question": "What will be displayed?",
+     "strand": "Understanding the world through computational thinking",
+     "task": "This clock program is set up for a minute with a leap second, so seconds go 58, 59, 60 and only then back to 0. It starts at 57 and ticks 5 times.",
+     "title": "The 61-second minute",
+     "trace": {
+      "cols": [
+       "Step",
+       "seconds after + 1",
+       "seconds = limit?",
+       "seconds"
+      ],
+      "rows": [
+       [
+        "Start",
+        "-",
+        "-",
+        "57"
+       ],
+       [
+        "Loop 1",
+        "58",
+        "no",
+        "58"
+       ],
+       [
+        "Loop 2",
+        "59",
+        "no",
+        "59"
+       ],
+       [
+        "Loop 3",
+        "60",
+        "no",
+        "60"
+       ],
+       [
+        "Loop 4",
+        "61",
+        "yes",
+        "0"
+       ],
+       [
+        "Loop 5",
+        "1",
+        "no",
+        "1"
+       ]
+      ]
+     },
+     "type": "predict",
+     "why": "A minute with a leap second has 61 seconds, so tracing a clock program shows exactly why the extra second matters."
+    },
+    {
+     "answer": 3,
+     "bug": 4,
+     "explain": "A clock can be wrong by being ahead OR behind, and both can never be true at once, so AND never finds a problem. The first fix is tempting, but it only catches a server that is ahead, so a server 5 seconds behind would still say In sync. Using >= wrongly flags a difference of exactly 1 second.",
+     "fixes": [
+      "IF server - atomic > 1 THEN",
+      "IF server - atomic > 1 OR atomic - server < 1 THEN",
+      "IF server - atomic >= 1 OR atomic - server >= 1 THEN",
+      "IF server - atomic > 1 OR atomic - server > 1 THEN"
+     ],
+     "lines": [
+      {
+       "code": "SET problems TO 0",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT 3 TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE server FROM KEYBOARD",
+       "indent": 1
+      },
+      {
+       "code": "RECEIVE atomic FROM KEYBOARD",
+       "indent": 1
+      },
+      {
+       "code": "IF server - atomic > 1 AND atomic - server > 1 THEN",
+       "indent": 1
+      },
+      {
+       "code": "SEND \"Out of sync\" TO DISPLAY",
+       "indent": 2
+      },
+      {
+       "code": "SET problems TO problems + 1",
+       "indent": 2
+      },
+      {
+       "code": "ELSE",
+       "indent": 1
+      },
+      {
+       "code": "SEND \"In sync\" TO DISPLAY",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Problems: \" & problems TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "strand": "Designing, building and testing computing solutions",
+     "task": "A server compares its clock with an atomic clock 3 times (both in seconds). A difference of up to 1 second is fine, but more than that should show Out of sync. In testing, it says In sync even when the server is 5 seconds wrong. Find the faulty line and choose the fix.",
+     "tests": [
+      {
+       "expect": [
+        "In sync",
+        "Out of sync",
+        "Out of sync",
+        "Problems: 2"
+       ],
+       "inputs": [
+        100,
+        100,
+        105,
+        100,
+        100,
+        105
+       ]
+      },
+      {
+       "expect": [
+        "In sync",
+        "In sync",
+        "In sync",
+        "Problems: 0"
+       ],
+       "inputs": [
+        101,
+        100,
+        100,
+        101,
+        50,
+        50
+       ]
+      }
+     ],
+     "title": "Out of sync?",
+     "type": "bug",
+     "why": "Computers must keep their clocks synchronised with atomic time, and a check that a clock is not too far out is a selection with OR."
+    },
+    {
+     "bits": 8,
+     "explain": "27 = 16 + 8 + 2 + 1, so the bits are 00011011. Switching on the 4 instead of the 2 is a tempting slip, but 16 + 8 + 4 + 1 makes 29.",
+     "strand": "Understanding and analysing computing technology",
+     "target": 27,
+     "task": "Leap seconds have been added 27 times since 1972. Turn the bits on and off to make 27 in 8-bit binary.",
+     "title": "27 leap seconds",
+     "type": "binary",
+     "why": "The story has a real number worth converting: 27 leap seconds have been added since 1972."
+    }
+   ],
+   "headline": "The world's clocks will stop adding leap seconds",
+   "id": "2026-10-28-leap-second-ends",
+   "illustration": "internet",
+   "imageAlt": "Illustration of a big clock showing 23:59:60 next to a row of computer servers with small warning lights.",
+   "keywords": [
+    {
+     "meaning": "A super-accurate clock that measures time using the tiny, regular vibrations of atoms. It would lose less than a second in millions of years.",
+     "term": "Atomic clock"
+    },
+    {
+     "meaning": "An extra second sometimes added to the world's official time so that clocks stay in step with the Earth's spin.",
+     "term": "Leap second"
+    },
+    {
+     "meaning": "The official world time that computers and countries set their clocks by. UK time in winter is the same as UTC.",
+     "term": "Coordinated Universal Time (UTC)"
+    },
+    {
+     "meaning": "To make two or more clocks or computers agree on exactly the same time.",
+     "term": "Synchronise"
+    }
+   ],
+   "newsDate": "15 October 2026",
+   "quiz": [
+    {
+     "answer": 2,
+     "explain": "They voted to stop adding leap seconds from May 2027. Taking a second away is a real detail from the story, but it was the thing experts were worried about, not what they chose.",
+     "options": [
+      "To add a leap second every year from 2027",
+      "To take one second away for the first time",
+      "To stop adding leap seconds from 2027",
+      "To stop using atomic clocks for world time"
+     ],
+     "q": "What did the world's timekeepers vote for in October 2026?",
+     "strand": "The news"
+    },
+    {
+     "answer": 0,
+     "explain": "Programs that assume every minute has 60 seconds can go wrong when a clock shows 23:59:60. Storage is tempting, but one extra second of time does not fill up a computer's storage.",
+     "options": [
+      "Many programs expect a minute to have exactly 60 seconds",
+      "The extra second uses up space in a computer's storage",
+      "Atomic clocks switch off while the leap second is added",
+      "The internet is turned off for one second worldwide"
+     ],
+     "q": "Why have leap seconds caused problems for computers?",
+     "strand": "The news"
+    },
+    {
+     "answer": 1,
+     "explain": "An IF makes a decision, which is selection. Repetition is tempting because a clock ticks again and again, but it is the loop that repeats, while the IF only chooses whether to reset.",
+     "options": [
+      "Repetition (a loop)",
+      "Selection (a decision)",
+      "A variable",
+      "Sequence (one step after another)"
+     ],
+     "q": "A clock program adds 1 to seconds, and IF seconds reaches 60 it sets seconds back to 0. Which programming idea is the IF part?",
+     "strand": "Understanding the world through computational thinking"
+    },
+    {
+     "answer": 2,
+     "explain": "Bugs often hide in rare cases, like a minute with 61 seconds, so testers try them on purpose. Testing only unusual values is tempting, but normal values must be tested as well.",
+     "options": [
+      "Unusual tests make the finished program run faster",
+      "Testing with odd values saves the program to storage",
+      "Rare cases can break a program if nobody has tried them",
+      "Only unusual values need testing, not everyday ones"
+     ],
+     "q": "Why is it important to test a clock program with unusual times like 23:59:60?",
+     "strand": "Designing, building and testing computing solutions"
+    },
+    {
+     "answer": 1,
+     "explain": "27 = 16 + 8 + 2 + 1, which is 00011011. 00011101 is tempting, but that is 16 + 8 + 4 + 1 = 29. 00110110 is 54, with every bit moved one place left.",
+     "options": [
+      "00011101",
+      "00011011",
+      "00110110",
+      "00011010"
+     ],
+     "q": "Leap seconds have been added 27 times. What is 27 written as an 8-bit binary number?",
+     "strand": "Understanding and analysing computing technology"
+    },
+    {
+     "answer": 3,
+     "explain": "Start at 10 and add 27, which gives 37 seconds. 27 is tempting if you forget the 10 seconds it started with, and 17 comes from subtracting instead of adding.",
+     "options": [
+      "27 seconds",
+      "17 seconds",
+      "38 seconds",
+      "37 seconds"
+     ],
+     "q": "Challenge: in 1972, world time (UTC) was set 10 seconds behind pure atomic time. Each leap second put it 1 more second behind. After 27 leap seconds, how far behind is it?",
+     "strand": "Understanding the world through computational thinking"
+    }
+   ],
+   "sources": [
+    {
+     "title": "News for Kids: Timekeepers Say Goodbye to the Leap Second",
+     "url": "https://newsforkids.net/articles/2026/10/21/timekeepers-say-goodbye-to-the-leap-second/"
+    },
+    {
+     "title": "CP24: Leap second abolished by international timekeepers",
+     "url": "https://www.cp24.com/news/world/2026/10/16/this-time-adjustment-was-in-place-for-more-than-50-years-an-international-body-just-abolished-it/"
+    }
+   ],
+   "standfirst": "Timekeepers from around the world have voted to scrap the leap second, an extra second that has caused headaches for computers for more than 50 years.",
+   "tags": [
+    "Internet",
+    "Data",
+    "Variables",
+    "Selection",
+    "Testing"
+   ],
+   "theme": "internet",
+   "whyItMatters": "Almost everything computers do, from sending messages to saving files and running websites, depends on knowing the exact time. Getting rid of surprise extra seconds makes time simpler and more predictable for software. It also shows how one rare situation that programmers forget to test can cause problems all over the world."
+  },
   {
    "body": [
     "A hinge is the bendy part that lets something open, close or fold, like a door or the joints in your fingers. A team from MIT in the USA and Tianjin University in China has found a way to 3D-print hinges that can feel how much they bend. They call them X-Hinges, and they will show them at a computing conference in November.",
