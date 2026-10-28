@@ -1,0 +1,254 @@
+<a class="skip" href="#main">Skip to content</a>
+<nav class="top" aria-label="Missions"><div class="wrap">
+  <a class="brand" href="#home">Future Proof</a>
+  <div class="links">
+    <a href="#m1">1 · Inside the Box</a><a href="#m2">2 · In Disguise</a><a href="#m3">3 · Spec Wars</a><a href="#m4">4 · Yesterday</a><a href="#m5">5 · Ad Break</a><a href="#m6" class="e-now">6 · Packets</a><a href="#m7" class="e-now">7 · Talk to the Bit</a><a href="#m8" class="e-now">8 · Drivers</a><a href="#m9" class="e-next">9 · Frontier</a><a href="#m10" class="e-next">10 · Crystal Ball</a><a href="#m11" class="e-next">11 · Pitch</a><a href="#m12" class="e-next">12 · Capsule</a>
+  </div>
+  <button class="navbtn pass" id="passBtn" type="button" aria-haspopup="dialog"><span class="lg" aria-hidden="true">Chrono Pass</span><span class="sm" aria-hidden="true">★</span><span class="sr-only">Chrono Pass stamps:</span> <span class="count" id="passCount">0</span></button>
+  <button class="navbtn" id="bigToggle" type="button" aria-pressed="false"><span class="lg" aria-hidden="true">Larger text</span><span class="sm" aria-hidden="true">A+</span><span class="sr-only">Larger text</span></button>
+</div></nav>
+<div id="srLive" class="sr-only" aria-live="polite"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span class="ic">★</span><span id="toastText"></span></div>
+
+<dialog class="pass" id="passDlg" aria-labelledby="passTitle">
+  <div class="pass-in">
+    <div class="pass-head"><h2 id="passTitle" style="font-size:1.6rem">Your Chrono Pass</h2><button class="btn sm" id="passClose" type="button">Close</button></div>
+    <p class="small">You earn a stamp by doing something, not just by visiting a page. Stamps are saved in this browser only. Nothing is sent anywhere.</p>
+    <div class="stamps" id="stampGrid"></div>
+    <div class="row"><button class="btn sm" id="passReset" type="button">Start again on this device</button></div>
+  </div>
+</dialog>
+
+<main id="main" tabindex="-1">
+
+<!-- ============ HOME ============ -->
+<div class="view" id="home" data-title="">
+<header class="hero"><div class="wrap">
+  <div class="hero-grid">
+    <div>
+      <p class="eyebrow">Agent briefing · ages 11–14</p>
+      <h1 style="margin-top:10px">The computer in your pocket would have looked like <span class="mark">magic</span> in 1982.</h1>
+      <p class="lede">You are a time agent. Your job: find out how computers work, how they got this good, which predictions about them came true, and what might come next. At the end you make your own prediction, pitch a product from the future and seal both in a time capsule to open in a few years.</p>
+      <div class="meta"><span class="chip">12 missions</span><span class="chip">Then → Now → Next</span><span class="chip">Real micro:bit or simulator</span><span class="chip">Ends in a time capsule</span></div>
+    </div>
+    <div class="vs" aria-label="A 1982 home computer compared with a 2026 phone">
+      <div class="card"><div class="yr">1982 · ZX SPECTRUM</div>
+        <div class="row"><span>Made in</span><span>Dundee, Scotland</span></div>
+        <div class="row"><span>Processor</span><span>3.5 MHz</span></div>
+        <div class="row"><span>Memory</span><span>48 KB</span></div>
+        <div class="row"><span>Storage</span><span>audio cassette</span></div>
+        <div class="row"><span>Price</span><span>£175</span></div></div>
+      <div class="x">▼ 44 YEARS LATER ▼</div>
+      <div class="card now"><div class="yr">2026 · iPHONE 18 PRO</div>
+        <div class="row"><span>Chip</span><span>A20 Pro, 2 nm</span></div>
+        <div class="row"><span>Memory</span><span>12 GB (250,000× more)</span></div>
+        <div class="row"><span>Storage</span><span>up to 2 TB</span></div>
+        <div class="row"><span>Connected to</span><span>about 6 billion people</span></div></div>
+    </div>
+  </div>
+  <div class="route-head">
+    <p class="small">Start with Mission 1. Every mission ends at a good place to stop.</p>
+    <div class="eras"><span><i style="background:var(--then)"></i>THEN</span><span><i style="background:var(--now)"></i>NOW</span><span><i style="background:var(--next)"></i>NEXT</span></div>
+  </div>
+  <div class="route" id="route" aria-label="Route through the missions">
+    <a href="#m1" data-m="m1"><span>MISSION 1</span><b>Inside the Box</b>What a computer is made of</a>
+    <a href="#m2" data-m="m2"><span>MISSION 2</span><b>Computers in Disguise</b>They are hiding everywhere</a>
+    <a href="#m3" data-m="m3"><span>MISSION 3</span><b>Spec Wars</b>What makes one faster?</a>
+    <a href="#m4" data-m="m4"><span>MISSION 4</span><b>Did Yesterday Get It Right?</b>Predictions from the past</a>
+    <a href="#m5" data-m="m5"><span>MISSION 5</span><b>Rewind Ad Break</b>Sell 2026 tech in 1985</a>
+    <a href="#m6" data-m="m6" class="e-now"><span>MISSION 6</span><b>Packets on the Move</b>How the internet works</a>
+    <a href="#m7" data-m="m7" class="e-now"><span>MISSION 7</span><b>Talk to the Bit</b>micro:bit radio networks</a>
+    <a href="#m8" data-m="m8" class="e-now"><span>MISSION 8</span><b>Shrink, Speed, Store, Connect</b>Why tech changed</a>
+    <a href="#m9" data-m="m9" class="e-next"><span>MISSION 9</span><b>Frontier Files</b>Robots, quantum, DNA and more</a>
+    <a href="#m10" data-m="m10" class="e-next"><span>MISSION 10</span><b>Crystal Ball</b>Make your prediction</a>
+    <a href="#m11" data-m="m11" class="e-next"><span>MISSION 11</span><b>Pitch to the Future</b>Design, prototype, pitch</a>
+    <a href="#m12" data-m="m12" class="e-next"><span>MISSION 12</span><b>Seal the Capsule</b>Lock it away for later</a>
+  </div>
+
+  <section class="mt2 panel" aria-labelledby="agentH">
+    <h3 id="agentH">Choose your agent codename</h3>
+    <div class="two">
+      <div class="stack">
+        <p class="small">Use a codename, not your real name. It goes on your Chrono Pass and your time capsule so your teacher can match them up.</p>
+        <div class="row"><input id="codename" maxlength="24" aria-label="Codename" placeholder="e.g. Agent Byte-7" data-save="codename" style="flex:1;min-width:180px"><button class="btn sm" id="codeGen" type="button">Make one up for me</button></div>
+        <div class="saved" id="codenameSaved"></div>
+      </div>
+      <div class="note"><b>Rules for agents.</b> Don't type your full name, school, address or anything private anywhere on this site. Your work is saved only in this browser on this device. Use the download buttons to keep a copy.</div>
+    </div>
+  </section>
+</div></header>
+</div>
+
+<!-- ============ MISSION 1 ============ -->
+<div class="view" data-title="Mission 1 · Inside the Box">
+<div class="part" id="m1"><div class="wrap"><span class="num">MISSION 1 OF 12 · THEN</span><h1>Inside the Box</h1><p>A games console, a phone and the Apollo moon computer all do the same four jobs. Find out what the parts are, what each one does, and why everything inside is made of 1s and 0s.</p>
+<div class="goals"><span>Input · process · output · storage</span><span>Memory vs storage</span><span>Binary</span></div></div></div>
+
+<section class="block first" id="ipo"><div class="wrap">
+  <div class="sec-head"><span class="mission">1.1 · Sort the parts</span><h2>Every computer does four jobs</h2>
+  <p class="lede">It takes in data (<b>input</b>), works on it by following instructions (<b>process</b>), keeps data for later (<b>memory and storage</b>), and gives back a result (<b>output</b>). Tap a part, then tap the job it does.</p></div>
+  <div id="ipoGame"></div>
+</div></section>
+
+<section class="block" id="desk"><div class="wrap">
+  <div class="sec-head"><span class="mission">1.2 · Simulator</span><h2>The desk and the filing cabinet</h2>
+  <p class="lede">Think of an office. The <b>processor</b> is the worker. <b>RAM</b> (memory) is the desk: small, fast, and cleared when the power goes off. <b>Storage</b> is the filing cabinet: big, keeps things when the power is off, but slower to fetch from. The <b>cache</b> is a tiny notepad right next to the worker's hand.</p></div>
+  <div class="two">
+    <div class="panel stack">
+      <div class="stack"><label>How big is the desk (RAM)?</label><div class="seg" id="deskRam"><button type="button" data-v="4" aria-pressed="true">4 GB</button><button type="button" data-v="8">8 GB</button><button type="button" data-v="12">12 GB</button></div></div>
+      <div class="stack"><label>What kind of filing cabinet (storage)?</label><div class="seg" id="deskSto"><button type="button" data-v="hdd" aria-pressed="true">Hard disk (HDD)</button><button type="button" data-v="ssd">Solid state (SSD)</button></div></div>
+      <div class="stack"><label>Open an app (tap again to switch back to it)</label><div class="row" id="deskApps"></div></div>
+      <div class="row"><button class="btn sm" id="deskReset" type="button">Clear the desk</button></div>
+    </div>
+    <div class="stack">
+      <div class="desk" id="deskGrid" aria-label="The desk: RAM slots"></div>
+      <div class="row" style="justify-content:space-between"><div><div class="small">Total waiting time</div><div class="big-num" id="deskWait">0.0 s</div></div><div style="text-align:right"><div class="small">Apps sent back to the cabinet</div><div class="big-num" id="deskSwap">0</div></div></div>
+      <div class="log" id="deskLog" aria-live="polite"><div>Desk is empty. Open an app.</div></div>
+    </div>
+  </div>
+  <div class="task"><b>Your task.</b> Open all six apps, then switch back to the Browser and the Game. Note the total waiting time. Now try a bigger desk, then try an SSD. Which change helped most? Why does a full desk make things slow? <span class="small">(The times are made up to show the idea, but the pattern is real.)</span></div>
+</div></section>
+
+<section class="block" id="fde"><div class="wrap">
+  <div class="sec-head"><span class="mission">1.3 · Step through · extension</span><h2>Fetch, decode, execute</h2>
+  <p class="lede">The processor runs one instruction at a time. It <b>fetches</b> the next instruction from memory, <b>decodes</b> it to work out what it means, then <b>executes</b> it. A 4 GHz processor does this billions of times every second. Here you can do it slowly.</p></div>
+  <div class="cpu">
+    <div class="stack">
+      <div class="mem" id="cpuMem" aria-label="Memory"></div>
+      <div class="row"><label for="cpuA">Score A</label><input id="cpuA" type="number" value="5" min="0" max="99" style="width:80px"><label for="cpuB">Score B</label><input id="cpuB" type="number" value="3" min="0" max="99" style="width:80px"></div>
+    </div>
+    <div class="stack">
+      <div class="stage" id="cpuStage"><span>Fetch</span><span>Decode</span><span>Execute</span></div>
+      <div class="regs">
+        <div class="reg"><span>Program counter (which address next)</span><b id="rPC">0</b></div>
+        <div class="reg"><span>Current instruction</span><b id="rCIR">—</b></div>
+        <div class="reg"><span>Accumulator (working number)</span><b id="rACC">0</b></div>
+        <div class="reg"><span>Output</span><b id="rOUT">—</b></div>
+      </div>
+      <p class="small" id="cpuSay" aria-live="polite">Press Step to fetch the first instruction.</p>
+      <div class="row"><button class="btn primary" id="cpuStep" type="button">Step</button><button class="btn" id="cpuReset" type="button">Reset</button></div>
+    </div>
+  </div>
+  <div class="task"><b>Predict, then run.</b> Before you press Step, predict what the output will be. Then change Score A and B and predict again. Which instruction would you change to make it subtract?</div>
+</div></section>
+
+<section class="block" id="binary"><div class="wrap">
+  <div class="sec-head"><span class="mission">1.4 · Bit flipper</span><h2>Everything is 1s and 0s</h2>
+  <p class="lede">A computer stores everything (numbers, letters, colours, even its own instructions) as <b>binary</b>: patterns of on and off. Eight bits make one <b>byte</b>. The same byte can mean different things depending on how the computer reads it.</p></div>
+  <div class="bits" id="bits"></div>
+  <div class="outs" aria-live="polite">
+    <div class="o"><span class="small">As a number</span><b id="binNum">0</b></div>
+    <div class="o"><span class="small">As a letter</span><b id="binChr">—</b></div>
+    <div class="o"><span class="small">As a shade of grey</span><div class="swatch" id="binSw"></div></div>
+  </div>
+  <div class="panel mt"><h3>Challenges</h3><ul class="checklist" id="binGoals"><li data-g="13">Make the number 13</li><li data-g="65">Make the capital letter A</li><li data-g="255">Make pure white</li><li data-g="42">Make the number 42 using exactly three 1s</li></ul></div>
+  <div class="note mt"><b>Woven binary.</b> The Apollo moon-landing computer (1969) kept its program in "core rope" memory. Workers threaded wires <i>through</i> a tiny magnetic ring for a 1 and <i>around</i> it for a 0. The software was literally woven by hand, so it could not be changed once the spacecraft launched.</div>
+</div></section>
+
+<section class="block" id="m1quiz"><div class="wrap">
+  <div class="sec-head"><span class="mission">1.5 · Quick check</span><h2>Six questions</h2></div>
+  <div id="quiz1"></div>
+</div></section>
+
+<nav class="partend" aria-label="End of Mission 1"><div class="wrap">
+  <p class="pe-title">END OF MISSION 1</p>
+  <div class="pe-check" data-m="m1"><label><input type="checkbox"> I can explain what input, process, output and storage mean, with an example of each.</label><label><input type="checkbox"> I can explain the difference between memory (RAM) and storage.</label><label><input type="checkbox"> I can explain why computers use binary.</label></div>
+  <div class="pe-links"><a class="pe-link" href="#home"><span>Back</span>Briefing</a><a class="pe-link next" href="#m2"><span>Next</span>Mission 2 · Computers in Disguise</a></div>
+</div></nav>
+</div>
+
+<!-- ============ MISSION 2 ============ -->
+<div class="view" data-title="Mission 2 · Computers in Disguise">
+<div class="part" id="m2"><div class="wrap"><span class="num">MISSION 2 OF 12 · THEN</span><h1>Computers in Disguise</h1><p>Most computers don't look like computers. They hide inside cars, washing machines, bank cards and hearing aids. Others fill whole buildings. Find them, then pick the right one for the job.</p>
+<div class="goals"><span>Types of computer</span><span>Embedded systems</span><span>Justify a choice</span></div></div></div>
+
+<section class="block first" id="family"><div class="wrap">
+  <div class="sec-head"><span class="mission">2.1 · Meet the family</span><h2>From the size of a building to the size of a fingernail</h2>
+  <p class="lede">They all have a processor, memory, storage, inputs and outputs. What changes is size, power, cost, and whether they do one job or anything you ask.</p></div>
+  <div class="grid-auto" id="familyCards"></div>
+</div></section>
+
+<section class="block" id="spot"><div class="wrap">
+  <div class="sec-head"><span class="mission">2.2 · Spot the computer</span><h2>Is there a computer inside?</h2>
+  <p class="lede">Test: does it take in data, follow stored instructions to process it, and give an output? If yes, there's a computer inside, even if it's tiny.</p></div>
+  <div class="row" style="justify-content:space-between"><p class="small">Decide for each one, then check.</p><div><span class="small">Score </span><span class="score" id="spotScore">0 / 12</span></div></div>
+  <div class="cards mt" id="spotCards"></div>
+  <div class="note mt">A modern car can have <b>up to about 150</b> small computers (called ECUs) controlling things like brakes, airbags and windows. A typical home has dozens of hidden computers. <b>Count yours:</b> how many can you find in your kitchen?</div>
+</div></section>
+
+<section class="block" id="job"><div class="wrap">
+  <div class="sec-head"><span class="mission">2.3 · Which computer for the job?</span><h2>Pick it, then justify it</h2>
+  <p class="lede">Choose the best type of computer for each job. Think about processing power, storage, size, battery, cost and connection.</p></div>
+  <div class="cards" id="jobCards"></div>
+  <div class="task"><b>Justify.</b> Pick one job. Write two reasons your choice is better than the next-best option. Use the words <i>processing</i>, <i>storage</i>, <i>portable</i> or <i>cost</i>.<textarea class="mt" data-save="m2-justify" aria-label="Your justification"></textarea></div>
+</div></section>
+
+<nav class="partend" aria-label="End of Mission 2"><div class="wrap">
+  <p class="pe-title">END OF MISSION 2</p>
+  <div class="pe-check" data-m="m2"><label><input type="checkbox"> I can name at least six types of computer and give an example of each.</label><label><input type="checkbox"> I can explain what an embedded system is.</label><label><input type="checkbox"> I can choose a computer for a job and justify my choice.</label></div>
+  <div class="pe-links"><a class="pe-link" href="#m1"><span>Back</span>Mission 1</a><a class="pe-link next" href="#m3"><span>Next</span>Mission 3 · Spec Wars</a></div>
+</div></nav>
+</div>
+
+<!-- ============ MISSION 3 ============ -->
+<div class="view" data-title="Mission 3 · Spec Wars">
+<div class="part" id="m3"><div class="wrap"><span class="num">MISSION 3 OF 12 · THEN</span><h1>Spec Wars</h1><p>"8 cores! 4 GHz! 2 TB!" What do the numbers on the box actually mean, and why doesn't the biggest number always win? Play Top Trumps with real machines, race some storage, then clean up a messy database.</p>
+<div class="goals"><span>Clock speed, cores, RAM, storage</span><span>Bottlenecks</span><span>Storage units</span><span>Data cleaning</span></div></div></div>
+
+<section class="block first" id="specs"><div class="wrap">
+  <div class="sec-head"><span class="mission">3.1 · Decode the box</span><h2>What the numbers mean</h2></div>
+  <div class="grid-auto">
+    <div class="panel"><h3>Clock speed (GHz)</h3><p>How many steps the processor takes each second. 1 GHz = 1 billion ticks a second. Faster ticks = more work, but also more heat.</p></div>
+    <div class="panel"><h3>Cores</h3><p>Extra workers inside one processor. 8 cores help only if the job can be split up, like drawing lots of pixels or running several apps.</p></div>
+    <div class="panel"><h3>RAM (GB)</h3><p>The size of the desk. More RAM lets you keep more apps open without slowing down.</p></div>
+    <div class="panel"><h3>Storage (GB, TB)</h3><p>The filing cabinet. How much it holds matters, and so does how fast it is: an SSD can be about 50 times faster than a hard disk.</p></div>
+    <div class="panel"><h3>Graphics chip (GPU)</h3><p>Thousands of small cores that work at the same time. Great for games, video and AI.</p></div>
+  </div>
+  <div class="note mt"><b>The GHz paradox.</b> From the ZX Spectrum (1982) to Apple's M5 chip (2025), clock speed went up about <b>1,300 times</b>. Memory went up about <b>250,000 times</b>. Clock speeds got stuck around 4–5 GHz in the mid-2000s because chips got too hot. So engineers added more cores and bigger caches instead. You'll find out more in Mission 8.</div>
+</div></section>
+
+<section class="block" id="toptrumps"><div class="wrap">
+  <div class="sec-head"><span class="mission">3.2 · Game</span><h2>Spec Top Trumps</h2>
+  <p class="lede">Real machines from 1969 to 2025. Pick a stat on your card. Highest number wins both cards. For Year, the newer machine wins. First to win all the cards, or the most after ten rounds, wins.</p></div>
+  <div class="tt" id="tt">
+    <div class="tcard" id="ttYou" aria-live="polite"></div>
+    <div class="mid"><div class="small">You</div><div class="score" id="ttScore">0 – 0</div><div class="small">Computer</div><p class="small" id="ttSay" aria-live="polite" style="max-width:220px">Pick a stat on your card.</p><button class="btn primary" id="ttNext" type="button" disabled>Next round</button><button class="btn sm" id="ttNew" type="button">New game</button></div>
+    <div class="tcard cpu-card back" id="ttCpu"><span class="score" style="color:var(--then)">?</span></div>
+  </div>
+  <div class="task"><b>Think about it.</b> The Nintendo Switch 2 runs its cores at about 1 GHz. A PS5 runs at 3.5 GHz. Both have 8 cores. Why might clock speed alone not tell you which one plays a game better? <span class="small">Clue: the Switch 2 actually slows its processor down when you dock it, and speeds up its graphics chip instead.</span></div>
+</div></section>
+
+<section class="block" id="race"><div class="wrap">
+  <div class="sec-head"><span class="mission">3.3 · Bottleneck race</span><h2>Load a 50 GB game</h2>
+  <p class="lede">A <b>bottleneck</b> is the slowest part of a system: like one checkout till with a long queue. Here, the same game loads from four kinds of storage. Press Race.</p></div>
+  <div class="panel"><div class="race" id="raceLanes"></div><div class="row mt"><button class="btn primary" id="raceGo" type="button">Race</button><span class="small">Read speeds from 2026 tests. Real loading also depends on the processor unpacking the data.</span></div></div>
+  <div class="cards mt" id="raceQs"></div>
+</div></section>
+
+<section class="block" id="units"><div class="wrap">
+  <div class="sec-head"><span class="mission">3.4 · Size order</span><h2>Bits, bytes and terabytes</h2>
+  <p class="lede"><b>8 bits = 1 byte.</b> Then each step up is about 1,000 times bigger: kilobyte (KB) → megabyte (MB) → gigabyte (GB) → terabyte (TB). <span class="small">(Strictly, computers often count in 1,024s.)</span> Put these in order from smallest to largest.</p></div>
+  <div class="ladder" id="ladder"></div>
+  <div class="row mt"><button class="btn primary" id="ladderCheck" type="button">Check my order</button><span id="ladderFb" aria-live="polite"></span></div>
+  <div class="panel mt"><h3>How many floppy disks?</h3><p class="small">A 1990s floppy disk held 1.44 MB. IBM's first hard disk (1956) held 3.75 MB and weighed almost a tonne.</p>
+    <div class="row mt"><label for="flopGB">Storage in GB</label><input id="flopGB" type="number" value="256" min="0" step="1" style="width:120px"></div>
+    <p class="mt" id="flopOut" aria-live="polite"></p></div>
+</div></section>
+
+<section class="block" id="clean"><div class="wrap">
+  <div class="sec-head"><span class="mission">3.5 · Data detectives</span><h2>Clean up the spec database</h2>
+  <p class="lede">Real sources don't always agree. This database was copied from different websites, and it has problems: a duplicate, mixed-up units, a typo, a gap, and two places where sources disagree. Bad data gives bad answers, so you need to <b>clean</b> it before you use it.</p></div>
+  <div class="row"><button class="btn primary" id="cleanScan" type="button">Scan for problems</button><span class="small" id="cleanStatus" aria-live="polite"></span></div>
+  <div class="tbl-wrap mt"><table id="cleanTbl"></table></div>
+  <div id="cleanFix" class="mt"></div>
+  <div class="panel mt" id="cleanQuery" hidden><h3>Now query your clean data</h3>
+    <div class="row"><label for="cqFilter">Show</label><select id="cqFilter"><option value="all">all machines</option><option value="pre2000">made before 2000</option><option value="post2000">made in 2000 or later</option></select><span class="small">Tap a column heading to sort.</span></div>
+    <div class="cards mt" id="cleanQs"></div></div>
+</div></section>
+
+<nav class="partend" aria-label="End of Mission 3"><div class="wrap">
+  <p class="pe-title">END OF MISSION 3</p>
+  <div class="pe-check" data-m="m3"><label><input type="checkbox"> I can explain how clock speed, cores, RAM and storage affect performance.</label><label><input type="checkbox"> I can explain what a bottleneck is, with an example.</label><label><input type="checkbox"> I can put storage units in order and explain why data needs cleaning.</label></div>
+  <div class="pe-links"><a class="pe-link" href="#m2"><span>Back</span>Mission 2</a><a class="pe-link next" href="#m4"><span>Next</span>Mission 4 · Did Yesterday Get It Right?</a></div>
+</div></nav>
+</div>

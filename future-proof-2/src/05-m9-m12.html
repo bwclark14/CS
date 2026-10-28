@@ -1,0 +1,206 @@
+
+<!-- ============ MISSION 9 ============ -->
+<div class="view" data-title="Mission 9 · Frontier Files">
+<div class="part e-next" id="m9"><div class="wrap"><span class="num">MISSION 9 OF 12 · NEXT</span><h1>Frontier Files</h1><p>Humanoid robots, quantum chips, data stored in DNA. Some of this is real right now. Some of it is a company's promise that hasn't happened yet. Your job is to tell the difference, and to ask: just because we <i>could</i>, does that mean we <i>should</i>?</p>
+<div class="goals"><span>Frontier technologies</span><span>Hype vs reality</span><span>Benefits, risks, environment</span><span>Scottish links</span></div></div></div>
+
+<section class="block first" id="files"><div class="wrap">
+  <div class="sec-head"><span class="mission">9.1 · The files</span><h2>Open a file</h2><p class="lede">Facts are checked to late 2026. Things marked <span class="tag mid">claim</span> are promises or plans that hadn't happened yet. Fast-moving stories change quickly, so check the news too.</p></div>
+  <div class="ff-tabs" id="ffTabs" role="tablist" aria-label="Frontier files"></div>
+  <div id="ffFile" role="tabpanel"></div>
+</div></section>
+
+<section class="block" id="hype"><div class="wrap">
+  <div class="sec-head"><span class="mission">9.2 · Hype detector</span><h2>Confirmed, or just a claim?</h2><p class="lede">A <b>confirmed</b> fact has happened and can be checked. A <b>claim</b> is a promise, plan or boast that hasn't been proven yet.</p></div>
+  <div class="row" style="justify-content:flex-end"><span class="small">Score </span><span class="score" id="hypeScore">0 / 10</span></div>
+  <div class="cards mt" id="hypeCards"></div>
+</div></section>
+
+<section class="block" id="shouldwe"><div class="wrap">
+  <div class="sec-head"><span class="mission">9.3 · Debate</span><h2>Just because we could, should we?</h2><p class="lede">No right answers here. Set the slider, write one reason, then open the "things to weigh up".</p></div>
+  <div class="stack" id="swCards"></div>
+</div></section>
+
+<section class="block" id="research"><div class="wrap">
+  <div class="sec-head"><span class="mission">9.4 · Research organiser</span><h2>Become the expert on one file</h2><p class="lede">Choose one frontier tech. Use the file above and two other sources your teacher approves. Your notes feed into your prediction and pitch.</p></div>
+  <div class="panel stack">
+    <div class="row"><label for="rsTopic">My topic</label><select id="rsTopic" data-save="rs-topic"></select></div>
+    <div class="two">
+      <div class="stack"><label for="rs1">What is it, in one sentence?</label><textarea id="rs1" data-save="rs-1"></textarea></div>
+      <div class="stack"><label for="rs2">What is real right now? (confirmed)</label><textarea id="rs2" data-save="rs-2"></textarea></div>
+      <div class="stack"><label for="rs3">What is still hype or a claim?</label><textarea id="rs3" data-save="rs-3"></textarea></div>
+      <div class="stack"><label for="rs4">Who benefits? Who might lose out?</label><textarea id="rs4" data-save="rs-4"></textarea></div>
+      <div class="stack"><label for="rs5">Environmental impact</label><textarea id="rs5" data-save="rs-5"></textarea></div>
+      <div class="stack"><label for="rs6">Link to Scotland, or a job it might create</label><textarea id="rs6" data-save="rs-6"></textarea></div>
+      <div class="stack"><label for="rs7">My sources (name and date)</label><textarea id="rs7" data-save="rs-7"></textarea></div>
+      <div class="stack"><label for="rs8">A question I still have</label><textarea id="rs8" data-save="rs-8"></textarea></div>
+    </div>
+    <div class="row"><button class="btn" id="rsDl" type="button">Download my notes</button></div>
+  </div>
+</div></section>
+
+<nav class="partend" aria-label="End of Mission 9"><div class="wrap">
+  <p class="pe-title">END OF MISSION 9</p>
+  <div class="pe-check" data-m="m9"><label><input type="checkbox"> I can describe a frontier technology and what is real about it now.</label><label><input type="checkbox"> I can tell a confirmed fact from a claim.</label><label><input type="checkbox"> I can weigh up benefits, risks and environmental impact for different people.</label></div>
+  <div class="pe-links"><a class="pe-link" href="#m8"><span>Back</span>Mission 8</a><a class="pe-link next" href="#m10"><span>Next</span>Mission 10 · Crystal Ball</a></div>
+</div></nav>
+</div>
+
+<!-- ============ MISSION 10 ============ -->
+<div class="view" data-title="Mission 10 · Crystal Ball">
+<div class="part e-next" id="m10"><div class="wrap"><span class="num">MISSION 10 OF 12 · NEXT</span><h1>Crystal Ball</h1><p>Now it's your turn to predict. Futurists don't guess wildly. They look for signals, sort ideas into possible and probable, and think through what happens next. You'll use their tools.</p>
+<div class="goals"><span>Futures cone</span><span>Futures wheel</span><span>Confidence and evidence</span></div></div></div>
+
+<section class="block first" id="draw"><div class="wrap">
+  <div class="sec-head"><span class="mission">10.1 · Draw the future</span><h2>Deal four cards</h2><p class="lede">Deal a year, a place, a thing and a mood. Re-deal any card you don't like. Then imagine: what is that thing like, there, then?</p></div>
+  <div class="drawn" id="drawCards"></div>
+  <div class="row mt"><button class="btn primary" id="drawAll" type="button">Deal all four</button><span class="small">Or tap a card to re-deal just that one.</span></div>
+  <div class="stack mt"><label for="predText">My prediction (one sentence)</label><textarea id="predText" data-save="pred-text" placeholder="By 2031, in Shetland, ..."></textarea></div>
+</div></section>
+
+<section class="block" id="cone"><div class="wrap">
+  <div class="sec-head"><span class="mission">10.2 · Futures cone</span><h2>How likely is it?</h2><p class="lede">Futurists sort ideas by how likely they are. Tap where your prediction belongs.</p></div>
+  <div class="two">
+    <div class="cone panel"><svg id="coneSvg" viewBox="0 0 520 300" role="group" aria-label="Futures cone. Choose a band."></svg></div>
+    <div class="stack"><div class="panel" id="coneInfo" aria-live="polite"><p class="small">Tap a band on the cone.</p></div>
+      <div class="stack"><label for="coneWhy">Why did you put it there?</label><textarea id="coneWhy" data-save="cone-why"></textarea></div></div>
+  </div>
+</div></section>
+
+<section class="block" id="wheel"><div class="wrap">
+  <div class="sec-head"><span class="mission">10.3 · Futures wheel</span><h2>And then what?</h2><p class="lede">Put your prediction in the middle. For each area, write what would happen first, then what that would lead to.</p></div>
+  <div class="wheel" id="wheelBox"></div>
+</div></section>
+
+<section class="block" id="confidence"><div class="wrap">
+  <div class="sec-head"><span class="mission">10.4 · Back it up</span><h2>How sure are you?</h2></div>
+  <div class="two">
+    <div class="panel stack"><label for="confSl">My confidence it will come true</label><input id="confSl" type="range" min="0" max="100" step="5" value="50" data-save="conf"><div class="big-num" id="confOut">50%</div><p class="small">Being 100% sure is almost never right. When you open your capsule, you'll see how well your confidence matched reality.</p></div>
+    <div class="stack"><label for="confWhy">Which trends or drivers support it? (Mission 8)</label><textarea id="confWhy" data-save="conf-why"></textarea>
+      <label for="confSig">What would I need to see to know I'm right, or wrong?</label><textarea id="confSig" data-save="conf-sig"></textarea>
+      <div class="note" id="ruleEcho"></div></div>
+  </div>
+</div></section>
+
+<nav class="partend" aria-label="End of Mission 10"><div class="wrap">
+  <p class="pe-title">END OF MISSION 10</p>
+  <div class="pe-check" data-m="m10"><label><input type="checkbox"> I can make a prediction and place it on the futures cone.</label><label><input type="checkbox"> I can think through effects on people, society, the environment and jobs.</label><label><input type="checkbox"> I can say how confident I am and what evidence would change my mind.</label></div>
+  <div class="pe-links"><a class="pe-link" href="#m9"><span>Back</span>Mission 9</a><a class="pe-link next" href="#m11"><span>Next</span>Mission 11 · Pitch to the Future</a></div>
+</div></nav>
+</div>
+
+<!-- ============ MISSION 11 ============ -->
+<div class="view" data-title="Mission 11 · Pitch to the Future">
+<div class="part e-next" id="m11"><div class="wrap"><span class="num">MISSION 11 OF 12 · NEXT</span><h1>Pitch to the Future</h1><p>Design a product that belongs in the future you predicted. Find the problem, build a quick prototype, test and improve it, then pitch it to a panel of Dragons in 90 seconds.</p>
+<div class="goals"><span>Requirements and constraints</span><span>Prototype and test</span><span>Use AI critically</span><span>Justify with criteria</span></div></div></div>
+
+<section class="block first" id="brief"><div class="wrap">
+  <div class="sec-head"><span class="mission">11.1 · Discover and define</span><h2>Write your design brief</h2></div>
+  <div class="two">
+    <div class="stack"><label for="b1">How might we…? (the problem in one question)</label><textarea id="b1" data-save="b-hmw" placeholder="How might we help people on Scottish islands see a doctor without travelling?"></textarea>
+      <label for="b2">Who is it for? Who else is affected?</label><textarea id="b2" data-save="b-who"></textarea></div>
+    <div class="stack"><label for="b3">Requirements: what must it do?</label><textarea id="b3" data-save="b-req"></textarea>
+      <label for="b4">Constraints: limits on time, cost, size, power, privacy</label><textarea id="b4" data-save="b-con"></textarea></div>
+  </div>
+</div></section>
+
+<section class="block" id="prototype"><div class="wrap">
+  <div class="sec-head"><span class="mission">11.2 · Develop</span><h2>Build a quick prototype</h2><p class="lede">A prototype is a rough version that shows the idea and lets you test it. It doesn't need to work fully. Choose a route.</p></div>
+  <div class="cards" id="protoRoutes"></div>
+  <div class="two mt">
+    <div class="stack"><label for="pv1">Version 1: what I built</label><textarea id="pv1" data-save="p-v1"></textarea><label for="pt1">What happened when someone tested it?</label><textarea id="pt1" data-save="p-t1"></textarea></div>
+    <div class="stack"><label for="pv2">Version 2: what I changed, and why</label><textarea id="pv2" data-save="p-v2"></textarea><label for="pt2">Did it get better? How do you know?</label><textarea id="pt2" data-save="p-t2"></textarea></div>
+  </div>
+</div></section>
+
+<section class="block" id="ailog"><div class="wrap">
+  <div class="sec-head"><span class="mission">11.3 · AI as a tool, not the boss</span><h2>Use AI critically</h2><p class="lede">AI can help you generate ideas, images or code. It can also be wrong, biased or bland. Good designers treat AI output as a first draft and fix it.</p></div>
+  <div class="three">
+    <div class="panel"><span class="tag next">Everyone</span><h3 class="mt">No-login tools</h3><p class="small">micro:bit CreateAI and MakeCode don't need an account. Train your own model in CreateAI.</p></div>
+    <div class="panel"><span class="tag now">Whole class</span><h3 class="mt">Teacher at the board</h3><p class="small">Your teacher types the class's prompts into an AI tool your school has approved. You compare the results.</p></div>
+    <div class="panel"><span class="tag mid">13+, if approved</span><h3 class="mt">Your own school account</h3><p class="small">Only tools your school or council has approved for your age. Never a personal account.</p></div>
+  </div>
+  <div class="rules mt" style="--x:0"><span style="border-color:var(--bad);color:var(--bad)">No names in prompts</span><span style="border-color:var(--bad);color:var(--bad)">No faces or photos of people</span><span style="border-color:var(--bad);color:var(--bad)">No school or location</span><span style="border-color:var(--bad);color:var(--bad)">Say where AI helped</span></div>
+  <div class="panel stack mt"><h3>AI evidence log</h3>
+    <div class="two"><div class="stack"><label for="ai1">Prompt 1</label><textarea id="ai1" data-save="ai-p1"></textarea><label for="ai2">What was wrong, missing or unfair in the output?</label><textarea id="ai2" data-save="ai-w1"></textarea></div>
+    <div class="stack"><label for="ai3">Prompt 2 (improved)</label><textarea id="ai3" data-save="ai-p2"></textarea><label for="ai4">What I kept, and what I changed myself</label><textarea id="ai4" data-save="ai-k"></textarea></div></div>
+    <p class="small">Prefer not to use AI? That's fine. Sketch two versions by hand instead and note what you changed.</p></div>
+</div></section>
+
+<section class="block" id="compare"><div class="wrap">
+  <div class="sec-head"><span class="mission">11.4 · Choose with criteria</span><h2>Compare your options</h2><p class="lede">Score two or three design ideas against criteria. Weight what matters most. The highest total isn't automatically the winner, but you'll need a good reason to pick anything else.</p></div>
+  <div class="tbl-wrap"><table id="dmTbl"></table></div>
+  <p class="mt" id="dmOut" aria-live="polite"></p>
+</div></section>
+
+<section class="block" id="pitch"><div class="wrap">
+  <div class="sec-head"><span class="mission">11.5 · Deliver</span><h2>Build your 90-second pitch</h2></div>
+  <div class="two">
+    <div class="stack" id="pitchBeats"></div>
+    <div class="stack" style="position:sticky;top:80px"><div class="panel stack" style="text-align:center"><div class="timer" id="ptTime">1:30</div><div class="row" style="justify-content:center"><button class="btn primary" id="ptGo" type="button">Start</button><button class="btn" id="ptReset" type="button">Reset</button></div><p class="small">Practise out loud. Aim to finish just before the buzzer.</p></div>
+      <div class="panel"><h3>I can…</h3><ul class="checklist" id="pitchChecks"></ul></div></div>
+  </div>
+</div></section>
+
+<section class="block" id="dragons"><div class="wrap">
+  <div class="sec-head"><span class="mission">11.6 · Dragons' panel</span><h2>Give feedback that helps</h2><p class="lede">Use this when you watch someone else's pitch. Choose a level for each row, then give two stars and a wish.</p></div>
+  <div class="panel"><div class="rub" id="rubric"></div>
+    <div class="two mt"><div class="stack"><label for="dStar">Two stars (what worked)</label><textarea id="dStar" data-save="d-stars"></textarea></div><div class="stack"><label for="dWish">One wish (one thing to improve)</label><textarea id="dWish" data-save="d-wish"></textarea></div></div></div>
+</div></section>
+
+<nav class="partend" aria-label="End of Mission 11"><div class="wrap">
+  <p class="pe-title">END OF MISSION 11</p>
+  <div class="pe-check" data-m="m11"><label><input type="checkbox"> I can write a brief with requirements and constraints.</label><label><input type="checkbox"> I can build a prototype, test it, and improve it using feedback.</label><label><input type="checkbox"> I can compare options using criteria and pitch my choice.</label></div>
+  <div class="pe-links"><a class="pe-link" href="#m10"><span>Back</span>Mission 10</a><a class="pe-link next" href="#m12"><span>Next</span>Mission 12 · Seal the Capsule</a></div>
+</div></nav>
+</div>
+
+<!-- ============ MISSION 12 ============ -->
+<div class="view" data-title="Mission 12 · Seal the Capsule">
+<div class="part e-next" id="m12"><div class="wrap"><span class="num">MISSION 12 OF 12 · NEXT</span><h1>Seal the Capsule</h1><p>Lock your prediction and pitch away. When the capsule opens, you'll find out how good a futurist you were, and how your confidence matched what really happened.</p>
+<div class="goals"><span>Prediction + pitch</span><span>File formats</span><span>Privacy by design</span></div></div></div>
+
+<section class="block first" id="capsule"><div class="wrap">
+  <div class="sec-head"><span class="mission">12.1 · Pack it</span><h2>Your time capsule</h2><p class="lede">Most of this is filled in from your earlier missions. Check it, add a question for future you, and choose when it opens.</p></div>
+  <div class="capsule">
+    <div class="rules"><span>No real names</span><span>No school or address</span><span>No photos of people</span><span>No phone numbers or emails</span></div>
+    <div class="two">
+      <div class="stack"><label for="cCode">Codename</label><input id="cCode" maxlength="24">
+        <label for="cPred">My prediction</label><textarea id="cPred"></textarea>
+        <label for="cCone">Where it sits on the futures cone</label><select id="cCone"><option value="">Choose…</option><option>Probable</option><option>Plausible</option><option>Possible</option><option>Preferable</option></select>
+        <label for="cConf">Confidence</label><div class="row"><input id="cConf" type="range" min="0" max="100" step="5" value="50" style="flex:1"><b id="cConfOut" class="mono">50%</b></div>
+        <label for="cWhy">Why I think so</label><textarea id="cWhy"></textarea></div>
+      <div class="stack"><label for="cSig">Signals I'd need to see</label><textarea id="cSig"></textarea>
+        <label for="cPitch">My product pitch (summary)</label><textarea id="cPitch"></textarea>
+        <label for="cQ">A question for future me</label><textarea id="cQ" data-save="cap-q"></textarea>
+        <label for="cOpen">Open in</label><select id="cOpen"><option value="1">1 year</option><option value="3" selected>3 years (S1 → S4)</option><option value="5">5 years</option></select>
+        <label for="cPass">Class passphrase (optional, from your teacher)</label><input id="cPass" type="password" autocomplete="off"><span class="small">With a passphrase, the file is scrambled (encrypted) and only someone with the passphrase can open it.</span></div>
+    </div>
+    <div id="cWarn" aria-live="polite"></div>
+    <div class="row"><button class="btn primary" id="cSeal" type="button" style="background:var(--then);color:var(--then-ink);border-color:var(--then)">Seal and download (.json)</button><button class="btn" id="cPrint" type="button" style="background:transparent;color:var(--on-inv);border-color:var(--on-inv)">Print a copy</button><span class="sealed" id="cSealed" aria-live="polite"></span></div>
+    <p class="small">Give the downloaded file to your teacher. They keep it safe on the school system. Nothing is stored online.</p>
+  </div>
+  <div class="note mt"><b>Why .json?</b> JSON is a plain-text file format that stores data as labelled fields, like <span class="mono">"confidence": 70</span>. Any computer can read it, now or in five years, and it's tiny. A PDF is better for printing and reading but harder for a program to compare. Why might a time capsule need a format that will still open in the future?</div>
+  <div id="capPrint" hidden></div>
+</div></section>
+
+<section class="block" id="reopen"><div class="wrap">
+  <div class="sec-head"><span class="mission">12.2 · Later</span><h2>Open a capsule</h2><p class="lede">When the day comes, open your file here. Score yourself against what really happened.</p></div>
+  <div class="panel stack"><div class="row"><input type="file" id="roFile" accept=".json,application/json" aria-label="Choose a capsule file"><input id="roPass" type="password" placeholder="Passphrase, if used" autocomplete="off" aria-label="Passphrase"><button class="btn primary" id="roOpen" type="button">Open</button></div><div id="roOut" aria-live="polite"></div></div>
+</div></section>
+
+<section class="block" id="finalquiz"><div class="wrap">
+  <div class="sec-head"><span class="mission">12.3 · Final check</span><h2>Twelve questions, one from each mission</h2></div>
+  <div id="quizF"></div>
+</div></section>
+
+<nav class="partend" aria-label="End of Future Proof"><div class="wrap">
+  <p class="pe-title">MISSION COMPLETE</p>
+  <div class="pe-check" data-m="m12"><label><input type="checkbox"> I have sealed my capsule and given it to my teacher.</label><label><input type="checkbox"> I can explain why the capsule holds no personal data.</label></div>
+  <p id="endStamps"></p>
+  <div class="pe-links"><a class="pe-link" href="#m11"><span>Back</span>Mission 11</a><a class="pe-link next" href="#home"><span>Back to</span>The briefing</a></div>
+</div></nav>
+</div>
+
+</main>
+<footer class="foot"><div class="wrap"><p>Future Proof 2 · for learners aged 11–14 · Facts checked October 2026. Your work is saved only in this browser on this device.</p></div></footer>

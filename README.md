@@ -41,3 +41,12 @@ An interactive unit for learners aged 13–15: past predictions, present tech an
 - `future-proof/src/`: the source pieces; run `sh future-proof/src/build.sh` to rebuild `index.html` after editing them
 
 Time capsule files are plain JSON, optionally encrypted in the browser with a class passphrase. The teacher notes include a tool to open them.
+
+## Future Proof 2
+
+A rebuilt Future Proof for learners aged 11–14 (S1–S3), laid out like The Data Trail v3. Twelve missions in three eras: Then (inside the computer, types of computer, Spec Wars Top Trumps and data cleaning, Tomorrow's World and fact-checked predictions, a 1985 advert studio), Now (packets and a cable-cut simulator, a three-board micro:bit radio simulator with a ten-step MakeCode ladder, Moore's Law on a log chart) and Next (twelve hype-checked frontier files, futures cone and wheel, design–prototype–pitch, and a time capsule sealed in S1 to open in S4). Pupils earn Chrono Pass stamps by doing activities. No logins; work is saved in the browser.
+
+- Site: https://bwclark14.github.io/CS/future-proof-2/
+- `future-proof-2/index.html`: the pupils' unit. Each mission is its own page within the file (`index.html#m1` to `#m12`)
+- `future-proof-2/teacher.html`: teacher notes, KDU map (Third and Fourth Level), AI and safeguarding tiers, answer notes, a check-before-use list, and a tool to open a class's time capsules and export them as CSV. Not linked from the pupils' page
+- `future-proof-2/src/`: the source pieces; run `sh future-proof-2/src/build.sh` to rebuild both pages after editing them

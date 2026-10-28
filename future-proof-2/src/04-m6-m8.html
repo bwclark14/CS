@@ -1,0 +1,167 @@
+
+<!-- ============ MISSION 6 ============ -->
+<div class="view" data-title="Mission 6 · Packets on the Move">
+<div class="part e-now" id="m6"><div class="wrap"><span class="num">MISSION 6 OF 12 · NOW</span><h1>Packets on the Move</h1><p>When you send a message, it doesn't travel in one piece. It is chopped into packets, each with an address, and they race across the world by different routes. Watch it happen, then cut a cable and see what survives.</p>
+<div class="goals"><span>Packets and IP addresses</span><span>Protocols</span><span>Network hardware</span><span>Bandwidth and latency</span></div></div></div>
+
+<section class="block first" id="nethistory"><div class="wrap">
+  <div class="sec-head"><span class="mission">6.1 · Timeline</span><h2>From "LO" to 6 billion people</h2><p class="lede">Tap a year.</p></div>
+  <div class="tl" id="tlBtns" role="group" aria-label="Internet timeline years"></div>
+  <div class="panel tl-card" id="tlCard" aria-live="polite"></div>
+</div></section>
+
+<section class="block" id="packets"><div class="wrap">
+  <div class="sec-head"><span class="mission">6.2 · Simulator</span><h2>Send a message in packets</h2>
+  <p class="lede">Your message is split into numbered packets. Each one gets a label: <b>from</b> address, <b>to</b> address and <b>packet number</b>. Routers pass each packet towards its address, like sorting offices. At the other end, the packets are put back in order. If one is missing, the receiver asks for it again. These agreed rules are called <b>protocols</b> (TCP/IP).</p></div>
+  <div class="two">
+    <div class="stack">
+      <label for="pkMsg">Your message</label>
+      <input id="pkMsg" maxlength="48" value="SEE YOU AT THE BUS STOP AT FOUR">
+      <div class="row"><label for="pkSize">Letters per packet</label><select id="pkSize"><option>4</option><option selected>6</option><option>10</option></select>
+        <label><input type="checkbox" id="pkLoss" checked> Sometimes lose a packet</label></div>
+      <div class="row"><button class="btn primary" id="pkSend" type="button">Send</button><button class="btn" id="pkCut" type="button">Cut a cable</button><button class="btn" id="pkFix" type="button">Repair all cables</button></div>
+      <div class="small">Your address <span class="mono">10.0.0.7</span> → friend's address <span class="mono">172.16.4.2</span></div>
+      <div class="log" id="pkLog" aria-live="polite"><div>Ready.</div></div>
+    </div>
+    <div class="stack net"><svg id="netSvg" viewBox="0 0 520 300" role="img" aria-label="A network of routers between you and your friend"></svg>
+      <div><div class="small">Arrived (in the order they came)</div><div class="pkts" id="pkArr"></div></div>
+      <div><div class="small">Put back together</div><div class="panel mono" id="pkOut" style="min-height:44px">…</div></div>
+    </div>
+  </div>
+  <div class="task"><b>Try this.</b> Send a message. Did the packets arrive in order? Now cut a cable and send again. Keep cutting until the message can't get through. Why is it good to have more than one route?</div>
+</div></section>
+
+<section class="block" id="hardware"><div class="wrap">
+  <div class="sec-head"><span class="mission">6.3 · Match it</span><h2>Who does what on a network?</h2></div>
+  <div class="cards" id="hwCards"></div>
+</div></section>
+
+<section class="block" id="speed"><div class="wrap">
+  <div class="sec-head"><span class="mission">6.4 · Calculator</span><h2>Bandwidth and latency</h2>
+  <p class="lede"><b>Bandwidth</b> is how many lanes the motorway has: how much data per second. <b>Latency</b> is how long one car takes to make the trip: the delay. On UK 5G the delay is about 15–21 milliseconds. More people sharing a connection is like more traffic on the same road.</p></div>
+  <div class="panel stack">
+    <div class="row"><label for="spFile">File</label><select id="spFile"><option value="5">A song (about 5 MB)</option><option value="3">A phone photo (about 3 MB)</option><option value="50000">A big game (50 GB)</option><option value="custom">Something else…</option></select><input id="spCustom" type="number" min="0" value="100" style="width:110px" aria-label="Size in MB" hidden><span class="small" id="spUnit" hidden>MB</span></div>
+    <div class="tbl-wrap"><table><thead><tr><th>Connection</th><th>Speed</th><th>Time</th></tr></thead><tbody id="spRows"></tbody></table></div>
+    <div class="row"><label for="spMine">Try your own speed (Mbps)</label><input id="spMine" type="number" min="0" step="1" value="50" style="width:110px"></div>
+  </div>
+</div></section>
+
+<section class="block" id="shetland"><div class="wrap">
+  <div class="sec-head"><span class="mission">6.5 · Case file · Scotland</span><h2>The day Shetland went offline</h2></div>
+  <div class="two">
+    <div class="prose"><p>In <b>October 2022</b>, the undersea cables connecting Shetland to the mainland and to the Faroe Islands were damaged. Broadband, phones and mobile signal went down across the islands. Police declared a major incident.</p><p>Engineers set up temporary links using satellite and wireless backup, and the cables were repaired within days.</p><p>Today Scotland's R100 programme is laying <b>16 new undersea fibre cables</b> to connect 15 islands, from Iona to Unst.</p></div>
+    <div class="panel stack"><h3>Think about it</h3><ol class="stack" style="font-size:.95rem"><li>Why do islands rely so much on a few cables?</li><li>Satellite backup worked, but was slower. Why might radio through the air be less reliable than fibre?</li><li>If you were in charge, how would you stop this happening again?</li></ol><textarea data-save="m6-shetland" aria-label="Your answers"></textarea></div>
+  </div>
+</div></section>
+
+<nav class="partend" aria-label="End of Mission 6"><div class="wrap">
+  <p class="pe-title">END OF MISSION 6</p>
+  <div class="pe-check" data-m="m6"><label><input type="checkbox"> I can explain how a message is split into packets, sent and put back together.</label><label><input type="checkbox"> I can explain what an IP address and a protocol are.</label><label><input type="checkbox"> I can name the hardware that connects a network and what affects its speed.</label></div>
+  <div class="pe-links"><a class="pe-link" href="#m5"><span>Back</span>Mission 5</a><a class="pe-link next" href="#m7"><span>Next</span>Mission 7 · Talk to the Bit</a></div>
+</div></nav>
+</div>
+
+<!-- ============ MISSION 7 ============ -->
+<div class="view" data-title="Mission 7 · Talk to the Bit">
+<div class="part e-now" id="m7"><div class="wrap"><span class="num">MISSION 7 OF 12 · NOW</span><h1>Talk to the Bit</h1><p>The BBC micro:bit has a radio built in. It is very simple: it shouts messages to every micro:bit on the same channel. No addresses, no secrets, no routing. That means <b>you</b> get to invent the rules that real networks use.</p>
+<div class="goals"><span>Two devices communicating</span><span>Protocols you build</span><span>Sensors and feedback</span></div></div></div>
+
+<section class="block first" id="radiofacts"><div class="wrap">
+  <div class="sec-head"><span class="mission">7.1 · Know your radio</span><h2>What the micro:bit radio can (and can't) do</h2></div>
+  <div class="grid-auto">
+    <div class="panel"><h3>Groups 0–255</h3><p>Like walkie-talkie channels. A micro:bit only hears others in the same group.</p></div>
+    <div class="panel"><h3>Tiny packets</h3><p>A text message can be up to 19 characters. Longer ones must be split up.</p></div>
+    <div class="panel"><h3>No addresses</h3><p>Every message goes to everyone in the group. If you want "to" and "from", you add them yourself.</p></div>
+    <div class="panel"><h3>No secrets</h3><p>Nothing is encrypted. Anyone on your group can read your messages.</p></div>
+    <div class="panel"><h3>Range</h3><p>About 20 m normally. Up to about 70 m in open space at full power (real micro:bits only).</p></div>
+  </div>
+</div></section>
+
+<section class="block" id="radiosim"><div class="wrap">
+  <div class="sec-head"><span class="mission">7.2 · Simulator</span><h2>Three micro:bits, one radio</h2>
+  <p class="lede">Board C is a nosy neighbour on the same group. Work through the levels. Each one shows the real MakeCode for the sender and receiver underneath.</p></div>
+  <div class="levels" id="rLevels" role="group" aria-label="Levels"></div>
+  <p class="mt" id="rBrief" aria-live="polite"></p>
+  <div class="mbs mt" id="rBoards"></div>
+  <div class="log mt" id="rLog" aria-live="polite"></div>
+  <details class="step mt"><summary>Show the MakeCode for this level</summary><div class="inner"><div class="two"><div><div class="small">Sender (A)</div><pre class="code" id="rCodeA"></pre></div><div><div class="small">Receiver (B)</div><pre class="code" id="rCodeB"></pre></div></div><div class="row"><button class="btn sm" id="rCopyA" type="button">Copy sender code</button><button class="btn sm" id="rCopyB" type="button">Copy receiver code</button><a class="btn sm" href="https://makecode.microbit.org/---multi" target="_blank" rel="noopener">Open MakeCode with two editors</a></div><p class="small">In MakeCode, switch to JavaScript, paste, then switch back to Blocks to see the blocks.</p></div></details>
+</div></section>
+
+<section class="block" id="ladder10"><div class="wrap">
+  <div class="sec-head"><span class="mission">7.3 · Real micro:bits</span><h2>The radio challenge ladder</h2>
+  <p class="lede">Ten steps from "send a smile" to your own mini internet of things. <span class="hw">Simulator OK</span> steps work in MakeCode in your browser. <span class="hw real">Real micro:bits</span> steps need hardware, because the simulator doesn't model distance or signal strength. Give every pair its own group number so you don't hear each other.</p></div>
+  <div class="stack" id="ladderSteps"></div>
+</div></section>
+
+<section class="block" id="experiment"><div class="wrap">
+  <div class="sec-head"><span class="mission">7.4 · Experiment · real micro:bits</span><h2>How far can a packet go?</h2>
+  <p class="lede">Use step 6 of the ladder. Send 100 numbered packets and count how many arrive. Try different distances and power levels. Record your results here.</p></div>
+  <div class="tbl-wrap"><table id="expTbl"></table></div>
+  <div class="chart mt"><svg id="expChart" viewBox="0 0 600 220" role="img" aria-label="Bar chart of packets received"></svg></div>
+  <div class="task"><b>Conclusion.</b> What pattern did you find? What else got in the way (walls, people, water bottles)? How is this like Wi-Fi at home?<textarea class="mt" data-save="m7-exp" aria-label="Your conclusion"></textarea></div>
+</div></section>
+
+<section class="block" id="rulevml"><div class="wrap">
+  <div class="sec-head"><span class="mission">7.5 · Compare · extension</span><h2>Rules or learning?</h2>
+  <p class="lede">There are two ways to make a micro:bit spot a "wave". A <b>rule-based</b> system follows rules a person wrote: "if the tilt is more than X, it's a wave". A <b>data-driven</b> system learns from examples: in <a href="https://createai.microbit.org" target="_blank" rel="noopener">micro:bit CreateAI</a> (free, no login) you record yourself waving, train a model, then test it.</p></div>
+  <div class="two">
+    <div class="panel stack"><h3>Try it</h3><ol class="stack" style="font-size:.95rem"><li>Write a rule-based wave detector in MakeCode using the accelerometer.</li><li>Train a CreateAI model with 10 of <b>your</b> waves (training data).</li><li>Test both with 10 waves from <b>three different people</b> (test data).</li><li>Fill in the table.</li></ol></div>
+    <div class="tbl-wrap"><table><thead><tr><th></th><th>Rule-based</th><th>Learned (CreateAI)</th></tr></thead><tbody>
+      <tr><td>How it was made</td><td><input data-save="rv-1a" aria-label="Rule-based: how made"></td><td><input data-save="rv-1b" aria-label="Learned: how made"></td></tr>
+      <tr><td>Correct out of 30</td><td><input data-save="rv-2a" aria-label="Rule-based: correct"></td><td><input data-save="rv-2b" aria-label="Learned: correct"></td></tr>
+      <tr><td>Who did it work worst for?</td><td><input data-save="rv-3a" aria-label="Rule-based: worst for"></td><td><input data-save="rv-3b" aria-label="Learned: worst for"></td></tr>
+      <tr><td>How would you fix that?</td><td><input data-save="rv-4a" aria-label="Rule-based: fix"></td><td><input data-save="rv-4b" aria-label="Learned: fix"></td></tr>
+    </tbody></table></div>
+  </div>
+  <div class="note mt">If you only trained on your own waves, the model may not work well for people who wave differently. That is <b>bias in training data</b>, the same problem big AI systems have.</div>
+</div></section>
+
+<nav class="partend" aria-label="End of Mission 7"><div class="wrap">
+  <p class="pe-title">END OF MISSION 7</p>
+  <div class="pe-check" data-m="m7"><label><input type="checkbox"> I can program two micro:bits to send and receive data.</label><label><input type="checkbox"> I can explain why I added addresses, packet numbers or acknowledgements.</label><label><input type="checkbox"> I can use sensor data to control what a system does.</label></div>
+  <div class="pe-links"><a class="pe-link" href="#m6"><span>Back</span>Mission 6</a><a class="pe-link next" href="#m8"><span>Next</span>Mission 8 · Shrink, Speed, Store, Connect</a></div>
+</div></nav>
+</div>
+
+<!-- ============ MISSION 8 ============ -->
+<div class="view" data-title="Mission 8 · Shrink, Speed, Store, Connect">
+<div class="part e-now" id="m8"><div class="wrap"><span class="num">MISSION 8 OF 12 · NOW → NEXT</span><h1>Shrink, Speed, Store, Connect</h1><p>Why do we have the tech we have? Four trends explain most of it. Read them on real charts, find the place where one trend hit a wall, and decide which driver mattered most.</p>
+<div class="goals"><span>Trends and patterns</span><span>Reading log charts</span><span>Justify a ranking</span></div></div></div>
+
+<section class="block first" id="trends"><div class="wrap">
+  <div class="sec-head"><span class="mission">8.1 · Four trends</span><h2>Then and now</h2></div>
+  <div class="trend">
+    <div class="t"><div class="ic">SHRINK</div><div class="then">1969: the Apollo computer weighed 32 kg.</div><div class="now">Today a micro:bit, smaller than a playing card, has about 30 times its speed and memory.</div></div>
+    <div class="t"><div class="ic">SPEED</div><div class="then">1982: ZX Spectrum, 3.5 MHz.</div><div class="now">2025: Apple M5, 4.61 GHz.</div><div class="x">≈ 1,300×</div></div>
+    <div class="t"><div class="ic">STORE</div><div class="then">1956: IBM's first hard disk held 3.75 MB and weighed almost a tonne.</div><div class="now">A 4 TB memory card holds as much as about a million of them.</div></div>
+    <div class="t"><div class="ic">CONNECT</div><div class="then">1990: about 0.5% of the world was online.</div><div class="now">2025: about 6 billion people (75%), plus around 21 billion connected devices.</div></div>
+  </div>
+</div></section>
+
+<section class="block" id="moore"><div class="wrap">
+  <div class="sec-head"><span class="mission">8.2 · Chart</span><h2>Moore's Law, and where it hit a wall</h2>
+  <p class="lede">In 1965 Gordon Moore predicted that the number of tiny switches (<b>transistors</b>) on a chip would keep doubling. In 1975 he said every two years. The first microprocessor (1971) had 2,300. Look at the chart, then switch to a <b>log scale</b>, where every grid line is 10 times the one below. On a log scale, a straight line means steady doubling.</p></div>
+  <div class="row"><div class="seg" id="mScale"><button type="button" data-v="lin" aria-pressed="true">Normal scale</button><button type="button" data-v="log">Log scale</button></div><div class="seg" id="mSeries"><button type="button" data-v="tr" aria-pressed="true">Transistors</button><button type="button" data-v="clk">Clock speed</button></div></div>
+  <div class="chart mt"><svg id="mChart" viewBox="0 0 640 320" role="img" aria-label="Chart of transistors or clock speed over time"></svg></div>
+  <div class="panel mt" id="mGuessBox"><h3>Predict before you peek</h3><p class="small">The 2024 dots are hidden. Using the trend on the log scale, guess how many transistors the biggest single AI chip had in 2024.</p>
+    <div class="row mt"><input id="mGuess" type="range" min="6" max="13" step="0.1" value="9" aria-label="Your guess, as a power of ten" style="flex:1;min-width:200px"><b id="mGuessTxt" class="mono"></b><button class="btn primary" id="mReveal" type="button">Reveal</button></div>
+    <p id="mGuessFb" class="mt" aria-live="polite"></p></div>
+  <div class="note mt"><b>The wall.</b> Switch to clock speed. Around 2005, clock speeds stopped climbing at about 4 GHz. Tiny transistors leaked electricity and got too hot. Transistor counts kept growing, so engineers spent them on <b>more cores</b>, <b>bigger caches</b> and <b>graphics and AI chips</b> instead. A new chip factory now costs about $33 billion, and only a handful of companies can make the newest chips. Moore's Law is an observation, not a law of nature, and it is slowing.</div>
+</div></section>
+
+<section class="block" id="drivers"><div class="wrap">
+  <div class="sec-head"><span class="mission">8.3 · Power league</span><h2>What mattered most for smartphones?</h2>
+  <p class="lede">Eight things drive technology forward. Pick the winner in each pair. Your ranking appears below. There is no single right answer, but you must be able to defend yours.</p></div>
+  <div class="duel" id="duel"></div>
+  <p class="small mt" id="duelLeft" aria-live="polite"></p>
+  <div class="two mt"><div class="panel"><h3>Your ranking</h3><div class="rank" id="duelRank"></div></div>
+  <div class="panel stack"><h3>Defend your top two</h3><textarea data-save="m8-defend" aria-label="Defend your ranking"></textarea><p class="small">Compare with a partner. Where do you disagree?</p></div></div>
+  <details class="step mt"><summary>What the drivers mean</summary><div class="inner"><ul class="stack" id="drvList"></ul></div></details>
+</div></section>
+
+<nav class="partend" aria-label="End of Mission 8"><div class="wrap">
+  <p class="pe-title">END OF MISSION 8</p>
+  <div class="pe-check" data-m="m8"><label><input type="checkbox"> I can describe four trends that changed computers.</label><label><input type="checkbox"> I can read a chart with a log scale and spot when a trend changed.</label><label><input type="checkbox"> I can rank the drivers of change and defend my ranking.</label></div>
+  <div class="pe-links"><a class="pe-link" href="#m7"><span>Back</span>Mission 7</a><a class="pe-link next" href="#m9"><span>Next</span>Mission 9 · Frontier Files</a></div>
+</div></nav>
+</div>
