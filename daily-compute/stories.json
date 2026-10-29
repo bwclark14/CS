@@ -1,6 +1,446 @@
 {
- "updated": "2026-10-28",
+ "updated": "2026-10-29",
  "stories": [
+  {
+   "body": [
+    "Ordinary computers work with bits, which are always either 0 or 1. Quantum computers use qubits instead. A qubit follows strange rules of physics that let it hold a mix of 0 and 1 at once. Scientists hope this will one day help solve problems that are far too hard for today's computers, such as designing new medicines and materials.",
+    "But qubits are very delicate. Today's quantum computers are small, experimental and make lots of mistakes. One promising kind of qubit is made from silicon, the same material used for the chips in phones and laptops. It stores information in the spin of a single electron, which acts a bit like a tiny magnet. Because it is made of silicon, it might one day be built in the same factories as ordinary chips.",
+    "Qubits are controlled by microwave signals sent along wires. Giving every qubit its own wire would get very messy once a computer has thousands of them. Sharing one wire is much simpler, but there is a catch. A signal meant for one qubit can nudge the qubits next to it and throw them off.",
+    "Now a team at RIKEN, a research centre in Japan, has tested five silicon qubits that all share one control wire. They found a clever shortcut for fixing the nudges. Instead of checking every possible group of qubits, they measured how each pair of qubits affects each other. Then they adjusted their signals to cancel out the unwanted effects.",
+    "Working alone, each qubit was right more than 99.99% of the time. With all five working at once, they were right about 99.9% of the time. That is roughly one mistake in every 1,000 operations, which is close to what experts think is needed for quantum computers that can catch and fix their own errors. The extra microwave power still causes some mistakes, so the team says better designs are needed. A large, reliable quantum computer is still a long-term goal."
+   ],
+   "connections": {
+    "groups": [
+     {
+      "explain": "Each of these turns round and round. Electron looks like it fits here, because the qubits use an electron's spin, but it is needed in the next group.",
+      "name": "Things that spin",
+      "words": [
+       "Wheel",
+       "Roundabout",
+       "Spinning top",
+       "Earth"
+      ]
+     },
+     {
+      "explain": "These are all tiny bits of matter, far too small to see. Electron could also go with things that spin, but without it this group would only have three.",
+      "name": "Tiny particles",
+      "words": [
+       "Atom",
+       "Electron",
+       "Proton",
+       "Molecule"
+      ]
+     },
+     {
+      "explain": "Programmers and scientists use all of these to check that something works correctly and to fix it when it doesn't.",
+      "name": "Testing words",
+      "words": [
+       "Debug",
+       "Calibrate",
+       "Test data",
+       "Trace table"
+      ]
+     },
+     {
+      "explain": "Microwave, microchip, microphone and microscope. Chip sounds like a computer part, and the qubits are controlled by microwaves, but here each word follows micro.",
+      "name": "Micro___",
+      "words": [
+       "Wave",
+       "Chip",
+       "Phone",
+       "Scope"
+      ]
+     }
+    ],
+    "title": "Quantum links"
+   },
+   "date": "2026-10-29",
+   "discussion": [
+    "News stories sometimes describe quantum computers as amazing machines that will change everything. Why do you think it matters that reporters and scientists say clearly when a technology is still experimental?",
+    "The team tested each qubit on its own and then all five together, and the results were different. Why might a program or a device work well on its own but go wrong when it runs alongside others? Can you think of an example from home or school?",
+    "Sharing one wire is simpler, but the signals get in each other's way. Where else do lots of things share one channel, like many devices on the same Wi-Fi or many people talking in one room? How do people deal with it?",
+    "Scientists hope quantum computers might one day help design new medicines and materials. If you could give a super-powerful computer one problem to work on, what would you choose, and who would it help?",
+    "Design challenge: five classmates must follow instructions at the same time from one person calling them out. Plan how you would test this: alone, in pairs and all together. What would you count or record, and how would you decide if it is accurate enough?"
+   ],
+   "extras": [
+    {
+     "alternatives": [
+      [
+       0,
+       1,
+       2,
+       3,
+       5,
+       4,
+       6,
+       7,
+       8
+      ]
+     ],
+     "distractors": [
+      {
+       "code": "IF errors < 1 THEN",
+       "indent": 1
+      }
+     ],
+     "explain": "The count starts at 0 before the loop, each reading is received and checked inside the loop, and the total is shown once at the end. IF errors < 1 is tempting, but it would pick out the perfect qubits (0 mistakes) instead of the ones making too many.",
+     "lines": [
+      {
+       "code": "SET needFix TO 0",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT 5 TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE errors FROM SENSOR",
+       "indent": 1
+      },
+      {
+       "code": "IF errors > 1 THEN",
+       "indent": 1
+      },
+      {
+       "code": "SEND \"Recalibrate this qubit\" TO DISPLAY",
+       "indent": 2
+      },
+      {
+       "code": "SET needFix TO needFix + 1",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Qubits to fix: \" & needFix TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "strand": "Designing, building and testing computing solutions",
+     "task": "A program checks the 5 qubits one at a time. For each one, a sensor gives the number of mistakes it made in 1,000 operations. More than 1 mistake means it needs recalibrating. At the end it shows how many qubits need fixing. Test it with 0, 1, 3, 1, 2. One line doesn't belong.",
+     "tests": [
+      {
+       "expect": [
+        "Recalibrate this qubit",
+        "Recalibrate this qubit",
+        "Qubits to fix: 2"
+       ],
+       "inputs": [
+        0,
+        1,
+        3,
+        1,
+        2
+       ]
+      },
+      {
+       "expect": [
+        "Qubits to fix: 0"
+       ],
+       "inputs": [
+        1,
+        1,
+        1,
+        1,
+        1
+       ]
+      }
+     ],
+     "title": "Which qubits need fixing?",
+     "type": "parsons",
+     "why": "The scientists checked how accurate each qubit was and recalibrated the ones that went wrong, which is a loop with a decision inside."
+    },
+    {
+     "blanks": [
+      {
+       "answer": 1,
+       "options": [
+        "4",
+        "5",
+        "6",
+        "10"
+       ]
+      },
+      {
+       "answer": 1,
+       "options": [
+        ">",
+        "=",
+        "<>",
+        ">="
+       ]
+      },
+      {
+       "answer": 2,
+       "options": [
+        "END IF",
+        "END REPEAT",
+        "ELSE",
+        "IF mistakes > 0 THEN"
+       ]
+      }
+     ],
+     "explain": "There are 5 qubits so the loop runs 5 times, a result equal to 0 is a mistake, and ELSE gives the second message when there were mistakes. > is the most tempting wrong choice for gap 2, but result > 0 counts the qubits that were right, so the first test would show Mistakes: 4. REPEAT 4 TIMES never reads the fifth qubit, so it misses the mistake in the first test.",
+     "lines": [
+      {
+       "code": "SET mistakes TO 0",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT {0} TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE result FROM SENSOR",
+       "indent": 1
+      },
+      {
+       "code": "IF result {1} 0 THEN",
+       "indent": 1
+      },
+      {
+       "code": "SET mistakes TO mistakes + 1",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "IF mistakes = 0 THEN",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"All correct\" TO DISPLAY",
+       "indent": 1
+      },
+      {
+       "code": "{2}",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Mistakes: \" & mistakes TO DISPLAY",
+       "indent": 1
+      },
+      {
+       "code": "END IF",
+       "indent": 0
+      }
+     ],
+     "strand": "Understanding the world through computational thinking",
+     "task": "All 5 qubits do one operation at the same time. For each qubit the sensor sends 1 if it was right or 0 if it went wrong. The program counts the mistakes and shows All correct, or the number of mistakes. Fill the gaps. With results 1, 1, 1, 1, 0 it should show Mistakes: 1.",
+     "tests": [
+      {
+       "expect": [
+        "Mistakes: 1"
+       ],
+       "inputs": [
+        1,
+        1,
+        1,
+        1,
+        0
+       ]
+      },
+      {
+       "expect": [
+        "All correct"
+       ],
+       "inputs": [
+        1,
+        1,
+        1,
+        1,
+        1
+       ]
+      },
+      {
+       "expect": [
+        "Mistakes: 2"
+       ],
+       "inputs": [
+        0,
+        1,
+        0,
+        1,
+        1
+       ]
+      }
+     ],
+     "title": "Count the mistakes",
+     "type": "complete",
+     "why": "The big result was how often all five qubits were right when they ran at the same time, and counting mistakes is how you measure that."
+    },
+    {
+     "explain": "Facts can be checked against evidence, such as measurements from an experiment. Opinions and predictions often use words like 'most exciting', 'better' or 'will be'. The last statement is the trickiest: it sounds scientific, but 'better' makes it a judgement that other experts might not share.",
+     "statements": [
+      {
+       "explain": "This is what the experiment did, and it is reported in a science journal.",
+       "fact": true,
+       "text": "The RIKEN team controlled five qubits through one shared wire."
+      },
+      {
+       "explain": "This is a prediction and a judgement. Nobody can check it yet, and people disagree.",
+       "fact": false,
+       "text": "Quantum computers will be the most important invention of this century."
+      },
+      {
+       "explain": "This was measured in the experiment and can be checked in the results.",
+       "fact": true,
+       "text": "With all five qubits working at once, they were about 99.9% accurate."
+      },
+      {
+       "explain": "'Most exciting' depends on what each person enjoys, so it is an opinion.",
+       "fact": false,
+       "text": "Quantum computing is the most exciting kind of science."
+      },
+      {
+       "explain": "This can be checked in any book or website about how computer chips are made.",
+       "fact": true,
+       "text": "Silicon is used to make the chips in ordinary computers."
+      },
+      {
+       "explain": "'Better' is a judgement. The team think shared wires are practical, but other scientists are trying different designs.",
+       "fact": false,
+       "text": "Sharing one wire is a better design than giving each qubit its own wire."
+      }
+     ],
+     "strand": "Searching, processing and managing information responsibly",
+     "task": "Is each statement a fact (it can be checked) or an opinion (what someone thinks or predicts)?",
+     "title": "Quantum: fact or opinion?",
+     "type": "factop",
+     "why": "Quantum computers are often hyped, so telling checked facts from opinions and predictions helps learners read frontier tech news sensibly."
+    }
+   ],
+   "headline": "Five quantum bits learn to share one wire",
+   "id": "2026-10-29-qubits-share-a-wire",
+   "illustration": "frontier",
+   "imageAlt": "Illustration of a glowing sphere representing a qubit, with an arrow showing which way it is pointing.",
+   "keywords": [
+    {
+     "meaning": "A quantum bit. The basic unit of information in a quantum computer. Unlike a normal bit, it can hold a mix of 0 and 1.",
+     "term": "Qubit"
+    },
+    {
+     "meaning": "A material made from sand. It is used to make the chips inside almost every computer, phone and games console.",
+     "term": "Silicon"
+    },
+    {
+     "meaning": "To check a device against a known standard and adjust it so that it gives accurate results.",
+     "term": "Calibrate"
+    },
+    {
+     "meaning": "Doing several jobs at the same time instead of one after another.",
+     "term": "Parallel processing"
+    }
+   ],
+   "newsDate": "19 October 2026",
+   "quiz": [
+    {
+     "answer": 1,
+     "explain": "The team controlled five qubits through one shared wire. 3 is tempting because it is in the story too, but that was how many ran at once while still staying above 99.99% accurate.",
+     "options": [
+      "3",
+      "5",
+      "10",
+      "1,000"
+     ],
+     "q": "How many silicon qubits did the RIKEN team control through one shared wire?",
+     "strand": "The news"
+    },
+    {
+     "answer": 3,
+     "explain": "Microwave signals meant for one qubit could disturb its neighbours. The first option is tempting, but the story says the opposite: silicon qubits might one day be made in ordinary chip factories.",
+     "options": [
+      "The qubits could only be made in special science labs",
+      "Each qubit then needed its own separate computer",
+      "The wire stored too much data for the qubits",
+      "A signal for one qubit could nudge the qubits beside it"
+     ],
+     "q": "What was the main problem with letting qubits share one control wire?",
+     "strand": "The news"
+    },
+    {
+     "answer": 0,
+     "explain": "99.9% right means 0.1% wrong, and 0.1% of 1,000 is 1. 10 is tempting if you slip a place value and work out 1% instead of 0.1%; 999 is the number of correct operations, not mistakes.",
+     "options": [
+      "1",
+      "9",
+      "10",
+      "999"
+     ],
+     "q": "The five qubits working together were about 99.9% accurate. About how many mistakes is that in 1,000 operations?",
+     "strand": "Understanding the world through computational thinking"
+    },
+    {
+     "answer": 2,
+     "explain": "Doing several jobs at the same time is parallel processing. Sequence is tempting, but sequence means doing steps one after another, which is the opposite.",
+     "options": [
+      "Sequence",
+      "Selection",
+      "Parallel processing",
+      "Repetition (a loop)"
+     ],
+     "q": "Running all five qubits at the same time, instead of one after another, is an example of which idea?",
+     "strand": "Understanding and analysing computing technology"
+    },
+    {
+     "answer": 1,
+     "explain": "Some bugs and errors only show up when parts run together, like the nudges between qubits. The third option sounds sensible, but testing each part on its own is also a real and useful test.",
+     "options": [
+      "Testing them together makes each qubit last longer",
+      "Some problems only appear when parts work at the same time",
+      "A test only counts if every part is used at once",
+      "Testing together means each qubit can skip its own test"
+     ],
+     "q": "Each qubit worked well alone. Why was it still important to test all five working together?",
+     "strand": "Designing, building and testing computing solutions"
+    },
+    {
+     "answer": 3,
+     "explain": "Qubit 1 pairs with 4 others, qubit 2 with 3 new ones, then 2, then 1: 4 + 3 + 2 + 1 = 10. 20 is tempting, but it counts every pair twice (1 with 2 and 2 with 1 are the same pair).",
+     "options": [
+      "5",
+      "20",
+      "25",
+      "10"
+     ],
+     "q": "Challenge: the team calibrated pairs of qubits. With 5 qubits, how many different pairs can be made?",
+     "strand": "Understanding the world through computational thinking"
+    }
+   ],
+   "sources": [
+    {
+     "title": "ScienceDaily: Scientists overcome a hidden obstacle to more powerful quantum computers",
+     "url": "https://www.sciencedaily.com/releases/2026/10/261024222024.htm"
+    },
+    {
+     "title": "The Quantum Insider: RIKEN team improves parallel control of silicon spin qubits",
+     "url": "https://thequantuminsider.com/2026/10/19/riken-team-improves-parallel-control-of-silicon-spin-qubits/"
+    }
+   ],
+   "standfirst": "Scientists in Japan have controlled five silicon qubits through one shared wire and kept them almost perfectly accurate. It is a small but important step towards bigger quantum computers.",
+   "tags": [
+    "Quantum",
+    "Frontier tech",
+    "Hardware",
+    "Parallel processing",
+    "Testing",
+    "Selection"
+   ],
+   "theme": "quantum",
+   "whyItMatters": "Useful quantum computers will need huge numbers of qubits all working at the same time. This experiment suggests that many qubits could share their controls without becoming much less accurate. It is also a great example of good testing: a part that works perfectly on its own can behave differently when it works alongside others."
+  },
   {
    "body": [
     "Since 1972, the world has set its official time using atomic clocks. These clocks are amazingly accurate, but the Earth is not. Its spin speeds up and slows down by tiny amounts, so a day is not always exactly the same length.",
