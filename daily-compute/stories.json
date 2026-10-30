@@ -1,6 +1,380 @@
 {
- "updated": "2026-10-29",
+ "updated": "2026-10-30",
  "stories": [
+  {
+   "body": [
+    "Perseverance is a robot about the size of a small car. It landed on Mars in February 2021 and has been exploring a huge crater called Jezero and the land around it. Scientists think the crater once held a lake, so it is a good place to look for signs of ancient life.",
+    "On 11 October 2026, the rover's total distance reached 45.22 kilometres. That beat the old record of 45.16 kilometres, set by an older NASA rover called Opportunity. Opportunity took almost 15 years to get that far. Perseverance did it in about five and a half years.",
+    "Driving on Mars is hard to control from Earth. A message from Earth can take more than 20 minutes to arrive, so a person cannot steer the rover like a remote-control car. Instead, planners on Earth choose where the rover should go, and the rover works out how to get there safely.",
+    "It does this with a system called AutoNav. As the rover rolls along, its cameras take pictures of the ground ahead. Its computer builds a 3D map and spots dangers such as big rocks, steep slopes and soft sand. Then it picks a safe path. The team calls this \"thinking while driving\". More than 90% of Perseverance's distance has been driven this way.",
+    "The rover's software has improved a lot. Sojourner, a tiny rover from 1997, checked about 20 points on the ground to choose its path. Perseverance checks about 600,000 points every time it looks. It still has problems to solve: bright sunshine can dazzle its cameras, so when it drives towards the Sun it has to stop by mid-afternoon."
+   ],
+   "connections": {
+    "groups": [
+     {
+      "explain": "These all travel around the Sun. Mars is where Perseverance is exploring.",
+      "name": "Planets",
+      "words": [
+       "Mars",
+       "Venus",
+       "Jupiter",
+       "Saturn"
+      ]
+     },
+     {
+      "explain": "Each of these sends information into a computer, just as the rover's cameras send pictures to its computer.",
+      "name": "Input devices",
+      "words": [
+       "Camera",
+       "Keyboard",
+       "Microphone",
+       "Scanner"
+      ]
+     },
+     {
+      "explain": "These are building blocks used in programs like AutoNav. Run looks like it belongs here too, because you run a program, but it is needed in the last group.",
+      "name": "Programming ideas",
+      "words": [
+       "Loop",
+       "Selection",
+       "Sequence",
+       "Variable"
+      ]
+     },
+     {
+      "explain": "Milky Way, motorway, gateway and runway. Milky sounds like a space word, and Run sounds like coding, but each one makes a new word with way.",
+      "name": "___way",
+      "words": [
+       "Milky",
+       "Motor",
+       "Gate",
+       "Run"
+      ]
+     }
+    ],
+    "title": "Rover links"
+   },
+   "date": "2026-10-30",
+   "discussion": [
+    "Messages take more than 20 minutes to reach Mars. Why does that make it impossible to steer the rover live, like a remote-control car? What might happen if you tried?",
+    "Perseverance checks about 600,000 points each time it looks, while Sojourner checked about 20. Why do you think checking more points helps the rover choose a safer path? Is there a downside to checking so many?",
+    "The rover makes its own choices about the route, but people still choose where it should go. Which decisions do you think should always be made by people, and which are fine to leave to a robot? Explain your view.",
+    "Self-driving ideas from space rovers are also used in robots and cars on Earth. Where would a self-driving robot be really helpful in your town or school, and where might people be worried about it?",
+    "Design challenge: plan how a classmate wearing a blindfold could cross the classroom safely, guided only by a partner who can say \"stop\", \"turn\" or \"forward\". Write your rules as steps, then test them. What happens if the partner has to wait 10 seconds before speaking?"
+   ],
+   "extras": [
+    {
+     "answer": 2,
+     "bug": 4,
+     "explain": "The rover should only turn when the rock is closer than 2 metres, which is rock < 2. IF rock <= 2 is the most tempting fix, but it also turns when a rock is exactly 2 metres away, which the rule says is safe, so in the first test it turns 3 times and runs out of sensor readings before it has driven 5 metres.",
+     "fixes": [
+      "IF rock <= 2 THEN",
+      "IF rock = 2 THEN",
+      "IF rock < 2 THEN",
+      "IF rock >= 2 THEN"
+     ],
+     "lines": [
+      {
+       "code": "SET driven TO 0",
+       "indent": 0
+      },
+      {
+       "code": "SET turns TO 0",
+       "indent": 0
+      },
+      {
+       "code": "WHILE driven < 5 DO",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE rock FROM SENSOR",
+       "indent": 1
+      },
+      {
+       "code": "IF rock > 2 THEN",
+       "indent": 1
+      },
+      {
+       "code": "SET turns TO turns + 1",
+       "indent": 2
+      },
+      {
+       "code": "ELSE",
+       "indent": 1
+      },
+      {
+       "code": "SET driven TO driven + 1",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END WHILE",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Arrived after \" & turns & \" turns\" TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "strand": "Designing, building and testing computing solutions",
+     "task": "A rover drives 5 metres. Each time, a sensor gives the distance to the nearest rock in metres. If a rock is closer than 2 metres, the rover should turn; otherwise it drives forward 1 metre. In testing, it turns away from clear ground and drives straight at rocks. Find the faulty line and choose the fix.",
+     "tests": [
+      {
+       "expect": [
+        "Arrived after 2 turns"
+       ],
+       "inputs": [
+        5,
+        1,
+        3,
+        2,
+        0,
+        4,
+        6
+       ]
+      },
+      {
+       "expect": [
+        "Arrived after 0 turns"
+       ],
+       "inputs": [
+        3,
+        3,
+        3,
+        3,
+        3
+       ]
+      }
+     ],
+     "title": "Steer clear of the rocks",
+     "type": "bug",
+     "why": "AutoNav decides whether a rock is too close and steers round it, so a wrong comparison would send the rover into danger."
+    },
+    {
+     "answer": 2,
+     "explain": "The loop runs when hour is 9, 11 and 13, so it adds 50 three times to make 150. Drove 200 metres is the most tempting wrong answer, but when hour reaches 15 the test 15 < 15 is false, so the loop does not run a fourth time; 300 comes from multiplying all 6 hours by 50.",
+     "lines": [
+      {
+       "code": "SET metres TO 0",
+       "indent": 0
+      },
+      {
+       "code": "SET hour TO 9",
+       "indent": 0
+      },
+      {
+       "code": "WHILE hour < 15 DO",
+       "indent": 0
+      },
+      {
+       "code": "SET metres TO metres + 50",
+       "indent": 1
+      },
+      {
+       "code": "SET hour TO hour + 2",
+       "indent": 1
+      },
+      {
+       "code": "END WHILE",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Drove \" & metres & \" metres\" TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "options": [
+      "Drove 200 metres",
+      "Drove 100 metres",
+      "Drove 150 metres",
+      "Drove 300 metres"
+     ],
+     "question": "What will be displayed?",
+     "strand": "Understanding the world through computational thinking",
+     "task": "A rover starts driving at 9 o'clock. Every 2 hours it drives 50 metres. It must stop once it is 15 o'clock (3pm) because of glare.",
+     "title": "Beat the glare",
+     "trace": {
+      "cols": [
+       "Step",
+       "hour < 15?",
+       "metres",
+       "hour"
+      ],
+      "rows": [
+       [
+        "Start",
+        "-",
+        "0",
+        "9"
+       ],
+       [
+        "Loop 1",
+        "yes (9)",
+        "50",
+        "11"
+       ],
+       [
+        "Loop 2",
+        "yes (11)",
+        "100",
+        "13"
+       ],
+       [
+        "Loop 3",
+        "yes (13)",
+        "150",
+        "15"
+       ],
+       [
+        "Check",
+        "no (15)",
+        "150",
+        "15"
+       ]
+      ]
+     },
+     "type": "predict",
+     "why": "Bright sunshine dazzles the rover's cameras, so it has to stop driving by mid-afternoon when heading towards the Sun."
+    },
+    {
+     "explain": "The rover needs a destination first, then it must sense (pictures) before it can process (map and dangers) and decide (path), and only then act by driving. The most tempting mistake is choosing the path before spotting the dangers, but the rover cannot avoid something it has not found yet.",
+     "steps": [
+      "Planners on Earth choose where the rover should go and send the destination.",
+      "The rover's cameras take pictures of the ground ahead.",
+      "The computer builds a 3D map from the pictures.",
+      "It spots dangers such as big rocks, steep slopes and soft sand.",
+      "It chooses a safe path that avoids the dangers.",
+      "The rover drives a short way along the path, then looks again until it arrives."
+     ],
+     "strand": "Understanding the world through computational thinking",
+     "task": "Put the steps of Perseverance's self-driving algorithm in the right order.",
+     "title": "How AutoNav drives",
+     "type": "order",
+     "why": "The story describes how AutoNav works step by step, which is an algorithm."
+    }
+   ],
+   "headline": "Self-driving Mars rover sets a new distance record",
+   "id": "2026-10-30-mars-rover-drive-record",
+   "illustration": "ai",
+   "imageAlt": "Illustration of a six-wheeled rover on red Martian ground. A camera on a mast scans the rocks ahead and a dotted line shows the safe path it has chosen. A sign reads 45.22 km.",
+   "keywords": [
+    {
+     "meaning": "Able to make decisions and act on its own, without a person controlling every step.",
+     "term": "Autonomous"
+    },
+    {
+     "meaning": "A device that measures something in the world, such as light, distance or temperature, and sends it to a computer as input.",
+     "term": "Sensor"
+    },
+    {
+     "meaning": "A set of clear steps for solving a problem. A rover uses one to choose a safe path.",
+     "term": "Algorithm"
+    },
+    {
+     "meaning": "One day on Mars. It is about 40 minutes longer than a day on Earth.",
+     "term": "Sol"
+    }
+   ],
+   "newsDate": "20 October 2026",
+   "quiz": [
+    {
+     "answer": 1,
+     "explain": "Its total reached 45.22 kilometres, just beating Opportunity's 45.16. 412 metres is tempting because it is in the story too, but that is the most Perseverance can drive in a single Martian day.",
+     "options": [
+      "About 38 kilometres",
+      "About 45 kilometres",
+      "About 412 metres",
+      "About 7.7 kilometres"
+     ],
+     "q": "How far had Perseverance driven on Mars when it broke the record?",
+     "strand": "The news"
+    },
+    {
+     "answer": 0,
+     "explain": "The long delay means a person cannot react in time to a rock ahead. The third option is tempting, but planners on Earth still choose the destination; the rover only works out the safe route.",
+     "options": [
+      "Messages from Earth can take more than 20 minutes to arrive",
+      "The rover has no way to receive any messages from Earth",
+      "Planners on Earth no longer decide where it should go",
+      "Its cameras only work when nobody is controlling it"
+     ],
+     "q": "Why does Perseverance need to choose its own path?",
+     "strand": "The news"
+    },
+    {
+     "answer": 2,
+     "explain": "The cameras are sensors that bring information into the computer, so they are input. Process is tempting, but processing is what happens next, when the computer uses the pictures to build a 3D map.",
+     "options": [
+      "Process",
+      "Output",
+      "Input",
+      "Storage"
+     ],
+     "q": "When AutoNav's cameras take pictures of the ground ahead, which part of the system is that?",
+     "strand": "Understanding and analysing computing technology"
+    },
+    {
+     "answer": 3,
+     "explain": "600,000 divided by 20 is 30,000. 3,000 is tempting if you slip a place value when dividing; 599,980 is how many MORE points, found by subtracting, not how many times more.",
+     "options": [
+      "3,000",
+      "300,000",
+      "599,980",
+      "30,000"
+     ],
+     "q": "Sojourner checked 20 points to choose its path. Perseverance checks 600,000. How many times more is that?",
+     "strand": "Understanding the world through computational thinking"
+    },
+    {
+     "answer": 0,
+     "explain": "Choosing between two actions depending on a condition is selection. Repetition is tempting because the rover uses the rule again and again, but the rule itself is a decision, not a loop.",
+     "options": [
+      "Selection",
+      "Repetition (a loop)",
+      "Sequence",
+      "Input"
+     ],
+     "q": "A rover follows the rule: if a rock is closer than 2 metres, turn; otherwise drive forward. Which programming idea is this?",
+     "strand": "Understanding the world through computational thinking"
+    },
+    {
+     "answer": 1,
+     "explain": "Good testing uses lots of tests, including normal, tricky and extreme situations, which a computer model and varied test ground provide. Testing once on each kind of ground is tempting, but one success does not prove the software will work every time.",
+     "options": [
+      "Test it many times on smooth, flat ground so results are easy to compare",
+      "Test it many times in a computer model and on ground with rocks, slopes and sand",
+      "Test it once on each kind of ground and keep it if each test works",
+      "Test it only on the hardest ground, because easy ground will always work"
+     ],
+     "q": "Challenge: Engineers want to test new AutoNav software before sending it to Mars. Which plan is best?",
+     "strand": "Designing, building and testing computing solutions"
+    }
+   ],
+   "sources": [
+    {
+     "title": "NASA: Perseverance sets off-world record for total distance driven",
+     "url": "https://science.nasa.gov/blogs/perseverance-mars-rover/2026/10/12/nasas-perseverance-sets-off-world-record-for-total-distance-driven/"
+    },
+    {
+     "title": "Nextgov/FCW: NASA's self-driving Mars rover sets an off-world mileage record",
+     "url": "https://nextgov.com/emerging-tech/2026/10/nasas-self-driving-mars-rover-sets-world-mileage-record/416718"
+    }
+   ],
+   "standfirst": "NASA's Perseverance rover has now driven further than any other vehicle on another world. Most of the time, it chooses its own route.",
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><circle cx=\"540\" cy=\"70\" r=\"26\" fill=\"var(--accent)\"/><path d=\"M0 250 Q160 220 320 245 T640 235 L640 360 L0 360 Z\" fill=\"var(--hot)\"/><ellipse cx=\"520\" cy=\"300\" rx=\"34\" ry=\"14\" fill=\"var(--ink)\" opacity=\"0.6\"/><ellipse cx=\"590\" cy=\"280\" rx=\"18\" ry=\"8\" fill=\"var(--ink)\" opacity=\"0.6\"/><path d=\"M330 300 Q420 270 470 290 Q540 320 600 330\" stroke=\"var(--card)\" stroke-width=\"4\" stroke-dasharray=\"10 8\" fill=\"none\"/><rect x=\"150\" y=\"200\" width=\"170\" height=\"46\" rx=\"8\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"190\" y=\"180\" width=\"70\" height=\"20\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><line x1=\"290\" y1=\"200\" x2=\"290\" y2=\"140\" stroke=\"var(--ink)\" stroke-width=\"5\"/><rect x=\"272\" y=\"120\" width=\"40\" height=\"22\" rx=\"5\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><circle cx=\"300\" cy=\"131\" r=\"5\" fill=\"var(--accent)\"/><path d=\"M312 131 L470 235 M312 131 L560 215\" stroke=\"var(--accent)\" stroke-width=\"3\" stroke-dasharray=\"6 6\" fill=\"none\"/><circle cx=\"170\" cy=\"262\" r=\"18\" fill=\"var(--ink)\"/><circle cx=\"235\" cy=\"262\" r=\"18\" fill=\"var(--ink)\"/><circle cx=\"300\" cy=\"262\" r=\"18\" fill=\"var(--ink)\"/><circle cx=\"170\" cy=\"262\" r=\"7\" fill=\"var(--card)\"/><circle cx=\"235\" cy=\"262\" r=\"7\" fill=\"var(--card)\"/><circle cx=\"300\" cy=\"262\" r=\"7\" fill=\"var(--card)\"/><rect x=\"40\" y=\"40\" width=\"150\" height=\"44\" rx=\"8\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><text x=\"115\" y=\"70\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"22\" font-weight=\"bold\" fill=\"var(--ink)\">45.22 km</text></svg>",
+   "tags": [
+    "Space",
+    "Robots",
+    "Sensors",
+    "Algorithms",
+    "Selection"
+   ],
+   "theme": "space",
+   "whyItMatters": "Robots that can make safe decisions on their own are useful anywhere people cannot easily reach or control them quickly. The same ideas of sensing, mapping and choosing a path are used in self-driving cars, delivery robots and drones on Earth."
+  },
   {
    "body": [
     "Ordinary computers work with bits, which are always either 0 or 1. Quantum computers use qubits instead. A qubit follows strange rules of physics that let it hold a mix of 0 and 1 at once. Scientists hope this will one day help solve problems that are far too hard for today's computers, such as designing new medicines and materials.",
