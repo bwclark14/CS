@@ -1,6 +1,419 @@
 {
- "updated": "2026-10-30",
+ "updated": "2026-10-31",
  "stories": [
+  {
+   "body": [
+    "Every time someone asks an AI chatbot a question or streams a video, a computer somewhere does the work. These computers live in huge buildings called data centres. They get very hot, so they must be cooled, and some cooling systems use lots of water.",
+    "Arizona is a hot, dry state in the USA. It has been in a drought for more than 25 years, and many new data centres are planned there. So people are asking a fair question: will the computers drink up the water that homes and farms need?",
+    "Researchers at Arizona State University say the water used inside data centres is real, but the numbers shared on social media are often not precise, and some are too big. Some new data centres even reuse the same cooling liquid in a sealed loop, so they need almost no water for cooling.",
+    "But data centres also need huge amounts of electricity. Many power stations, such as gas power stations, use water to cool their machines. So a data centre also uses water indirectly, through the electricity it buys. One big tech company reported that about 96% of its water use in 2024 was indirect like this. A study by a group called Ceres found that this kind of water use in Arizona could become five times bigger if all the planned data centres are built.",
+    "There is a trade-off. Cooling with air instead of water saves water at the data centre, but it needs more electricity, which can mean more water used at the power station. Wind and solar power use almost no water. Experts say there is not yet one agreed way for companies to report their indirect water, which makes fair comparisons hard."
+   ],
+   "connections": {
+    "groups": [
+     {
+      "explain": "These make electricity without running out and use very little water to do it. Water might look like it belongs here, but it is needed in the last group.",
+      "name": "Renewable energy sources",
+      "words": [
+       "Solar",
+       "Tidal",
+       "Geothermal",
+       "Wave"
+      ]
+     },
+     {
+      "explain": "These measure how much data is stored or sent, from a single 0 or 1 (a bit) up to a gigabyte.",
+      "name": "Units of data",
+      "words": [
+       "Bit",
+       "Byte",
+       "Kilobyte",
+       "Gigabyte"
+      ]
+     },
+     {
+      "explain": "Each of these carries heat away from hot computer parts. Water seems to fit here too, but liquid cooling already covers it, and Water is needed in the last group.",
+      "name": "Ways to cool a computer",
+      "words": [
+       "Fan",
+       "Heat sink",
+       "Liquid",
+       "Air vent"
+      ]
+     },
+     {
+      "explain": "Waterfall, rainfall, snowfall and footfall. Water is the red herring: it looks like a way to cool computers or a source of energy, but only here does it make a new word.",
+      "name": "___fall",
+      "words": [
+       "Water",
+       "Rain",
+       "Snow",
+       "Foot"
+      ]
+     }
+    ],
+    "title": "Power and water links"
+   },
+   "date": "2026-10-31",
+   "discussion": [
+    "Why do you think people usually notice the water used at a data centre, but not the water used at the power station? Whose job should it be to measure both?",
+    "A data centre could cool with water (using less electricity) or with air (using less water but more electricity). If you were in charge of one in a very dry place, which would you choose, and what extra information would you want first?",
+    "Some people say data centres bring jobs and useful services, so they are worth the water and power. Others say water for homes and farms must come first. Some say both are possible if data centres are planned carefully. What do you think, and why?",
+    "You read a post saying that every AI question 'uses a whole bottle of water'. How could you check whether a claim like this is accurate before sharing it?",
+    "Design challenge: plan a 'smart' cooling system for your school's computer room. Which sensors would it need, and what rules (IF ... THEN ...) would it follow to keep computers cool while saving energy and water?"
+   ],
+   "extras": [
+    {
+     "distractors": [
+      {
+       "code": "SET total TO total - litres",
+       "indent": 1
+      }
+     ],
+     "explain": "The total starts at 0 before the loop, each reading is received and added inside the loop, and the check happens once after all 5 readings. SET total TO total - litres is tempting because it looks almost the same, but it takes the water away, so the total would go negative and the warning would never show.",
+     "lines": [
+      {
+       "code": "SET total TO 0",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT 5 TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE litres FROM SENSOR",
+       "indent": 1
+      },
+      {
+       "code": "SET total TO total + litres",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "IF total > 1000 THEN",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Warning: high water use\" TO DISPLAY",
+       "indent": 1
+      },
+      {
+       "code": "END IF",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Total: \" & total & \" litres\" TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "strand": "Designing, building and testing computing solutions",
+     "task": "A data centre's smart water meter takes 5 readings in litres and adds them up. If the total is more than 1000 litres, it shows a warning, then it shows the total. For example, readings of 300, 250, 200, 150 and 400 should show the warning and 'Total: 1300 litres'. Put the lines in order. One line doesn't belong.",
+     "tests": [
+      {
+       "expect": [
+        "Warning: high water use",
+        "Total: 1300 litres"
+       ],
+       "inputs": [
+        300,
+        250,
+        200,
+        150,
+        400
+       ]
+      },
+      {
+       "expect": [
+        "Total: 500 litres"
+       ],
+       "inputs": [
+        100,
+        100,
+        100,
+        100,
+        100
+       ]
+      }
+     ],
+     "title": "Smart water meter",
+     "type": "parsons",
+     "why": "The story is about measuring how much water a data centre really uses, which is exactly what a smart meter program does."
+    },
+    {
+     "blanks": [
+      {
+       "answer": 2,
+       "options": [
+        "3",
+        "6",
+        "4",
+        "5"
+       ]
+      },
+      {
+       "answer": 1,
+       "options": [
+        "<=",
+        "<",
+        ">",
+        ">="
+       ]
+      },
+      {
+       "answer": 1,
+       "options": [
+        "END IF",
+        "ELSE",
+        "THEN",
+        "END REPEAT"
+       ]
+      }
+     ],
+     "explain": "4 checks every 6 hours covers 24 hours, the rule 'below 25' is outside < 25, and ELSE gives the other choice. <= is the most tempting wrong option, but then a reading of exactly 25 °C would use air cooling, when the rule says 25 °C should use water.",
+     "lines": [
+      {
+       "code": "SET airHours TO 0",
+       "indent": 0
+      },
+      {
+       "code": "SET waterHours TO 0",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT {0} TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE outside FROM SENSOR",
+       "indent": 1
+      },
+      {
+       "code": "IF outside {1} 25 THEN",
+       "indent": 1
+      },
+      {
+       "code": "SET airHours TO airHours + 6",
+       "indent": 2
+      },
+      {
+       "code": "{2}",
+       "indent": 1
+      },
+      {
+       "code": "SET waterHours TO waterHours + 6",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Air: \" & airHours & \" hours, water: \" & waterHours & \" hours\" TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "strand": "Understanding the world through computational thinking",
+     "task": "A data centre checks the outside temperature 4 times a day (every 6 hours). Below 25 °C it cools with outside air; at 25 °C or hotter it uses water cooling. Fill the gaps. For example, readings of 18, 25, 20 and 22 should show 'Air: 18 hours, water: 6 hours'.",
+     "tests": [
+      {
+       "expect": [
+        "Air: 18 hours, water: 6 hours"
+       ],
+       "inputs": [
+        18,
+        25,
+        20,
+        22
+       ]
+      },
+      {
+       "expect": [
+        "Air: 6 hours, water: 18 hours"
+       ],
+       "inputs": [
+        30,
+        26,
+        24,
+        27
+       ]
+      }
+     ],
+     "title": "Air or water cooling?",
+     "type": "complete",
+     "why": "The story explains the trade-off between cooling with air and cooling with water, and a program can choose between them using a sensor."
+    },
+    {
+     "buckets": [
+      "Water used at the data centre",
+      "Water used to make the electricity",
+      "Uses almost no water"
+     ],
+     "explain": "Water is used on site when it cools the building directly, and indirectly when it helps make the electricity. The most tempting mistake is putting the air-cooling electricity under 'almost no water', but making that extra electricity at a gas power station uses water.",
+     "items": [
+      {
+       "bucket": 0,
+       "explain": "The water evaporates on site to carry heat away from the servers.",
+       "text": "A cooling tower that cools servers by letting water evaporate"
+      },
+      {
+       "bucket": 0,
+       "explain": "The mist cools the air inside the data centre building, so the water is used on site.",
+       "text": "A water mist sprayed into air before it enters the server room"
+      },
+      {
+       "bucket": 1,
+       "explain": "This is indirect water use: the water is used to make the electricity the data centre buys.",
+       "text": "A gas power station cooling its machines with water"
+      },
+      {
+       "bucket": 1,
+       "explain": "Air cooling saves water on site, but if the extra electricity comes from a gas power station, water is used there instead.",
+       "text": "Extra electricity needed when a data centre switches to air cooling"
+      },
+      {
+       "bucket": 2,
+       "explain": "Solar panels turn sunlight into electricity without needing water to cool any machines.",
+       "text": "Solar panels making electricity"
+      },
+      {
+       "bucket": 2,
+       "explain": "Wind turbines are spun by the wind and use almost no water to make electricity.",
+       "text": "Wind turbines making electricity"
+      }
+     ],
+     "strand": "Understanding and analysing computing technology",
+     "task": "Sort each thing into the right group: water used at the data centre, water used to make its electricity, or almost no water at all.",
+     "title": "Where does the water go?",
+     "type": "sort",
+     "why": "The story's big idea is that water can be used at the data centre itself or far away where its electricity is made."
+    }
+   ],
+   "headline": "The hidden water behind AI's electricity",
+   "id": "2026-10-31-ai-hidden-water",
+   "illustration": "environment",
+   "imageAlt": "Illustration of a large data centre building beside a wind turbine and a leaf. Water drops show where water is used to keep the computers cool.",
+   "keywords": [
+    {
+     "meaning": "A building full of computers (servers) that store data and run websites, apps and AI for people all over the world.",
+     "term": "Data centre"
+    },
+    {
+     "meaning": "Water used somewhere else to make something you use, such as the water a power station needs to make electricity for a data centre.",
+     "term": "Indirect water use"
+    },
+    {
+     "meaning": "When improving one thing makes another thing worse, so you have to decide which matters more.",
+     "term": "Trade-off"
+    },
+    {
+     "meaning": "Energy from sources that do not run out, such as wind, sunlight and tides.",
+     "term": "Renewable energy"
+    }
+   ],
+   "newsDate": "28 October 2026",
+   "quiz": [
+    {
+     "answer": 1,
+     "explain": "Power stations use water to cool their machines, and one company said about 96% of its water use was indirect like this. The cooling towers are tempting because data centres do use water for cooling, but that was the smaller part.",
+     "options": [
+      "Inside the computer chips that run the AI",
+      "At the power stations that make their electricity",
+      "In the cooling towers on the data centre roof",
+      "In the factories that build the servers"
+     ],
+     "q": "According to the reporting, where is most of the water linked to many AI data centres actually used?",
+     "strand": "The news"
+    },
+    {
+     "answer": 2,
+     "explain": "Air cooling uses little water on site but more electricity, and power stations such as gas plants use water to cool their machines. The idea about cold winters is tempting, but air cooling is used in hot places too; the problem is the extra electricity.",
+     "options": [
+      "Air coolers have to be refilled with water every day",
+      "Air cooling only works in places with cold winters",
+      "Air cooling needs more electricity, and making electricity can use water",
+      "Air cooling makes the servers slower, so more are needed"
+     ],
+     "q": "Why might cooling a data centre with air instead of water not save as much water as people expect?",
+     "strand": "The news"
+    },
+    {
+     "answer": 3,
+     "explain": "The program makes a choice depending on a condition, which is selection. Repetition is tempting because the program checks again and again, but the IF rule itself is a decision, not a loop.",
+     "options": [
+      "Repetition (a loop)",
+      "Sequence",
+      "Input",
+      "Selection"
+     ],
+     "q": "A data centre's program says: IF the temperature is above 30 °C THEN switch on extra cooling. Which programming idea is this?",
+     "strand": "Understanding the world through computational thinking"
+    },
+    {
+     "answer": 0,
+     "explain": "A sensor collects information from the real world and sends it into the computer, so it is input. Output is tempting because the sensor 'gives' a reading, but output devices such as fans or screens are what the computer controls or uses to show results.",
+     "options": [
+      "An input device",
+      "An output device",
+      "A storage device",
+      "A processor"
+     ],
+     "q": "A data centre uses a temperature sensor to measure how hot the computer room is. What kind of device is the sensor?",
+     "strand": "Understanding and analysing computing technology"
+    },
+    {
+     "answer": 1,
+     "explain": "Comparing trusted sources and checking who did the measuring tells you whether a figure is based on real research. Lots of likes and shares is tempting, but popular posts can still be wrong, and researchers said many online water claims are not precise.",
+     "options": [
+      "Check whether the post has thousands of likes and shares",
+      "Look for the figure in trusted sources and see who measured it",
+      "Ask a friend whether they have heard the same claim",
+      "Trust it if the post includes a precise-looking number"
+     ],
+     "q": "You see a post claiming that every AI question uses a whole bottle of water. What is the most reliable way to check it?",
+     "strand": "Searching, processing and managing information responsibly"
+    },
+    {
+     "answer": 2,
+     "explain": "20 litres is 5 times 4 litres, so the total is 5 times 100, which is 500 litres. 480 litres is tempting, but that is only the indirect water; you must add the 20 litres used on site.",
+     "options": [
+      "480 litres",
+      "80 litres",
+      "500 litres",
+      "24 litres"
+     ],
+     "q": "Challenge: A data centre uses 4 litres of water on site for every 100 litres of water linked to it. If it uses 20 litres on site, how many litres are linked to it in total?",
+     "strand": "Understanding the world through computational thinking"
+    }
+   ],
+   "sources": [
+    {
+     "title": "KJZZ: Arizona data centers drive up water demand, but not the way you might think",
+     "url": "https://kjzz.org/science/2026-10-28/arizona-data-centers-drive-up-water-demand-but-not-the-way-you-might-think"
+    },
+    {
+     "title": "Insurance Journal (Bloomberg): AI's water strain includes surging demand from electricity use",
+     "url": "https://www.insurancejournal.com/news/national/2026/10/13/888682.htm"
+    }
+   ],
+   "standfirst": "AI data centres need water to stay cool. New reporting from Arizona in the USA suggests even more water is used far away, at the power stations that make their electricity.",
+   "tags": [
+    "Environment",
+    "Ethics",
+    "Data",
+    "Sensors",
+    "Selection",
+    "Loops"
+   ],
+   "theme": "environment",
+   "whyItMatters": "Computers are not just 'in the cloud': they run in real buildings that use real electricity and water. Understanding where resources are really used helps people make fairer choices about where to build data centres and how to power them."
+  },
   {
    "body": [
     "Perseverance is a robot about the size of a small car. It landed on Mars in February 2021 and has been exploring a huge crater called Jezero and the land around it. Scientists think the crater once held a lake, so it is a good place to look for signs of ancient life.",
