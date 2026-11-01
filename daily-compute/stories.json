@@ -1,6 +1,387 @@
 {
- "updated": "2026-10-31",
+ "updated": "2026-11-01",
  "stories": [
+  {
+   "body": [
+    "Every photo, game and message on a computer is stored as 1s and 0s called bits. In a hard drive, each bit is a tiny patch of magnetic material. The magnetism in the patch points one way for 1 and the other way for 0.",
+    "To save new data, the computer has to flip some of these patches. Today this is done with a magnetic field made by a small electromagnet. That uses quite a lot of energy, and there is a limit to how fast it can work.",
+    "A team at the University of California San Diego tried using light instead. They took a laser that fires extremely short flashes, then shaped and shrank its beam into a tiny spot. The first flashes heat a small spot so its magnetism flips. The next flashes make the flipped patch grow until it stays put.",
+    "Earlier experiments like this only worked on very thin materials, with no more than three magnetic layers. This team flipped a thicker material made of nine layers of platinum and cobalt. Thicker layers matter because they can help data stay saved for a long time. The researchers estimate that switching bits with light could be more than 1,000 times faster than using a magnetic field.",
+    "This is still an experiment, and there is no product yet. The special laser cannot fit inside a computer chip, so the team is looking for materials that work with smaller lasers. They also hope to shrink the spot to a few hundred nanometres, which is far thinner than a human hair. A smaller spot means more bits could be packed into the same space."
+   ],
+   "connections": {
+    "groups": [
+     {
+      "explain": "All of these keep files saved when the power is off. Hard drive could also go with parts inside a computer, but storage needs it to make four.",
+      "name": "Places to store data",
+      "words": [
+       "Hard drive",
+       "USB stick",
+       "SD card",
+       "DVD"
+      ]
+     },
+     {
+      "explain": "These measure how much data there is, each one much bigger than the one before. Bit is a unit too, but it is needed in the last group.",
+      "name": "Units of data",
+      "words": [
+       "Byte",
+       "Kilobyte",
+       "Megabyte",
+       "Gigabyte"
+      ]
+     },
+     {
+      "explain": "These are all hardware found inside a computer case, doing jobs like processing, cooling and powering.",
+      "name": "Parts inside a computer",
+      "words": [
+       "Processor",
+       "Fan",
+       "Power supply",
+       "Graphics card"
+      ]
+     },
+     {
+      "explain": "You flip a coin, a pancake and a light switch, and the laser in the story flips a bit from 0 to 1. Bit looks like a unit of data, but the units group is already full.",
+      "name": "Things you can flip",
+      "words": [
+       "Coin",
+       "Pancake",
+       "Bit",
+       "Switch"
+      ]
+     }
+    ],
+    "title": "Bit by bit"
+   },
+   "date": "2026-11-01",
+   "discussion": [
+    "Every time you save a photo, bits have to be written somewhere. Why might it matter if saving data used less energy, when millions of people do it every day?",
+    "The researchers estimate light could be 1,000 times faster, but no real device has been built yet. Why is it important for news reports to say clearly when something is still an experiment?",
+    "If storage became much bigger and cheaper, people might keep every photo and message forever. Is that a good thing? Think about privacy, clutter and memories, and explain your opinion.",
+    "Your device forgets what is in its memory (RAM) when it is switched off, but keeps what is in storage. Which things on a school computer need to be kept in storage, and why?",
+    "Design challenge: use coins (heads for 1, tails for 0) to store a 4-bit secret number on your desk. Write the steps for how a partner should 'read' it and how you would 'write' a new number. Can you make writing faster by only flipping the coins that need to change?"
+   ],
+   "extras": [
+    {
+     "answer": 1,
+     "bug": 4,
+     "explain": "A patch needs flipping only when the old and new bits are different, which is old <> new. IF new = 1 THEN is the most tempting fix because it works for the first test, but it misses patches that change from 1 to 0, so the second test shows 1 instead of 3.",
+     "fixes": [
+      "IF new = 1 THEN",
+      "IF old <> new THEN",
+      "IF old < new THEN",
+      "IF old = 1 THEN"
+     ],
+     "lines": [
+      {
+       "code": "SET flips TO 0",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT 4 TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE old FROM KEYBOARD",
+       "indent": 1
+      },
+      {
+       "code": "RECEIVE new FROM KEYBOARD",
+       "indent": 1
+      },
+      {
+       "code": "IF old = new THEN",
+       "indent": 1
+      },
+      {
+       "code": "SET flips TO flips + 1",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Patches to flip: \" & flips TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "strand": "Designing, building and testing computing solutions",
+     "task": "A program compares 4 old bits with 4 new bits (it receives an old bit, then a new bit, four times) and counts how many patches the laser must flip. A patch only needs flipping when the old and new bits are different. In testing, it counts patches that are already correct and misses the ones that need to change. Find the faulty line and choose the fix.",
+     "tests": [
+      {
+       "expect": [
+        "Patches to flip: 3"
+       ],
+       "inputs": [
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+       ]
+      },
+      {
+       "expect": [
+        "Patches to flip: 3"
+       ],
+       "inputs": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+       ]
+      }
+     ],
+     "title": "Only flip what changes",
+     "type": "bug",
+     "why": "Writing new data means flipping magnetic patches, and a smart program only flips the ones that need to change."
+    },
+    {
+     "answer": 3,
+     "explain": "The size goes 30, 55, 80, 105, and the loop only stops when size is no longer less than 100, which happens after pulse 4. 3 pulses is the most tempting wrong answer, but after 3 pulses the size is only 80, so the loop runs once more; 105 is the size, not the number of pulses.",
+     "lines": [
+      {
+       "code": "SET size TO 0",
+       "indent": 0
+      },
+      {
+       "code": "SET pulses TO 0",
+       "indent": 0
+      },
+      {
+       "code": "WHILE size < 100 DO",
+       "indent": 0
+      },
+      {
+       "code": "SET pulses TO pulses + 1",
+       "indent": 1
+      },
+      {
+       "code": "IF pulses = 1 THEN",
+       "indent": 1
+      },
+      {
+       "code": "SET size TO 30",
+       "indent": 2
+      },
+      {
+       "code": "ELSE",
+       "indent": 1
+      },
+      {
+       "code": "SET size TO size + 25",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END WHILE",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Stable after \" & pulses & \" pulses\" TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "options": [
+      "Stable after 105 pulses",
+      "Stable after 3 pulses",
+      "Stable after 5 pulses",
+      "Stable after 4 pulses"
+     ],
+     "question": "What will be displayed?",
+     "strand": "Understanding the world through computational thinking",
+     "task": "This program models the laser. The first pulse makes a flipped patch 30 units wide. Every pulse after that makes it 25 units wider. The patch is stable once it is at least 100 units wide.",
+     "title": "Pulse until it sticks",
+     "trace": {
+      "cols": [
+       "Step",
+       "pulses",
+       "size",
+       "size < 100?"
+      ],
+      "rows": [
+       [
+        "Start",
+        "0",
+        "0",
+        "yes"
+       ],
+       [
+        "Pulse 1",
+        "1",
+        "30",
+        "yes"
+       ],
+       [
+        "Pulse 2",
+        "2",
+        "55",
+        "yes"
+       ],
+       [
+        "Pulse 3",
+        "3",
+        "80",
+        "yes"
+       ],
+       [
+        "Pulse 4",
+        "4",
+        "105",
+        "no, stop"
+       ]
+      ]
+     },
+     "type": "predict",
+     "why": "In the story, the first laser flashes flip a spot and the next flashes make the patch grow until it stays put."
+    },
+    {
+     "bits": 10,
+     "explain": "512 + 256 + 128 + 64 + 32 + 8 = 1,000, so the answer is 1111101000. A tempting mistake is to switch on the 16 after reaching 992, but that makes 1,008, which is too big; you only need 8 more, so 16 stays 0 and 8 is 1.",
+     "strand": "Understanding and analysing computing technology",
+     "target": 1000,
+     "task": "Write the number 1,000 in binary using 10 bits. The place values are 512, 256, 128, 64, 32, 16, 8, 4, 2 and 1.",
+     "title": "1,000 in binary",
+     "type": "binary",
+     "why": "The researchers estimate light could switch bits more than 1,000 times faster, and every saved bit is a 1 or a 0."
+    }
+   ],
+   "headline": "A tiny laser could flip data bits 1,000 times faster",
+   "id": "2026-11-01-laser-flips-bits",
+   "illustration": "chip",
+   "imageAlt": "Illustration of a laser shining a thin beam down onto a row of six tiny magnetic squares. Arrows point up for 1 and down for 0, and the square under the beam is lit up as it flips.",
+   "keywords": [
+    {
+     "meaning": "The smallest piece of computer data. It can only be 1 or 0.",
+     "term": "Bit"
+    },
+    {
+     "meaning": "A number system that uses only the digits 1 and 0. Computers store all their data in binary.",
+     "term": "Binary"
+    },
+    {
+     "meaning": "The part of a computer, such as a hard drive, that keeps files saved even when the power is switched off.",
+     "term": "Storage"
+    },
+    {
+     "meaning": "A magnet made by passing electricity through a coil of wire. It can be switched on and off.",
+     "term": "Electromagnet"
+    }
+   ],
+   "newsDate": "27 October 2026",
+   "quiz": [
+    {
+     "answer": 2,
+     "explain": "The team shaped and shrank a laser beam that fires extremely short flashes. A small electromagnet is tempting, but that is how hard drives flip bits today, and it is the method the laser might replace.",
+     "options": [
+      "A small electromagnet",
+      "An electric current in a wire",
+      "A tiny, very fast laser beam",
+      "A strong permanent magnet"
+     ],
+     "q": "What did the engineers use to flip the magnetic bits?",
+     "strand": "The news"
+    },
+    {
+     "answer": 0,
+     "explain": "The special laser cannot yet be built into a chip, so it is still an experiment. The three-layer limit is tempting because it is in the story, but that was the problem with earlier experiments, and this team flipped nine layers.",
+     "options": [
+      "The laser is too big to fit inside a computer chip",
+      "It only works on materials with three thin layers",
+      "It is slower than using a magnetic field",
+      "It still needs a magnetic field to work"
+     ],
+     "q": "Why can't this be used in computers yet?",
+     "strand": "The news"
+    },
+    {
+     "answer": 3,
+     "explain": "Storage keeps data even without power, so files are still there next time. Memory (RAM) is tempting, but RAM only holds data while the computer is on and loses it when it is switched off.",
+     "options": [
+      "Memory (RAM)",
+      "Processor",
+      "Input device",
+      "Storage"
+     ],
+     "q": "A hard drive keeps your files when the computer is switched off. What is this kind of part called?",
+     "strand": "Understanding and analysing computing technology"
+    },
+    {
+     "answer": 1,
+     "explain": "Each new patch doubles the number of patterns: 2 x 2 x 2 = 8, from 000 up to 111. 6 is tempting if you multiply 2 by 3, but that adds patterns instead of doubling them each time.",
+     "options": [
+      "6",
+      "8",
+      "9",
+      "3"
+     ],
+     "q": "Each magnetic patch can point one of two ways. How many different patterns can 3 patches make?",
+     "strand": "Understanding the world through computational thinking"
+    },
+    {
+     "answer": 0,
+     "explain": "The place values are 8, 4, 2 and 1, so 1011 is 8 + 2 + 1 = 11. 13 is tempting if you read the bits from the wrong end, because 1101 is 13.",
+     "options": [
+      "11",
+      "13",
+      "12",
+      "7"
+     ],
+     "q": "What is the binary number 1011 as a normal (denary) number?",
+     "strand": "Understanding and analysing computing technology"
+    },
+    {
+     "answer": 2,
+     "explain": "Each byte is 8 bits, so 2,000 x 8 = 16,000 bits. 250 is tempting if you divide by 8 instead of multiplying, but there are more bits than bytes, not fewer.",
+     "options": [
+      "250",
+      "2,000",
+      "16,000",
+      "10,000"
+     ],
+     "q": "Challenge: A small file is 2,000 bytes. There are 8 bits in a byte. How many bits might the laser have to write?",
+     "strand": "Understanding and analysing computing technology"
+    }
+   ],
+   "sources": [
+    {
+     "title": "ScienceDaily: A tiny laser beam could make computer memory 1,000 times faster",
+     "url": "https://www.sciencedaily.com/releases/2026/10/261025073046.htm"
+    },
+    {
+     "title": "UC San Diego Today: By shaping and shrinking light, engineers alter a material's magnetic properties",
+     "url": "https://today.ucsd.edu/story/by-shaping-and-shrinking-light-engineers-alter-a-materials-magnetic-properties"
+    }
+   ],
+   "standfirst": "Engineers have used a shrunk-down laser beam to write 1s and 0s into a magnetic material. They think it could one day make saving data much quicker.",
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><rect x=\"304\" y=\"30\" width=\"100\" height=\"50\" rx=\"8\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><circle cx=\"354\" cy=\"55\" r=\"9\" fill=\"var(--hot)\"/><polygon points=\"344,80 364,80 357,214 351,214\" fill=\"var(--hot)\" opacity=\"0.85\"/><rect x=\"110\" y=\"196\" width=\"420\" height=\"90\" rx=\"10\" fill=\"var(--ink)\" opacity=\"0.15\"/><rect x=\"128\" y=\"214\" width=\"56\" height=\"56\" rx=\"6\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><line x1=\"156\" y1=\"260\" x2=\"156\" y2=\"232\" stroke=\"var(--ink)\" stroke-width=\"5\"/><polygon points=\"147,238 165,238 156,223\" fill=\"var(--ink)\"/><text x=\"156\" y=\"318\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"28\" font-weight=\"bold\" fill=\"var(--ink)\">1</text><rect x=\"194\" y=\"214\" width=\"56\" height=\"56\" rx=\"6\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><line x1=\"222\" y1=\"224\" x2=\"222\" y2=\"252\" stroke=\"var(--ink)\" stroke-width=\"5\"/><polygon points=\"213,246 231,246 222,261\" fill=\"var(--ink)\"/><text x=\"222\" y=\"318\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"28\" font-weight=\"bold\" fill=\"var(--ink)\">0</text><rect x=\"260\" y=\"214\" width=\"56\" height=\"56\" rx=\"6\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><line x1=\"288\" y1=\"260\" x2=\"288\" y2=\"232\" stroke=\"var(--ink)\" stroke-width=\"5\"/><polygon points=\"279,238 297,238 288,223\" fill=\"var(--ink)\"/><text x=\"288\" y=\"318\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"28\" font-weight=\"bold\" fill=\"var(--ink)\">1</text><rect x=\"326\" y=\"214\" width=\"56\" height=\"56\" rx=\"6\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><line x1=\"354\" y1=\"260\" x2=\"354\" y2=\"232\" stroke=\"var(--ink)\" stroke-width=\"5\"/><polygon points=\"345,238 363,238 354,223\" fill=\"var(--ink)\"/><text x=\"354\" y=\"318\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"28\" font-weight=\"bold\" fill=\"var(--ink)\">1</text><rect x=\"392\" y=\"214\" width=\"56\" height=\"56\" rx=\"6\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><line x1=\"420\" y1=\"224\" x2=\"420\" y2=\"252\" stroke=\"var(--ink)\" stroke-width=\"5\"/><polygon points=\"411,246 429,246 420,261\" fill=\"var(--ink)\"/><text x=\"420\" y=\"318\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"28\" font-weight=\"bold\" fill=\"var(--ink)\">0</text><rect x=\"458\" y=\"214\" width=\"56\" height=\"56\" rx=\"6\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><line x1=\"486\" y1=\"224\" x2=\"486\" y2=\"252\" stroke=\"var(--ink)\" stroke-width=\"5\"/><polygon points=\"477,246 495,246 486,261\" fill=\"var(--ink)\"/><text x=\"486\" y=\"318\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"28\" font-weight=\"bold\" fill=\"var(--ink)\">0</text><path d=\"M392 150 q20 -14 40 0 t40 0\" stroke=\"var(--accent)\" stroke-width=\"4\" fill=\"none\"/><path d=\"M392 170 q20 -14 40 0 t40 0\" stroke=\"var(--accent)\" stroke-width=\"4\" fill=\"none\"/></svg>",
+   "tags": [
+    "Hardware",
+    "Frontier tech",
+    "Data",
+    "Binary",
+    "Selection",
+    "Loops"
+   ],
+   "theme": "hardware",
+   "whyItMatters": "People save more photos, videos and school work every year, and every saved bit takes time and energy to write. If bits can be flipped faster and packed closer together, future storage could hold more and waste less energy. It also shows that computing depends on physics and materials, not only on code."
+  },
   {
    "body": [
     "Every time someone asks an AI chatbot a question or streams a video, a computer somewhere does the work. These computers live in huge buildings called data centres. They get very hot, so they must be cooled, and some cooling systems use lots of water.",
