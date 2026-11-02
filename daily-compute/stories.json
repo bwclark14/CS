@@ -1,6 +1,371 @@
 {
- "updated": "2026-11-01",
+ "updated": "2026-11-02",
  "stories": [
+  {
+   "body": [
+    "Computer scientists often picture a map as a network: dots joined by lines. A dot could be a town, a train station or a computer, and a line could be a road, a railway or a cable.",
+    "Finding the shortest route between two dots is quite quick. But some jobs need the shortest distance between every pair of dots in a giant network. In a busy network, doubling the number of dots can mean about eight times as much work.",
+    "In 1996, three computer scientists found a shortcut. Instead of an exact answer, their algorithm gave an estimate that was never more than twice the real distance. It picked a few dots as landmarks and measured routes through them. This worked well for dots that were far apart. For dots close together, the route through a landmark could take a long detour and break the promise.",
+    "Now Dr Manoj Gupta, from the Indian Institute of Technology Gandhinagar, has found a fix. He chooses landmarks at several different levels, some spread far apart and some close together. This means short routes get good estimates too, and the algorithm is still just as fast. He presented his work at a major computer science conference.",
+    "This is theory, so it will not change your map app tomorrow. But ideas like this are building blocks that future maps, internet routing and other network tools could use one day."
+   ],
+   "connections": {
+    "groups": [
+     {
+      "explain": "All of these help people plan or follow a route. Sat nav uses satellites and might look like network equipment, but it is a way-finding tool.",
+      "name": "Things that help you find your way",
+      "words": [
+       "Map",
+       "Compass",
+       "Signpost",
+       "Sat nav"
+      ]
+     },
+     {
+      "explain": "These are the hardware that joins computers together and passes data along the best route.",
+      "name": "Parts of a computer network",
+      "words": [
+       "Router",
+       "Cable",
+       "Server",
+       "Switch"
+      ]
+     },
+     {
+      "explain": "Programs are built from steps in order, decisions, repeats and stored values. Cycle sounds like a loop, but it belongs in the last group.",
+      "name": "Building blocks of a program",
+      "words": [
+       "Sequence",
+       "Selection",
+       "Loop",
+       "Variable"
+      ]
+     },
+     {
+      "explain": "Footpath, garden path, flight path and cycle path are all kinds of route. Cycle is the red herring because it can also mean going round again, like a loop.",
+      "name": "Words that come before 'path'",
+      "words": [
+       "Foot",
+       "Garden",
+       "Flight",
+       "Cycle"
+      ]
+     }
+    ],
+    "title": "Finding the way"
+   },
+   "date": "2026-11-02",
+   "discussion": [
+    "A map app shows you a route instantly, but it might be a little longer than the very best one. When is a fast 'good enough' answer better than a slow perfect one? When would you want the perfect answer?",
+    "The 1996 shortcut worked for places far apart but not for places close together. Why is it important to test an algorithm with lots of different examples, not just the easy ones?",
+    "Route apps can send lots of traffic down quiet streets near homes and schools. Should apps be allowed to do this? Think about drivers in a hurry, people who live on those streets and pupils walking to school, then give your opinion.",
+    "This research is theory and not a new app. Why do you think scientists spend years improving ideas that might not be used straight away?",
+    "Design challenge: draw 6 places near your school as dots, joined by lines labelled with walking minutes. Pick one dot as a landmark. Estimate the walk between two places by going through the landmark, then find the real shortest route. How far off was your estimate?"
+   ],
+   "extras": [
+    {
+     "distractors": [
+      {
+       "code": "IF route > shortest THEN",
+       "indent": 1
+      }
+     ],
+     "explain": "The first route is stored as the shortest so far, then each new route replaces it only if it is smaller, using route < shortest. The distractor IF route > shortest THEN is tempting because it looks almost the same, but it would keep the longest route instead.",
+     "lines": [
+      {
+       "code": "RECEIVE shortest FROM KEYBOARD",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT 2 TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE route FROM KEYBOARD",
+       "indent": 1
+      },
+      {
+       "code": "IF route < shortest THEN",
+       "indent": 1
+      },
+      {
+       "code": "SET shortest TO route",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Shortest: \" & shortest TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "strand": "Designing, building and testing computing solutions",
+     "task": "Put the lines in order to make a program that receives the lengths of 3 routes and displays the shortest. For example, routes of 9, 7 and 12 minutes should display 'Shortest: 7'. One line doesn't belong.",
+     "tests": [
+      {
+       "expect": [
+        "Shortest: 7"
+       ],
+       "inputs": [
+        9,
+        7,
+        12
+       ]
+      },
+      {
+       "expect": [
+        "Shortest: 5"
+       ],
+       "inputs": [
+        5,
+        8,
+        6
+       ]
+      }
+     ],
+     "title": "Pick the shortest route",
+     "type": "parsons",
+     "why": "Picking the shortest route from a list of options is a simple version of the problem in the story."
+    },
+    {
+     "blanks": [
+      {
+       "answer": 1,
+       "options": [
+        "-",
+        "+",
+        "*",
+        "/"
+       ]
+      },
+      {
+       "answer": 1,
+       "options": [
+        "<",
+        "<=",
+        ">=",
+        "="
+       ]
+      }
+     ],
+     "explain": "The two parts of the trip are added with + to give the estimate, and <= is needed because exactly twice the real distance still keeps the promise. < is the most tempting wrong choice, but it would say an estimate of 10 km for a 5 km route breaks the promise when it does not.",
+     "lines": [
+      {
+       "code": "RECEIVE toLandmark FROM KEYBOARD",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE fromLandmark FROM KEYBOARD",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE real FROM KEYBOARD",
+       "indent": 0
+      },
+      {
+       "code": "SET estimate TO toLandmark {0} fromLandmark",
+       "indent": 0
+      },
+      {
+       "code": "IF estimate {1} real * 2 THEN",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Promise kept: \" & estimate TO DISPLAY",
+       "indent": 1
+      },
+      {
+       "code": "ELSE",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Promise broken: \" & estimate TO DISPLAY",
+       "indent": 1
+      },
+      {
+       "code": "END IF",
+       "indent": 0
+      }
+     ],
+     "strand": "Understanding the world through computational thinking",
+     "task": "An estimate goes from the start to a landmark, then from the landmark to the finish. The program receives those two distances and the real shortest distance, then checks the estimate is no more than twice the real distance. For example, 3 km, 4 km and a real distance of 5 km should display 'Promise kept: 7'. Fill in the gaps.",
+     "tests": [
+      {
+       "expect": [
+        "Promise kept: 7"
+       ],
+       "inputs": [
+        3,
+        4,
+        5
+       ]
+      },
+      {
+       "expect": [
+        "Promise kept: 10"
+       ],
+       "inputs": [
+        4,
+        6,
+        5
+       ]
+      },
+      {
+       "expect": [
+        "Promise broken: 13"
+       ],
+       "inputs": [
+        6,
+        7,
+        5
+       ]
+      }
+     ],
+     "title": "Is the promise kept?",
+     "type": "complete",
+     "why": "The 1996 shortcut promised every estimate through a landmark would be no more than twice the real distance, and this code checks that promise."
+    },
+    {
+     "explain": "You need the network before you can choose landmarks, and you need the landmark distances measured before you can add up routes through them. A tempting mistake is to choose landmarks first, but there are no dots to choose from until the map has been turned into a network.",
+     "steps": [
+      "Turn the map into a network of dots joined by lines",
+      "Choose a few dots to act as landmarks",
+      "Measure the shortest distance from each landmark to every dot",
+      "For two dots, add up the route from the start, through a landmark, to the finish",
+      "Use the smallest of these totals as the estimate"
+     ],
+     "strand": "Understanding the world through computational thinking",
+     "task": "Put these steps of a simplified landmark shortcut into the correct order.",
+     "title": "How the landmark shortcut works",
+     "type": "order",
+     "why": "The story describes how the landmark shortcut works, step by step."
+    }
+   ],
+   "headline": "A 30-year-old shortcut for finding routes gets smarter",
+   "id": "2026-11-02-shortest-route-shortcut",
+   "illustration": "internet",
+   "imageAlt": "Illustration of a network of dots joined by lines, like a simple map. A thick highlighted route links a start dot and a finish dot, and one square dot near the top stands out as a landmark.",
+   "keywords": [
+    {
+     "meaning": "A set of clear steps for solving a problem. Computers follow algorithms to do every job.",
+     "term": "Algorithm"
+    },
+    {
+     "meaning": "Things (dots) joined by connections (lines), such as towns joined by roads or computers joined by cables.",
+     "term": "Network"
+    },
+    {
+     "meaning": "The route between two points in a network with the smallest total distance or time.",
+     "term": "Shortest path"
+    },
+    {
+     "meaning": "An answer that is close to the right one but not exact. It is often much quicker to work out.",
+     "term": "Estimate"
+    }
+   ],
+   "newsDate": "30 October 2026",
+   "quiz": [
+    {
+     "answer": 1,
+     "explain": "The 1996 algorithm promised an estimate no more than twice the real distance. 'Work best for places close together' is tempting, but it was the opposite: close places were its weak spot.",
+     "options": [
+      "They would always be the exact shortest distance",
+      "They would never be more than twice the real distance",
+      "They would work best for places close together",
+      "They would never use any landmarks at all"
+     ],
+     "q": "What did the 1996 shortcut promise about its estimates?",
+     "strand": "The news"
+    },
+    {
+     "answer": 3,
+     "explain": "He chose landmarks at several levels, some far apart and some close together, so short routes get good estimates too. Checking every route exactly is tempting, but that is the slow method the shortcut is trying to avoid.",
+     "options": [
+      "Checking every possible route exactly",
+      "Using fewer landmarks spread far apart",
+      "Building a faster computer to run the old method",
+      "Choosing landmarks at several different levels"
+     ],
+     "q": "What was Dr Gupta's big idea?",
+     "strand": "The news"
+    },
+    {
+     "answer": 0,
+     "explain": "Calculating the route is the processing. Showing the route on the screen is tempting because it happens on the device, but that is output, just like speaking the directions; typing the address is input.",
+     "options": [
+      "Calculating the shortest route",
+      "Typing in your friend's address",
+      "Showing the route on the screen",
+      "Speaking the directions out loud"
+     ],
+     "q": "A map app works out the shortest route to your friend's house. Which part of this is the process?",
+     "strand": "Understanding and analysing computing technology"
+    },
+    {
+     "answer": 2,
+     "explain": "Going through B takes 4 + 3 = 7 minutes, which beats the direct path. 9 minutes is tempting because the direct path looks shortest, but it actually takes longer.",
+     "options": [
+      "9 minutes",
+      "3 minutes",
+      "7 minutes",
+      "16 minutes"
+     ],
+     "q": "It takes 4 minutes to walk from A to B and 3 minutes from B to C. The direct path from A to C takes 9 minutes. What is the shortest time from A to C?",
+     "strand": "Understanding the world through computational thinking"
+    },
+    {
+     "answer": 3,
+     "explain": "Twice 6 km is 12 km, so anything above 12 km breaks the promise, and 13 km is above it. 12 km is tempting, but 'never more than twice' means exactly twice is still allowed.",
+     "options": [
+      "12 km",
+      "9 km",
+      "6 km",
+      "13 km"
+     ],
+     "q": "An algorithm promises its estimate is never more than twice the real distance. The real shortest route is 6 km. Which estimate would break the promise?",
+     "strand": "Understanding the world through computational thinking"
+    },
+    {
+     "answer": 1,
+     "explain": "Three times the dots means 3 x 3 x 3 = 27 times the work. 9 times is tempting, but that is only 3 x 3 and misses the third multiply.",
+     "options": [
+      "9 times",
+      "27 times",
+      "24 times",
+      "6 times"
+     ],
+     "q": "Challenge: In a busy network, the work grows like size x size x size, so doubling the dots makes 2 x 2 x 2 = 8 times the work. How much work would three times as many dots make?",
+     "strand": "Understanding the world through computational thinking"
+    }
+   ],
+   "sources": [
+    {
+     "title": "ScienceDaily: A computer scientist breaks through a limit that stood since 1996",
+     "url": "https://www.sciencedaily.com/releases/2026/10/261029072146.htm"
+    },
+    {
+     "title": "IIT Gandhinagar News: Rethinking distance in massive networks",
+     "url": "https://news.iitgn.ac.in/rethinking-distance-in-massive-networks/"
+    }
+   ],
+   "standfirst": "Map apps, the internet and games all need to find short routes through huge networks. A computer scientist in India has improved a clever shortcut that had a weak spot for almost 30 years.",
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><g stroke=\"var(--ill-2)\" stroke-width=\"6\" stroke-linecap=\"round\"><line x1=\"90\" y1=\"270\" x2=\"200\" y2=\"120\"/><line x1=\"200\" y1=\"120\" x2=\"330\" y2=\"80\"/><line x1=\"330\" y1=\"80\" x2=\"460\" y2=\"140\"/><line x1=\"460\" y1=\"140\" x2=\"560\" y2=\"90\"/><line x1=\"90\" y1=\"270\" x2=\"250\" y2=\"260\"/><line x1=\"250\" y1=\"260\" x2=\"400\" y2=\"290\"/><line x1=\"400\" y1=\"290\" x2=\"560\" y2=\"230\"/><line x1=\"200\" y1=\"120\" x2=\"250\" y2=\"260\"/><line x1=\"330\" y1=\"80\" x2=\"400\" y2=\"290\"/><line x1=\"460\" y1=\"140\" x2=\"560\" y2=\"230\"/></g><g stroke=\"var(--hot)\" stroke-width=\"10\" stroke-linecap=\"round\" fill=\"none\"><polyline points=\"90,270 250,260 400,290 560,230\"/></g><g fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"><circle cx=\"200\" cy=\"120\" r=\"16\"/><circle cx=\"460\" cy=\"140\" r=\"16\"/><circle cx=\"560\" cy=\"90\" r=\"16\"/><circle cx=\"250\" cy=\"260\" r=\"16\"/><circle cx=\"400\" cy=\"290\" r=\"16\"/></g><g fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"4\"><rect x=\"312\" y=\"62\" width=\"36\" height=\"36\" rx=\"6\"/></g><g fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"4\"><circle cx=\"90\" cy=\"270\" r=\"22\"/><circle cx=\"560\" cy=\"230\" r=\"22\"/></g></svg>",
+   "tags": [
+    "Data",
+    "Algorithms",
+    "Networks",
+    "Selection",
+    "Loops"
+   ],
+   "theme": "coding",
+   "whyItMatters": "Networks are everywhere, from roads and railways to the internet. Smarter algorithms can find answers faster and use less computer power. The story also shows that a quick answer that is good enough can be more useful than a slow perfect one."
+  },
   {
    "body": [
     "Every photo, game and message on a computer is stored as 1s and 0s called bits. In a hard drive, each bit is a tiny patch of magnetic material. The magnetism in the patch points one way for 1 and the other way for 0.",
