@@ -1,6 +1,433 @@
 {
- "updated": "2026-11-04",
+ "updated": "2026-11-05",
  "stories": [
+  {
+   "body": [
+    "Soil is full of tiny living things that are far too small to see, such as bacteria and fungi. They help plants grow and keep soil healthy. But most of them have never been studied, because they are very hard to grow in a lab.",
+    "Instead, scientists can collect the DNA in a soil sample. DNA is like a long code written with just four letters: A, C, G and T. A machine reads the DNA, but it breaks it into millions of short pieces from lots of different living things, all mixed up. It is a bit like tipping thousands of jigsaw puzzles into one box.",
+    "Older computer tools try to match each piece with a library of DNA from living things that are already known. The trouble is that many soil bacteria are not in that library. Now a team led by the Hebrew University of Jerusalem has built a tool called BBERT. It uses the same kind of AI that helps computers understand language, but it was trained on DNA instead of sentences.",
+    "BBERT learned the patterns that bacterial DNA tends to have, so it does not need an exact match. It can look at a piece only about 100 letters long and decide whether it is from a bacterium. In tests it was right about 90% of the time. Sorting the pieces with BBERT first cut the time to rebuild bacterial DNA from about 66 hours to 25 hours, and it can even run on a laptop.",
+    "BBERT is not perfect. It sometimes mixes up plant DNA with bacterial DNA, partly because some parts of plant cells came from bacteria long ago. It can also throw away a few useful pieces. The team used it on almost 2,000 soil samples that other scientists had shared, and they hope it will help labs everywhere explore the hidden life under our feet."
+   ],
+   "connections": {
+    "groups": [
+     {
+      "explain": "All of these can be found living or lying in the soil. Worm is a red herring, because it also looks like it belongs with the 'worm' words, but it is needed here.",
+      "name": "Things found in soil",
+      "words": [
+       "Worm",
+       "Pebble",
+       "Fungus",
+       "Bacteria"
+      ]
+     },
+     {
+      "explain": "These are words used to describe how an AI like BBERT learns from examples and then makes guesses about new data.",
+      "name": "Machine learning words",
+      "words": [
+       "Training",
+       "Pattern",
+       "Model",
+       "Prediction"
+      ]
+     },
+     {
+      "explain": "These measure how much data a computer stores, from a single 1 or 0 up to billions of bytes.",
+      "name": "Units of data",
+      "words": [
+       "Bit",
+       "Byte",
+       "Megabyte",
+       "Gigabyte"
+      ]
+     },
+     {
+      "explain": "Bookworm, silkworm, glow-worm and earthworm. Earth is the red herring, because it seems to fit with soil, but it is needed to make earthworm.",
+      "name": "Add 'worm' to the end",
+      "words": [
+       "Book",
+       "Silk",
+       "Glow",
+       "Earth"
+      ]
+     }
+    ],
+    "title": "Down to earth"
+   },
+   "date": "2026-11-05",
+   "discussion": [
+    "BBERT is right about 90% of the time. Is that good enough? Would your answer change if the AI were being used to decide something more serious, like whether food is safe to eat?",
+    "The team tested BBERT on almost 2,000 soil samples that other scientists had shared online for free. What are the good points of scientists sharing their data? Can you think of any reasons someone might not want to share?",
+    "Older tools need an exact match in a library, but BBERT looks for patterns. Can you think of a time when you recognised something from its pattern, even though you had never seen that exact one before?",
+    "Some people think AI will make scientists' work much faster. Others worry that people might trust AI answers without checking them. What do you think, and how could scientists make sure they use AI sensibly?",
+    "Design challenge: plan a simple sorting game for your class. Give a partner 20 cards with short letter patterns and a rule to sort them. Then change the rule secretly. Can they work out the new pattern just from your examples, like a machine learning model?"
+   ],
+   "extras": [
+    {
+     "answer": 2,
+     "explain": "85, 70 and 95 are all 70 or more, so 3 of the 5 pieces count as bacterial. '2 of 5' is tempting if you read >= as >, but 70 >= 70 is true, so the 70 counts. '3 of 3' mixes up the two variables: pieces counts every piece, not just the bacterial ones.",
+     "inputs": [
+      85,
+      40,
+      70,
+      95,
+      60
+     ],
+     "lines": [
+      {
+       "code": "SET pieces TO 0",
+       "indent": 0
+      },
+      {
+       "code": "SET bacterial TO 0",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT 5 TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE score FROM KEYBOARD",
+       "indent": 1
+      },
+      {
+       "code": "SET pieces TO pieces + 1",
+       "indent": 1
+      },
+      {
+       "code": "IF score >= 70 THEN",
+       "indent": 1
+      },
+      {
+       "code": "SET bacterial TO bacterial + 1",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "SEND bacterial & \" of \" & pieces & \" look bacterial\" TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "options": [
+      "2 of 5 look bacterial",
+      "3 of 3 look bacterial",
+      "3 of 5 look bacterial",
+      "3 of 6 look bacterial"
+     ],
+     "question": "What will be displayed?",
+     "strand": "Understanding the world through computational thinking",
+     "task": "This program models BBERT checking 5 DNA pieces. Each piece gets a score, and a score of 70 or more means it looks bacterial. The scores typed in are 85, 40, 70, 95 and 60.",
+     "title": "Count the bacteria",
+     "trace": {
+      "cols": [
+       "Step",
+       "score",
+       "pieces",
+       "bacterial"
+      ],
+      "rows": [
+       [
+        "Start",
+        "-",
+        "0",
+        "0"
+       ],
+       [
+        "Loop 1",
+        "85",
+        "1",
+        "1"
+       ],
+       [
+        "Loop 2",
+        "40",
+        "2",
+        "1"
+       ],
+       [
+        "Loop 3",
+        "70",
+        "3",
+        "2"
+       ],
+       [
+        "Loop 4",
+        "95",
+        "4",
+        "3"
+       ],
+       [
+        "Loop 5",
+        "60",
+        "5",
+        "3"
+       ]
+      ]
+     },
+     "type": "predict",
+     "why": "BBERT looks at each DNA piece and decides whether it is bacterial, which is a loop with a decision inside."
+    },
+    {
+     "answer": 2,
+     "bug": 4,
+     "explain": "With OR, a piece is kept if just one check passes, so a short piece with a high score gets through. AND needs both checks to pass. 'length > 100' is the most tempting fix, but it throws away a piece that is exactly 100 letters long, so the first test shows 'Pieces kept: 0'.",
+     "fixes": [
+      "IF length > 100 AND score >= 50 THEN",
+      "IF length <= 100 AND score >= 50 THEN",
+      "IF length >= 100 AND score >= 50 THEN",
+      "IF length >= 100 AND score > 50 THEN"
+     ],
+     "lines": [
+      {
+       "code": "SET kept TO 0",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT 3 TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE length FROM KEYBOARD",
+       "indent": 1
+      },
+      {
+       "code": "RECEIVE score FROM KEYBOARD",
+       "indent": 1
+      },
+      {
+       "code": "IF length >= 100 OR score >= 50 THEN",
+       "indent": 1
+      },
+      {
+       "code": "SET kept TO kept + 1",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Pieces kept: \" & kept TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "strand": "Designing, building and testing computing solutions",
+     "task": "A program should keep a DNA piece only if it is at least 100 letters long AND its score is at least 50. It checks 3 pieces, receiving the length then the score of each. In testing, it keeps pieces that are far too short. Example: (100, 50), (40, 90), (150, 20) should display 'Pieces kept: 1'. Find the faulty line and choose the fix.",
+     "tests": [
+      {
+       "expect": [
+        "Pieces kept: 1"
+       ],
+       "inputs": [
+        100,
+        50,
+        40,
+        90,
+        150,
+        20
+       ]
+      },
+      {
+       "expect": [
+        "Pieces kept: 1"
+       ],
+       "inputs": [
+        120,
+        80,
+        90,
+        60,
+        200,
+        30
+       ]
+      },
+      {
+       "expect": [
+        "Pieces kept: 3"
+       ],
+       "inputs": [
+        130,
+        70,
+        110,
+        55,
+        100,
+        95
+       ]
+      }
+     ],
+     "title": "Keep the good pieces",
+     "type": "bug",
+     "why": "BBERT only works on pieces that are long enough, and scientists only keep pieces it is confident about, so the program must check both things at once."
+    },
+    {
+     "explain": "Facts can be checked against evidence, such as test results. Opinions often use words like 'should', 'most' or 'will'. The trickiest is the plant DNA statement: it sounds like a criticism, but it is a fact the scientists measured and reported themselves.",
+     "statements": [
+      {
+       "explain": "This was measured in the scientists' tests and is reported in a science journal.",
+       "fact": true,
+       "text": "In tests, BBERT was right about 90% of the time at spotting bacterial DNA."
+      },
+      {
+       "explain": "This is a prediction. Nobody can check it yet, and it uses a big word like 'everything'.",
+       "fact": false,
+       "text": "AI will soon help us understand everything about soil."
+      },
+      {
+       "explain": "The team timed this in their tests, so it can be checked.",
+       "fact": true,
+       "text": "Sorting with BBERT first cut the rebuilding time from about 66 hours to 25 hours."
+      },
+      {
+       "explain": "'Most useful' is a judgement. Different scientists would choose different tools.",
+       "fact": false,
+       "text": "BBERT is the most useful tool scientists have ever made."
+      },
+      {
+       "explain": "The scientists found and reported this weakness in their own results.",
+       "fact": true,
+       "text": "BBERT sometimes mixes up plant DNA with bacterial DNA."
+      },
+      {
+       "explain": "'Should' tells you this is what someone thinks. Others would say some research is better done in different ways.",
+       "fact": false,
+       "text": "Scientists should use AI for all of their research."
+      }
+     ],
+     "strand": "Searching, processing and managing information responsibly",
+     "task": "Is each statement a fact (it can be checked) or an opinion (what someone thinks or predicts)?",
+     "title": "Soil AI: fact or opinion?",
+     "type": "factop",
+     "why": "AI tools are often described with big claims, so learners need to separate what the tests showed from what people think or hope."
+    }
+   ],
+   "headline": "An AI that reads the hidden DNA in soil",
+   "id": "2026-11-05-ai-reads-soil-dna",
+   "illustration": "ai",
+   "imageAlt": "Illustration of a handful of soil with tiny strands of DNA rising out of it towards a computer screen.",
+   "keywords": [
+    {
+     "meaning": "The code inside every living thing that carries instructions for how it grows and works. It is written with four letters: A, C, G and T.",
+     "term": "DNA"
+    },
+    {
+     "meaning": "Tiny living things made of just one cell. Most are harmless, and many are helpful, for example by keeping soil healthy.",
+     "term": "Bacteria"
+    },
+    {
+     "meaning": "A kind of AI where a computer learns patterns from lots of examples, instead of a person writing a rule for every case.",
+     "term": "Machine learning"
+    },
+    {
+     "meaning": "An organised store of data that a computer can search quickly, such as a library of known DNA.",
+     "term": "Database"
+    }
+   ],
+   "newsDate": "2 November 2026",
+   "quiz": [
+    {
+     "answer": 2,
+     "explain": "BBERT looks at short scraps of DNA from soil and decides which ones are from bacteria. Matching with a library is tempting, but that is how the older tools work, and it fails when the bacteria are not in the library.",
+     "options": [
+      "It grows new bacteria in a lab to help crops",
+      "It counts the worms living in a soil sample",
+      "It picks out which short pieces of DNA come from bacteria",
+      "It matches each piece of DNA with a library of known bacteria"
+     ],
+     "q": "What does the AI tool BBERT do?",
+     "strand": "The news"
+    },
+    {
+     "answer": 0,
+     "explain": "Sorting first cut the average time from about 66 hours to 25 hours. 188 to 82 is tempting because those numbers are in the story too, but they are the amount of memory used in gigabytes, not hours.",
+     "options": [
+      "The time fell from about 66 hours to 25 hours",
+      "The time rose from about 25 hours to 66 hours",
+      "The time fell from about 188 hours to 82 hours",
+      "The time fell from about 66 hours to 6 hours"
+     ],
+     "q": "In tests, what happened when scientists used BBERT to sort the DNA pieces before rebuilding bacterial DNA?",
+     "strand": "The news"
+    },
+    {
+     "answer": 1,
+     "explain": "2 bits give four patterns, 00, 01, 10 and 11, so each letter can have its own pattern. 4 bits is tempting because there are four letters, but 4 bits give 16 patterns, which is more than needed.",
+     "options": [
+      "1 bit",
+      "2 bits",
+      "4 bits",
+      "8 bits"
+     ],
+     "q": "DNA is written with only four letters: A, C, G and T. What is the smallest number of bits a computer needs to store one DNA letter?",
+     "strand": "Understanding and analysing computing technology"
+    },
+    {
+     "answer": 3,
+     "explain": "BBERT is machine learning: it learned patterns from lots of examples, so it can judge pieces it has never seen. Typing in every piece is tempting, but there are far too many possible pieces, and that would only work for bacteria that are already known.",
+     "options": [
+      "A programmer typed in every possible piece of bacterial DNA",
+      "It searched the internet for each piece it was given",
+      "It copied the answers from an older DNA-matching tool",
+      "It was trained on lots of examples until it found the patterns"
+     ],
+     "q": "How did BBERT learn to recognise bacterial DNA?",
+     "strand": "Understanding and analysing computing technology"
+    },
+    {
+     "answer": 2,
+     "explain": "A tool that is usually right can save lots of time, but important results should still be checked. Stopping using it is tempting because it makes mistakes, but people and other tools make mistakes too, so throwing it away would lose a useful helper.",
+     "options": [
+      "Trust every answer, because computers do not make mistakes",
+      "Stop using it, because it is sometimes wrong",
+      "Use it to save time, but check important results another way",
+      "Only use it on samples with fewer than 100 pieces of DNA"
+     ],
+     "q": "BBERT is right about 90% of the time. What is the most sensible way for scientists to use its results?",
+     "strand": "Searching, processing and managing information responsibly"
+    },
+    {
+     "answer": 0,
+     "explain": "188 - 82 = 106 GB. 116 is tempting if you slip when subtracting the tens, and 270 is what you get if you add the numbers instead of taking one away.",
+     "options": [
+      "106 GB",
+      "116 GB",
+      "96 GB",
+      "270 GB"
+     ],
+     "q": "Challenge: In one test, using BBERT cut the computer memory needed from 188 GB to 82 GB. How much less memory was needed?",
+     "strand": "Understanding the world through computational thinking"
+    }
+   ],
+   "sources": [
+    {
+     "title": "New AI Tool Helps Scientists Identify Bacteria Hidden in Soil (American Friends of the Hebrew University, 2 November 2026)",
+     "url": "https://www.afhu.org/2026/11/02/new-ai-tool-helps-scientists-identify-bacteria-hidden-in-soil/"
+    },
+    {
+     "title": "BBERT: AI that spots bacterial DNA in soil samples (Unite.AI)",
+     "url": "https://www.unite.ai/?p=497581"
+    }
+   ],
+   "standfirst": "Scientists have built an AI tool that sorts through millions of tiny scraps of DNA from soil and picks out the ones that come from bacteria. It could help us learn about life we can't see.",
+   "tags": [
+    "AI",
+    "Data",
+    "Machine learning",
+    "Selection",
+    "Loops"
+   ],
+   "theme": "ai",
+   "whyItMatters": "Healthy soil helps us grow food, so learning about the tiny life in it really matters. This story shows how AI can spot patterns in huge amounts of data far faster than people could, while scientists still need to check its answers because it is not always right."
+  },
   {
    "body": [
     "Most drones have a stiff frame shaped like a cross, with a body in the middle. If one clips a tree or a wall, an arm can snap, or the drone can spin out of control and fall. That makes flying close to obstacles risky.",
