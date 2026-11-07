@@ -1,6 +1,413 @@
 {
- "updated": "2026-11-05",
+ "updated": "2026-11-07",
  "stories": [
+  {
+   "body": [
+    "When you type a question into an AI chatbot, a computer in a huge building called a data centre works out the answer. That work uses electricity. Researchers at the University of Michigan in the USA wanted to know if the language you use changes how much electricity is needed.",
+    "The team tested three AI models with reading questions in 122 languages, plus some maths questions translated into seven languages. They measured the energy used for each one. On average, every model used the least energy for English.",
+    "Some languages were close to English. Most Western European languages needed about twice as much energy as English, or less. But Hindi needed about 7.9 times as much as English, and Bengali about 15 times as much. The worst cases used far more.",
+    "The reason is tokens. An AI does not read whole sentences. It chops text into small pieces called tokens, such as a word or part of a word. English text is usually chopped into fewer, bigger pieces. Languages with different alphabets, like Hindi, are often chopped into many tiny pieces. More pieces means more work, more memory and more energy. The languages that used the most energy also often got less accurate answers.",
+    "The researchers say about 5.2 billion people would need more than twice the energy of an English speaker to use AI in their first language. They suggest ideas to fix this, such as building AI models designed for particular languages and collecting more writing from native speakers to train them."
+   ],
+   "connections": {
+    "groups": [
+     {
+      "explain": "These are all languages people speak; Hindi and Bengali were two of the languages in the study.",
+      "name": "Languages",
+      "words": [
+       "Hindi",
+       "Bengali",
+       "Gaelic",
+       "Welsh"
+      ]
+     },
+     {
+      "explain": "These can all make electricity without running out, which helps data centres cut pollution. Wind and Solar look like they could go with 'power' too, but only these four are energy sources.",
+      "name": "Renewable energy sources",
+      "words": [
+       "Wind",
+       "Solar",
+       "Tidal",
+       "Wave"
+      ]
+     },
+     {
+      "explain": "Text can be split into characters, tokens, words or sentences. Word is a red herring, because 'word power' is a phrase, but it is needed here.",
+      "name": "Pieces of text a computer can process",
+      "words": [
+       "Character",
+       "Word",
+       "Token",
+       "Sentence"
+      ]
+     },
+     {
+      "explain": "Horsepower, willpower, brainpower and superpower. Wind power and solar power are real too, which is why Wind and Solar are the red herrings.",
+      "name": "Words that come before 'power'",
+      "words": [
+       "Horse",
+       "Will",
+       "Brain",
+       "Super"
+      ]
+     }
+    ],
+    "title": "Power of words"
+   },
+   "date": "2026-11-07",
+   "discussion": [
+    "Why do you think AI models work best in English? Think about how much writing exists online in different languages.",
+    "Some people say questions should be translated into English before the AI answers, because it saves energy. Others say translation can lose meaning, jokes and culture, and that people should be able to use their own language. Which side do you agree with more, and why?",
+    "Scottish Gaelic has far fewer speakers than English. How could you test whether an AI chatbot works fairly in Gaelic? What would you measure?",
+    "Should AI companies charge people more if their language uses more tokens? Think about how it might feel to be a user, a company and someone worried about the environment.",
+    "Design challenge: invent your own simple rule for chopping a sentence into tokens (for example, every 4 letters is one token). Try it on the same sentence in two languages you know. Which one makes more tokens?"
+   ],
+   "extras": [
+    {
+     "answer": 1,
+     "explain": "The loop runs 4 times, once per word, adding 3 tokens each time: 3, 6, 9, 12. 'Tokens: 9' is tempting if you stop one loop early, and 'Tokens: 4' mixes up tokens with count.",
+     "lines": [
+      {
+       "code": "SET words TO 4",
+       "indent": 0
+      },
+      {
+       "code": "SET tokensPerWord TO 3",
+       "indent": 0
+      },
+      {
+       "code": "SET tokens TO 0",
+       "indent": 0
+      },
+      {
+       "code": "SET count TO 0",
+       "indent": 0
+      },
+      {
+       "code": "WHILE count < words DO",
+       "indent": 0
+      },
+      {
+       "code": "SET tokens TO tokens + tokensPerWord",
+       "indent": 1
+      },
+      {
+       "code": "SET count TO count + 1",
+       "indent": 1
+      },
+      {
+       "code": "END WHILE",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Tokens: \" & tokens TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "options": [
+      "Tokens: 9",
+      "Tokens: 12",
+      "Tokens: 15",
+      "Tokens: 4"
+     ],
+     "question": "What will be displayed?",
+     "strand": "Understanding the world through computational thinking",
+     "task": "In a pretend AI, a sentence has 4 words and each word is split into 3 tokens. Trace the program carefully.",
+     "title": "Count the tokens",
+     "trace": {
+      "cols": [
+       "Step",
+       "count",
+       "tokens",
+       "count < words?"
+      ],
+      "rows": [
+       [
+        "Start",
+        0,
+        0,
+        "Yes"
+       ],
+       [
+        "Loop 1",
+        1,
+        3,
+        "Yes"
+       ],
+       [
+        "Loop 2",
+        2,
+        6,
+        "Yes"
+       ],
+       [
+        "Loop 3",
+        3,
+        9,
+        "Yes"
+       ],
+       [
+        "Loop 4",
+        4,
+        12,
+        "No, stop"
+       ]
+      ]
+     },
+     "type": "predict",
+     "why": "An AI counts up tokens one piece at a time, and a loop is the perfect way to show how the total builds up."
+    },
+    {
+     "answer": 2,
+     "bug": 3,
+     "explain": "The total must keep what it already has and add the new message's tokens, so the fix is SET total TO total + tokens. 'SET total TO total + 1' is tempting because it looks like a running total, but it counts messages, not tokens, so it would only reach 3.",
+     "fixes": [
+      "SET total TO tokens + 1",
+      "SET total TO total + 1",
+      "SET total TO total + tokens",
+      "SET total TO total - tokens"
+     ],
+     "lines": [
+      {
+       "code": "SET total TO 0",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT 3 TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE tokens FROM KEYBOARD",
+       "indent": 1
+      },
+      {
+       "code": "SET total TO tokens",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "IF total > 50 THEN",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Over budget: \" & total & \" tokens\" TO DISPLAY",
+       "indent": 1
+      },
+      {
+       "code": "ELSE",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Within budget: \" & total & \" tokens\" TO DISPLAY",
+       "indent": 1
+      },
+      {
+       "code": "END IF",
+       "indent": 0
+      }
+     ],
+     "strand": "Designing, building and testing computing solutions",
+     "task": "This program should add up the tokens in 3 messages and warn if the total is over 50. In testing, messages of 20, 20 and 20 tokens were wrongly shown as 'Within budget: 20 tokens'. Find the faulty line and pick the fix.",
+     "tests": [
+      {
+       "expect": [
+        "Over budget: 60 tokens"
+       ],
+       "inputs": [
+        20,
+        20,
+        20
+       ]
+      },
+      {
+       "expect": [
+        "Within budget: 23 tokens"
+       ],
+       "inputs": [
+        10,
+        5,
+        8
+       ]
+      }
+     ],
+     "title": "The token budget that never fills up",
+     "type": "bug",
+     "why": "AI services count the tokens in a whole conversation to work out cost and energy, so the total must be added up correctly."
+    },
+    {
+     "bits": 8,
+     "explain": "122 = 64 + 32 + 16 + 8 + 2, so it is 01111010. A common slip is switching on the 1 column as well, which makes 123. Fun fact: 122 is also the code computers use for a lowercase 'z'.",
+     "strand": "Understanding and analysing computing technology",
+     "target": 122,
+     "task": "The researchers tested reading questions in 122 languages. Convert 122 into an 8-bit binary number.",
+     "title": "122 languages in binary",
+     "type": "binary",
+     "why": "The study tested AI in 122 languages, and computers store every number and letter as binary."
+    },
+    {
+     "explain": "Facts can be checked by measuring or looking at evidence, like the energy numbers. Opinions say what someone thinks should happen. Statements with 'should' or 'best' are clues that you are reading an opinion.",
+     "statements": [
+      {
+       "explain": "This is a measured result you can check in the study.",
+       "fact": true,
+       "text": "In the study, Hindi needed about 7.9 times as much energy as English."
+      },
+      {
+       "explain": "This is an opinion about what is fair; people disagree about it.",
+       "fact": false,
+       "text": "AI companies should charge everyone the same, whatever language they use."
+      },
+      {
+       "explain": "This can be checked in the report about the study.",
+       "fact": true,
+       "text": "The researchers tested three different AI models."
+      },
+      {
+       "explain": "This is an opinion. Some people value saving energy, others value keeping meaning and culture.",
+       "fact": false,
+       "text": "Translating every question into English first is the best solution."
+      },
+      {
+       "explain": "This is how the researchers explained their results, and you can test it by counting tokens.",
+       "fact": true,
+       "text": "Text in languages like Hindi is often split into more tokens than English."
+      },
+      {
+       "explain": "This is an opinion about what matters most, so people can reasonably disagree.",
+       "fact": false,
+       "text": "Using AI in your own language is more important than saving energy."
+      }
+     ],
+     "strand": "Searching, processing and managing information responsibly",
+     "task": "Decide whether each statement is a fact that could be checked, or an opinion that people might disagree with.",
+     "title": "Fact or opinion?",
+     "type": "factop",
+     "why": "This is an ethics and environment story, so it helps to separate what the study measured from what people think should happen."
+    }
+   ],
+   "headline": "AI uses more energy when you don't write in English",
+   "id": "2026-11-07-ai-language-energy",
+   "illustration": "ethics",
+   "imageAlt": "Illustration of two speech bubbles saying the same thing: one is split into a few large blocks, the other into many small blocks, with a lightning bolt showing that more blocks use more energy.",
+   "keywords": [
+    {
+     "meaning": "A small piece of text, such as a word or part of a word, that an AI model reads and works with.",
+     "term": "Token"
+    },
+    {
+     "meaning": "AI that creates new content, such as text or pictures, in answer to a question or instruction.",
+     "term": "Generative AI"
+    },
+    {
+     "meaning": "A large building full of computers that store data and run online services, such as AI chatbots. It uses lots of electricity.",
+     "term": "Data centre"
+    },
+    {
+     "meaning": "The set of letters or symbols used to write a language, such as the Latin alphabet for English or Devanagari for Hindi.",
+     "term": "Script"
+    }
+   ],
+   "newsDate": "5 November 2026",
+   "quiz": [
+    {
+     "answer": 3,
+     "explain": "On average every model used the least energy for English, and languages like Hindi and Bengali needed many times more. 'Less energy for languages with more speakers' is tempting, but Hindi has hundreds of millions of speakers and still needed much more energy.",
+     "options": [
+      "AI used less energy for languages with more speakers",
+      "AI used the same energy for every language tested",
+      "AI used more energy for English because it is so popular",
+      "AI used more energy for many languages than for English"
+     ],
+     "q": "What did the University of Michigan researchers find?",
+     "strand": "The news"
+    },
+    {
+     "answer": 0,
+     "explain": "More tokens means more work and more memory, so more electricity. Translating into English is tempting because the researchers mention it, but that was one of their suggested fixes, not the cause.",
+     "options": [
+      "It is chopped into more tokens, so there is more to process",
+      "It has to be sent to data centres in other countries",
+      "The AI translates every answer into English first",
+      "Those languages have longer words that need bigger screens"
+     ],
+     "q": "According to the study, why does some non-English text need more energy?",
+     "strand": "The news"
+    },
+    {
+     "answer": 1,
+     "explain": "A token is a piece of text, often a word or part of a word, that the model works with. 'A single letter stored in binary' is tempting because computers do store letters as binary, but a token can be bigger than one letter.",
+     "options": [
+      "A single letter stored as an 8-bit binary number",
+      "A small chunk of text, such as a word or part of a word",
+      "A whole sentence that the AI reads all at once",
+      "A unit of electricity that the data centre uses"
+     ],
+     "q": "What is a token in an AI model?",
+     "strand": "Understanding and analysing computing technology"
+    },
+    {
+     "answer": 3,
+     "explain": "5 words multiplied by 3 tokens each makes 15 tokens. 8 is tempting if you add 5 and 3 instead of multiplying, and 12 is what you get if you stop counting one word early.",
+     "options": [
+      "8",
+      "5",
+      "12",
+      "15"
+     ],
+     "q": "In a pretend AI, each English word is 1 token, but each word in another language is 3 tokens. How many tokens is a 5-word sentence in the other language?",
+     "strand": "Understanding the world through computational thinking"
+    },
+    {
+     "answer": 2,
+     "explain": "Testing with real questions in every language shows whether it works well for all pupils. Asking the AI itself is tempting, but an AI can give a confident answer that isn't true, so you need to test it yourself.",
+     "options": [
+      "Check that it works well in English, because most help pages are in English",
+      "Ask the AI helper whether it treats every language fairly",
+      "Test it with the same questions in each pupil's language and compare the answers",
+      "Pick the helper that has been downloaded the most times"
+     ],
+     "q": "A school wants an AI homework helper for pupils who speak several different languages. What is the most sensible thing to do before choosing one?",
+     "strand": "Designing, building and testing computing solutions"
+    },
+    {
+     "answer": 0,
+     "explain": "4 letters × 3 bytes = 12 bytes, and 12 × 8 bits = 96 bits. 12 is tempting, but that is the number of bytes, not bits; 32 is the answer for 4 English letters.",
+     "options": [
+      "96",
+      "12",
+      "32",
+      "24"
+     ],
+     "q": "Challenge: Computers often store an English letter in 1 byte (8 bits), but a basic Hindi letter takes 3 bytes. How many bits are needed to store 4 basic Hindi letters?",
+     "strand": "Understanding and analysing computing technology"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Generative AI uses more energy on non-English text (University of Michigan, via EurekAlert!, 5 November 2026)",
+     "url": "https://www.eurekalert.org/news-releases/1150646"
+    },
+    {
+     "title": "The Tokenizer Tax: Why non-English AI users pay more for tokens (Rest of World, 26 October 2026)",
+     "url": "https://restofworld.org/2026/ai-tokenizer-tax-non-english-languages-cost-inequity/"
+    }
+   ],
+   "standfirst": "A new study has found that AI chatbots use much more electricity to answer in many languages than in English. It raises questions about fairness and about the planet.",
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><rect x=\"40\" y=\"50\" width=\"260\" height=\"110\" rx=\"22\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><path d=\"M90 160 L80 195 L120 160 Z\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\" stroke-linejoin=\"round\"/><g fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"><rect x=\"62\" y=\"85\" width=\"62\" height=\"40\" rx=\"6\"/><rect x=\"138\" y=\"85\" width=\"62\" height=\"40\" rx=\"6\"/><rect x=\"214\" y=\"85\" width=\"62\" height=\"40\" rx=\"6\"/></g><rect x=\"340\" y=\"50\" width=\"260\" height=\"110\" rx=\"22\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><path d=\"M550 160 L560 195 L520 160 Z\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\" stroke-linejoin=\"round\"/><g fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"2\"><rect x=\"360\" y=\"72\" width=\"22\" height=\"26\" rx=\"4\"/><rect x=\"388\" y=\"72\" width=\"22\" height=\"26\" rx=\"4\"/><rect x=\"416\" y=\"72\" width=\"22\" height=\"26\" rx=\"4\"/><rect x=\"444\" y=\"72\" width=\"22\" height=\"26\" rx=\"4\"/><rect x=\"472\" y=\"72\" width=\"22\" height=\"26\" rx=\"4\"/><rect x=\"500\" y=\"72\" width=\"22\" height=\"26\" rx=\"4\"/><rect x=\"528\" y=\"72\" width=\"22\" height=\"26\" rx=\"4\"/><rect x=\"556\" y=\"72\" width=\"22\" height=\"26\" rx=\"4\"/><rect x=\"360\" y=\"110\" width=\"22\" height=\"26\" rx=\"4\"/><rect x=\"388\" y=\"110\" width=\"22\" height=\"26\" rx=\"4\"/><rect x=\"416\" y=\"110\" width=\"22\" height=\"26\" rx=\"4\"/><rect x=\"444\" y=\"110\" width=\"22\" height=\"26\" rx=\"4\"/><rect x=\"472\" y=\"110\" width=\"22\" height=\"26\" rx=\"4\"/><rect x=\"500\" y=\"110\" width=\"22\" height=\"26\" rx=\"4\"/><rect x=\"528\" y=\"110\" width=\"22\" height=\"26\" rx=\"4\"/><rect x=\"556\" y=\"110\" width=\"22\" height=\"26\" rx=\"4\"/></g><rect x=\"110\" y=\"240\" width=\"90\" height=\"26\" rx=\"13\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"110\" y=\"240\" width=\"30\" height=\"26\" rx=\"13\" fill=\"var(--accent)\"/><rect x=\"410\" y=\"240\" width=\"160\" height=\"26\" rx=\"13\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"410\" y=\"240\" width=\"150\" height=\"26\" rx=\"13\" fill=\"var(--hot)\"/><path d=\"M320 215 L298 268 H318 L306 318 L344 252 H322 L336 215 Z\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"4\" stroke-linejoin=\"round\"/></svg>",
+   "tags": [
+    "AI",
+    "Ethics",
+    "Environment",
+    "Algorithms",
+    "Loops",
+    "Selection"
+   ],
+   "theme": "ethics",
+   "whyItMatters": "Billions of people speak languages other than English, and they should be able to use technology well in their own language. This story shows that the way a computer breaks up data can affect fairness, cost and the environment all at once."
+  },
   {
    "body": [
     "Soil is full of tiny living things that are far too small to see, such as bacteria and fungi. They help plants grow and keep soil healthy. But most of them have never been studied, because they are very hard to grow in a lab.",
