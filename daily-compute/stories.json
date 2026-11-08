@@ -1,6 +1,376 @@
 {
- "updated": "2026-11-07",
+ "updated": "2026-11-08",
  "stories": [
+  {
+   "body": [
+    "High on a mountain in Chile sits the Vera C. Rubin Observatory. It has the largest digital camera ever built for astronomy, with 3,200 megapixels. That is many times more than a phone camera. Every few nights it photographs the whole southern sky.",
+    "Scientists have now studied Rubin's early test photos, taken between April 2025 and January 2026. These covered only about 7% of the night sky. Even so, they found two small groups of stars orbiting our galaxy, the Milky Way, that nobody had seen before.",
+    "The first is called Aquarius IV. It is a tiny, very faint galaxy about 355,000 light-years away. It is so dim that a person looking at the pictures would almost certainly miss it. Instead, search algorithms scanned the data. They looked for stars with matching colours and brightness, because stars that were born together look alike. The second find, called Rubin-GC1, is a cluster of stars on the far side of the Milky Way, hidden behind thick clouds of dust.",
+    "To make this work, the data had to be very clean. A team of more than 20 researchers at the University of Washington helped check that things labelled as stars really were stars, not faraway galaxies or mistakes. Wrong labels could hide a real discovery.",
+    "About 65 small galaxies and star groups are known to circle the Milky Way, but scientists think hundreds more are hiding. Rubin began a 10-year survey of the sky in June 2026, so there could be many more discoveries to come."
+   ],
+   "connections": {
+    "groups": [
+     {
+      "explain": "These are all objects found in space. Moon looks like it belongs here too, but it is needed in the last group.",
+      "name": "Things found in space",
+      "words": [
+       "Comet",
+       "Meteor",
+       "Planet",
+       "Galaxy"
+      ]
+     },
+     {
+      "explain": "Each of these sends data into a computer, just as Rubin's camera sends in pictures of the sky.",
+      "name": "Input devices",
+      "words": [
+       "Camera",
+       "Sensor",
+       "Keyboard",
+       "Microphone"
+      ]
+     },
+     {
+      "explain": "Computers sort, filter, store and copy data; Rubin's scientists filter millions of stars to find matching groups.",
+      "name": "Things you can do with data",
+      "words": [
+       "Sort",
+       "Filter",
+       "Store",
+       "Copy"
+      ]
+     },
+     {
+      "explain": "Flashlight, spotlight, torchlight and moonlight. Moon is the red herring, because it also seems to fit with things in space.",
+      "name": "Words that come before 'light'",
+      "words": [
+       "Flash",
+       "Spot",
+       "Torch",
+       "Moon"
+      ]
+     }
+    ],
+    "title": "Searching the sky"
+   },
+   "date": "2026-11-08",
+   "discussion": [
+    "Why do you think computers were better than people at finding Aquarius IV in the photos?",
+    "The scientists needed to be sure that things labelled 'star' really were stars. What could go wrong if a data set has lots of wrong labels? Can you think of an example from school or everyday life?",
+    "Rubin's data will be shared with scientists around the world. Some people think all science data should be free for anyone to use. Others worry it takes lots of money and work to collect, or could be misunderstood. What do you think, and why?",
+    "Rubin takes so many photos that the data has to be stored and searched very carefully. If you had thousands of your own photos, how would you organise them so you could find one quickly?",
+    "Design challenge: draw some dots on paper to make a pretend night sky, then hide a small group of dots in one colour. Write step-by-step instructions (an algorithm) a partner could follow to find your hidden group."
+   ],
+   "extras": [
+    {
+     "distractors": [
+      {
+       "code": "IF colour >= 40 OR colour <= 60 THEN",
+       "indent": 1
+      }
+     ],
+     "explain": "The counter starts at 0 before the loop, and inside the loop each star is checked and counted only if both conditions are true. The OR line is tempting, but with OR every star passes at least one check, so all 5 stars would be counted.",
+     "lines": [
+      {
+       "code": "SET matches TO 0",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT 5 TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE colour FROM KEYBOARD",
+       "indent": 1
+      },
+      {
+       "code": "IF colour >= 40 AND colour <= 60 THEN",
+       "indent": 1
+      },
+      {
+       "code": "SET matches TO matches + 1",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Matching stars: \" & matches TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "strand": "Designing, building and testing computing solutions",
+     "task": "Put the lines in order to make a program that reads the colour score of 5 stars and counts how many have a score from 40 to 60. One line doesn't belong.",
+     "tests": [
+      {
+       "expect": [
+        "Matching stars: 3"
+       ],
+       "inputs": [
+        45,
+        70,
+        50,
+        30,
+        60
+       ]
+      }
+     ],
+     "title": "Build a star finder",
+     "type": "parsons",
+     "why": "The algorithms that found Aquarius IV looked for stars with matching colours, which is a loop with selection inside it."
+    },
+    {
+     "blanks": [
+      {
+       "answer": 0,
+       "options": [
+        "<=",
+        "<",
+        ">=",
+        "="
+       ]
+      },
+      {
+       "answer": 2,
+       "options": [
+        "stars - 1",
+        "size + 1",
+        "stars + 1",
+        "1"
+       ]
+      }
+     ],
+     "explain": "'Size 3 or less' means <=, and adding 1 each time with stars + 1 keeps a running count. < is the most tempting wrong choice, but it would leave out a dot of exactly size 3, so the first test would show 'Stars: 2'.",
+     "lines": [
+      {
+       "code": "SET stars TO 0",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT 4 TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE size FROM KEYBOARD",
+       "indent": 1
+      },
+      {
+       "code": "IF size {0} 3 THEN",
+       "indent": 1
+      },
+      {
+       "code": "SET stars TO {1}",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Stars: \" & stars TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "strand": "Understanding the world through computational thinking",
+     "task": "This program reads the size of 4 dots in a photo. A dot of size 3 or less counts as a star. Fill the gaps so it shows how many stars there are. For sizes 1, 3, 5 and 2 it should show 'Stars: 3'.",
+     "tests": [
+      {
+       "expect": [
+        "Stars: 3"
+       ],
+       "inputs": [
+        1,
+        3,
+        5,
+        2
+       ]
+      },
+      {
+       "expect": [
+        "Stars: 2"
+       ],
+       "inputs": [
+        2,
+        2,
+        9,
+        9
+       ]
+      }
+     ],
+     "title": "Star or galaxy?",
+     "type": "complete",
+     "why": "Rubin's team had to sort real stars from faraway galaxies, and on a photo a star looks like a tiny point while a galaxy looks like a bigger fuzzy blob."
+    },
+    {
+     "explain": "Input brings data in, process works on it, and output shows the result. Deciding 'star or galaxy' is the most tempting one to call output, but it is processing, because the computer is still working on the data.",
+     "items": [
+      {
+       "bucket": 0,
+       "explain": "The camera collects light and turns it into data, so it is input.",
+       "text": "The giant camera captures light from the night sky"
+      },
+      {
+       "bucket": 0,
+       "explain": "Sensors take in measurements from the real world, so this is input.",
+       "text": "Light sensors measure how bright each star is"
+      },
+      {
+       "bucket": 1,
+       "explain": "Searching and comparing data is work done by the computer, so it is process.",
+       "text": "Algorithms search the data for stars with matching colours"
+      },
+      {
+       "bucket": 1,
+       "explain": "Making a decision with the data is process. It is not output, because nothing has been shown yet.",
+       "text": "The computer decides if each dot is a star or a galaxy"
+      },
+      {
+       "bucket": 2,
+       "explain": "Showing results on a screen is output.",
+       "text": "A map of the new star group appears on a scientist's screen"
+      },
+      {
+       "bucket": 2,
+       "explain": "Printing results is output.",
+       "text": "The new star cluster's picture is printed for a science poster"
+      }
+     ],
+     "strand": "Understanding and analysing computing technology",
+     "task": "Sort each job in the Rubin telescope system into Input, Process or Output.",
+     "title": "From starlight to discovery",
+     "type": "sort",
+     "why": "Rubin is a huge computer system, and sorting its jobs into input, process and output shows how it turns light into discoveries."
+    }
+   ],
+   "headline": "Giant telescope's computers find two hidden star groups",
+   "id": "2026-11-08-rubin-hidden-satellites",
+   "illustration": "data",
+   "imageAlt": "Illustration of a telescope dome on a mountain at night. A magnifying glass picks out a small group of orange stars among scattered white stars.",
+   "keywords": [
+    {
+     "meaning": "A set of clear steps a computer follows to solve a problem, such as searching photos for groups of matching stars.",
+     "term": "Algorithm"
+    },
+    {
+     "meaning": "One tiny dot of colour in a digital picture. A megapixel is one million pixels.",
+     "term": "Pixel"
+    },
+    {
+     "meaning": "An organised list of data. Rubin's catalogue lists millions of objects in the sky and what each one is.",
+     "term": "Catalogue"
+    },
+    {
+     "meaning": "A small galaxy that travels around a bigger galaxy, like the Moon travels around Earth.",
+     "term": "Satellite galaxy"
+    }
+   ],
+   "newsDate": "5 November 2026",
+   "quiz": [
+    {
+     "answer": 2,
+     "explain": "The finds were Aquarius IV, a tiny faint galaxy, and Rubin-GC1, a star cluster hidden behind dust. 'Two new planets' is tempting because telescopes do find planets, but these were groups of stars orbiting the Milky Way.",
+     "options": [
+      "Two new planets circling a star close to the Sun",
+      "A black hole hiding at the centre of the Milky Way",
+      "A tiny faint galaxy and a star cluster hidden by dust",
+      "Two comets that are heading slowly towards Earth"
+     ],
+     "q": "What did scientists find in Rubin Observatory's early photos?",
+     "strand": "The news"
+    },
+    {
+     "answer": 0,
+     "explain": "Search algorithms scanned the data for stars that look alike, because stars born together have similar colours and brightness. 'Spotted by an astronomer' is tempting, but it was so faint that a person would almost certainly miss it.",
+     "options": [
+      "Algorithms searched for stars with matching colour and brightness",
+      "An astronomer spotted it by looking through the telescope",
+      "It was the brightest object in the telescope's photos",
+      "A spacecraft flew past it and sent pictures back"
+     ],
+     "q": "How was the faint galaxy Aquarius IV found?",
+     "strand": "The news"
+    },
+    {
+     "answer": 3,
+     "explain": "The camera collects light and turns it into data, so it is an input device. The screen is tempting because it is hardware too, but it shows results, so it is an output device.",
+     "options": [
+      "The screen that shows a map of the stars",
+      "The algorithm that searches for groups of stars",
+      "The catalogue that lists every object found",
+      "The camera that captures light from the sky"
+     ],
+     "q": "In the Rubin telescope system, which of these is an input device?",
+     "strand": "Understanding and analysing computing technology"
+    },
+    {
+     "answer": 1,
+     "explain": "60 passes both checks because <= means 'less than or equal to'. 61 is tempting because it is so close, but it is bigger than 60, so the second check fails.",
+     "options": [
+      "A star with colour 39",
+      "A star with colour 60",
+      "A star with colour 61",
+      "A star with colour 70"
+     ],
+     "q": "A star search program keeps a star only IF colour >= 40 AND colour <= 60. Which star would be kept?",
+     "strand": "Understanding the world through computational thinking"
+    },
+    {
+     "answer": 2,
+     "explain": "If the data has wrong labels, a real pattern can be hidden or a false one can appear. Saving storage space is tempting because big data sets are huge, but the checking was about making the data correct, not smaller.",
+     "options": [
+      "So the catalogue would take up less storage space",
+      "So the telescope could take photos more quickly",
+      "Because wrong labels could hide a real discovery",
+      "Because galaxies cannot be photographed at all"
+     ],
+     "q": "Why did researchers carefully check that objects labelled as stars really were stars?",
+     "strand": "Searching, processing and managing information responsibly"
+    },
+    {
+     "answer": 1,
+     "explain": "3,200 divided by 16 is 200. 20 is tempting if you slip a place value, and 2,000 is the opposite slip, putting in an extra zero.",
+     "options": [
+      "20",
+      "200",
+      "320",
+      "2,000"
+     ],
+     "q": "Challenge: Rubin's camera has 3,200 megapixels. A phone camera has 16 megapixels. How many phone cameras would you need to match Rubin's pixels?",
+     "strand": "Understanding the world through computational thinking"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Rubin Observatory discoveries reveal two hidden Milky Way satellites (University of Washington News)",
+     "url": "https://www.washington.edu/news/2026/11/05/rubin-observatory-milky-way-satellites/"
+    },
+    {
+     "title": "Rubin reveals two hidden Milky Way companions (ScienceDaily, from Yale University)",
+     "url": "https://www.sciencedaily.com/releases/2026/11/261104012252.htm"
+    }
+   ],
+   "standfirst": "A brand-new telescope in Chile has spotted a tiny, faint galaxy and a dusty star cluster circling our Milky Way. Computer algorithms did much of the searching.",
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><g fill=\"var(--ink)\"><circle cx=\"60\" cy=\"50\" r=\"3\"/><circle cx=\"140\" cy=\"90\" r=\"2\"/><circle cx=\"220\" cy=\"40\" r=\"3\"/><circle cx=\"560\" cy=\"60\" r=\"3\"/><circle cx=\"600\" cy=\"140\" r=\"2\"/><circle cx=\"90\" cy=\"150\" r=\"2\"/><circle cx=\"300\" cy=\"110\" r=\"2\"/><circle cx=\"520\" cy=\"190\" r=\"2\"/></g><circle cx=\"430\" cy=\"110\" r=\"62\" fill=\"var(--card)\" stroke=\"var(--accent)\" stroke-width=\"6\"/><g fill=\"var(--hot)\"><circle cx=\"410\" cy=\"95\" r=\"5\"/><circle cx=\"432\" cy=\"88\" r=\"4\"/><circle cx=\"447\" cy=\"108\" r=\"5\"/><circle cx=\"423\" cy=\"118\" r=\"4\"/><circle cx=\"440\" cy=\"130\" r=\"4\"/><circle cx=\"405\" cy=\"125\" r=\"3\"/></g><rect x=\"472\" y=\"152\" width=\"18\" height=\"70\" rx=\"8\" fill=\"var(--accent)\" transform=\"rotate(-40 481 187)\"/><path d=\"M0 360 L0 300 L120 240 L230 290 L330 230 L460 300 L640 260 L640 360 Z\" fill=\"var(--ill-2)\"/><path d=\"M190 262 a50 50 0 0 1 100 0 Z\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"190\" y=\"262\" width=\"100\" height=\"30\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"232\" y=\"214\" width=\"16\" height=\"30\" fill=\"var(--ink)\" transform=\"rotate(30 240 229)\"/></svg>",
+   "tags": [
+    "Space",
+    "Data",
+    "Algorithms",
+    "Selection",
+    "Loops"
+   ],
+   "theme": "space",
+   "whyItMatters": "Modern telescopes collect far more pictures than people could ever look through. Computers, algorithms and carefully checked data help scientists spot tiny clues, like a faint galaxy, that would otherwise be missed."
+  },
   {
    "body": [
     "When you type a question into an AI chatbot, a computer in a huge building called a data centre works out the answer. That work uses electricity. Researchers at the University of Michigan in the USA wanted to know if the language you use changes how much electricity is needed.",
