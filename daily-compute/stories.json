@@ -1,6 +1,418 @@
 {
- "updated": "2026-11-08",
+ "updated": "2026-11-09",
  "stories": [
+  {
+   "body": [
+    "Not everyone plays games in the same way. Some players need large subtitles. Some can only use one hand, or use a special controller. Others find fast games hard and want an easier setting. Until now, it was often hard to find out if a game had these features before buying it.",
+    "The Accessible Games Initiative wants to fix that. It is a group set up in 2025 by people from the games industry. It has created a set of labels, called tags, that describe 24 accessibility features. Examples include large and clear subtitles, menus that are read aloud, button remapping and choices of difficulty.",
+    "On 2 November, the group announced that six companies have started using the tags. They are Electronic Arts, Google's YouTube Playables, Nintendo, Riot Games, Ubisoft and Xbox. The tags appear on game pages and in online shops, so players can check them before they choose a game.",
+    "Each tag has a clear definition and a list of rules a game must meet to use it. That way, a tag means the same thing in every shop. The tags were designed with help from disabled players, groups that support disabled people, and game makers. Using them is voluntary, and for now they are only in US English.",
+    "Tags like these are a kind of data about data. Shops can use them to let players filter games, for example to show only games with both subtitles and button remapping."
+   ],
+   "connections": {
+    "groups": [
+     {
+      "explain": "These are all settings that help more people play, and several of them are among the 24 tags.",
+      "name": "Game accessibility features",
+      "words": [
+       "Subtitles",
+       "Narration",
+       "Remapping",
+       "Easy mode"
+      ]
+     },
+     {
+      "explain": "These all send information into a computer. Mouse is a red herring because 'mousepad' fits the last group, and Microphone can look like it belongs with Headphones.",
+      "name": "Input devices",
+      "words": [
+       "Joystick",
+       "Keyboard",
+       "Mouse",
+       "Microphone"
+      ]
+     },
+     {
+      "explain": "These all take information out of a computer as sound, pictures or paper. Headphones and Microphone are both audio gadgets, but headphones are output and microphones are input.",
+      "name": "Output devices",
+      "words": [
+       "Speaker",
+       "Monitor",
+       "Headphones",
+       "Printer"
+      ]
+     },
+     {
+      "explain": "Keypad, touchpad, gamepad and launchpad. Mousepad works too, but Mouse is needed in the input devices group.",
+      "name": "Words that come before 'pad'",
+      "words": [
+       "Key",
+       "Touch",
+       "Game",
+       "Launch"
+      ]
+     }
+    ],
+    "title": "Play your way"
+   },
+   "date": "2026-11-09",
+   "discussion": [
+    "Which accessibility features have you ever switched on in a game, an app or on a phone? Did you need them, or were they just helpful?",
+    "Some people think every game should be made to have all 24 features. Others say small teams can't afford that, and labels are a fair first step. A disabled player, a small game studio and a big company might each see this differently. What do you think?",
+    "The tags are only in US English so far. Why might that be a problem for players in Scotland and around the world?",
+    "Why does it matter that every company uses exactly the same tag names and rules? What could go wrong if each shop made up its own labels?",
+    "Design challenge: choose a game or app you know well. Design one new accessibility setting for it, and write a short tag and a one-sentence rule that a game would need to meet to use your tag."
+   ],
+   "extras": [
+    {
+     "answer": 2,
+     "bug": 4,
+     "explain": "The player needs both features, so the condition must use AND with 'yes' for both. The buggy OR line counts a game with just one feature. 'subtitles = \"yes\" AND remap = \"no\"' is tempting because it uses AND, but it counts games that are missing remapping.",
+     "fixes": [
+      "IF subtitles = \"no\" AND remap = \"no\" THEN",
+      "IF subtitles = \"yes\" OR remap = \"no\" THEN",
+      "IF subtitles = \"yes\" AND remap = \"yes\" THEN",
+      "IF subtitles = \"yes\" AND remap = \"no\" THEN"
+     ],
+     "lines": [
+      {
+       "code": "SET matches TO 0",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT 3 TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE subtitles FROM KEYBOARD",
+       "indent": 1
+      },
+      {
+       "code": "RECEIVE remap FROM KEYBOARD",
+       "indent": 1
+      },
+      {
+       "code": "IF subtitles = \"yes\" OR remap = \"yes\" THEN",
+       "indent": 1
+      },
+      {
+       "code": "SET matches TO matches + 1",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Games that suit you: \" & matches TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "strand": "Designing, building and testing computing solutions",
+     "task": "This program checks 3 games and should count how many have BOTH subtitles AND button remapping. For each game you type 'yes' or 'no' for subtitles, then for remapping. In testing, games with only one of the features were counted too. Find the faulty line and pick the fix.",
+     "tests": [
+      {
+       "expect": [
+        "Games that suit you: 1"
+       ],
+       "inputs": [
+        "yes",
+        "yes",
+        "yes",
+        "no",
+        "no",
+        "yes"
+       ]
+      },
+      {
+       "expect": [
+        "Games that suit you: 1"
+       ],
+       "inputs": [
+        "no",
+        "no",
+        "yes",
+        "yes",
+        "no",
+        "yes"
+       ]
+      },
+      {
+       "expect": [
+        "Games that suit you: 2"
+       ],
+       "inputs": [
+        "yes",
+        "yes",
+        "yes",
+        "yes",
+        "yes",
+        "no"
+       ]
+      }
+     ],
+     "title": "The filter that shows too many games",
+     "type": "bug",
+     "why": "Shops use AND and OR to filter games by their tags, and mixing them up shows players the wrong games."
+    },
+    {
+     "answer": 1,
+     "explain": "Size goes 12, 16, 20, 24, which takes 3 clicks, and then 24 < 24 is false so the loop stops. 'Size 24 after 4 clicks' is tempting if you count the starting size as a click, and 'Size 28' comes from running the loop one time too many.",
+     "lines": [
+      {
+       "code": "SET size TO 12",
+       "indent": 0
+      },
+      {
+       "code": "SET clicks TO 0",
+       "indent": 0
+      },
+      {
+       "code": "WHILE size < 24 DO",
+       "indent": 0
+      },
+      {
+       "code": "SET size TO size + 4",
+       "indent": 1
+      },
+      {
+       "code": "SET clicks TO clicks + 1",
+       "indent": 1
+      },
+      {
+       "code": "END WHILE",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Size \" & size & \" after \" & clicks & \" clicks\" TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "options": [
+      "Size 20 after 2 clicks",
+      "Size 24 after 3 clicks",
+      "Size 28 after 4 clicks",
+      "Size 24 after 4 clicks"
+     ],
+     "question": "What will be displayed?",
+     "strand": "Understanding the world through computational thinking",
+     "task": "A game's subtitles start at size 12. Each click on 'Bigger' adds 4, and the loop stops when the text reaches the large size of 24. Trace the program carefully.",
+     "title": "Make the subtitles bigger",
+     "trace": {
+      "cols": [
+       "Step",
+       "size",
+       "clicks",
+       "size < 24?"
+      ],
+      "rows": [
+       [
+        "Start",
+        12,
+        0,
+        "Yes"
+       ],
+       [
+        "Loop 1",
+        16,
+        1,
+        "Yes"
+       ],
+       [
+        "Loop 2",
+        20,
+        2,
+        "Yes"
+       ],
+       [
+        "Loop 3",
+        24,
+        3,
+        "No, stop"
+       ]
+      ]
+     },
+     "type": "predict",
+     "why": "Large, clear subtitles are one of the tags, and a settings menu that makes text bigger step by step is a simple loop."
+    },
+    {
+     "buckets": [
+      "Controls",
+      "Sound and sight",
+      "Gameplay"
+     ],
+     "explain": "Controls features change the input, sound and sight features change the output, and gameplay features change the rules of the game. 'Large, clear subtitles' can look like gameplay, but it changes what you see on the screen, which is output.",
+     "items": [
+      {
+       "bucket": 0,
+       "explain": "It changes which button does each action, so it is about controls.",
+       "text": "Button remapping"
+      },
+      {
+       "bucket": 0,
+       "explain": "It means you don't have to wave or tilt the controller, so it is about controls.",
+       "text": "Playable without motion controls"
+      },
+      {
+       "bucket": 0,
+       "explain": "It lets you play using a keyboard as the input device.",
+       "text": "Keyboard controls"
+      },
+      {
+       "bucket": 1,
+       "explain": "Subtitles help you see what is being said, so they are about sound and sight.",
+       "text": "Large, clear subtitles"
+      },
+      {
+       "bucket": 1,
+       "explain": "It changes how sound comes out of the speakers or headphones.",
+       "text": "Surround sound"
+      },
+      {
+       "bucket": 1,
+       "explain": "It changes colours so that players who see colour differently can tell things apart.",
+       "text": "Colour alternatives"
+      },
+      {
+       "bucket": 2,
+       "explain": "It changes how hard the game is to play, not how you control it or what you see.",
+       "text": "Choice of difficulty"
+      },
+      {
+       "bucket": 2,
+       "explain": "It changes how the game plays, so you can take a break without losing progress.",
+       "text": "Save at any time"
+      }
+     ],
+     "strand": "Searching, processing and managing information responsibly",
+     "task": "Sort each accessibility feature into the group it belongs to: features about controls, about sound and sight, or about how the game plays.",
+     "title": "Sort the features",
+     "type": "sort",
+     "why": "YouTube groups the 24 tags into kinds of feature, so sorting real features into groups shows how tags organise information."
+    }
+   ],
+   "headline": "New labels help players find games they can play",
+   "id": "2026-11-09-game-accessibility-tags",
+   "illustration": "games",
+   "imageAlt": "Illustration of a game controller with small label tags hanging from it, each tag showing a simple symbol for a feature such as subtitles, sound or swapped buttons.",
+   "keywords": [
+    {
+     "meaning": "Designing things so that as many people as possible can use them, including disabled people.",
+     "term": "Accessibility"
+    },
+    {
+     "meaning": "A short label added to an item, such as a game or a photo, that describes it and helps people find it.",
+     "term": "Tag"
+    },
+    {
+     "meaning": "A setting that lets you choose which button or key does each action in a game.",
+     "term": "Button remapping"
+    },
+    {
+     "meaning": "A search tool that hides items that don't match the choices you pick, so you only see the ones you want.",
+     "term": "Filter"
+    }
+   ],
+   "newsDate": "2 November 2026",
+   "quiz": [
+    {
+     "answer": 2,
+     "explain": "The tags are labels on game pages that list features like subtitles and button remapping. 'A score from 1 to 24' is tempting because there are 24 tags, but each tag describes one feature; it isn't a score.",
+     "options": [
+      "Change a game's settings to suit each player automatically",
+      "Give every game a score from 1 to 24 for how accessible it is",
+      "Show which accessibility features a game has before you play it",
+      "Let players report bugs they find in a game's menus"
+     ],
+     "q": "What do the new accessibility tags do?",
+     "strand": "The news"
+    },
+    {
+     "answer": 0,
+     "explain": "The tags describe 24 features. 6 is tempting because it is in the story, but that is the number of companies using the tags.",
+     "options": [
+      "24",
+      "6",
+      "12",
+      "42"
+     ],
+     "q": "How many accessibility features do the tags currently describe?",
+     "strand": "The news"
+    },
+    {
+     "answer": 1,
+     "explain": "Buttons and pedals are input devices, so remapping changes the input that triggers the jump. The screen output is tempting because you still see the jump, but the jump looks exactly the same as before.",
+     "options": [
+      "Which output appears on the screen when you jump",
+      "Which input the player uses to make the character jump",
+      "How the game saves the player's progress in storage",
+      "How fast the processor runs the game's code"
+     ],
+     "q": "A player remaps the jump action from the A button to a foot pedal. What has changed?",
+     "strand": "Understanding and analysing computing technology"
+    },
+    {
+     "answer": 3,
+     "explain": "AND means both features must be there, and only Game B has both. 'Games A, B and C' is tempting, but that is what an OR filter would show, because every game has at least one of the features.",
+     "options": [
+      "Games A, B and C",
+      "Games A and B",
+      "Game C only",
+      "Game B only"
+     ],
+     "q": "A shop has three games. Game A has subtitles only. Game B has subtitles and narrated menus. Game C has narrated menus only. A player filters for 'subtitles AND narrated menus'. Which games are shown?",
+     "strand": "Understanding the world through computational thinking"
+    },
+    {
+     "answer": 2,
+     "explain": "Shared names and rules mean 'large subtitles' means the same thing everywhere, so the information can be trusted and compared. 'Every game has all 24 features' is tempting, but a game only shows the tags for the features it really has.",
+     "options": [
+      "It means every tagged game now has all 24 features",
+      "It stops other companies from making accessible games",
+      "A tag means the same thing in every shop, so players can compare games",
+      "It lets the shops collect more personal data about players"
+     ],
+     "q": "Why is it useful that all six companies use the same tag names and rules?",
+     "strand": "Searching, processing and managing information responsibly"
+    },
+    {
+     "answer": 0,
+     "explain": "One bit per tag makes 24 bits, and 24 ÷ 8 = 3 bytes. '48 bits' is tempting if you think yes and no each need their own bit, but one bit can hold either 1 or 0.",
+     "options": [
+      "24 bits, which is 3 bytes",
+      "24 bits, which is 24 bytes",
+      "48 bits, which is 6 bytes",
+      "3 bits, which is 24 bytes"
+     ],
+     "q": "Challenge: A game stores each of the 24 tags as one bit: 1 for yes, 0 for no. How much memory is needed for all 24 tags?",
+     "strand": "Understanding and analysing computing technology"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Six Companies Adopt the Accessible Games Initiative Tags (Entertainment Software Association, 2 November 2026)",
+     "url": "https://www.theesa.com/six-companies-adopt-the-accessible-games-initiative-tags-helping-players-find-accessibility-features-in-popular-video-games/"
+    },
+    {
+     "title": "YouTube Playables adds 24 accessibility tags for browser games (TechBriefly, 3 November 2026)",
+     "url": "https://techbriefly.com/2026/11/03/youtube-playables-adds-24-accessibility-tags-for-browser/"
+    }
+   ],
+   "standfirst": "Six big video game companies have started adding the same set of accessibility labels to their games. The labels show which features a game has before you play it.",
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><path d=\"M170 150 Q170 110 220 110 H420 Q470 110 470 150 L500 250 Q510 290 470 290 Q445 290 425 255 H215 Q195 290 170 290 Q130 290 140 250 Z\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"5\" stroke-linejoin=\"round\"/><rect x=\"215\" y=\"160\" width=\"20\" height=\"60\" rx=\"4\" fill=\"var(--ink)\"/><rect x=\"195\" y=\"180\" width=\"60\" height=\"20\" rx=\"4\" fill=\"var(--ink)\"/><circle cx=\"410\" cy=\"165\" r=\"14\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"440\" cy=\"195\" r=\"14\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"380\" cy=\"195\" r=\"14\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"410\" cy=\"225\" r=\"14\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><g stroke=\"var(--ink)\" stroke-width=\"3\" fill=\"none\"><path d=\"M250 110 L230 60\"/><path d=\"M320 110 L320 50\"/><path d=\"M390 110 L410 60\"/></g><g stroke=\"var(--ink)\" stroke-width=\"4\"><rect x=\"180\" y=\"20\" width=\"90\" height=\"50\" rx=\"10\" fill=\"var(--accent)\"/><rect x=\"275\" y=\"10\" width=\"90\" height=\"50\" rx=\"10\" fill=\"var(--ill-2)\"/><rect x=\"370\" y=\"20\" width=\"90\" height=\"50\" rx=\"10\" fill=\"var(--hot)\"/></g><g fill=\"var(--card)\"><rect x=\"195\" y=\"38\" width=\"60\" height=\"7\" rx=\"3\"/><rect x=\"205\" y=\"50\" width=\"40\" height=\"7\" rx=\"3\"/></g><path d=\"M295 35 h12 l12 -10 v30 l-12 -10 h-12 Z\" fill=\"var(--card)\"/><path d=\"M328 28 q8 7 0 14\" stroke=\"var(--card)\" stroke-width=\"4\" fill=\"none\"/><path d=\"M393 45 h40 M425 37 l8 8 l-8 8 M433 45\" stroke=\"var(--card)\" stroke-width=\"4\" fill=\"none\"/></svg>",
+   "tags": [
+    "Games",
+    "Accessibility",
+    "Data",
+    "Selection",
+    "Input & output"
+   ],
+   "theme": "games",
+   "whyItMatters": "Many players have a disability or a short-term injury. Clear labels save them time and money, and they remind game makers that accessibility features are worth building. They also show how a shared set of labels makes searching much easier."
+  },
   {
    "body": [
     "High on a mountain in Chile sits the Vera C. Rubin Observatory. It has the largest digital camera ever built for astronomy, with 3,200 megapixels. That is many times more than a phone camera. Every few nights it photographs the whole southern sky.",
