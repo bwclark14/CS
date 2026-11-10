@@ -1,6 +1,416 @@
 {
- "updated": "2026-11-09",
+ "updated": "2026-11-10",
  "stories": [
+  {
+   "body": [
+    "Robots that work in homes or factories need to remember what is around them. Many now use an AI called a vision-language model. It looks at pictures from the robot's camera and writes a short description of each object, such as \"red mug on the table\". These descriptions are saved in the robot's memory.",
+    "The problem is that the AI sometimes gets things wrong. If an object is far away, partly hidden, blurry or in the dark, the description can be wrong. In one test, the AI described a grey chimney on a roof as a squirrel. Once a mistake like that is saved, the robot keeps believing it.",
+    "Researchers at the Massachusetts Institute of Technology (MIT) in the USA have built a fix called UQ-DAAAM. It gives every description an uncertainty score. The score is worked out from how confident the AI was about its words, and whether descriptions of the same object from different angles agree.",
+    "If the score is too high, the system picks a few extra pictures of the object that should help the most. A language model then merges all the descriptions into one, trusting newer and clearer ones more. The corrected description replaces the old one in the robot's memory, and all of this happens while the robot is moving.",
+    "In tests, the system cleared up about 92% of the confusing objects. It usually needed only two extra descriptions per object. The team will present the work at a big AI conference, and they now want to try it on robots with arms."
+   ],
+   "connections": {
+    "groups": [
+     {
+      "explain": "A camera to see, wheels to move, a gripper to pick things up and a battery for power are all common robot parts.",
+      "name": "Parts of a robot",
+      "words": [
+       "Camera",
+       "Wheels",
+       "Gripper",
+       "Battery"
+      ]
+     },
+     {
+      "explain": "All of these keep data saved for later. Memory looks as if it belongs here too, but it is needed in the last group.",
+      "name": "Places to store data",
+      "words": [
+       "Hard drive",
+       "USB stick",
+       "SD card",
+       "Cloud"
+      ]
+     },
+     {
+      "explain": "These are building blocks of programs, and the robot's 'look again if unsure' rule uses selection and a loop.",
+      "name": "Programming ideas",
+      "words": [
+       "Sequence",
+       "Selection",
+       "Loop",
+       "Variable"
+      ]
+     },
+     {
+      "explain": "Memory card, sound card, graphics card and birthday card. Memory is the red herring because it also seems to fit with places to store data.",
+      "name": "Words that come before 'card'",
+      "words": [
+       "Memory",
+       "Sound",
+       "Graphics",
+       "Birthday"
+      ]
+     }
+    ],
+    "title": "Seeing and remembering"
+   },
+   "date": "2026-11-10",
+   "discussion": [
+    "Can you think of a time you thought you saw something, then looked again and realised you were wrong? What made you look again?",
+    "Should a robot always tell people when it isn't sure about something, even if that makes it slower or more annoying to use? Think about the robot's owner, a factory boss and someone relying on the robot for help.",
+    "The robot trusts newer and clearer pictures more than older ones. When might trusting the newest information be a mistake?",
+    "Which jobs would you be happy for a robot with this kind of memory to do, and which would you still want a person to check? Why?",
+    "Design challenge: plan a test for a home robot that describes objects. Which objects, places and lighting would you use to find out whether it really knows when it is unsure?"
+   ],
+   "extras": [
+    {
+     "alternatives": [
+      [
+       1,
+       0,
+       2,
+       3,
+       4,
+       5,
+       6
+      ],
+      [
+       0,
+       1,
+       2,
+       4,
+       3,
+       5,
+       6
+      ],
+      [
+       1,
+       0,
+       2,
+       4,
+       3,
+       5,
+       6
+      ]
+     ],
+     "distractors": [
+      {
+       "code": "WHILE confidence > 80 DO",
+       "indent": 0
+      }
+     ],
+     "explain": "The loop must repeat WHILE confidence < 80, taking a new reading and adding 1 to looks each time. The line 'WHILE confidence > 80 DO' is tempting because 80 is the target, but it would skip the loop when the robot is unsure and keep looking when it is already sure.",
+     "lines": [
+      {
+       "code": "SET looks TO 1",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE confidence FROM SENSOR",
+       "indent": 0
+      },
+      {
+       "code": "WHILE confidence < 80 DO",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE confidence FROM SENSOR",
+       "indent": 1
+      },
+      {
+       "code": "SET looks TO looks + 1",
+       "indent": 1
+      },
+      {
+       "code": "END WHILE",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Saved after \" & looks & \" looks\" TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "strand": "Designing, building and testing computing solutions",
+     "task": "Put the lines in order so the robot reads a confidence score from its camera, keeps taking another look while the score is below 80, then shows how many looks it took. For scores 50, 70 then 90 it should show 'Saved after 3 looks'. One line doesn't belong.",
+     "tests": [
+      {
+       "expect": [
+        "Saved after 3 looks"
+       ],
+       "inputs": [
+        50,
+        70,
+        90
+       ]
+      },
+      {
+       "expect": [
+        "Saved after 1 looks"
+       ],
+       "inputs": [
+        85
+       ]
+      }
+     ],
+     "title": "Look again until sure",
+     "type": "parsons",
+     "why": "The MIT robot takes extra looks at an object until it is confident about it, which is a loop with a condition."
+    },
+    {
+     "blanks": [
+      {
+       "answer": 1,
+       "options": [
+        "2",
+        "3",
+        "4",
+        "1"
+       ]
+      },
+      {
+       "answer": 2,
+       "options": [
+        ">",
+        "<=",
+        ">=",
+        "<"
+       ]
+      },
+      {
+       "answer": 3,
+       "options": [
+        "END IF",
+        "THEN",
+        "OR",
+        "ELSE"
+       ]
+      }
+     ],
+     "explain": "The loop runs 3 times (one for each angle), '>=' counts scores of exactly 70, and ELSE chooses 'Look again' when fewer than 2 agree. '>' is the most tempting wrong choice, but then scores of exactly 70 wouldn't count, so 70, 70, 40 would wrongly show 'Look again'.",
+     "lines": [
+      {
+       "code": "SET agree TO 0",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT {0} TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE confidence FROM SENSOR",
+       "indent": 1
+      },
+      {
+       "code": "IF confidence {1} 70 THEN",
+       "indent": 1
+      },
+      {
+       "code": "SET agree TO agree + 1",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "IF agree >= 2 THEN",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Keep label\" TO DISPLAY",
+       "indent": 1
+      },
+      {
+       "code": "{2}",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Look again\" TO DISPLAY",
+       "indent": 1
+      },
+      {
+       "code": "END IF",
+       "indent": 0
+      }
+     ],
+     "strand": "Understanding the world through computational thinking",
+     "task": "The robot looks at an object from 3 angles and gets a confidence score each time. If at least 2 scores are 70 or more it keeps the label, otherwise it looks again. Fill the gaps. Test: scores 90, 50, 80 should show 'Keep label'; scores 70, 70, 40 should also show 'Keep label'.",
+     "tests": [
+      {
+       "expect": [
+        "Keep label"
+       ],
+       "inputs": [
+        90,
+        50,
+        80
+       ]
+      },
+      {
+       "expect": [
+        "Keep label"
+       ],
+       "inputs": [
+        70,
+        70,
+        40
+       ]
+      },
+      {
+       "expect": [
+        "Look again"
+       ],
+       "inputs": [
+        40,
+        90,
+        60
+       ]
+      }
+     ],
+     "title": "Do the views agree?",
+     "type": "complete",
+     "why": "UQ-DAAAM checks whether descriptions of an object from different angles agree before trusting them."
+    },
+    {
+     "explain": "The robot must describe the object first, then measure how unsure it is, and only then decide whether to take extra pictures. Saving to memory straight after the first description is tempting, but that is exactly how wrong labels like the 'squirrel' got stuck.",
+     "steps": [
+      "The camera sees an object and the AI writes a description of it.",
+      "The system checks how sure the AI was and whether views from other angles agree.",
+      "It turns these checks into one uncertainty score.",
+      "If the score is too high, it picks extra pictures that should help most.",
+      "A language model merges the descriptions, trusting newer, clearer ones more.",
+      "The corrected description is saved in the robot's memory."
+     ],
+     "strand": "Understanding the world through computational thinking",
+     "task": "Put the steps the MIT system follows into the correct order, from first seeing an object to saving the corrected memory.",
+     "title": "How the robot fixes a memory",
+     "type": "order",
+     "why": "The news describes a step-by-step process the robot follows to correct a description, just like an algorithm."
+    }
+   ],
+   "headline": "Robots learn to spot and fix their own fuzzy memories",
+   "id": "2026-11-10-robot-memory-check",
+   "illustration": "ai",
+   "imageAlt": "Illustration of a small robot looking at a rooftop chimney through its camera, with a thought bubble showing a question mark, a squirrel crossed out and a chimney ticked.",
+   "keywords": [
+    {
+     "meaning": "A type of AI that looks at pictures and describes what it sees in words.",
+     "term": "Vision-language model"
+    },
+    {
+     "meaning": "How unsure a computer or person is that an answer is correct.",
+     "term": "Uncertainty"
+    },
+    {
+     "meaning": "A set value that a program compares a number with to decide what to do next.",
+     "term": "Threshold"
+    },
+    {
+     "meaning": "Where a computer or robot keeps information it needs to use again later.",
+     "term": "Memory"
+    }
+   ],
+   "newsDate": "5 November 2026",
+   "quiz": [
+    {
+     "answer": 1,
+     "explain": "The AI looked at a grey chimney on a roof and called it a squirrel. 'A squirrel as a grey chimney' is tempting because both things are in the example, but it gets the mistake the wrong way round.",
+     "options": [
+      "It forgot where it had seen a chimney",
+      "It described a grey chimney as a squirrel",
+      "It described a squirrel as a grey chimney",
+      "It mistook smoke from a chimney for a cloud"
+     ],
+     "q": "In the MIT example, what mistake did the robot's AI make?",
+     "strand": "The news"
+    },
+    {
+     "answer": 0,
+     "explain": "It usually needed just two extra descriptions per object. 'Ninety-two' is tempting because 92 is in the story, but that is the percentage of confusing objects it cleared up.",
+     "options": [
+      "Two",
+      "Five",
+      "Ten",
+      "Ninety-two"
+     ],
+     "q": "How many extra descriptions did the new system usually need for each confusing object?",
+     "strand": "The news"
+    },
+    {
+     "answer": 2,
+     "explain": "The camera sends pictures into the robot's computer, so it is an input device. The memory is tempting because data goes into it, but memory is where data is kept, not a device that collects data from the outside world.",
+     "options": [
+      "The motors that turn its wheels",
+      "The memory where it saves descriptions",
+      "The camera that takes pictures of objects",
+      "The speaker it uses to talk to people"
+     ],
+     "q": "Which part of the robot is an input device?",
+     "strand": "Understanding and analysing computing technology"
+    },
+    {
+     "answer": 3,
+     "explain": "Choosing whether or not to do something based on a condition is selection. Repetition is tempting because the robot takes more than one picture, but the IF decision itself is selection, not a loop.",
+     "options": [
+      "Sequence",
+      "Repetition",
+      "Variable",
+      "Selection"
+     ],
+     "q": "The system only takes extra pictures IF the uncertainty score is above a set value. Which programming idea is this?",
+     "strand": "Understanding the world through computational thinking"
+    },
+    {
+     "answer": 1,
+     "explain": "Good testing includes hard cases, like blurry and dark pictures, as well as normal ones. Only bright, clear photos is tempting because it sounds fair, but it never tests the situations where the robot is likely to go wrong.",
+     "options": [
+      "Use only bright, clear photos so the robot gets a fair chance",
+      "Use clear photos and also blurry, dark and far-away ones",
+      "Show the robot the same clear photo of one mug many times",
+      "Ask the robot to rate how well it thinks it did"
+     ],
+     "q": "A team wants to test whether their robot really knows when it is unsure. Which test plan is best?",
+     "strand": "Designing, building and testing computing solutions"
+    },
+    {
+     "answer": 2,
+     "explain": "After 40 and 65 the condition is still true, and after the third picture (80) '80 < 80' is false, so it stops at 3. '2' is tempting if you think 80 still counts as too low, but 80 is not less than 80.",
+     "options": [
+      "2",
+      "4",
+      "3",
+      "1"
+     ],
+     "q": "Challenge: A robot keeps taking pictures WHILE its confidence is less than 80. Its confidence for each picture is 40, 65, 80, then 95. How many pictures does it take?",
+     "strand": "Understanding the world through computational thinking"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Clearing up a robot's fuzzy memory (MIT News, 5 November 2026)",
+     "url": "https://news.mit.edu/2026/clearing-up-robot-fuzzy-memory-1105"
+    },
+    {
+     "title": "MIT robot can erase and rewrite bad memories (Interesting Engineering, 6 November 2026)",
+     "url": "https://interestingengineering.com/ai-robotics/mit-robot-erase-and-rewrite-bad-memories"
+    }
+   ],
+   "standfirst": "Scientists at MIT have built a system that lets a robot notice when it isn't sure what it saw. The robot then takes another look and corrects its memory.",
+   "tags": [
+    "Robots",
+    "AI",
+    "Algorithms",
+    "Selection",
+    "Loops",
+    "Testing"
+   ],
+   "theme": "robots",
+   "whyItMatters": "A robot that is confidently wrong can be unhelpful or even unsafe, for example if it can't find important equipment in an emergency. Teaching robots to know when they might be wrong, and to check again, makes them more trustworthy. It is the same habit good programmers use when they test their work."
+  },
   {
    "body": [
     "Not everyone plays games in the same way. Some players need large subtitles. Some can only use one hand, or use a special controller. Others find fast games hard and want an easier setting. Until now, it was often hard to find out if a game had these features before buying it.",
