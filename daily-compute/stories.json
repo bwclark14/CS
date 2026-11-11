@@ -1,6 +1,397 @@
 {
- "updated": "2026-11-10",
+ "updated": "2026-11-11",
  "stories": [
+  {
+   "body": [
+    "Every time you stream a video, search the web or use an AI chatbot, a computer somewhere else does the work. Those computers live in data centres: big, warehouse-like buildings packed with rows of servers. The servers run all day and night, so they get hot and need fans and cooling to stop them overheating.",
+    "A BBC Scotland report explains that at least 23 giant data centres have been planned across Scotland. Much of the demand comes from AI, which needs a huge amount of computing power. Scotland's biggest data centre today is thought to be in Airdrie and uses about 12 megawatts of power.",
+    "The new plans are far bigger. One proposed site at Chapelcross in Dumfries and Galloway could use 1,000 megawatts. Another, at Auchtertool in Fife, could use 600 megawatts on a site about the size of 84 football pitches. These are only plans for now, and not all of them may be built.",
+    "Supporters say the centres bring investment and jobs. Lanarkshire has been named an AI growth zone, with 3,400 jobs promised, although most are building jobs rather than AI jobs. Scotland also has lots of wind power. But some of that power is wasted because the electricity grid can't always carry it where it is needed, and experts say data centres would not run on wind and sun alone.",
+    "Some local people worry about the size of the buildings, the hum of cooling fans and the effect on wildlife. Since August, Scottish ministers must be told about any planned data centre over 50 megawatts. Some campaigners want a pause on new plans, but the Scottish Government has said no, and new guidance is on the way."
+   ],
+   "connections": {
+    "groups": [
+     {
+      "explain": "All of these send your requests to servers in data centres that do the work and send the results back.",
+      "name": "Things that rely on data centres",
+      "words": [
+       "Streaming",
+       "Web search",
+       "Online game",
+       "Video call"
+      ]
+     },
+     {
+      "explain": "These are all ways power stations make electricity. Wind looks as if it belongs here too, but it is needed in the last group.",
+      "name": "Ways to make electricity",
+      "words": [
+       "Hydro",
+       "Nuclear",
+       "Gas",
+       "Coal"
+      ]
+     },
+     {
+      "explain": "A server, like any computer, has a processor, memory, storage and a fan to keep it cool.",
+      "name": "Parts inside a server",
+      "words": [
+       "Processor",
+       "Memory",
+       "Storage",
+       "Fan"
+      ]
+     },
+     {
+      "explain": "Server farm, wind farm, fish farm and dairy farm. Wind is the red herring because it also seems to fit with ways to make electricity.",
+      "name": "Words that come before 'farm'",
+      "words": [
+       "Server",
+       "Wind",
+       "Fish",
+       "Dairy"
+      ]
+     }
+    ],
+    "title": "Inside the cloud"
+   },
+   "date": "2026-11-11",
+   "discussion": [
+    "Which things you do online each day do you think rely on a data centre? Were any of them surprising?",
+    "Imagine a giant data centre is planned near your town. What might a local worker looking for a job think? What about someone who lives next to the site, or a person who cares about local wildlife?",
+    "Do you think the benefits of a data centre (jobs, faster services, investment) outweigh the costs (power, land, noise)? Does your answer change depending on where it is built?",
+    "Scotland has a lot of wind power, but the grid can't always carry it. How might a data centre be designed or located to make better use of that power?",
+    "Design challenge: plan a cooling system for a server room. What would it measure, what rule would it use to decide when to switch fans on, and how would you test it?"
+   ],
+   "extras": [
+    {
+     "distractors": [
+      {
+       "code": "IF temperature < 27 THEN",
+       "indent": 1
+      }
+     ],
+     "explain": "The reading must be taken inside the loop so a new temperature is checked each time, and 'temperature > 27' switches the fan on when it is hot. 'IF temperature < 27 THEN' is tempting because it uses the same number, but it would switch the fan on when the room is cool and off when it is hot.",
+     "lines": [
+      {
+       "code": "REPEAT 3 TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE temperature FROM SENSOR",
+       "indent": 1
+      },
+      {
+       "code": "IF temperature > 27 THEN",
+       "indent": 1
+      },
+      {
+       "code": "SEND \"Fan on\" TO DISPLAY",
+       "indent": 2
+      },
+      {
+       "code": "ELSE",
+       "indent": 1
+      },
+      {
+       "code": "SEND \"Fan off\" TO DISPLAY",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      }
+     ],
+     "strand": "Designing, building and testing computing solutions",
+     "task": "Put the lines in order so the program takes 3 temperature readings from a sensor and, for each one, shows 'Fan on' if it is over 27 degrees or 'Fan off' otherwise. For readings 30, 20 and 28 it should show 'Fan on', 'Fan off', 'Fan on'. One line doesn't belong.",
+     "tests": [
+      {
+       "expect": [
+        "Fan on",
+        "Fan off",
+        "Fan on"
+       ],
+       "inputs": [
+        30,
+        20,
+        28
+       ]
+      },
+      {
+       "expect": [
+        "Fan off",
+        "Fan on",
+        "Fan off"
+       ],
+       "inputs": [
+        27,
+        40,
+        10
+       ]
+      }
+     ],
+     "title": "Keep the servers cool",
+     "type": "parsons",
+     "why": "Data centres must keep their servers from overheating, and a simple cooling controller uses a sensor, a loop and selection."
+    },
+    {
+     "answer": 2,
+     "bug": 4,
+     "explain": "Line 5 replaces the total with each new power value, so only the last building is counted. 'SET total TO total + power' keeps a running total. 'SET total TO total + 1' is tempting because it also adds to the total, but it counts the buildings instead of adding up their power.",
+     "fixes": [
+      "SET total TO total + 1",
+      "SET power TO total + power",
+      "SET total TO total + power",
+      "SET total TO total * power"
+     ],
+     "lines": [
+      {
+       "code": "SET total TO 0",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE buildings FROM KEYBOARD",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT buildings TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE power FROM KEYBOARD",
+       "indent": 1
+      },
+      {
+       "code": "SET total TO power",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "IF total > 50 THEN",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Tell ministers\" TO DISPLAY",
+       "indent": 1
+      },
+      {
+       "code": "ELSE",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Council decides\" TO DISPLAY",
+       "indent": 1
+      },
+      {
+       "code": "END IF",
+       "indent": 0
+      }
+     ],
+     "strand": "Designing, building and testing computing solutions",
+     "task": "This program asks how many buildings a planned site has, then the power of each building in megawatts. It should add them up and show 'Tell ministers' if the total is over 50. In testing, buildings of 20, 20 and 20 should show 'Tell ministers', but it shows 'Council decides'. Find the faulty line and choose the fix.",
+     "tests": [
+      {
+       "expect": [
+        "Tell ministers"
+       ],
+       "inputs": [
+        3,
+        20,
+        20,
+        20
+       ]
+      },
+      {
+       "expect": [
+        "Tell ministers"
+       ],
+       "inputs": [
+        2,
+        30,
+        30
+       ]
+      },
+      {
+       "expect": [
+        "Council decides"
+       ],
+       "inputs": [
+        2,
+        40,
+        5
+       ]
+      }
+     ],
+     "title": "The 50 megawatt check",
+     "type": "bug",
+     "why": "The new rule means planners must add up the power a site will use and tell ministers if it is over 50 megawatts."
+    },
+    {
+     "explain": "Facts can be checked against evidence, such as rules, measurements or reports. Opinions use words like 'best', 'should' or 'ruin'. The statement about fan noise is the trickiest: fans really do hum, but saying the noise would 'ruin' the countryside is a judgement.",
+     "statements": [
+      {
+       "explain": "This is a fact about how data centres work and can be checked.",
+       "fact": true,
+       "text": "Data centres contain servers that need cooling to stop them overheating."
+      },
+      {
+       "explain": "This is an opinion. Some people agree, but others think different kinds of jobs would be better.",
+       "fact": false,
+       "text": "Data centres are the best way to bring jobs to Scotland."
+      },
+      {
+       "explain": "This is a fact: it is a rule that started in August 2026.",
+       "fact": true,
+       "text": "Scottish ministers must be told about planned data centres over 50 megawatts."
+      },
+      {
+       "explain": "This is an opinion about how bad the noise would be. That fans make noise is a fact, but whether it 'ruins' a place is a judgement.",
+       "fact": false,
+       "text": "The hum from cooling fans would ruin the countryside."
+      },
+      {
+       "explain": "Experts have reported this, and it can be checked using grid data.",
+       "fact": true,
+       "text": "Some wind power in Scotland is wasted because the grid can't carry it all."
+      },
+      {
+       "explain": "This is an opinion. Some campaigners want a pause, but the Scottish Government decided against one.",
+       "fact": false,
+       "text": "Scotland should pause all new data centre plans."
+      }
+     ],
+     "strand": "Searching, processing and managing information responsibly",
+     "task": "Decide whether each statement is a fact (it can be checked) or an opinion (what someone thinks or feels).",
+     "title": "Fact or opinion?",
+     "type": "factop",
+     "why": "People disagree about data centres, so it helps to separate facts that can be checked from opinions."
+    }
+   ],
+   "headline": "Why Scotland is talking about giant data centres",
+   "id": "2026-11-11-scotland-data-centres",
+   "illustration": "environment",
+   "imageAlt": "Illustration of a large data centre building beside a green hill with two wind turbines and a power line. Through a window you can see rows of servers with small lights, and cooling fans on the roof puff out warm air towards a cloud.",
+   "keywords": [
+    {
+     "meaning": "A building full of servers that store data and run online services for people around the world.",
+     "term": "Data centre"
+    },
+    {
+     "meaning": "A computer that provides data or services to other computers over a network.",
+     "term": "Server"
+    },
+    {
+     "meaning": "A unit for measuring power. One megawatt is a million watts, enough for hundreds of homes.",
+     "term": "Megawatt (MW)"
+    },
+    {
+     "meaning": "The network of cables and stations that carries electricity from where it is made to where it is used.",
+     "term": "Electricity grid"
+    }
+   ],
+   "newsDate": "5 October 2026",
+   "quiz": [
+    {
+     "answer": 2,
+     "explain": "The report says at least 23 have been planned. 'At least 12' is tempting because 12 appears in the story, but that is the power use, in megawatts, of the biggest data centre today.",
+     "options": [
+      "At least 12",
+      "At least 50",
+      "At least 23",
+      "At least 84"
+     ],
+     "q": "According to the BBC report, how many giant data centres have been planned in Scotland?",
+     "strand": "The news"
+    },
+    {
+     "answer": 0,
+     "explain": "Ministers must now be told about plans over 50 megawatts. A pause is tempting because campaigners asked for one, but the Scottish Government said no.",
+     "options": [
+      "Scottish ministers must be told about any over 50 megawatts",
+      "They can only be built in the Lanarkshire growth zone",
+      "They must be powered only by Scottish wind farms",
+      "All of them must be paused until new guidance arrives"
+     ],
+     "q": "What new rule started in August for very large planned data centres?",
+     "strand": "The news"
+    },
+    {
+     "answer": 1,
+     "explain": "Processors turn electricity into heat while they compute, and overheating can damage parts or make them slow down. The idea that cold makes data travel faster is tempting, but cooling protects the hardware rather than speeding up the signal.",
+     "options": [
+      "Cold air helps data travel faster along the cables",
+      "The processors give off heat as they work, and too much heat can damage them",
+      "Fans are needed to save data onto the hard drives",
+      "Cooling stops the servers using any electricity at all"
+     ],
+     "q": "Why do the servers in a data centre need cooling?",
+     "strand": "Understanding and analysing computing technology"
+    },
+    {
+     "answer": 2,
+     "explain": "'The cloud' means servers in data centres that you reach over the internet. The Wi-Fi router is tempting because the photo passes through it, but a router only passes data on; it doesn't keep your files.",
+     "options": [
+      "Only in your phone's memory chip",
+      "Inside your home Wi-Fi router",
+      "On servers in a data centre",
+      "In radio waves travelling through the air"
+     ],
+     "q": "You save a photo to 'the cloud'. Where is the photo actually stored?",
+     "strand": "Using digital products and services in a variety of contexts to achieve a purposeful outcome"
+    },
+    {
+     "answer": 3,
+     "explain": "27 is not greater than 27, so the condition is false and the fan stays off. 28 is the most tempting wrong answer because it is close to 27, but 28 > 27 is true, so the fan would switch on.",
+     "options": [
+      "28",
+      "30",
+      "35",
+      "27"
+     ],
+     "q": "A cooling program says: IF temperature > 27 THEN switch the fan on. Which temperature would NOT switch the fan on?",
+     "strand": "Understanding the world through computational thinking"
+    },
+    {
+     "answer": 1,
+     "explain": "Energy = power × time, so 12 × 24 = 288 megawatt-hours. 36 is tempting if you add 12 and 24 instead of multiplying them.",
+     "options": [
+      "36",
+      "288",
+      "120",
+      "2,880"
+     ],
+     "q": "Challenge: A data centre uses 12 megawatts of power all the time. How many megawatt-hours of energy does it use in one day (24 hours)?",
+     "strand": "Understanding and analysing computing technology"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Why data centres are a big deal (BBC Scotland, via AOL)",
+     "url": "https://www.aol.com/articles/why-data-centres-big-deal-100414000.html"
+    },
+    {
+     "title": "Public pressure mounts against Scottish datacentres (Computing)",
+     "url": "https://www.computing.co.uk/news/2026/datacentre/public-pressure-mounts-against-scottish-datacentres"
+    }
+   ],
+   "standfirst": "More than 20 huge buildings full of computers have been planned for Scotland. Some people see jobs and investment, while others worry about power, noise and the countryside.",
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect x=\"0\" y=\"0\" width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><path d=\"M0 270 Q160 230 320 262 T640 250 L640 360 L0 360 Z\" fill=\"var(--ill-2)\"/><circle cx=\"560\" cy=\"62\" r=\"28\" fill=\"var(--hot)\"/><rect x=\"67\" y=\"140\" width=\"6\" height=\"110\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><rect x=\"67\" y=\"92\" width=\"6\" height=\"48\" rx=\"3\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\" transform=\"rotate(15 70 140)\"/><rect x=\"67\" y=\"92\" width=\"6\" height=\"48\" rx=\"3\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\" transform=\"rotate(135 70 140)\"/><rect x=\"67\" y=\"92\" width=\"6\" height=\"48\" rx=\"3\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\" transform=\"rotate(255 70 140)\"/><circle cx=\"70\" cy=\"140\" r=\"6\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><rect x=\"147\" y=\"120\" width=\"6\" height=\"120\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><rect x=\"147\" y=\"72\" width=\"6\" height=\"48\" rx=\"3\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\" transform=\"rotate(15 150 120)\"/><rect x=\"147\" y=\"72\" width=\"6\" height=\"48\" rx=\"3\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\" transform=\"rotate(135 150 120)\"/><rect x=\"147\" y=\"72\" width=\"6\" height=\"48\" rx=\"3\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\" transform=\"rotate(255 150 120)\"/><circle cx=\"150\" cy=\"120\" r=\"6\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><rect x=\"250\" y=\"160\" width=\"330\" height=\"140\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"240\" y=\"148\" width=\"350\" height=\"16\" fill=\"var(--ink)\"/><rect x=\"275\" y=\"118\" width=\"44\" height=\"30\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"297\" cy=\"133\" r=\"11\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><path d=\"M297 122 L297 144 M286 133 L308 133\" stroke=\"var(--ink)\" stroke-width=\"2\"/><rect x=\"335\" y=\"118\" width=\"44\" height=\"30\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"357\" cy=\"133\" r=\"11\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><path d=\"M357 122 L357 144 M346 133 L368 133\" stroke=\"var(--ink)\" stroke-width=\"2\"/><rect x=\"395\" y=\"118\" width=\"44\" height=\"30\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"417\" cy=\"133\" r=\"11\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><path d=\"M417 122 L417 144 M406 133 L428 133\" stroke=\"var(--ink)\" stroke-width=\"2\"/><rect x=\"455\" y=\"118\" width=\"44\" height=\"30\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"477\" cy=\"133\" r=\"11\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><path d=\"M477 122 L477 144 M466 133 L488 133\" stroke=\"var(--ink)\" stroke-width=\"2\"/><rect x=\"515\" y=\"118\" width=\"44\" height=\"30\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"537\" cy=\"133\" r=\"11\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><path d=\"M537 122 L537 144 M526 133 L548 133\" stroke=\"var(--ink)\" stroke-width=\"2\"/><path d=\"M297 110 q8 -10 0 -20 q-8 -10 0 -20\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"3\" stroke-linecap=\"round\"/><path d=\"M417 110 q8 -10 0 -20 q-8 -10 0 -20\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"3\" stroke-linecap=\"round\"/><path d=\"M537 110 q8 -10 0 -20 q-8 -10 0 -20\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"3\" stroke-linecap=\"round\"/><rect x=\"275\" y=\"180\" width=\"200\" height=\"100\" fill=\"var(--ink)\"/><rect x=\"285\" y=\"188\" width=\"38\" height=\"84\" fill=\"var(--ill-2)\" stroke=\"var(--card)\" stroke-width=\"2\"/><rect x=\"290\" y=\"194\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"314\" cy=\"197\" r=\"2.5\" fill=\"var(--hot)\"/><rect x=\"290\" y=\"207\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"314\" cy=\"210\" r=\"2.5\" fill=\"var(--accent)\"/><rect x=\"290\" y=\"220\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"314\" cy=\"223\" r=\"2.5\" fill=\"var(--accent)\"/><rect x=\"290\" y=\"233\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"314\" cy=\"236\" r=\"2.5\" fill=\"var(--hot)\"/><rect x=\"290\" y=\"246\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"314\" cy=\"249\" r=\"2.5\" fill=\"var(--accent)\"/><rect x=\"290\" y=\"259\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"314\" cy=\"262\" r=\"2.5\" fill=\"var(--accent)\"/><rect x=\"333\" y=\"188\" width=\"38\" height=\"84\" fill=\"var(--ill-2)\" stroke=\"var(--card)\" stroke-width=\"2\"/><rect x=\"338\" y=\"194\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"362\" cy=\"197\" r=\"2.5\" fill=\"var(--accent)\"/><rect x=\"338\" y=\"207\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"362\" cy=\"210\" r=\"2.5\" fill=\"var(--accent)\"/><rect x=\"338\" y=\"220\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"362\" cy=\"223\" r=\"2.5\" fill=\"var(--hot)\"/><rect x=\"338\" y=\"233\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"362\" cy=\"236\" r=\"2.5\" fill=\"var(--accent)\"/><rect x=\"338\" y=\"246\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"362\" cy=\"249\" r=\"2.5\" fill=\"var(--accent)\"/><rect x=\"338\" y=\"259\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"362\" cy=\"262\" r=\"2.5\" fill=\"var(--hot)\"/><rect x=\"381\" y=\"188\" width=\"38\" height=\"84\" fill=\"var(--ill-2)\" stroke=\"var(--card)\" stroke-width=\"2\"/><rect x=\"386\" y=\"194\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"410\" cy=\"197\" r=\"2.5\" fill=\"var(--accent)\"/><rect x=\"386\" y=\"207\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"410\" cy=\"210\" r=\"2.5\" fill=\"var(--hot)\"/><rect x=\"386\" y=\"220\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"410\" cy=\"223\" r=\"2.5\" fill=\"var(--accent)\"/><rect x=\"386\" y=\"233\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"410\" cy=\"236\" r=\"2.5\" fill=\"var(--accent)\"/><rect x=\"386\" y=\"246\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"410\" cy=\"249\" r=\"2.5\" fill=\"var(--hot)\"/><rect x=\"386\" y=\"259\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"410\" cy=\"262\" r=\"2.5\" fill=\"var(--accent)\"/><rect x=\"429\" y=\"188\" width=\"38\" height=\"84\" fill=\"var(--ill-2)\" stroke=\"var(--card)\" stroke-width=\"2\"/><rect x=\"434\" y=\"194\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"458\" cy=\"197\" r=\"2.5\" fill=\"var(--hot)\"/><rect x=\"434\" y=\"207\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"458\" cy=\"210\" r=\"2.5\" fill=\"var(--accent)\"/><rect x=\"434\" y=\"220\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"458\" cy=\"223\" r=\"2.5\" fill=\"var(--accent)\"/><rect x=\"434\" y=\"233\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"458\" cy=\"236\" r=\"2.5\" fill=\"var(--hot)\"/><rect x=\"434\" y=\"246\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"458\" cy=\"249\" r=\"2.5\" fill=\"var(--accent)\"/><rect x=\"434\" y=\"259\" width=\"28\" height=\"7\" fill=\"var(--card)\"/><circle cx=\"458\" cy=\"262\" r=\"2.5\" fill=\"var(--accent)\"/><rect x=\"505\" y=\"230\" width=\"45\" height=\"70\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><path d=\"M150 200 L200 170 L250 200\" fill=\"none\" stroke=\"var(--ink)\" stroke-width=\"3\" stroke-dasharray=\"8 6\"/><path d=\"M200 170 L190 250 M200 170 L210 250 M193 200 L207 200 M191 225 L209 225\" stroke=\"var(--ink)\" stroke-width=\"3\"/><path d=\"M380 90 q-20 0 -20 -18 q0 -20 24 -18 q8 -22 34 -14 q22 -10 32 10 q20 2 16 22 q0 18 -20 18 Z\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><path d=\"M410 90 L410 116\" stroke=\"var(--accent)\" stroke-width=\"4\" stroke-dasharray=\"5 5\"/></svg>",
+   "tags": [
+    "Environment",
+    "Internet",
+    "Networks",
+    "Selection",
+    "Loops"
+   ],
+   "theme": "environment",
+   "whyItMatters": "The internet and AI can feel invisible, but they run on real buildings that need land, electricity and cooling. Deciding where to put data centres means balancing jobs and services against power, noise and nature, and learners today will help make those choices in future."
+  },
   {
    "body": [
     "Robots that work in homes or factories need to remember what is around them. Many now use an AI called a vision-language model. It looks at pictures from the robot's camera and writes a short description of each object, such as \"red mug on the table\". These descriptions are saved in the robot's memory.",
@@ -295,7 +686,7 @@
    "headline": "Robots learn to spot and fix their own fuzzy memories",
    "id": "2026-11-10-robot-memory-check",
    "illustration": "ai",
-   "imageAlt": "Illustration of a small robot looking at a rooftop chimney through its camera, with a thought bubble showing a question mark, a squirrel crossed out and a chimney ticked.",
+   "imageAlt": "Illustration of a small robot looking up at a house chimney. A thought bubble shows its choices: an animal crossed out and the chimney ticked.",
    "keywords": [
     {
      "meaning": "A type of AI that looks at pictures and describes what it sees in words.",
@@ -409,7 +800,8 @@
     "Testing"
    ],
    "theme": "robots",
-   "whyItMatters": "A robot that is confidently wrong can be unhelpful or even unsafe, for example if it can't find important equipment in an emergency. Teaching robots to know when they might be wrong, and to check again, makes them more trustworthy. It is the same habit good programmers use when they test their work."
+   "whyItMatters": "A robot that is confidently wrong can be unhelpful or even unsafe, for example if it can't find important equipment in an emergency. Teaching robots to know when they might be wrong, and to check again, makes them more trustworthy. It is the same habit good programmers use when they test their work.",
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/>\n<rect x=\"0\" y=\"300\" width=\"640\" height=\"60\" fill=\"var(--ill-2)\"/>\n<path d=\"M390 300V200l90-60 90 60v100z\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"5\" stroke-linejoin=\"round\"/>\n<path d=\"M370 214l110-80 110 80\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"12\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<rect x=\"520\" y=\"130\" width=\"28\" height=\"52\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"5\"/>\n<rect x=\"450\" y=\"232\" width=\"40\" height=\"68\" rx=\"4\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"4\"/>\n<rect x=\"100\" y=\"190\" width=\"110\" height=\"100\" rx=\"18\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"5\"/>\n<rect x=\"118\" y=\"120\" width=\"74\" height=\"62\" rx=\"14\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"5\"/>\n<circle cx=\"170\" cy=\"150\" r=\"17\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><circle cx=\"170\" cy=\"150\" r=\"6\" fill=\"var(--ink)\"/>\n<line x1=\"155\" y1=\"120\" x2=\"155\" y2=\"98\" stroke=\"var(--ink)\" stroke-width=\"4\"/><circle cx=\"155\" cy=\"94\" r=\"6\" fill=\"var(--hot)\"/>\n<rect x=\"118\" y=\"290\" width=\"22\" height=\"14\" fill=\"var(--ink)\"/><rect x=\"170\" y=\"290\" width=\"22\" height=\"14\" fill=\"var(--ink)\"/>\n<path d=\"M187 150 L520 150\" stroke=\"var(--accent)\" stroke-width=\"3\" stroke-dasharray=\"4 10\"/>\n<circle cx=\"236\" cy=\"104\" r=\"7\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"256\" cy=\"84\" r=\"10\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/>\n<rect x=\"250\" y=\"16\" width=\"200\" height=\"62\" rx=\"30\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/>\n<path d=\"M282 60c0-14 14-14 18-4 6-12 20-8 16 6l-6 4h-24z\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/>\n<path d=\"M286 34l32 30M318 34l-32 30\" stroke=\"var(--hot)\" stroke-width=\"5\" stroke-linecap=\"round\"/>\n<rect x=\"346\" y=\"32\" width=\"14\" height=\"30\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"3\"/>\n<path d=\"M380 48l10 10 20-24\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>"
   },
   {
    "body": [
@@ -1912,7 +2304,7 @@
    "headline": "An AI that reads the hidden DNA in soil",
    "id": "2026-11-05-ai-reads-soil-dna",
    "illustration": "ai",
-   "imageAlt": "Illustration of a handful of soil with tiny strands of DNA rising out of it towards a computer screen.",
+   "imageAlt": "Illustration of a mound of soil with a twisting DNA strand rising out of it towards a computer screen showing a bar chart.",
    "keywords": [
     {
      "meaning": "The code inside every living thing that carries instructions for how it grows and works. It is written with four letters: A, C, G and T.",
@@ -2025,7 +2417,8 @@
     "Loops"
    ],
    "theme": "ai",
-   "whyItMatters": "Healthy soil helps us grow food, so learning about the tiny life in it really matters. This story shows how AI can spot patterns in huge amounts of data far faster than people could, while scientists still need to check its answers because it is not always right."
+   "whyItMatters": "Healthy soil helps us grow food, so learning about the tiny life in it really matters. This story shows how AI can spot patterns in huge amounts of data far faster than people could, while scientists still need to check its answers because it is not always right.",
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/>\n<path d=\"M120 340 Q300 230 480 340 Z\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"5\"/><circle cx=\"170\" cy=\"290\" r=\"4\" fill=\"var(--ink)\" opacity=\".5\"/><circle cx=\"223\" cy=\"319\" r=\"4\" fill=\"var(--ink)\" opacity=\".5\"/><circle cx=\"276\" cy=\"308\" r=\"4\" fill=\"var(--ink)\" opacity=\".5\"/><circle cx=\"329\" cy=\"297\" r=\"4\" fill=\"var(--ink)\" opacity=\".5\"/><circle cx=\"382\" cy=\"326\" r=\"4\" fill=\"var(--ink)\" opacity=\".5\"/><circle cx=\"435\" cy=\"315\" r=\"4\" fill=\"var(--ink)\" opacity=\".5\"/><circle cx=\"188\" cy=\"304\" r=\"4\" fill=\"var(--ink)\" opacity=\".5\"/><circle cx=\"241\" cy=\"293\" r=\"4\" fill=\"var(--ink)\" opacity=\".5\"/><circle cx=\"294\" cy=\"322\" r=\"4\" fill=\"var(--ink)\" opacity=\".5\"/><circle cx=\"347\" cy=\"311\" r=\"4\" fill=\"var(--ink)\" opacity=\".5\"/><circle cx=\"400\" cy=\"300\" r=\"4\" fill=\"var(--ink)\" opacity=\".5\"/><circle cx=\"453\" cy=\"329\" r=\"4\" fill=\"var(--ink)\" opacity=\".5\"/><circle cx=\"206\" cy=\"318\" r=\"4\" fill=\"var(--ink)\" opacity=\".5\"/><circle cx=\"259\" cy=\"307\" r=\"4\" fill=\"var(--ink)\" opacity=\".5\"/><circle cx=\"312\" cy=\"296\" r=\"4\" fill=\"var(--ink)\" opacity=\".5\"/><circle cx=\"365\" cy=\"325\" r=\"4\" fill=\"var(--ink)\" opacity=\".5\"/>\n<path d=\"M200 320c10-24 30-30 40-10M380 320c-6-30 20-40 30-16\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"5\" stroke-linecap=\"round\"/>\n<line x1=\"300\" y1=\"250\" x2=\"300\" y2=\"250\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"300\" cy=\"250\" r=\"7\" fill=\"var(--accent)\"/><circle cx=\"300\" cy=\"250\" r=\"7\" fill=\"var(--hot)\"/><line x1=\"329\" y1=\"226\" x2=\"271\" y2=\"226\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"329\" cy=\"226\" r=\"7\" fill=\"var(--accent)\"/><circle cx=\"271\" cy=\"226\" r=\"7\" fill=\"var(--hot)\"/><line x1=\"340\" y1=\"202\" x2=\"260\" y2=\"202\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"340\" cy=\"202\" r=\"7\" fill=\"var(--accent)\"/><circle cx=\"260\" cy=\"202\" r=\"7\" fill=\"var(--hot)\"/><line x1=\"327\" y1=\"178\" x2=\"273\" y2=\"178\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"327\" cy=\"178\" r=\"7\" fill=\"var(--accent)\"/><circle cx=\"273\" cy=\"178\" r=\"7\" fill=\"var(--hot)\"/><line x1=\"298\" y1=\"154\" x2=\"302\" y2=\"154\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"298\" cy=\"154\" r=\"7\" fill=\"var(--accent)\"/><circle cx=\"302\" cy=\"154\" r=\"7\" fill=\"var(--hot)\"/><line x1=\"270\" y1=\"130\" x2=\"330\" y2=\"130\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"270\" cy=\"130\" r=\"7\" fill=\"var(--accent)\"/><circle cx=\"330\" cy=\"130\" r=\"7\" fill=\"var(--hot)\"/><line x1=\"260\" y1=\"106\" x2=\"340\" y2=\"106\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"260\" cy=\"106\" r=\"7\" fill=\"var(--accent)\"/><circle cx=\"340\" cy=\"106\" r=\"7\" fill=\"var(--hot)\"/><line x1=\"275\" y1=\"82\" x2=\"325\" y2=\"82\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"275\" cy=\"82\" r=\"7\" fill=\"var(--accent)\"/><circle cx=\"325\" cy=\"82\" r=\"7\" fill=\"var(--hot)\"/><line x1=\"305\" y1=\"58\" x2=\"295\" y2=\"58\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"305\" cy=\"58\" r=\"7\" fill=\"var(--accent)\"/><circle cx=\"295\" cy=\"58\" r=\"7\" fill=\"var(--hot)\"/>\n<rect x=\"470\" y=\"40\" width=\"140\" height=\"100\" rx=\"10\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"5\"/>\n<rect x=\"490\" y=\"96\" width=\"16\" height=\"30\" fill=\"var(--accent)\"/><rect x=\"514\" y=\"76\" width=\"16\" height=\"50\" fill=\"var(--hot)\"/><rect x=\"538\" y=\"60\" width=\"16\" height=\"66\" fill=\"var(--accent)\"/><rect x=\"562\" y=\"86\" width=\"16\" height=\"40\" fill=\"var(--hot)\"/>\n<rect x=\"520\" y=\"140\" width=\"40\" height=\"14\" fill=\"var(--ink)\"/>\n<path d=\"M340 70 Q400 40 466 80\" fill=\"none\" stroke=\"var(--ink)\" stroke-width=\"3\" stroke-dasharray=\"6 8\"/>\n<path d=\"M60 120l10 20 22 4-16 16 4 22-20-10-20 10 4-22-16-16 22-4z\" fill=\"var(--hot)\" opacity=\".7\"/></svg>"
   },
   {
    "body": [
@@ -2318,7 +2711,7 @@
    "headline": "A bendy drone that can bump into walls and keep flying",
    "id": "2026-11-04-bendy-crash-proof-drone",
    "illustration": "drone",
-   "imageAlt": "Illustration of a ring-shaped drone with four propellers, gently bouncing off a wall and still flying.",
+   "imageAlt": "Illustration of a drone inside a bendy orange ring, squashing against a brick wall and bouncing away along a dotted path.",
    "keywords": [
     {
      "meaning": "A flying robot with no pilot on board. It is controlled by a person from the ground or by its own computer program.",
@@ -2431,7 +2824,8 @@
     "Testing"
    ],
    "theme": "robots",
-   "whyItMatters": "Sensors cannot always spot an obstacle in time, so a robot that can survive a bump is safer to use in messy, real places. This story shows that engineers can solve a problem with clever hardware as well as clever software, and often the best robots use both."
+   "whyItMatters": "Sensors cannot always spot an obstacle in time, so a robot that can survive a bump is safer to use in messy, real places. This story shows that engineers can solve a problem with clever hardware as well as clever software, and often the best robots use both.",
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/>\n<rect x=\"540\" y=\"20\" width=\"100\" height=\"36\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"560\" y=\"60\" width=\"100\" height=\"36\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"540\" y=\"100\" width=\"100\" height=\"36\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"560\" y=\"140\" width=\"100\" height=\"36\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"540\" y=\"180\" width=\"100\" height=\"36\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"560\" y=\"220\" width=\"100\" height=\"36\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"540\" y=\"260\" width=\"100\" height=\"36\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"560\" y=\"300\" width=\"100\" height=\"36\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"540\" y=\"340\" width=\"100\" height=\"36\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"540\" y=\"0\" width=\"8\" height=\"360\" fill=\"var(--ink)\"/>\n<path d=\"M60 300 Q300 260 470 170 Q380 120 260 70\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"4\" stroke-dasharray=\"3 12\" stroke-linecap=\"round\"/>\n<g transform=\"translate(470 175) rotate(-12)\">\n<ellipse cx=\"0\" cy=\"0\" rx=\"62\" ry=\"40\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"12\"/>\n<ellipse cx=\"0\" cy=\"0\" rx=\"62\" ry=\"40\" fill=\"none\" stroke=\"var(--ink)\" stroke-width=\"3\"/>\n<line x1=\"-44\" y1=\"-28\" x2=\"44\" y2=\"28\" stroke=\"var(--ink)\" stroke-width=\"5\"/><line x1=\"-44\" y1=\"28\" x2=\"44\" y2=\"-28\" stroke=\"var(--ink)\" stroke-width=\"5\"/>\n<rect x=\"-16\" y=\"-12\" width=\"32\" height=\"24\" rx=\"6\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"4\"/>\n<ellipse cx=\"-44\" cy=\"-28\" rx=\"18\" ry=\"5\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><ellipse cx=\"44\" cy=\"-28\" rx=\"18\" ry=\"5\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/>\n<ellipse cx=\"-44\" cy=\"28\" rx=\"18\" ry=\"5\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><ellipse cx=\"44\" cy=\"28\" rx=\"18\" ry=\"5\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/></g>\n<path d=\"M528 130l-14 -10M532 175h-18M528 220l-14 10\" stroke=\"var(--hot)\" stroke-width=\"5\" stroke-linecap=\"round\"/>\n<circle cx=\"60\" cy=\"300\" r=\"10\" fill=\"var(--ink)\"/><circle cx=\"260\" cy=\"70\" r=\"10\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/></svg>"
   },
   {
    "body": [
@@ -3901,7 +4295,7 @@
    "headline": "The hidden water behind AI's electricity",
    "id": "2026-10-31-ai-hidden-water",
    "illustration": "environment",
-   "imageAlt": "Illustration of a large data centre building beside a wind turbine and a leaf. Water drops show where water is used to keep the computers cool.",
+   "imageAlt": "Illustration of a data centre fed by an electricity pylon, with a steaming cooling tower and water pipes and drops showing where water is used.",
    "keywords": [
     {
      "meaning": "A building full of computers (servers) that store data and run websites, apps and AI for people all over the world.",
@@ -4015,7 +4409,8 @@
     "Loops"
    ],
    "theme": "environment",
-   "whyItMatters": "Computers are not just 'in the cloud': they run in real buildings that use real electricity and water. Understanding where resources are really used helps people make fairer choices about where to build data centres and how to power them."
+   "whyItMatters": "Computers are not just 'in the cloud': they run in real buildings that use real electricity and water. Understanding where resources are really used helps people make fairer choices about where to build data centres and how to power them.",
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/>\n<rect x=\"0\" y=\"300\" width=\"640\" height=\"60\" fill=\"var(--ill-2)\"/>\n<path d=\"M0 320 Q80 300 160 320 T320 320\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"10\"/>\n<rect x=\"210\" y=\"160\" width=\"220\" height=\"140\" rx=\"6\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"5\"/>\n<rect x=\"230\" y=\"182\" width=\"36\" height=\"96\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"248\" cy=\"196\" r=\"4\" fill=\"var(--hot)\"/><circle cx=\"248\" cy=\"212\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"278\" y=\"182\" width=\"36\" height=\"96\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"296\" cy=\"196\" r=\"4\" fill=\"var(--hot)\"/><circle cx=\"296\" cy=\"212\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"326\" y=\"182\" width=\"36\" height=\"96\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"344\" cy=\"196\" r=\"4\" fill=\"var(--hot)\"/><circle cx=\"344\" cy=\"212\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"374\" y=\"182\" width=\"36\" height=\"96\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"392\" cy=\"196\" r=\"4\" fill=\"var(--hot)\"/><circle cx=\"392\" cy=\"212\" r=\"4\" fill=\"var(--accent)\"/>\n<path d=\"M460 300 L476 140 H544 L560 300 Z\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"5\" stroke-linejoin=\"round\"/>\n<path d=\"M484 132c-10-30 20-40 26-20 8-30 44-20 34 6\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"4\"/>\n<path d=\"M120 300 V200 H210\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"8\"/>\n<path d=\"M430 240 H460\" stroke=\"var(--accent)\" stroke-width=\"8\"/>\n<path d=\"M30 80 l40 -50 M70 30 l40 50 M50 55 h40\" stroke=\"var(--ink)\" stroke-width=\"5\" fill=\"none\"/>\n<path d=\"M70 80 V160 Q70 180 210 180\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"4\" stroke-dasharray=\"8 8\"/>\n<path d=\"M340 120l-14 26h14l-10 24 26-34h-14l10-16z\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"3\"/>\n<path d=\"M110 230q-10 16 0 24q10-8 0-24z\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><path d=\"M140 260q-10 16 0 24q10-8 0-24z\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><path d=\"M90 270q-10 16 0 24q10-8 0-24z\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><path d=\"M470 90q-10 16 0 24q10-8 0-24z\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><path d=\"M500 70q-10 16 0 24q10-8 0-24z\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><path d=\"M530 96q-10 16 0 24q10-8 0-24z\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"2\"/></svg>"
   },
   {
    "body": [
@@ -4715,7 +5110,7 @@
    "headline": "Five quantum bits learn to share one wire",
    "id": "2026-10-29-qubits-share-a-wire",
    "illustration": "frontier",
-   "imageAlt": "Illustration of a glowing sphere representing a qubit, with an arrow showing which way it is pointing.",
+   "imageAlt": "Illustration of five small qubit spheres, each with an arrow pointing a different way, all connected to one wavy wire that runs into a control box.",
    "keywords": [
     {
      "meaning": "A quantum bit. The basic unit of information in a quantum computer. Unlike a normal bit, it can hold a mix of 0 and 1.",
@@ -4829,7 +5224,8 @@
     "Selection"
    ],
    "theme": "quantum",
-   "whyItMatters": "Useful quantum computers will need huge numbers of qubits all working at the same time. This experiment suggests that many qubits could share their controls without becoming much less accurate. It is also a great example of good testing: a part that works perfectly on its own can behave differently when it works alongside others."
+   "whyItMatters": "Useful quantum computers will need huge numbers of qubits all working at the same time. This experiment suggests that many qubits could share their controls without becoming much less accurate. It is also a great example of good testing: a part that works perfectly on its own can behave differently when it works alongside others.",
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><circle cx=\"90\" cy=\"120\" r=\"34\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><ellipse cx=\"90\" cy=\"120\" rx=\"34\" ry=\"10\" fill=\"none\" stroke=\"var(--ill-2)\" stroke-width=\"3\"/><line x1=\"90\" y1=\"120\" x2=\"104\" y2=\"94\" stroke=\"var(--hot)\" stroke-width=\"5\" stroke-linecap=\"round\"/><line x1=\"90\" y1=\"154\" x2=\"90\" y2=\"214\" stroke=\"var(--ink)\" stroke-width=\"4\"/><circle cx=\"185\" cy=\"120\" r=\"34\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><ellipse cx=\"185\" cy=\"120\" rx=\"34\" ry=\"10\" fill=\"none\" stroke=\"var(--ill-2)\" stroke-width=\"3\"/><line x1=\"185\" y1=\"120\" x2=\"167\" y2=\"100\" stroke=\"var(--hot)\" stroke-width=\"5\" stroke-linecap=\"round\"/><line x1=\"185\" y1=\"154\" x2=\"185\" y2=\"214\" stroke=\"var(--ink)\" stroke-width=\"4\"/><circle cx=\"280\" cy=\"120\" r=\"34\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><ellipse cx=\"280\" cy=\"120\" rx=\"34\" ry=\"10\" fill=\"none\" stroke=\"var(--ill-2)\" stroke-width=\"3\"/><line x1=\"280\" y1=\"120\" x2=\"300\" y2=\"144\" stroke=\"var(--hot)\" stroke-width=\"5\" stroke-linecap=\"round\"/><line x1=\"280\" y1=\"154\" x2=\"280\" y2=\"214\" stroke=\"var(--ink)\" stroke-width=\"4\"/><circle cx=\"375\" cy=\"120\" r=\"34\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><ellipse cx=\"375\" cy=\"120\" rx=\"34\" ry=\"10\" fill=\"none\" stroke=\"var(--ill-2)\" stroke-width=\"3\"/><line x1=\"375\" y1=\"120\" x2=\"367\" y2=\"92\" stroke=\"var(--hot)\" stroke-width=\"5\" stroke-linecap=\"round\"/><line x1=\"375\" y1=\"154\" x2=\"375\" y2=\"214\" stroke=\"var(--ink)\" stroke-width=\"4\"/><circle cx=\"470\" cy=\"120\" r=\"34\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><ellipse cx=\"470\" cy=\"120\" rx=\"34\" ry=\"10\" fill=\"none\" stroke=\"var(--ill-2)\" stroke-width=\"3\"/><line x1=\"470\" y1=\"120\" x2=\"486\" y2=\"98\" stroke=\"var(--hot)\" stroke-width=\"5\" stroke-linecap=\"round\"/><line x1=\"470\" y1=\"154\" x2=\"470\" y2=\"214\" stroke=\"var(--ink)\" stroke-width=\"4\"/>\n<path d=\"M40 230 Q90 200 140 230 T240 230 T340 230 T440 230 T520 230\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"8\"/>\n<rect x=\"520\" y=\"190\" width=\"90\" height=\"90\" rx=\"10\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"5\"/>\n<path d=\"M540 250 q12-40 25 0 q12 40 25 0\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"5\"/>\n<rect x=\"40\" y=\"300\" width=\"470\" height=\"14\" rx=\"7\" fill=\"var(--ill-2)\"/>\n<g fill=\"var(--accent)\"><rect x=\"60\" y=\"292\" width=\"30\" height=\"30\" rx=\"4\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"150\" y=\"292\" width=\"30\" height=\"30\" rx=\"4\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"240\" y=\"292\" width=\"30\" height=\"30\" rx=\"4\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"330\" y=\"292\" width=\"30\" height=\"30\" rx=\"4\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"420\" y=\"292\" width=\"30\" height=\"30\" rx=\"4\" stroke=\"var(--ink)\" stroke-width=\"3\"/></g></svg>"
   },
   {
    "body": [
@@ -5107,7 +5503,7 @@
    "headline": "The world's clocks will stop adding leap seconds",
    "id": "2026-10-28-leap-second-ends",
    "illustration": "internet",
-   "imageAlt": "Illustration of a big clock showing 23:59:60 next to a row of computer servers with small warning lights.",
+   "imageAlt": "Illustration of a big clock beside a digital display reading 23:59:60, next to three computer server racks with a warning sign.",
    "keywords": [
     {
      "meaning": "A super-accurate clock that measures time using the tiny, regular vibrations of atoms. It would lose less than a second in millions of years.",
@@ -5220,7 +5616,8 @@
     "Testing"
    ],
    "theme": "internet",
-   "whyItMatters": "Almost everything computers do, from sending messages to saving files and running websites, depends on knowing the exact time. Getting rid of surprise extra seconds makes time simpler and more predictable for software. It also shows how one rare situation that programmers forget to test can cause problems all over the world."
+   "whyItMatters": "Almost everything computers do, from sending messages to saving files and running websites, depends on knowing the exact time. Getting rid of surprise extra seconds makes time simpler and more predictable for software. It also shows how one rare situation that programmers forget to test can cause problems all over the world.",
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/>\n<circle cx=\"190\" cy=\"160\" r=\"120\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"6\"/>\n<line x1=\"190\" y1=\"50\" x2=\"190\" y2=\"64\" stroke=\"var(--ink)\" stroke-width=\"5\" transform=\"rotate(0 190 160)\"/><line x1=\"190\" y1=\"50\" x2=\"190\" y2=\"64\" stroke=\"var(--ink)\" stroke-width=\"5\" transform=\"rotate(30 190 160)\"/><line x1=\"190\" y1=\"50\" x2=\"190\" y2=\"64\" stroke=\"var(--ink)\" stroke-width=\"5\" transform=\"rotate(60 190 160)\"/><line x1=\"190\" y1=\"50\" x2=\"190\" y2=\"64\" stroke=\"var(--ink)\" stroke-width=\"5\" transform=\"rotate(90 190 160)\"/><line x1=\"190\" y1=\"50\" x2=\"190\" y2=\"64\" stroke=\"var(--ink)\" stroke-width=\"5\" transform=\"rotate(120 190 160)\"/><line x1=\"190\" y1=\"50\" x2=\"190\" y2=\"64\" stroke=\"var(--ink)\" stroke-width=\"5\" transform=\"rotate(150 190 160)\"/><line x1=\"190\" y1=\"50\" x2=\"190\" y2=\"64\" stroke=\"var(--ink)\" stroke-width=\"5\" transform=\"rotate(180 190 160)\"/><line x1=\"190\" y1=\"50\" x2=\"190\" y2=\"64\" stroke=\"var(--ink)\" stroke-width=\"5\" transform=\"rotate(210 190 160)\"/><line x1=\"190\" y1=\"50\" x2=\"190\" y2=\"64\" stroke=\"var(--ink)\" stroke-width=\"5\" transform=\"rotate(240 190 160)\"/><line x1=\"190\" y1=\"50\" x2=\"190\" y2=\"64\" stroke=\"var(--ink)\" stroke-width=\"5\" transform=\"rotate(270 190 160)\"/><line x1=\"190\" y1=\"50\" x2=\"190\" y2=\"64\" stroke=\"var(--ink)\" stroke-width=\"5\" transform=\"rotate(300 190 160)\"/><line x1=\"190\" y1=\"50\" x2=\"190\" y2=\"64\" stroke=\"var(--ink)\" stroke-width=\"5\" transform=\"rotate(330 190 160)\"/>\n<line x1=\"190\" y1=\"160\" x2=\"190\" y2=\"80\" stroke=\"var(--ink)\" stroke-width=\"7\" stroke-linecap=\"round\"/>\n<line x1=\"190\" y1=\"160\" x2=\"182\" y2=\"100\" stroke=\"var(--ink)\" stroke-width=\"9\" stroke-linecap=\"round\"/>\n<line x1=\"190\" y1=\"160\" x2=\"282\" y2=\"160\" stroke=\"var(--hot)\" stroke-width=\"4\" stroke-linecap=\"round\"/>\n<circle cx=\"190\" cy=\"160\" r=\"9\" fill=\"var(--hot)\"/>\n<rect x=\"90\" y=\"296\" width=\"200\" height=\"46\" rx=\"8\" fill=\"var(--ink)\"/>\n<text x=\"190\" y=\"328\" text-anchor=\"middle\" font-family=\"IBM Plex Mono, monospace\" font-size=\"26\" fill=\"var(--hot)\">23:59:60</text>\n<rect x=\"390\" y=\"110\" width=\"66\" height=\"200\" rx=\"6\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"400\" y=\"126\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"450\" cy=\"135\" r=\"4\" fill=\"var(--hot)\"/><rect x=\"400\" y=\"156\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"450\" cy=\"165\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"400\" y=\"186\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"450\" cy=\"195\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"400\" y=\"216\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"450\" cy=\"225\" r=\"4\" fill=\"var(--hot)\"/><rect x=\"400\" y=\"246\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"450\" cy=\"255\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"400\" y=\"276\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"450\" cy=\"285\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"470\" y=\"110\" width=\"66\" height=\"200\" rx=\"6\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"480\" y=\"126\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"530\" cy=\"135\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"480\" y=\"156\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"530\" cy=\"165\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"480\" y=\"186\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"530\" cy=\"195\" r=\"4\" fill=\"var(--hot)\"/><rect x=\"480\" y=\"216\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"530\" cy=\"225\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"480\" y=\"246\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"530\" cy=\"255\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"480\" y=\"276\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"530\" cy=\"285\" r=\"4\" fill=\"var(--hot)\"/><rect x=\"550\" y=\"110\" width=\"66\" height=\"200\" rx=\"6\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"560\" y=\"126\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"610\" cy=\"135\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"560\" y=\"156\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"610\" cy=\"165\" r=\"4\" fill=\"var(--hot)\"/><rect x=\"560\" y=\"186\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"610\" cy=\"195\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"560\" y=\"216\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"610\" cy=\"225\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"560\" y=\"246\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"610\" cy=\"255\" r=\"4\" fill=\"var(--hot)\"/><rect x=\"560\" y=\"276\" width=\"46\" height=\"18\" rx=\"3\" fill=\"var(--ill-2)\"/><circle cx=\"610\" cy=\"285\" r=\"4\" fill=\"var(--accent)\"/>\n<path d=\"M600 70l-22 38h44z\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"3\" stroke-linejoin=\"round\"/><rect x=\"597\" y=\"82\" width=\"6\" height=\"14\" fill=\"var(--ink)\"/></svg>"
   },
   {
    "body": [
@@ -6096,7 +6493,7 @@
    "headline": "New tool catches AI making up its sources",
    "id": "2026-10-25-ai-source-checker",
    "illustration": "ai",
-   "imageAlt": "Illustration of a computer chip with a brain-like pattern, standing for artificial intelligence.",
+   "imageAlt": "Illustration of a page of writing with a list of sources: two are ticked and one is crossed out, while a magnifying glass checks it and an AI box looks on.",
    "keywords": [
     {
      "meaning": "When an AI produces information that sounds believable but is false or made up.",
@@ -6405,7 +6802,8 @@
      ],
      "explain": "Facts can be checked against evidence. Opinions are what people think, often using words like 'should', 'bad' or 'more useful'. A chatbot can state an opinion as confidently as a fact, so it's worth checking which is which."
     }
-   ]
+   ],
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/>\n<rect x=\"90\" y=\"30\" width=\"250\" height=\"300\" rx=\"10\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"5\"/>\n<rect x=\"114\" y=\"60\" width=\"200\" height=\"8\" rx=\"4\" fill=\"var(--ill-2)\"/><rect x=\"114\" y=\"82\" width=\"170\" height=\"8\" rx=\"4\" fill=\"var(--ill-2)\"/><rect x=\"114\" y=\"104\" width=\"190\" height=\"8\" rx=\"4\" fill=\"var(--ill-2)\"/><rect x=\"114\" y=\"126\" width=\"120\" height=\"8\" rx=\"4\" fill=\"var(--ill-2)\"/><rect x=\"114\" y=\"148\" width=\"200\" height=\"8\" rx=\"4\" fill=\"var(--ill-2)\"/>\n<rect x=\"114\" y=\"190\" width=\"160\" height=\"22\" rx=\"4\" fill=\"var(--accent)\" opacity=\".35\"/><rect x=\"114\" y=\"230\" width=\"160\" height=\"22\" rx=\"4\" fill=\"var(--accent)\" opacity=\".35\"/><rect x=\"114\" y=\"270\" width=\"160\" height=\"22\" rx=\"4\" fill=\"var(--hot)\" opacity=\".35\"/>\n<path d=\"M290 192l8 8 16-18\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M290 232l8 8 16-18\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<path d=\"M292 272l20 20M312 272l-20 20\" stroke=\"var(--hot)\" stroke-width=\"5\" stroke-linecap=\"round\"/>\n<circle cx=\"440\" cy=\"230\" r=\"70\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"10\" opacity=\".95\"/>\n<rect x=\"408\" y=\"200\" width=\"64\" height=\"8\" rx=\"4\" fill=\"var(--hot)\"/><rect x=\"408\" y=\"222\" width=\"44\" height=\"8\" rx=\"4\" fill=\"var(--ill-2)\"/>\n<path d=\"M410 252l60-14\" stroke=\"var(--hot)\" stroke-width=\"5\" stroke-linecap=\"round\"/>\n<line x1=\"490\" y1=\"282\" x2=\"570\" y2=\"340\" stroke=\"var(--ink)\" stroke-width=\"18\" stroke-linecap=\"round\"/>\n<rect x=\"470\" y=\"40\" width=\"120\" height=\"80\" rx=\"12\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"4\"/>\n<circle cx=\"494\" cy=\"64\" r=\"7\" fill=\"var(--card)\"/><circle cx=\"494\" cy=\"92\" r=\"7\" fill=\"var(--card)\"/><circle cx=\"518\" cy=\"64\" r=\"7\" fill=\"var(--card)\"/><circle cx=\"518\" cy=\"92\" r=\"7\" fill=\"var(--card)\"/><circle cx=\"542\" cy=\"64\" r=\"7\" fill=\"var(--card)\"/><circle cx=\"542\" cy=\"92\" r=\"7\" fill=\"var(--card)\"/><circle cx=\"566\" cy=\"64\" r=\"7\" fill=\"var(--card)\"/><circle cx=\"566\" cy=\"92\" r=\"7\" fill=\"var(--card)\"/>\n<path d=\"M470 100 L360 150\" stroke=\"var(--ink)\" stroke-width=\"3\" stroke-dasharray=\"6 8\"/></svg>"
   },
   {
    "body": [
@@ -6471,7 +6869,7 @@
    "headline": "Cheap gadgets are piling up as e-waste",
    "id": "2026-10-24-fast-tech-e-waste",
    "illustration": "environment",
-   "imageAlt": "Illustration of a data centre beside a wind turbine and a green leaf, standing for greener ways to use technology.",
+   "imageAlt": "Illustration of a bin overflowing with an old phone, a tablet and earbuds, with recycling arrows beside it.",
    "keywords": [
     {
      "meaning": "Old or broken electrical and electronic items that people throw away.",
@@ -6856,7 +7254,8 @@
       }
      ]
     }
-   ]
+   ],
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/>\n<path d=\"M150 150 L180 330 H400 L430 150 Z\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"6\" stroke-linejoin=\"round\"/>\n<rect x=\"130\" y=\"130\" width=\"320\" height=\"24\" rx=\"8\" fill=\"var(--ink)\"/>\n<rect x=\"190\" y=\"70\" width=\"56\" height=\"96\" rx=\"10\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"4\" transform=\"rotate(-14 218 118)\"/>\n<rect x=\"198\" y=\"82\" width=\"40\" height=\"64\" fill=\"var(--accent)\" transform=\"rotate(-14 218 118)\"/>\n<rect x=\"268\" y=\"56\" width=\"110\" height=\"70\" rx=\"6\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"4\" transform=\"rotate(10 323 91)\"/>\n<circle cx=\"380\" cy=\"100\" r=\"16\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><circle cx=\"410\" cy=\"94\" r=\"12\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/>\n<path d=\"M250 130 C230 60 330 40 340 110\" fill=\"none\" stroke=\"var(--ink)\" stroke-width=\"4\"/>\n<path d=\"M90 300c-40-60 0-140 80-160\" fill=\"none\" stroke=\"var(--ink)\" stroke-width=\"3\" stroke-dasharray=\"6 8\"/>\n<g transform=\"translate(520 230)\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"10\" stroke-linecap=\"round\">\n<path d=\"M-50 20 A55 55 0 0 1 -20 -50\"/><path d=\"M10 -54 A55 55 0 0 1 54 0\"/><path d=\"M40 38 A55 55 0 0 1 -30 46\"/></g>\n<g transform=\"translate(520 230)\" fill=\"var(--accent)\"><path d=\"M-30 -62l14 18-24 4z\"/><path d=\"M60 14l-22 6 4-24z\"/><path d=\"M-44 40l10 22 14-20z\"/></g>\n<line x1=\"230\" y1=\"200\" x2=\"230\" y2=\"300\" stroke=\"var(--ill-2)\" stroke-width=\"6\"/><line x1=\"290\" y1=\"200\" x2=\"290\" y2=\"300\" stroke=\"var(--ill-2)\" stroke-width=\"6\"/><line x1=\"350\" y1=\"200\" x2=\"350\" y2=\"300\" stroke=\"var(--ill-2)\" stroke-width=\"6\"/></svg>"
   },
   {
    "body": [
@@ -7305,7 +7704,7 @@
    "newsDate": "12 October 2026",
    "theme": "cyber",
    "illustration": "fridge",
-   "imageAlt": "Illustration of a supermarket fridge connected to the internet, with its thermometer rising into the red.",
+   "imageAlt": "Illustration of a supermarket fridge full of products, with a wi-fi signal reaching it, an unlocked padlock and a thermometer rising into the red.",
    "headline": "Hackers turn up the heat on supermarket fridges",
    "standfirst": "A cyber attack in France switched hundreds of shop freezers to scorching temperatures. What happened, and could it happen to the devices in your home?",
    "body": [
@@ -7668,7 +8067,8 @@
      ],
      "explain": "The sensor and keypad are inputs, the controller's decisions are processing, and the motor and beep are outputs. The hackers attacked the processing part, so the outputs did the wrong thing."
     }
-   ]
+   ],
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/>\n<rect x=\"200\" y=\"60\" width=\"240\" height=\"280\" rx=\"10\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"6\"/>\n<rect x=\"200\" y=\"60\" width=\"240\" height=\"30\" rx=\"6\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"6\"/>\n<rect x=\"220\" y=\"100\" width=\"30\" height=\"40\" rx=\"5\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"220\" y=\"170\" width=\"30\" height=\"40\" rx=\"5\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"220\" y=\"240\" width=\"30\" height=\"40\" rx=\"5\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"264\" y=\"100\" width=\"30\" height=\"40\" rx=\"5\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"264\" y=\"170\" width=\"30\" height=\"40\" rx=\"5\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"264\" y=\"240\" width=\"30\" height=\"40\" rx=\"5\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"308\" y=\"100\" width=\"30\" height=\"40\" rx=\"5\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"308\" y=\"170\" width=\"30\" height=\"40\" rx=\"5\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"308\" y=\"240\" width=\"30\" height=\"40\" rx=\"5\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"352\" y=\"100\" width=\"30\" height=\"40\" rx=\"5\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"352\" y=\"170\" width=\"30\" height=\"40\" rx=\"5\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"352\" y=\"240\" width=\"30\" height=\"40\" rx=\"5\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"396\" y=\"100\" width=\"30\" height=\"40\" rx=\"5\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"396\" y=\"170\" width=\"30\" height=\"40\" rx=\"5\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"396\" y=\"240\" width=\"30\" height=\"40\" rx=\"5\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/>\n<line x1=\"206\" y1=\"144\" x2=\"434\" y2=\"144\" stroke=\"var(--ink)\" stroke-width=\"5\"/><line x1=\"206\" y1=\"214\" x2=\"434\" y2=\"214\" stroke=\"var(--ink)\" stroke-width=\"5\"/><line x1=\"206\" y1=\"284\" x2=\"434\" y2=\"284\" stroke=\"var(--ink)\" stroke-width=\"5\"/>\n<line x1=\"320\" y1=\"90\" x2=\"320\" y2=\"340\" stroke=\"var(--ink)\" stroke-width=\"3\"/>\n<g fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"6\" stroke-linecap=\"round\"><path d=\"M80 120a60 60 0 0 1 84 0\"/><path d=\"M98 140a34 34 0 0 1 48 0\"/></g><circle cx=\"122\" cy=\"160\" r=\"8\" fill=\"var(--hot)\"/>\n<path d=\"M122 170 V210 H200\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"3\" stroke-dasharray=\"5 7\"/>\n<rect x=\"510\" y=\"60\" width=\"34\" height=\"210\" rx=\"17\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"5\"/>\n<rect x=\"519\" y=\"80\" width=\"16\" height=\"180\" rx=\"8\" fill=\"var(--hot)\"/>\n<circle cx=\"527\" cy=\"290\" r=\"28\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"5\"/>\n<path d=\"M565 110l20-26 20 26\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n<rect x=\"70\" y=\"250\" width=\"70\" height=\"56\" rx=\"8\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"5\"/>\n<path d=\"M84 250v-20a22 22 0 0 1 44 0\" fill=\"none\" stroke=\"var(--ink)\" stroke-width=\"7\"/></svg>"
   },
   {
    "id": "2026-10-21-mit-sando-drones",
@@ -7676,7 +8076,7 @@
    "newsDate": "7 October 2026",
    "theme": "robots",
    "illustration": "drone",
-   "imageAlt": "Illustration of a drone flying along a safe path that curves between circles marking where moving obstacles could be.",
+   "imageAlt": "Illustration of a drone following a dotted path from a start flag to a finish flag, steering around three moving balls whose shaded cones show where they might go next.",
    "headline": "The drone that plans around things it can't predict",
    "standfirst": "Engineers at MIT have built a flight planner that steers drones safely past moving obstacles, even in places nobody has mapped.",
    "body": [
@@ -8026,7 +8426,8 @@
      ],
      "explain": "Facts can be checked against evidence. Opinions are what people think or feel, often with words like 'should', 'better' or 'too'. Good debates use facts to back up opinions."
     }
-   ]
+   ],
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/>\n<rect x=\"30\" y=\"300\" width=\"580\" height=\"12\" rx=\"6\" fill=\"var(--ill-2)\"/>\n<path d=\"M200 110 L266.0 118.0 A60 60 0 0 1 326.0 198.0 Z\" fill=\"var(--hot)\" opacity=\".18\"/><line x1=\"200\" y1=\"110\" x2=\"264.0\" y2=\"142.0\" stroke=\"var(--hot)\" stroke-width=\"4\" stroke-dasharray=\"4 6\"/><circle cx=\"200\" cy=\"110\" r=\"16\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><path d=\"M330 250 L228.0 138.0 A60 60 0 0 1 288.0 218.0 Z\" fill=\"var(--hot)\" opacity=\".18\"/><line x1=\"330\" y1=\"250\" x2=\"282.0\" y2=\"202.0\" stroke=\"var(--hot)\" stroke-width=\"4\" stroke-dasharray=\"4 6\"/><circle cx=\"330\" cy=\"250\" r=\"16\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><path d=\"M470 140 L440.0 196.0 A60 60 0 0 1 500.0 276.0 Z\" fill=\"var(--hot)\" opacity=\".18\"/><line x1=\"470\" y1=\"140\" x2=\"470.0\" y2=\"204.0\" stroke=\"var(--hot)\" stroke-width=\"4\" stroke-dasharray=\"4 6\"/><circle cx=\"470\" cy=\"140\" r=\"16\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"4\"/>\n<path d=\"M50 280 C120 280 120 190 260 190 S300 90 400 90 S560 250 600 70\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"5\" stroke-dasharray=\"2 12\" stroke-linecap=\"round\"/>\n<path d=\"M44 250v40\" stroke=\"var(--ink)\" stroke-width=\"5\"/><path d=\"M44 250h30l-8 10 8 10h-30z\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/>\n<path d=\"M596 40v40\" stroke=\"var(--ink)\" stroke-width=\"5\"/><path d=\"M596 40h30l-8 10 8 10h-30z\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"3\"/>\n<g transform=\"translate(400 90)\"><line x1=\"-26\" y1=\"-14\" x2=\"26\" y2=\"14\" stroke=\"var(--ink)\" stroke-width=\"5\"/><line x1=\"-26\" y1=\"14\" x2=\"26\" y2=\"-14\" stroke=\"var(--ink)\" stroke-width=\"5\"/>\n<circle cx=\"-26\" cy=\"-14\" r=\"11\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"26\" cy=\"-14\" r=\"11\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"-26\" cy=\"14\" r=\"11\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"26\" cy=\"14\" r=\"11\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/>\n<rect x=\"-13\" y=\"-9\" width=\"26\" height=\"18\" rx=\"5\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/></g></svg>"
   },
   {
    "id": "2026-10-20-jupiter-rhea1-chip",
@@ -8034,7 +8435,7 @@
    "newsDate": "22 September 2026",
    "theme": "hardware",
    "illustration": "chip",
-   "imageAlt": "Illustration of a computer processor chip with a grid of 80 small squares representing its cores.",
+   "imageAlt": "Illustration of a large processor chip with a grid of 80 small cores, sitting in front of rows of supercomputer cabinets.",
    "headline": "Europe's own brain chip arrives for its fastest supercomputer",
    "standfirst": "A processor with 80 cores, designed in Europe, is being fitted into JUPITER, a giant computer in Germany that can do a billion billion sums every second.",
    "body": [
@@ -8425,7 +8826,8 @@
       }
      ]
     }
-   ]
+   ],
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/>\n<rect x=\"20\" y=\"30\" width=\"90\" height=\"200\" rx=\"6\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><line x1=\"30\" y1=\"50\" x2=\"100\" y2=\"50\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"30\" y1=\"68\" x2=\"100\" y2=\"68\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"30\" y1=\"86\" x2=\"100\" y2=\"86\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"30\" y1=\"104\" x2=\"100\" y2=\"104\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"30\" y1=\"122\" x2=\"100\" y2=\"122\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"30\" y1=\"140\" x2=\"100\" y2=\"140\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"30\" y1=\"158\" x2=\"100\" y2=\"158\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"30\" y1=\"176\" x2=\"100\" y2=\"176\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"30\" y1=\"194\" x2=\"100\" y2=\"194\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"30\" y1=\"212\" x2=\"100\" y2=\"212\" stroke=\"var(--card)\" stroke-width=\"5\"/><rect x=\"130\" y=\"30\" width=\"90\" height=\"200\" rx=\"6\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><line x1=\"140\" y1=\"50\" x2=\"210\" y2=\"50\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"140\" y1=\"68\" x2=\"210\" y2=\"68\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"140\" y1=\"86\" x2=\"210\" y2=\"86\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"140\" y1=\"104\" x2=\"210\" y2=\"104\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"140\" y1=\"122\" x2=\"210\" y2=\"122\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"140\" y1=\"140\" x2=\"210\" y2=\"140\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"140\" y1=\"158\" x2=\"210\" y2=\"158\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"140\" y1=\"176\" x2=\"210\" y2=\"176\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"140\" y1=\"194\" x2=\"210\" y2=\"194\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"140\" y1=\"212\" x2=\"210\" y2=\"212\" stroke=\"var(--card)\" stroke-width=\"5\"/><rect x=\"240\" y=\"30\" width=\"90\" height=\"200\" rx=\"6\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><line x1=\"250\" y1=\"50\" x2=\"320\" y2=\"50\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"250\" y1=\"68\" x2=\"320\" y2=\"68\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"250\" y1=\"86\" x2=\"320\" y2=\"86\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"250\" y1=\"104\" x2=\"320\" y2=\"104\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"250\" y1=\"122\" x2=\"320\" y2=\"122\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"250\" y1=\"140\" x2=\"320\" y2=\"140\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"250\" y1=\"158\" x2=\"320\" y2=\"158\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"250\" y1=\"176\" x2=\"320\" y2=\"176\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"250\" y1=\"194\" x2=\"320\" y2=\"194\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"250\" y1=\"212\" x2=\"320\" y2=\"212\" stroke=\"var(--card)\" stroke-width=\"5\"/><rect x=\"350\" y=\"30\" width=\"90\" height=\"200\" rx=\"6\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><line x1=\"360\" y1=\"50\" x2=\"430\" y2=\"50\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"360\" y1=\"68\" x2=\"430\" y2=\"68\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"360\" y1=\"86\" x2=\"430\" y2=\"86\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"360\" y1=\"104\" x2=\"430\" y2=\"104\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"360\" y1=\"122\" x2=\"430\" y2=\"122\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"360\" y1=\"140\" x2=\"430\" y2=\"140\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"360\" y1=\"158\" x2=\"430\" y2=\"158\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"360\" y1=\"176\" x2=\"430\" y2=\"176\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"360\" y1=\"194\" x2=\"430\" y2=\"194\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"360\" y1=\"212\" x2=\"430\" y2=\"212\" stroke=\"var(--card)\" stroke-width=\"5\"/><rect x=\"460\" y=\"30\" width=\"90\" height=\"200\" rx=\"6\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><line x1=\"470\" y1=\"50\" x2=\"540\" y2=\"50\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"470\" y1=\"68\" x2=\"540\" y2=\"68\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"470\" y1=\"86\" x2=\"540\" y2=\"86\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"470\" y1=\"104\" x2=\"540\" y2=\"104\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"470\" y1=\"122\" x2=\"540\" y2=\"122\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"470\" y1=\"140\" x2=\"540\" y2=\"140\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"470\" y1=\"158\" x2=\"540\" y2=\"158\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"470\" y1=\"176\" x2=\"540\" y2=\"176\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"470\" y1=\"194\" x2=\"540\" y2=\"194\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"470\" y1=\"212\" x2=\"540\" y2=\"212\" stroke=\"var(--card)\" stroke-width=\"5\"/><rect x=\"570\" y=\"30\" width=\"90\" height=\"200\" rx=\"6\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><line x1=\"580\" y1=\"50\" x2=\"650\" y2=\"50\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"580\" y1=\"68\" x2=\"650\" y2=\"68\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"580\" y1=\"86\" x2=\"650\" y2=\"86\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"580\" y1=\"104\" x2=\"650\" y2=\"104\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"580\" y1=\"122\" x2=\"650\" y2=\"122\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"580\" y1=\"140\" x2=\"650\" y2=\"140\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"580\" y1=\"158\" x2=\"650\" y2=\"158\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"580\" y1=\"176\" x2=\"650\" y2=\"176\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"580\" y1=\"194\" x2=\"650\" y2=\"194\" stroke=\"var(--card)\" stroke-width=\"5\"/><line x1=\"580\" y1=\"212\" x2=\"650\" y2=\"212\" stroke=\"var(--card)\" stroke-width=\"5\"/>\n<rect x=\"200\" y=\"100\" width=\"240\" height=\"220\" rx=\"16\" fill=\"var(--ink)\"/>\n<rect x=\"220\" y=\"120\" width=\"200\" height=\"180\" rx=\"12\" fill=\"var(--card)\" stroke=\"var(--hot)\" stroke-width=\"5\"/>\n<rect x=\"250\" y=\"138\" width=\"140\" height=\"118\" rx=\"6\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/>\n<rect x=\"262\" y=\"150\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--hot)\"/><rect x=\"262\" y=\"162\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"262\" y=\"174\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"262\" y=\"186\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"262\" y=\"198\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"262\" y=\"210\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--hot)\"/><rect x=\"262\" y=\"222\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"262\" y=\"234\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"274\" y=\"150\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"274\" y=\"162\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--hot)\"/><rect x=\"274\" y=\"174\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"274\" y=\"186\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"274\" y=\"198\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"274\" y=\"210\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"274\" y=\"222\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--hot)\"/><rect x=\"274\" y=\"234\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"286\" y=\"150\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"286\" y=\"162\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"286\" y=\"174\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--hot)\"/><rect x=\"286\" y=\"186\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"286\" y=\"198\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"286\" y=\"210\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"286\" y=\"222\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"286\" y=\"234\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--hot)\"/><rect x=\"298\" y=\"150\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"298\" y=\"162\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"298\" y=\"174\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"298\" y=\"186\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--hot)\"/><rect x=\"298\" y=\"198\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"298\" y=\"210\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"298\" y=\"222\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"298\" y=\"234\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"310\" y=\"150\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"310\" y=\"162\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"310\" y=\"174\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"310\" y=\"186\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"310\" y=\"198\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--hot)\"/><rect x=\"310\" y=\"210\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"310\" y=\"222\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"310\" y=\"234\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"322\" y=\"150\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--hot)\"/><rect x=\"322\" y=\"162\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"322\" y=\"174\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"322\" y=\"186\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"322\" y=\"198\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"322\" y=\"210\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--hot)\"/><rect x=\"322\" y=\"222\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"322\" y=\"234\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"334\" y=\"150\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"334\" y=\"162\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--hot)\"/><rect x=\"334\" y=\"174\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"334\" y=\"186\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"334\" y=\"198\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"334\" y=\"210\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"334\" y=\"222\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--hot)\"/><rect x=\"334\" y=\"234\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"346\" y=\"150\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"346\" y=\"162\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"346\" y=\"174\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--hot)\"/><rect x=\"346\" y=\"186\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"346\" y=\"198\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"346\" y=\"210\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"346\" y=\"222\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"346\" y=\"234\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--hot)\"/><rect x=\"358\" y=\"150\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"358\" y=\"162\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"358\" y=\"174\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"358\" y=\"186\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--hot)\"/><rect x=\"358\" y=\"198\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"358\" y=\"210\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"358\" y=\"222\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"358\" y=\"234\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"370\" y=\"150\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"370\" y=\"162\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"370\" y=\"174\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"370\" y=\"186\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"370\" y=\"198\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--hot)\"/><rect x=\"370\" y=\"210\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"370\" y=\"222\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/><rect x=\"370\" y=\"234\" width=\"9\" height=\"9\" rx=\"1\" fill=\"var(--accent)\"/>\n<rect x=\"250\" y=\"266\" width=\"140\" height=\"18\" rx=\"4\" fill=\"var(--ink)\"/>\n<rect x=\"186\" y=\"116\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"440\" y=\"116\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"186\" y=\"136\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"440\" y=\"136\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"186\" y=\"156\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"440\" y=\"156\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"186\" y=\"176\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"440\" y=\"176\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"186\" y=\"196\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"440\" y=\"196\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"186\" y=\"216\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"440\" y=\"216\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"186\" y=\"236\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"440\" y=\"236\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"186\" y=\"256\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"440\" y=\"256\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"186\" y=\"276\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"440\" y=\"276\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"186\" y=\"296\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/><rect x=\"440\" y=\"296\" width=\"14\" height=\"8\" fill=\"var(--hot)\"/>\n<path d=\"M454 200 C520 200 520 300 600 300\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"6\"/><path d=\"M186 220 C120 220 120 310 40 310\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"6\"/></svg>"
   }
  ],
  "schema": 2
