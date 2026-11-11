@@ -350,12 +350,26 @@ footer li{margin-bottom:4px}
 .pmbar,.pm-launch{--pm-bg:#0B1020;--pm-panel:#151C33;--pm-ink:#FFFFFF;--pm-muted:#C9D2EA;--pm-tile:#FFFFFF;--pm-tile-ink:#0B1020;--pm-accent:#2B55E6;--pm-hot:#FF9550;--pm-line:#3A4670}
 .pm-launch{position:fixed;inset:0 0 var(--pmbar-h,84px) 0;z-index:50;background:var(--pm-bg);color:var(--pm-ink);overflow:hidden;display:flex;flex-direction:column;padding:clamp(12px,2.6vh,40px) max(clamp(16px,3vw,56px),env(safe-area-inset-left,0px)) clamp(12px,2.2vh,32px)}
 .pm-launch[hidden]{display:none}
-.pm-lhead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 28px;width:100%;max-width:1500px;margin:0 auto clamp(10px,2.2vh,26px);flex:none}
+.pm-lhead{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(8px,1.6vh,18px);width:100%;max-width:1500px;margin:0 auto clamp(12px,2.4vh,28px);flex:none}
 .pm-brand{font-family:var(--f-display);font-weight:700;font-size:clamp(20px,min(3vw,5vh),48px);margin:0;line-height:1;color:var(--pm-ink);white-space:nowrap}
 .pm-brand span{color:var(--pm-hot)}
-.pm-lhead h2{font-family:var(--f-body);font-size:clamp(22px,min(3.2vw,4.8vh),52px);line-height:1.12;margin:clamp(4px,1vh,10px) 0 0;max-width:30ch;text-wrap:balance}
-.pm-pick{display:flex;flex-direction:column;gap:6px;font-size:16px;font-weight:700;color:var(--pm-muted)}
-.pm-pick select{font:inherit;font-size:clamp(17px,1.4vw,22px);font-weight:700;color:var(--pm-tile-ink);background:var(--pm-tile);border:3px solid var(--pm-tile);border-radius:12px;padding:10px 14px;min-height:56px;max-width:min(100%,520px)}
+.pm-pickw{position:relative;max-width:100%}
+.pm-eyebrow{margin:0 0 4px;font-family:var(--f-mono);font-size:clamp(13px,1.8vh,17px);color:var(--pm-muted);text-transform:uppercase;letter-spacing:.06em}
+.pm-hlbtn{display:inline-flex;align-items:center;gap:.4em;max-width:100%;background:none;border:0;padding:0;margin:0;color:var(--pm-ink);font:700 clamp(24px,min(3.4vw,5.6vh),58px)/1.12 var(--f-body);text-align:left;cursor:pointer;touch-action:manipulation}
+.pm-hltxt{text-wrap:balance;text-decoration:underline 3px transparent;text-underline-offset:.14em;transition:text-decoration-color .15s}
+.pm-hlbtn:hover .pm-hltxt,.pm-hlbtn[aria-expanded="true"] .pm-hltxt{text-decoration-color:var(--pm-hot)}
+.pm-chev{flex:none;width:1.05em;height:1.05em;border-radius:50%;background:var(--pm-hot);color:#1A1205;display:grid;place-items:center;transition:transform .15s}
+.pm-chev svg{width:62%;height:62%}
+.pm-hlbtn[aria-expanded="true"] .pm-chev{transform:rotate(180deg)}
+.pm-hlbtn:focus-visible{outline:5px solid var(--pm-hot);outline-offset:6px;border-radius:8px}
+.pm-storylist{position:absolute;z-index:5;top:calc(100% + 12px);left:0;width:min(900px,calc(100vw - 32px));max-height:min(60vh,640px);overflow-y:auto;list-style:none;margin:0;padding:8px;background:var(--pm-panel);border:3px solid var(--pm-line);border-radius:18px;box-shadow:0 18px 50px #000a}
+.pm-storylist[hidden]{display:none}
+.pm-storylist button{width:100%;display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:14px;align-items:baseline;text-align:left;font:inherit;color:var(--pm-ink);background:none;border:0;border-radius:12px;padding:12px 14px;min-height:56px;cursor:pointer}
+.pm-storylist button:hover,.pm-storylist button:focus-visible{background:var(--pm-bg);outline:none;box-shadow:inset 0 0 0 3px var(--pm-hot)}
+.pm-storylist button[aria-selected="true"]{background:var(--pm-accent)}
+.pm-storylist .w{font-family:var(--f-mono);font-size:15px;color:var(--pm-muted)}
+.pm-storylist button[aria-selected="true"] .w{color:#fff}
+.pm-storylist .h{font-size:clamp(17px,1.4vw,22px);font-weight:700;line-height:1.3}
 .pm-tiles{list-style:none;margin:0 auto;padding:0;width:100%;max-width:1500px;flex:1 1 auto;min-height:0;display:grid;grid-template-columns:repeat(var(--pm-cols,4),minmax(0,1fr));grid-auto-rows:minmax(0,1fr);gap:clamp(10px,min(1.6vw,2.2vh),24px)}
 .pm-tile{width:100%;height:100%;min-height:0;overflow:hidden;font:inherit;text-align:left;cursor:pointer;background:var(--pm-tile);color:var(--pm-tile-ink);border:4px solid var(--pm-tile);border-radius:20px;padding:clamp(10px,min(1.6vw,2.4vh),26px);display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto 1fr;gap:4px clamp(10px,1.2vw,18px);align-items:start;touch-action:manipulation}
 .pm-tile:hover{border-color:var(--pm-hot)}
@@ -434,7 +448,10 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
 .pr-dots{display:flex;gap:8px;align-items:center}
 .pr-dots i{width:14px;height:14px;border-radius:3px;background:var(--line);display:block}
 .pr-dots i.on{background:var(--hot)}body.pm-on[data-pm="story"]{padding-bottom:0}
-</style>
+
+.pr-blk.pr-hide{visibility:hidden}
+.pr-foot .pr-rev{font-size:16px}
+.pr-foot .pr-rev[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}</style>
 
 <header class="mast">
   <div class="wrap mast-row">
@@ -1237,7 +1254,8 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
     exit:'<path d="M6 6l12 12M18 6L6 18"/>'
   };
   const pIco = k => `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${PI[k]||PI.code}</svg>`;
-  const pm = { on:false, view:"launch", page:0, pages:[], talk:0, oneAtATime:true, scale:1, wasFull:false, t:{ total:0, left:0, end:0, run:false, id:null, menu:false } };
+  const pm = { on:false, view:"launch", page:0, pages:[], shown:1, reveal:false, ascale:1, talk:0, oneAtATime:true, scale:1, wasFull:false, t:{ total:0, left:0, end:0, run:false, id:null, menu:false } };
+  try { pm.reveal = store.get("dc-pm-reveal") === true; } catch(e){}
   try { const sc = store.get("dc-pm-scale"); if (typeof sc === "number" && sc >= 0.7 && sc <= 1.6) pm.scale = sc; } catch(e){}
   function pmSections(st){
     if (!st) return [];
@@ -1264,7 +1282,7 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
   function pmPageHTML(U, a, b, first, st){
     let h = "", k = null, buf = [];
     const flush = () => { if (!buf.length) return; const t = esc(buf.join(" "));
-      h += k === "sf" ? `<p class="pr-sf">${t}</p>` : k === "why" ? `<div class="matters"><h3>Why it matters</h3><p>${t}</p></div>` : `<p>${t}</p>`; buf = []; };
+      h += k === "sf" ? `<p class="pr-blk pr-sf">${t}</p>` : k === "why" ? `<div class="pr-blk matters"><h3>Why it matters</h3><p>${t}</p></div>` : `<p class="pr-blk">${t}</p>`; buf = []; };
     for (let n = a; n < b; n++){ if (U[n].k !== k){ flush(); k = U[n].k; } buf.push(U[n].t); }
     flush();
     return first ? `<div class="pr-grid"><div>${h}</div><figure class="pr-fig" aria-hidden="true">${illustrate(st)}</figure></div>` : h;
@@ -1277,7 +1295,7 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
     R.innerHTML = `<header class="pr-head"><div class="chiprow"><span class="chip">${esc(THEMES[st.theme]||st.theme)}</span><span class="when">${st.date===todayISO?"Today's story":esc(pretty(st.date))} · in the news ${esc(st.newsDate||"")}</span></div>
         <h2 class="pr-hl"><span>${esc(st.headline)}</span></h2></header>
       <div class="pr-body" id="prBody"></div>
-      <div class="pr-foot"><button class="btn line" type="button" data-pr="-1">‹ Back</button><span class="pr-dots" aria-hidden="true"></span><span class="pr-n"></span><button class="btn" type="button" data-pr="1">Next page ›</button></div>`;
+      <div class="pr-foot"><button class="btn line" type="button" data-pr="-1">‹ Back</button><span class="pr-dots" aria-hidden="true"></span><span class="pr-n"></span><button class="btn line pr-rev" type="button" data-prrev aria-pressed="${pm.reveal}">${pm.reveal ? "One paragraph at a time: on" : "One paragraph at a time: off"}</button><button class="btn" type="button" data-pr="1">Next page ›</button></div>`;
     const top = R.getBoundingClientRect().top;
     R.style.height = Math.max(240, window.innerHeight - barH - top - 18) + "px";
     // headline on one line: the largest size that fits the width
@@ -1289,33 +1307,48 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
     const body = $("#prBody"), U = pmUnits(st), pages = [];
     const over = () => body.scrollHeight > body.clientHeight + 1;
     let a = 0;
-    while (a < U.length){
+    const end = U.findIndex(u => u.k === "why"), stop = end < 0 ? U.length : end;
+    while (a < stop){
       let b = a + 1; const first = pages.length === 0;
       body.innerHTML = pmPageHTML(U, a, b, first, st);
-      while (b < U.length){ body.innerHTML = pmPageHTML(U, a, b + 1, first, st); if (over()) break; b++; }
+      while (b < stop){ body.innerHTML = pmPageHTML(U, a, b + 1, first, st); if (over()) break; b++; }
       pages.push([a, b]); a = b;
     }
+    if (stop < U.length) pages.push([stop, U.length]);   // Why it matters always gets its own page
     pm.pages = pages.length ? pages : [[0, 0]];
     pmShowPage();
     R.querySelectorAll("[data-pr]").forEach(b => b.addEventListener("click", () => pmStep(+b.dataset.pr)));
+    R.querySelector("[data-prrev]").addEventListener("click", e => {
+      pm.reveal = !pm.reveal; store.set("dc-pm-reveal", pm.reveal); pm.shown = pm.reveal ? 1 : 1e9;
+      e.currentTarget.setAttribute("aria-pressed", pm.reveal); e.currentTarget.textContent = "One paragraph at a time: " + (pm.reveal ? "on" : "off");
+      pmShowPage();
+    });
   }
   function pmShowPage(){
     const R = $("#pmRead"); if (!R) return;
     const n = pm.pages.length; pm.page = Math.max(0, Math.min(n - 1, pm.page));
     const [a, b] = pm.pages[pm.page];
     $("#prBody").innerHTML = pmPageHTML(pmUnits(current), a, b, pm.page === 0, current);
+    const blks = [...R.querySelectorAll(".pr-blk")], nb = blks.length;
+    if (!pm.reveal) pm.shown = nb; pm.shown = Math.max(1, Math.min(nb, pm.shown));
+    blks.forEach((el, k) => el.classList.toggle("pr-hide", k >= pm.shown));
+    pm.more = pm.shown < nb;
     R.querySelector(".pr-n").textContent = `Page ${pm.page + 1} of ${n}`;
     R.querySelector(".pr-dots").innerHTML = pm.pages.map((_, k) => `<i class="${k === pm.page ? "on" : ""}"></i>`).join("");
-    R.querySelector('[data-pr="-1"]').disabled = pm.page === 0;
+    R.querySelector('[data-pr="-1"]').disabled = pm.page === 0 && pm.shown <= 1;
     const nx = R.querySelector('[data-pr="1"]'); const secs = pmSections(current), i = secs.findIndex(s => s.k === "story");
-    nx.textContent = pm.page < n - 1 ? "Next page ›" : (secs[i+1] ? secs[i+1].name + " ›" : "Activities ›");
-    const pb = document.querySelector('[data-pmb="prev"]'); if (pb) pb.disabled = pm.page === 0 && i === 0;
+    nx.textContent = pm.more ? "Show next paragraph ›" : pm.page < n - 1 ? "Next page ›" : (secs[i+1] ? secs[i+1].name + " ›" : "Activities ›");
+    const pb = document.querySelector('[data-pmb="prev"]'); if (pb) pb.disabled = pm.page === 0 && pm.shown <= 1 && i === 0;
     const t = document.querySelector(".pm-title"); if (t && pm.view === "story") t.innerHTML = `Read the story<span style="opacity:.6;font-weight:400"> · page ${pm.page + 1} of ${n}</span>`;
   }
   // Back/next: pages first in the reading view, then the neighbouring activity
   function pmStep(d){
     const secs = pmSections(current), i = secs.findIndex(s => s.k === pm.view);
-    if (pm.view === "story" && pm.page + d >= 0 && pm.page + d < pm.pages.length){ pm.page += d; pmShowPage(); return; }
+    if (pm.view === "story"){
+      if (d > 0 && pm.more){ pm.shown++; pmShowPage(); return; }
+      if (d < 0 && pm.reveal && pm.shown > 1){ pm.shown--; pmShowPage(); return; }
+      if (pm.page + d >= 0 && pm.page + d < pm.pages.length){ pm.page += d; pm.shown = d > 0 ? 1 : 1e9; pmShowPage(); return; }
+    }
     const j = i + d;
     if (j < 0 || j >= secs.length){ if (d > 0) pmGo("launch"); return; }
     pmGo(secs[j].k, d < 0);
@@ -1326,11 +1359,23 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
     pmFitting = true;
     root.classList.add("pm-lock");
     const fits = z => { main.style.zoom = z; return root.scrollHeight <= window.innerHeight + 1 && root.scrollWidth <= window.innerWidth + 1; };
-    let lo = 0.35, hi = 2.6;
-    if (!fits(hi)){
-      for (let k = 0; k < 9; k++){ const m = (lo + hi) / 2; if (fits(m)) lo = m; else hi = m; }
-      if (!fits(lo)) root.classList.remove("pm-lock");
-    }
+    const search = () => { let lo = 0.35, hi = 2.6; if (fits(hi)) return hi; for (let k = 0; k < 9; k++){ const m = (lo + hi) / 2; if (fits(m)) lo = m; else hi = m; } return lo; };
+    let best;
+    const ol = document.querySelector(".talk");
+    if (pm.view === "talk" && pm.oneAtATime && ol && ol.classList.contains("one")){
+      // one size for every question in the story: the largest that fits the longest one
+      const key = current.id + "|" + window.innerWidth + "x" + window.innerHeight;
+      if (pm.talkFit && pm.talkFit.key === key) best = pm.talkFit.z;
+      else {
+        const items = [...ol.children], keep = pm.talk; best = 9;
+        items.forEach((li, k) => { items.forEach((x, j) => x.classList.toggle("cur", j === k)); ol.style.counterReset = "t " + k; best = Math.min(best, search()); });
+        items.forEach((x, j) => x.classList.toggle("cur", j === keep)); ol.style.counterReset = "t " + keep;
+        pm.talkFit = { key, z: best };
+      }
+      main.style.zoom = best;
+    } else best = search();
+    if (!fits(best)) root.classList.remove("pm-lock"); else main.style.zoom = best;
+    if (pm.ascale < 1) main.style.zoom = +(best * pm.ascale).toFixed(3);
     pmFitting = false;
   }
   function pmLayout(){
@@ -1362,7 +1407,7 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
     window.scrollTo(0, 0);
     const b = $("#pmEnter"); if (b) b.focus({preventScroll:true});
   }
-  function pmGo(view, fromEnd){ pm.view = view; pm.page = fromEnd ? 1e9 : 0; if (view === "talk") pm.talk = 0; pm.t.menu = false; window.scrollTo(0, 0); pmApply(); }
+  function pmGo(view, fromEnd){ pm.view = view; pm.page = fromEnd ? 1e9 : 0; pm.shown = fromEnd ? 1e9 : 1; if (view === "talk") pm.talk = 0; pm.t.menu = false; window.scrollTo(0, 0); pmApply(); }
   function pmApply(){
     if (!pm.on) return;
     const st = current, secs = pmSections(st);
@@ -1380,12 +1425,22 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
   function pmRenderLaunch(secs){
     const st = current, list = published().slice(0, 21);
     const L = $("#pmLaunch");
-    L.innerHTML = `<div class="pm-lhead"><div><p class="pm-brand">The Daily <span>Compute</span> Classroom</p></div>
-        <label class="pm-pick">Story<select id="pmStory">${list.map(s => `<option value="${esc(s.id)}" ${s.id===st.id?"selected":""}>${esc(s.date===todayISO?"Today":short(s.date))}: ${esc(s.headline)}</option>`).join("")}</select></label></div>
+    const when = s => s.date === todayISO ? "Today" : short(s.date);
+    L.innerHTML = `<div class="pm-lhead"><p class="pm-brand">The Daily <span>Compute</span> Classroom</p>
+        <div class="pm-pickw"><p class="pm-eyebrow">${esc(st.date === todayISO ? "Today's story" : pretty(st.date))}</p>
+          <button class="pm-hlbtn" type="button" id="pmStoryBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="${esc(st.headline)}. Choose a different story"><span class="pm-hltxt">${esc(st.headline)}</span><span class="pm-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></button>
+          <ul class="pm-storylist" id="pmStoryList" role="listbox" aria-label="Choose a story" hidden>${list.map(s => `<li><button type="button" role="option" aria-selected="${s.id===st.id}" data-sid="${esc(s.id)}"><span class="w">${esc(when(s))}</span><span class="h">${esc(s.headline)}</span></button></li>`).join("")}</ul></div></div>
       <ul class="pm-tiles">${secs.map(s => `<li><button class="pm-tile" type="button" data-pmgo="${esc(s.k)}"><span class="pm-ico ${s.cls||""}">${pIco(s.ico)}</span><b>${s.code?'<span class="codebadge">CODE</span>':""}${esc(s.name)}</b><span class="d">${esc(s.d)}</span></button></li>`).join("")}</ul>
       <p class="pm-lnote">Tap an activity to show it full screen. Use the bar at the bottom to move between activities, start a timer, change the text size or leave classroom mode.</p>`;
     L.querySelectorAll("[data-pmgo]").forEach(b => b.addEventListener("click", () => pmGo(b.dataset.pmgo)));
-    $("#pmStory").addEventListener("change", e => { show(e.target.value); try{ history.replaceState(null, "", "#present"); }catch(_){} pmApply(); });
+    const btn = $("#pmStoryBtn"), lst = $("#pmStoryList");
+    const openList = on => { lst.hidden = !on; btn.setAttribute("aria-expanded", on); if (on){ const cur = lst.querySelector('[aria-selected="true"]') || lst.querySelector("button"); cur.focus(); cur.scrollIntoView({block:"nearest"}); } };
+    btn.addEventListener("click", () => openList(lst.hidden));
+    lst.querySelectorAll("[data-sid]").forEach(b => b.addEventListener("click", () => { openList(false); if (b.dataset.sid !== current.id){ show(b.dataset.sid); try{ history.replaceState(null, "", "#present"); }catch(_){} pmApply(); } }));
+    lst.addEventListener("keydown", e => { const bs = [...lst.querySelectorAll("button")], k = bs.indexOf(document.activeElement);
+      if (e.key === "ArrowDown" && k < bs.length-1){ bs[k+1].focus(); e.preventDefault(); } else if (e.key === "ArrowUp" && k > 0){ bs[k-1].focus(); e.preventDefault(); }
+      else if (e.key === "Escape"){ openList(false); btn.focus(); e.preventDefault(); e.stopPropagation(); } });
+    L.addEventListener("click", e => { if (!lst.hidden && !e.target.closest(".pm-pickw")) openList(false); });
   }
   function pmFmt(ms){ const s = Math.max(0, Math.ceil(ms/1000)); return Math.floor(s/60) + ":" + String(s%60).padStart(2,"0"); }
   function pmTimerHTML(){
@@ -1420,7 +1475,8 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
         <button class="pmb" type="button" data-pmb="next" aria-label="Next">${pIco("next")}</button>` : ""}</div>
       <div class="pm-title">${inSec ? esc(cur.name) + `<span style="opacity:.6;font-weight:400"> · ${i+1} of ${secs.length}</span>` : "Choose an activity"}</div>
       <div class="pm-grp">${pmTimerHTML()}
-        ${pm.view === "story" ? `<button class="pmb" type="button" data-pmb="smaller" aria-label="Smaller text" ${pm.scale<=0.71?"disabled":""}>A−</button><button class="pmb" type="button" data-pmb="bigger" aria-label="Bigger text" ${pm.scale>=1.59?"disabled":""}>A+</button>` : ""}
+        ${inSec ? (() => { const st = pm.view === "story", small = st ? pm.scale <= 0.71 : pm.ascale <= 0.51, big = st ? pm.scale >= 1.59 : pm.ascale >= 0.99;
+          return `<button class="pmb" type="button" data-pmb="smaller" aria-label="Smaller text" ${small?"disabled":""}><span class="lbl">Text </span>−</button><button class="pmb" type="button" data-pmb="bigger" aria-label="Bigger text" ${big?"disabled":""} ${big&&!st?'title="Already as big as fits on the screen"':""}><span class="lbl">Text </span>+</button>`; })() : ""}
         ${document.fullscreenEnabled ? `<button class="pmb" type="button" data-pmb="full" aria-label="${document.fullscreenElement?"Leave full screen":"Full screen"}">${pIco("full")}</button>` : ""}
         <button class="pmb exit" type="button" data-pmb="exit">${pIco("exit")}<span class="lbl">Exit</span></button></div>`;
     bar.hidden = false;
@@ -1430,7 +1486,10 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
       if (a === "home") return pmGo("launch");
       if (a === "prev") return pmStep(-1);
       if (a === "next") return pmStep(1);
-      if (a === "smaller" || a === "bigger"){ pm.scale = Math.round(Math.min(1.6, Math.max(0.7, pm.scale + (a === "bigger" ? 0.1 : -0.1)))*10)/10; store.set("dc-pm-scale", pm.scale); pmRenderBar(secs); return; }
+      if (a === "smaller" || a === "bigger"){ const up = a === "bigger";
+        if (pm.view === "story"){ pm.scale = Math.round(Math.min(1.6, Math.max(0.7, pm.scale + (up ? 0.1 : -0.1)))*10)/10; store.set("dc-pm-scale", pm.scale); }
+        else pm.ascale = Math.round(Math.min(1, Math.max(0.5, pm.ascale + (up ? 0.1 : -0.1)))*10)/10;
+        pmRenderBar(secs); return; }
       if (a === "full"){ try { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen().then(() => { pm.wasFull = true; }, () => {}); } catch(e){} return; }
     }));
     $("#pmTimer").addEventListener("click", () => { pm.t.menu = !pm.t.menu; pmRenderBar(secs); pmTick(); });
@@ -1444,6 +1503,7 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
     const one = pm.on && pm.view === "talk" && pm.oneAtATime;
     pm.talk = Math.max(0, Math.min(n-1, pm.talk));
     ol.classList.toggle("one", one);
+    ol.style.counterReset = one ? "t " + pm.talk : "";   // hidden questions don't count, so start the number at the current one
     items.forEach((li, k) => li.classList.toggle("cur", k === pm.talk));
     if (!(pm.on && pm.view === "talk")){ box.innerHTML = ""; return; }
     box.innerHTML = one
