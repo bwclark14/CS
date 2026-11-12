@@ -31,6 +31,7 @@ Version 3 adds a more balanced view, showing when data and AI genuinely help as 
 - `data-trail-3/index.html`: version 3. Each part is its own page within the file (`index.html#p1` to `#p6`, `#audit`, `#project`), with previous/next links at the end of each part
 - `data-trail-3/teacher.html`: teacher notes, suggested sequence and the practice-audit answer key, kept off the pupils' page. Its stylesheet is a copy of the one in `index.html`
 - `data-trail-3/sites/`: copies of the three practice apps for version 3
+- `data-trail-3/datasets/`: training data for the 4.5 Machine Learning for Kids lab. Each case has one .txt per label (one example per line, for the label's Add file button), `test.txt`, fix files, and a .zip of the starting files. The flaws are deliberate; the answer key is in `teacher.html`
 
 ## Future Proof
 

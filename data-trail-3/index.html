@@ -455,6 +455,25 @@ input[type=range]{width:100%;accent-color:var(--bad)}
 .callout{border:1.5px solid var(--teal);background:var(--teal-soft);border-radius:10px;padding:12px 14px}
 .callout b{font-family:var(--display)}
 .case .stamp.good{border-color:var(--good);color:var(--good)}
+.lab-files{display:grid;gap:6px;margin-top:6px}
+.lab-files a{display:flex;justify-content:space-between;gap:10px;align-items:center;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:var(--bg);text-decoration:none;color:var(--ink);font-size:.92rem}
+.lab-files a:hover{border-color:var(--teal)}
+.lab-files a{flex-wrap:wrap;row-gap:2px}.lab-files a b{overflow-wrap:anywhere;min-width:0}
+.lab-files a span{font-family:var(--mono);font-size:.74rem;color:var(--muted);white-space:nowrap}
+.lab-test{display:grid;gap:10px;margin-top:10px}
+.lab-row{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--bg);display:grid;gap:8px}
+.lab-row .q{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+.lab-row .q p{font-weight:700}
+.lab-row .copy{flex:none;font-size:.78rem;padding:4px 10px}
+.lab-row .res{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.lab-row .res div{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:.86rem}
+.lab-row select,.lab-row input{font:inherit;font-size:.86rem;background:var(--paper);color:var(--ink);border:1px solid var(--ctl,var(--line));border-radius:6px;padding:4px 6px}
+.lab-row input{width:4.2em}
+.lab-row .mk{font-weight:700;min-width:1.2em}
+.lab-row .mk.ok{color:var(--good)}.lab-row .mk.no{color:var(--bad)}
+.lab-score{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.lab-score .chip{font-size:.85rem}
+.lab-labels{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 2px}
 .fp-list{display:grid;gap:6px;margin-top:10px}
 .fp-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:10px;font-size:.88rem;padding:6px 0;border-bottom:1px solid var(--line)}
 .fp-row b{display:block}
@@ -604,7 +623,7 @@ footer p + p{margin-top:8px}
       <p class="eyebrow">An investigation for ages 13–15</p>
       <h1 style="margin-top:10px">You didn’t pay with money. You paid with <span class="mark">data</span>.</h1>
       <p class="lede">Every scroll, pause, search and basket leaves a trail. AI systems use that trail to predict what you might want next. Sometimes that is really useful. Sometimes it isn’t. Find out how it works, when it helps, when it harms, and how to stay in control.</p>
-      <div class="meta"><span class="chip">6 parts · 25 activities</span><span class="chip">11 video clips</span><span class="chip">9 real case files</span></div>
+      <div class="meta"><span class="chip">6 parts · 26 activities</span><span class="chip">11 video clips</span><span class="chip">9 real case files</span></div>
     </div>
     <div class="receipt" aria-label="Example data receipt for one school day">
       <div class="rh">DATA RECEIPT · ONE SCHOOL DAY</div>
@@ -1231,6 +1250,37 @@ footer p + p{margin-top:8px}
     <div class="fbbox" id="poisonQFb" hidden></div>
   </div>
   <div class="task"><b>Link it to CV-Bot:</b> Imagine someone secretly added 20 fake “hired” CVs that all mention one rival’s club. What would CV-Bot learn? How could TechCo check its training data has not been poisoned? <br><span class="small">Creating fake accounts or fake engagement breaks platform rules and can be illegal. Only explore this in simulations like this one.</span></div>
+</div></section>
+
+<section class="block" id="mllab"><div class="wrap">
+  <div class="sec-head">
+    <span class="mission">4.5 · HANDS-ON LAB</span>
+    <h2>Train your own: find the flaw</h2>
+    <p class="lede">Now use a real machine learning tool. Each case below comes with training data that has a hidden problem. Train a model in <a href="https://machinelearningforkids.co.uk/" target="_blank" rel="noopener">Machine Learning for Kids</a>, test it, work out what is wrong with the data, then fix it and train again.</p>
+  </div>
+  <div class="two">
+    <div class="panel">
+      <h3>How to train it</h3>
+      <ol class="small" style="display:grid;gap:6px;padding-left:20px;margin:0">
+        <li>Go to <a href="https://machinelearningforkids.co.uk/" target="_blank" rel="noopener">machinelearningforkids.co.uk</a> and log in with your class account (or use “Try it now”).</li>
+        <li>Click <b>Projects</b>, then <b>Add a new project</b>. Give it a name, choose <b>Recognising text</b> and click <b>Create</b>.</li>
+        <li>Open the project and click <b>Train</b>. Use <b>Add new label</b> to make each label, spelled exactly as shown for your case.</li>
+        <li>In each label, click <b>Add file</b> and choose the matching .txt file. Each line in the file becomes one example.</li>
+        <li>Go back to the project, click <b>Learn &amp; Test</b>, then <b>Train new machine learning model</b>. It takes a minute or two.</li>
+        <li>Type or paste each test sentence into the test box. Record the label and the confidence below. Don’t add the test sentences to your training data.</li>
+        <li>Find the flaw, apply the fix, train again and retest.</li>
+      </ol>
+      <p class="small" style="margin-top:10px">Only use the files given here. Don’t type real names or personal details into the tool.</p>
+    </div>
+    <div class="panel">
+      <h3>Data detective checklist</h3>
+      <p class="small">Work through these before you look at the hints.</p>
+      <div class="toggles" id="labCheck"></div>
+    </div>
+  </div>
+  <div class="scen-tabs" role="tablist" id="labTabs" aria-label="Choose a case" style="margin-top:24px"></div>
+  <div id="labBody"></div>
+  <div class="task"><b>Compare your cases:</b> Which flaw was hardest to spot? Which would cause the most harm in a real system, and to whom? For each case, was the fix to add data, correct data, or replace the data completely?</div>
 </div></section>
 
 <nav class="partend" aria-label="End of Part 4"><div class="wrap">
@@ -2788,6 +2838,101 @@ function show(first){
 window.addEventListener("hashchange",()=>show(false));
 strip.addEventListener("scroll",fade,{passive:true}); window.addEventListener("resize",fade);
 show(true);
+})();
+
+/* 4.5 ML FOR KIDS LAB */
+(function(){
+const $=s=>document.querySelector(s);
+const LAB=[{"slug": "scam-checker", "title": "Scam checker", "brief": "Glenbrae Academy wants an AI that warns pupils about dodgy messages. It sorts texts and emails into three labels: possible scams, adverts and safe messages.", "hints": ["Read the Possible_scam file. What kinds of scam are in it? Are they the kinds of scam people get today?", "Look at the test messages the AI got wrong. Is there anything like them in the training data? Which file do they look most like?"], "flaw": "<b>Out-of-date data.</b> Every scam in the training data is an old-style scam: lottery wins, princes, “Dear customer”. Today’s scams, like fake parcel fees, “Hi Mum, this is my new number” and QR codes, are not in the data at all, so the AI has never seen them. Some of them even look like the safe parcel and family messages.", "fix": "Add <b>extra-possible_scam.txt</b> to the Possible_scam label with <b>Add file</b>. Train again, then retest.", "think": "Scams change all the time. How often would this AI need new training data, and who should collect it? After the fix, did it start calling any real parcel messages scams? Why might that happen?", "labels": ["Possible_scam", "Advert", "Safe"], "files": [{"f": "possible_scam.txt", "kind": "train", "label": "Possible_scam", "n": 15}, {"f": "advert.txt", "kind": "train", "label": "Advert", "n": 15}, {"f": "safe.txt", "kind": "train", "label": "Safe", "n": 16}, {"f": "test.txt", "kind": "test", "n": 10}], "fixfiles": [{"f": "extra-possible_scam.txt", "n": 14}], "test": [{"t": "Your parcel could not be delivered. Pay the £1.45 redelivery fee using this link", "exp": "Possible_scam"}, {"t": "Hi Mum, I've broken my phone and this is my new number. Can you send me £200 for a new one", "exp": "Possible_scam"}, {"t": "Railcard refund: you are owed £27.40. Enter your card details to receive it", "exp": "Possible_scam"}, {"t": "Scan the QR code on the sign to pay your parking fine today", "exp": "Possible_scam"}, {"t": "A new device has signed in to your account. If this wasn't you, call this number now", "exp": "Possible_scam"}, {"t": "Your gaming account will be deleted in 24 hours unless you verify your login here", "exp": "Possible_scam"}, {"t": "Congratulations, you have won a prize in our lottery draw. Reply to claim", "exp": "Possible_scam"}, {"t": "Bargo: 30% off hoodies until Sunday", "exp": "Advert"}, {"t": "Football training is cancelled tonight because of the rain", "exp": "Safe"}, {"t": "Your parcel was left with your neighbour at number 12", "exp": "Safe"}]}, {"slug": "clickbait-detector", "title": "Clickbait detector", "brief": "A news app wants an AI that warns you when a headline is clickbait: written to make you click, not to tell you what happened.", "hints": ["Read both files. What are the clickbait headlines <i>about</i>? What are the fair headlines about?", "Look at the test headlines about pop stars, actors and games. What did the AI say? Now look at the clickbait about science and weather."], "flaw": "<b>Shortcut learning.</b> Every clickbait example is about celebrities, influencers or games. Every fair headline is about science, weather or local news. The AI learned the <i>topic</i> instead of the <i>writing style</i>, so an honest headline about a pop star looks like clickbait, and clickbait about science looks fair.", "fix": "Add <b>extra-clickbait.txt</b> (clickbait about science and local news) to Clickbait, and <b>extra-fair_headline.txt</b> (honest headlines about celebrities and games) to Fair_headline. Train again, then retest.", "think": "What really makes a headline clickbait? List three clues a person would look for. Why didn’t the AI learn those clues the first time?", "labels": ["Clickbait", "Fair_headline"], "files": [{"f": "clickbait.txt", "kind": "train", "label": "Clickbait", "n": 16}, {"f": "fair_headline.txt", "kind": "train", "label": "Fair_headline", "n": 16}, {"f": "test.txt", "kind": "test", "n": 10}], "fixfiles": [{"f": "extra-clickbait.txt", "n": 12}, {"f": "extra-fair_headline.txt", "n": 12}], "test": [{"t": "Pop star announces new concert dates in Glasgow", "exp": "Fair_headline"}, {"t": "Fans queue for new game release at midnight", "exp": "Fair_headline"}, {"t": "Actor joins cast of new TV show", "exp": "Fair_headline"}, {"t": "Influencer launches a reading club for teenagers", "exp": "Fair_headline"}, {"t": "Scientists found something in the loch and nobody can explain it", "exp": "Clickbait"}, {"t": "Researchers measured the sea ice and what they found is shocking", "exp": "Clickbait"}, {"t": "Heavy rain is coming to Scotland and this map shows why you should worry", "exp": "Clickbait"}, {"t": "School nights will never be the same after this sleep study", "exp": "Clickbait"}, {"t": "You won't believe what this celebrity posted today", "exp": "Clickbait"}, {"t": "Heavy snow expected in the Highlands this weekend", "exp": "Fair_headline"}]}, {"slug": "feed-sorter", "title": "Feed topic sorter", "brief": "A video app sorts every new post into a topic. It then uses the topics to choose what to show each person next.", "hints": ["Count the lines in each file. What do you notice?", "Which label did the AI choose most often in your tests? What words do those test posts share with the football posts?"], "flaw": "<b>Imbalanced data.</b> There are 40 football examples and only 6 for each other topic. The AI has seen so much football that it picks Football whenever it isn’t sure, especially for posts with common words like “watch”, “new”, “best” and “win”. In a real app this would push everyone’s feed towards football: a filter bubble caused by bad data.", "fix": "Add <b>extra-music.txt</b>, <b>extra-gaming.txt</b> and <b>extra-science.txt</b> to their labels so every topic has a similar number of examples. Train again, then retest.", "think": "Link it to 2.3 and 2.5: what would this sorter do to someone’s recommendations? To balance the data, you could add more of the small topics or remove some football. What are the pros and cons of each?", "labels": ["Football", "Music", "Gaming", "Science"], "files": [{"f": "football.txt", "kind": "train", "label": "Football", "n": 40}, {"f": "music.txt", "kind": "train", "label": "Music", "n": 6}, {"f": "gaming.txt", "kind": "train", "label": "Gaming", "n": 6}, {"f": "science.txt", "kind": "train", "label": "Science", "n": 6}, {"f": "test.txt", "kind": "test", "n": 12}], "fixfiles": [{"f": "extra-music.txt", "n": 30}, {"f": "extra-gaming.txt", "n": 30}, {"f": "extra-science.txt", "n": 30}], "test": [{"t": "Watch the new music video live tonight", "exp": "Music"}, {"t": "The best new game of the year", "exp": "Gaming"}, {"t": "Live stream: watch the rocket launch tonight", "exp": "Science"}, {"t": "Band wins best new artist award", "exp": "Music"}, {"t": "Top ten tips to win at the new game", "exp": "Gaming"}, {"t": "New planet found by the space team", "exp": "Science"}, {"t": "Singer's world tour starts next week", "exp": "Music"}, {"t": "Watch the best gaming highlights of the week", "exp": "Gaming"}, {"t": "Scientists record the biggest wave ever", "exp": "Science"}, {"t": "Who will win the music awards this year", "exp": "Music"}, {"t": "Our team's new formation explained", "exp": "Football"}, {"t": "Match report: a big win at home", "exp": "Football"}]}, {"slug": "club-sign-up", "title": "Club sign-up sorter", "brief": "Thistle Park Youth Basketball Club gets lots of sign-ups. It trained an AI on 28 past decisions made by its old selection panel. The club’s rule is: <b>trials are for people who already play regularly; beginners are offered the beginners’ session instead.</b>", "hints": ["Compare the two files. Can you find two messages that say almost the same thing but got different decisions?", "Look at the place names. Where do the invited people live? Where do the others live?"], "flaw": "<b>Biased labels.</b> The old panel invited everyone from Glenbrae and Westmuir and turned down everyone from Eastfield and Riverside, whatever their experience. The AI learned that the area name decides the answer. Like GradeBot in 4.2, where you live has become a stand-in for who you are.", "fix": "More of the same data won’t help, because the labels themselves are unfair. Start a <b>new project</b> with the same two labels and add <b>fair-invite_to_trial.txt</b> and <b>fair-not_this_time.txt</b>. These were labelled using the club’s real rule, with people from every area in both labels. Train, then retest.", "think": "Would deleting the area names from the old data have fixed it? (Think it through: what would the two files look like?) Who should check training labels before an AI makes real decisions about people?", "labels": ["Invite_to_trial", "Not_this_time"], "files": [{"f": "invite_to_trial.txt", "kind": "train", "label": "Invite_to_trial", "n": 14}, {"f": "not_this_time.txt", "kind": "train", "label": "Not_this_time", "n": 14}, {"f": "test.txt", "kind": "test", "n": 8}], "fixfiles": [{"f": "fair-invite_to_trial.txt", "n": 14}, {"f": "fair-not_this_time.txt", "n": 14}], "test": [{"t": "I'm 14 and live in Glenbrae. I've never played basketball but I'd like to try", "exp": "Not_this_time"}, {"t": "I'm 14 and live in Eastfield. I've never played basketball but I'd like to try", "exp": "Not_this_time"}, {"t": "I'm 15 from Riverside. I play for my school team and practise every day", "exp": "Invite_to_trial"}, {"t": "I'm 15 from Westmuir. I play for my school team and practise every day", "exp": "Invite_to_trial"}, {"t": "I live in Eastfield and I've played basketball for three years", "exp": "Invite_to_trial"}, {"t": "I live in Glenbrae and I'm a complete beginner", "exp": "Not_this_time"}, {"t": "I train every day and I play for a local club", "exp": "Invite_to_trial"}, {"t": "Hi, I'm from Riverside. I've never played but I'm fast", "exp": "Not_this_time"}]}, {"slug": "library-sorter", "title": "Library book sorter", "brief": "The school library wants an AI to sort the blurbs of new books into genres, so each book goes on the right shelf.", "hints": ["Read each file line by line. Does every blurb really belong in that genre?", "Pick a test blurb the AI got wrong. Search the training files for its key words, such as “wizard”, “robot” or “inspector”. Which file are they in?"], "flaw": "<b>Mislabelled data.</b> 12 of the 54 blurbs (4 in each file) are in the wrong genre. That could be a mistake, or someone could have done it on purpose: data poisoning, like in 4.4. The AI copies the errors.", "fix": "Find the wrong blurbs. In Machine Learning for Kids, delete each one from its label and type it into the right label. (Or correct the .txt files and add them to a new project.) Train again, then retest.", "think": "How many wrong blurbs did you find? Checking and correcting data before training is called <b>data cleaning</b>. How could the library stop this happening again?", "labels": ["Fantasy", "Mystery", "Sci_fi"], "files": [{"f": "fantasy.txt", "kind": "train", "label": "Fantasy", "n": 18}, {"f": "mystery.txt", "kind": "train", "label": "Mystery", "n": 18}, {"f": "sci_fi.txt", "kind": "train", "label": "Sci_fi", "n": 18}, {"f": "test.txt", "kind": "test", "n": 10}], "fixfiles": [], "test": [{"t": "A knight must defeat the dragon to save the village", "exp": "Fantasy"}, {"t": "The magic ring makes its wearer invisible", "exp": "Fantasy"}, {"t": "A wizard school opens its doors to new pupils", "exp": "Fantasy"}, {"t": "The detective finds a secret passage behind the bookcase", "exp": "Mystery"}, {"t": "Who took the trophy from the school hall", "exp": "Mystery"}, {"t": "The inspector follows a trail of muddy footprints", "exp": "Mystery"}, {"t": "A robot crew explores a distant planet", "exp": "Sci_fi"}, {"t": "Aliens send a message from another galaxy", "exp": "Sci_fi"}, {"t": "A time machine breaks down in the year 2500", "exp": "Sci_fi"}, {"t": "The spaceship's computer refuses to open the doors", "exp": "Sci_fi"}]}];
+const CHECK=["Count the examples in each file. Are the labels balanced?","Read every line. Is each example in the right file?","Look for words or names that only ever appear in one label.","Is anyone or anything missing from the data?","Is the data up to date?","Do the test sentences look like the training data?"];
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const box=$("#labCheck");
+CHECK.forEach((c,i)=>{const l=document.createElement("label");l.className="tg";l.innerHTML=`<input type="checkbox" id="lc${i}"> <span>${esc(c)}</span>`;box.appendChild(l)});
+const state={};
+const tabs=$("#labTabs"), body=$("#labBody");
+LAB.forEach((a,i)=>{const b=document.createElement("button");b.setAttribute("role","tab");b.dataset.i=i;b.setAttribute("aria-selected",String(i===0));b.textContent=a.title;tabs.appendChild(b)});
+function fileLink(a,f,note){return `<a href="datasets/${a.slug}/${f.f}" download><b>${esc(f.f)}</b><span>${note}</span></a>`}
+function render(i){
+  const a=LAB[i]; const st=state[a.slug]||(state[a.slug]={hint:0,b:{},a:{}});
+  const opts=["",...a.labels].map(l=>`<option value="${l}">${l?esc(l):"choose"}</option>`).join("");
+  body.innerHTML=`
+  <div class="two">
+    <div class="panel">
+      <span class="eyebrow">The case</span>
+      <p style="margin-top:6px">${a.brief}</p>
+      <p class="small" style="margin-top:12px">Labels to create, spelled exactly like this:</p>
+      <div class="lab-labels">${a.labels.map(l=>`<span class="kw">${esc(l)}</span>`).join("")}</div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow">Step 1 · Download the data</span>
+      <div class="lab-files">
+        <a href="datasets/${a.slug}.zip" download><b>All files (.zip)</b><span>${a.files.length} files</span></a>
+        ${a.files.map(f=>fileLink(a,f,f.kind==="test"?`${f.n} test sentences`:`${f.n} examples → ${esc(f.label)}`)).join("")}
+      </div>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:20px">
+    <span class="eyebrow">Step 2 · Test it and record the results</span>
+    <p class="small" style="margin-top:6px">For each test sentence, record what the AI said and how confident it was. Fill in the “After fix” boxes in step 4.</p>
+    <div class="lab-test" id="labTest">${a.test.map((t,j)=>`
+      <div class="lab-row" data-j="${j}">
+        <div class="q"><p>${j+1}. ${esc(t.t)}</p><button class="btn copy" data-copy="${j}">Copy</button></div>
+        <div class="res">
+          <div><span>Before fix:</span><select data-w="b" aria-label="AI label before fix, sentence ${j+1}">${opts}</select><input data-w="bc" type="number" min="0" max="100" placeholder="%" aria-label="Confidence before fix, sentence ${j+1}"><span class="mk" data-m="b"></span></div>
+          <div><span>After fix:</span><select data-w="a" aria-label="AI label after fix, sentence ${j+1}">${opts}</select><input data-w="ac" type="number" min="0" max="100" placeholder="%" aria-label="Confidence after fix, sentence ${j+1}"><span class="mk" data-m="a"></span></div>
+          <div class="small">A person would say: <b>${esc(t.exp)}</b></div>
+        </div>
+      </div>`).join("")}</div>
+    <div class="lab-score"><span class="chip" id="labSb"></span><span class="chip" id="labSa"></span></div>
+  </div>
+  <div class="two" style="margin-top:20px">
+    <div class="panel">
+      <span class="eyebrow">Step 3 · Find the flaw</span>
+      <p class="small" style="margin-top:6px">Use the checklist first. Stuck? Take a hint.</p>
+      <div id="labHints" style="display:grid;gap:8px;margin-top:10px"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn" id="labHint">Show a hint</button><button class="btn" id="labReveal">Reveal the flaw</button></div>
+      <div class="fbbox" id="labFlaw" hidden>${a.flaw}</div>
+    </div>
+    <div class="panel">
+      <span class="eyebrow">Step 4 · Fix it and retrain</span>
+      <details id="labFix" style="margin-top:8px"><summary style="cursor:pointer;font-weight:700">Show the fix</summary>
+        <p style="margin-top:8px">${a.fix}</p>
+        ${a.fixfiles.length?`<div class="lab-files" style="margin-top:10px">${a.fixfiles.map(f=>fileLink(a,f,`${f.n} examples`)).join("")}</div>`:""}
+      </details>
+      <div class="task" style="margin-top:14px"><b>Think about it:</b> ${a.think}</div>
+    </div>
+  </div>`;
+  // restore
+  body.querySelectorAll(".lab-row").forEach(r=>{const j=r.dataset.j;
+    ["b","a"].forEach(w=>{const v=st[w][j]||{};r.querySelector(`[data-w="${w}"]`).value=v.l||"";r.querySelector(`[data-w="${w}c"]`).value=v.c||""})});
+  const hs=$("#labHints"); for(let k=0;k<st.hint;k++){const d=document.createElement("div");d.className="callout small";d.innerHTML=`<b>Hint ${k+1}:</b> ${a.hints[k]}`;hs.appendChild(d)}
+  if(st.hint>=a.hints.length) $("#labHint").disabled=true;
+  if(st.flaw) $("#labFlaw").hidden=false;
+  score();
+}
+function score(){
+  const a=LAB[+tabs.querySelector('[aria-selected="true"]').dataset.i], st=state[a.slug];
+  const n={b:0,a:0}, done={b:0,a:0};
+  body.querySelectorAll(".lab-row").forEach(r=>{const j=r.dataset.j, exp=a.test[j].exp;
+    ["b","a"].forEach(w=>{const l=r.querySelector(`[data-w="${w}"]`).value, c=r.querySelector(`[data-w="${w}c"]`).value;
+      st[w][j]={l,c}; const m=r.querySelector(`[data-m="${w}"]`);
+      if(!l){m.textContent="";m.className="mk";return}
+      done[w]++; const ok=l===exp; if(ok) n[w]++; m.textContent=ok?"✓":"✗"; m.className="mk "+(ok?"ok":"no")})});
+  const T=a.test.length;
+  $("#labSb").textContent=`Before fix: ${n.b} of ${T} right${done.b<T?` (${done.b} recorded)`:""}`;
+  $("#labSa").textContent=`After fix: ${n.a} of ${T} right${done.a<T?` (${done.a} recorded)`:""}`;
+}
+tabs.addEventListener("click",e=>{const b=e.target.closest("button[data-i]");if(!b)return;tabs.querySelectorAll("button").forEach(x=>x.setAttribute("aria-selected",String(x===b)));render(+b.dataset.i)});
+body.addEventListener("change",e=>{if(e.target.closest(".lab-row")) score()});
+body.addEventListener("input",e=>{if(e.target.matches("input[data-w]")) score()});
+body.addEventListener("click",e=>{
+  const a=LAB[+tabs.querySelector('[aria-selected="true"]').dataset.i], st=state[a.slug];
+  const c=e.target.closest("[data-copy]");
+  if(c){const t=a.test[+c.dataset.copy].t;try{navigator.clipboard.writeText(t).then(()=>{c.textContent="Copied";setTimeout(()=>c.textContent="Copy",1200)},()=>{});}catch(err){}return}
+  if(e.target.id==="labHint"&&st.hint<a.hints.length){st.hint++;render(+tabs.querySelector('[aria-selected="true"]').dataset.i);return}
+  if(e.target.id==="labReveal"){st.flaw=true;$("#labFlaw").hidden=false}
+});
+render(0);
 })();
 </script>
 

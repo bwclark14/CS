@@ -607,6 +607,7 @@ footer p + p{margin-top:8px}
         <li>Describe how recommendation systems (content-based and collaborative filtering) predict and influence behaviour.</li>
         <li>Identify persuasive and deceptive design (dark patterns).</li>
         <li>Explain how biased training data produces biased models, including through proxy variables, and why testing on unseen data matters.</li>
+        <li>Train and test a machine learning model, find problems in its training data (out-of-date, shortcut, imbalanced, biased and mislabelled data) and improve it.</li>
         <li>Evaluate real cases using fairness, consent, transparency and regulation (UK GDPR, Children’s Code, Online Safety Act, consumer law).</li>
       </ul>
       <h2 style="margin-top:18px">Suggested sequence</h2>
@@ -614,7 +615,7 @@ footer p + p{margin-top:8px}
         <li>Part 1 · Your data trail: data receipt starter, 1.1 read and discuss with the cookies videos, 1.2 tracker simulation, 1.3 device fingerprint test, 1.4 sorting, 1.5 Worth the trade? cards.</li>
         <li>Part 2 · How AI learns you: 2.1 loop explainer and videos, 2.2 write the recipe, 2.3 feed simulation, 2.4 news feed simulation, 2.5 retrain your feed, 2.6 collaborative filtering, 2.7 rules or data.</li>
         <li>Part 3 · How systems steer you: 3.1 scenarios in groups, 3.2 personalised pricing, 3.3 dark patterns; set the screenshot hunt.</li>
-        <li>Part 4 · Bias: 4.1 CV-Bot with the results table and bias videos, 4.2 GradeBot, 4.3 VoiceBot, 4.4 data poisoning.</li>
+        <li>Part 4 · Bias: 4.1 CV-Bot with the results table and bias videos, 4.2 GradeBot, 4.3 VoiceBot, 4.4 data poisoning, 4.5 Machine Learning for Kids lab.</li>
         <li>Part 5 · Case files: 5.1 jigsaw case files, comparing the “went wrong” and “helped” collections, and debate; 5.2 who AI works for and what it costs.</li>
         <li>Part 6 · Rights: 6.1 rights, 6.2 data request, 6.3 take control, 6.4 quiz.</li>
         <li>Practice audit with the three practice apps: explore, evidence log, redesign and pitch.</li>
@@ -633,6 +634,27 @@ footer p + p{margin-top:8px}
       <p class="small" style="margin-top:8px"><b>Timers:</b> the video feed and the news feed wait for pupils to press Start, so the time spent on the first post begins at 0. Resetting either feed shows the Start button again.</p>
       <p class="small" style="margin-top:8px"><b>Feed:</b> share +4, like +3, watch all +2, dwell up to +2, skip −1 per topic. About 75% of posts come from top topics; the rest are random exploration.</p>
       <p class="small" style="margin-top:8px"><b>News feed:</b> topic, tone and debate-side scores rise with each read, like, share or comment (and with time spent on a headline). In Engagement mode worrying headlines get a 1.25× boost and shocking ones 1.45×. Balanced mode favours reliable outlets and calm headlines, avoids repeating recent topics and shows the side of a debate you have seen less. All outlets and headlines are fictional.</p>
+      <details style="margin-top:12px"><summary style="cursor:pointer;font-weight:700">4.5 Machine Learning for Kids lab: answer key</summary>
+        <p class="small" style="margin-top:6px">Check the files in your own Machine Learning for Kids account before the lesson. Each label needs its own .txt file, added with <b>Add file</b>; each line is one example. Results vary a little each time a model is trained, so treat the expected results below as typical, not exact. Tested with a simple word-counting classifier; Machine Learning for Kids may differ slightly.</p>
+        <p class="small" style="margin-top:8px"><b>Scam checker</b> (Possible_scam, Advert, Safe): <b>Out-of-date data.</b> Every scam in the training data is an old-style scam: lottery wins, princes, “Dear customer”. Today’s scams, like fake parcel fees, “Hi Mum, this is my new number” and QR codes, are not in the data at all, so the AI has never seen them. Some of them even look like the safe parcel and family messages. Before the fix, expect the parcel fee, “Hi Mum” and QR code scams to be labelled Safe; old-style lottery scams are caught. After the fix, nearly all scams are caught, and the genuine “parcel left with your neighbour” message may now be flagged: a good discussion of over-correction.</p>
+        <p class="small" style="margin-top:8px"><b>Clickbait detector</b> (Clickbait, Fair_headline): <b>Shortcut learning.</b> Every clickbait example is about celebrities, influencers or games. Every fair headline is about science, weather or local news. The AI learned the <i>topic</i> instead of the <i>writing style</i>, so an honest headline about a pop star looks like clickbait, and clickbait about science looks fair. Before the fix, expect about 6 of 10: honest pop star and TV headlines flagged as clickbait, clickbait about the loch and sea ice called fair. After the fix, expect all or nearly all right.</p>
+        <p class="small" style="margin-top:8px"><b>Feed topic sorter</b> (Football, Music, Gaming, Science): <b>Imbalanced data.</b> There are 40 football examples and only 6 for each other topic. The AI has seen so much football that it picks Football whenever it isn’t sure, especially for posts with common words like “watch”, “new”, “best” and “win”. In a real app this would push everyone’s feed towards football: a filter bubble caused by bad data. Before the fix, expect about 2 of 12: almost everything is labelled Football, often with high confidence. After the fix, expect about 10 of 12; posts packed with common words (“watch”, “best”, “win”) can still drift to Football.</p>
+        <p class="small" style="margin-top:8px"><b>Club sign-up sorter</b> (Invite_to_trial, Not_this_time): <b>Biased labels.</b> The old panel invited everyone from Glenbrae and Westmuir and turned down everyone from Eastfield and Riverside, whatever their experience. The AI learned that the area name decides the answer. Like GradeBot in 4.2, where you live has become a stand-in for who you are. Before the fix, expect about 4 of 8: identical messages get opposite answers depending only on the area (test sentences 1 and 2, 3 and 4). The message with no area gets a low-confidence guess. After the fair data, expect 8 of 8.</p>
+        <p class="small" style="margin-top:8px"><b>Library book sorter</b> (Fantasy, Mystery, Sci_fi): <b>Mislabelled data.</b> 12 of the 54 blurbs (4 in each file) are in the wrong genre. That could be a mistake, or someone could have done it on purpose: data poisoning, like in 4.4. The AI copies the errors. Before the fix, expect about 4 of 10, with low confidence; the wrong answers come from the mislabelled lines. After cleaning, expect all or nearly all right.</p>
+        <p class="small" style="margin-top:8px"><b>Library book sorter: the 12 mislabelled blurbs</b></p><ul class="keylist">
+        <li>In Fantasy: “The detective finds a secret note in a library book” (should be Mystery)</li>
+        <li>In Fantasy: “Who stole the trophy from the museum at midnight” (should be Mystery)</li>
+        <li>In Fantasy: “A robot crew wakes up on a strange planet” (should be Sci_fi)</li>
+        <li>In Fantasy: “Aliens send a robot to explore a distant galaxy” (should be Sci_fi)</li>
+        <li>In Mystery: “A dragon guards a mountain of gold” (should be Fantasy)</li>
+        <li>In Mystery: “Young wizards start their first year at a magic school” (should be Fantasy)</li>
+        <li>In Mystery: “A time machine sends two friends to the year 3000” (should be Sci_fi)</li>
+        <li>In Mystery: “The spaceship's computer stops opening the doors” (should be Sci_fi)</li>
+        <li>In Sci_fi: “A magic ring makes the fairy queen invisible” (should be Fantasy)</li>
+        <li>In Sci_fi: “An enchanted forest is full of talking trees” (should be Fantasy)</li>
+        <li>In Sci_fi: “The inspector follows a trail of footprints to the attic” (should be Mystery)</li>
+        <li>In Sci_fi: “A detective follows the suspect through the foggy streets” (should be Mystery)</li>
+        </ul></details>
       <details style="margin-top:12px"><summary style="cursor:pointer;font-weight:700">Practice audit: answer key for the three apps</summary>
         <p class="small" style="margin-top:6px">Pupils are not expected to find everything. Accept any well-evidenced issue.</p>
         <p class="small" style="margin-top:8px"><b>Loop (social media)</b></p>
