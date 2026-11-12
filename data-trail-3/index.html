@@ -1533,15 +1533,15 @@ footer p + p{margin-top:8px}
 <nav class="partend" aria-label="End of the practice audit"><div class="wrap">
   <p class="pe-title">End of the practice audit</p>
   <p class="pe-stop">Next, use the same skills on a real app in the final project.</p>
-  <div class="pe-links"><a class="pe-link" href="#p7"><span>Back</span>Part 7 · Your rights and your choices</a><a class="pe-link next" href="#project"><span>Next</span>Final project · The Algorithm Audit</a></div>
+  <div class="pe-links"><a class="pe-link" href="#p7"><span>Back</span>Part 7 · Your rights and your choices</a><a class="pe-link next" href="#project"><span>Next</span>Final project · Challenges</a></div>
 </div></nav>
 </div>
 
 <!-- ============ PROJECT ============ -->
-<div class="view" data-title="Final project · The Algorithm Audit">
+<div class="view" data-title="Final project · Challenges">
 <div class="proj-hero" id="project"><div class="wrap">
   <span class="num">FINAL PROJECT · TEAMS OF 3–4</span>
-  <h1>The Algorithm Audit</h1>
+  <h1>Challenges</h1>
   <p>Put what you’ve learned into action. Your team will either build a fair recommender or teach a group of people about their data trail. Either way, you’ll research, design, build, test your work with real people, and present what you made.</p>
 </div></div>
 
@@ -2778,7 +2778,7 @@ document.querySelector(".planner").addEventListener("input",()=>{saveP(); syncPa
 document.querySelector(".planner").addEventListener("change",()=>{saveP(); syncPath();});
 $("#pathList").addEventListener("click",e=>{const b=e.target.closest(".path"); if(!b) return; $("#pPath").value=b.dataset.p; syncPath(); saveP();});
 $("#pCopy").onclick=()=>{
-  const t="THE ALGORITHM AUDIT — PROJECT PLANNER\nTeam: "+$("#pTeam").value+"\nPathway: "+($("#pPath").selectedOptions[0]||{}).text+"\nWho it's for: "+$("#pApp").value+"\nRoles: "+$("#pRoles").value+"\nGoal: "+$("#pQ").value+"\n\nResearch and test notes:\n"+$("#pEv").value+"\n\nProgress:\n"+PCHK.map((c,i)=>($("#pc"+i).checked?"[x] ":"[ ] ")+c).join("\n");
+  const t="CHALLENGES — PROJECT PLANNER\nTeam: "+$("#pTeam").value+"\nPathway: "+($("#pPath").selectedOptions[0]||{}).text+"\nWho it's for: "+$("#pApp").value+"\nRoles: "+$("#pRoles").value+"\nGoal: "+$("#pQ").value+"\n\nResearch and test notes:\n"+$("#pEv").value+"\n\nProgress:\n"+PCHK.map((c,i)=>($("#pc"+i).checked?"[x] ":"[ ] ")+c).join("\n");
   copyText(t,$("#pMsg"));
 };
 $("#pClear").onclick=()=>{ if(!confirm("Clear your team’s planner on this device? Copy it first if you need it.")) return; PF.forEach(k=>$("#"+k).value=""); PCHK.forEach((c,i)=>$("#pc"+i).checked=false); saveP(); syncPath(); $("#pMsg").textContent="Planner cleared."; };
