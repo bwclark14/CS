@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
-/* Layout: an "investigation" in six parts plus a practice audit and a final project, each shown as its own page (see PARTS script).
+/* Layout: an "investigation" in seven parts plus a practice audit and a final project, each shown as its own page (see PARTS script).
    --inv is a surface that stays dark in both themes (nav, part bands, phone frames, code); --ctl is the border for form controls (3:1). Highlighter yellow marks anything that is DATA; teal marks the system acting on it. */
 :root{
   --bg:#ECF0F3; --paper:#FFFFFF; --ink:#13202B; --muted:#55636F; --line:#B5C1CB;
@@ -609,7 +609,7 @@ footer p + p{margin-top:8px}
 <nav class="top" aria-label="Parts of the unit"><div class="wrap">
   <a class="brand" href="#home">The Data Trail</a>
   <div class="links">
-    <a href="#p1">1 · Your trail</a><a href="#p2">2 · How AI learns</a><a href="#p3">3 · Steering you</a><a href="#p4">4 · Bias</a><a href="#p5">5 · Case files</a><a href="#p6">6 · Rights</a><a href="#audit">Practice audit</a><a href="#project" class="proj">Final project</a>
+    <a href="#p1">1 · Your trail</a><a href="#p2">2 · How AI learns</a><a href="#p3">3 · Steering you</a><a href="#p4">4 · Bias</a><a href="#p5">5 · Train AI</a><a href="#p6">6 · Case files</a><a href="#p7">7 · Rights</a><a href="#audit">Practice audit</a><a href="#project" class="proj">Final project</a>
   </div>
   <button class="bigtoggle" id="bigToggle" type="button" aria-pressed="false">Larger text</button>
 </div></nav>
@@ -623,7 +623,7 @@ footer p + p{margin-top:8px}
       <p class="eyebrow">An investigation for ages 13–15</p>
       <h1 style="margin-top:10px">You didn’t pay with money. You paid with <span class="mark">data</span>.</h1>
       <p class="lede">Every scroll, pause, search and basket leaves a trail. AI systems use that trail to predict what you might want next. Sometimes that is really useful. Sometimes it isn’t. Find out how it works, when it helps, when it harms, and how to stay in control.</p>
-      <div class="meta"><span class="chip">6 parts · 26 activities</span><span class="chip">11 video clips</span><span class="chip">9 real case files</span></div>
+      <div class="meta"><span class="chip">7 parts · 26 activities</span><span class="chip">11 video clips</span><span class="chip">9 real case files</span></div>
     </div>
     <div class="receipt" aria-label="Example data receipt for one school day">
       <div class="rh">DATA RECEIPT · ONE SCHOOL DAY</div>
@@ -644,8 +644,9 @@ footer p + p{margin-top:8px}
     <a href="#p2"><span>PART 2</span><b>How AI learns</b>Recommendation systems</a>
     <a href="#p3"><span>PART 3</span><b>Steering you</b>Nudges and dark patterns</a>
     <a href="#p4"><span>PART 4</span><b>Bias</b>Train and test an AI</a>
-    <a href="#p5"><span>PART 5</span><b>Case files</b>Real news stories</a>
-    <a href="#p6"><span>PART 6</span><b>Rights</b>The law and you</a>
+    <a href="#p5"><span>PART 5</span><b>Train AI</b>Find the flaw in real data</a>
+    <a href="#p6"><span>PART 6</span><b>Case files</b>Real news stories</a>
+    <a href="#p7"><span>PART 7</span><b>Rights</b>The law and you</a>
     <a href="#audit"><span>PRACTICE</span><b>Practice audit</b>Three made-up apps to investigate</a>
     <a href="#project" class="p"><span>FINISH</span><b>Final project</b>Build or campaign</a>
   </div>
@@ -654,7 +655,7 @@ footer p + p{margin-top:8px}
 
 <!-- ============ PART 1 ============ -->
 <div class="view" data-title="Part 1 · Your data trail">
-<div class="part" id="p1"><div class="wrap"><span class="num">PART 1 OF 6</span><h1>Your data trail</h1><p>Before an AI can influence you, it needs data. Here you find out what is collected, how websites follow you around, and the difference between what you share and what is guessed about you.</p></div></div>
+<div class="part" id="p1"><div class="wrap"><span class="num">PART 1 OF 7</span><h1>Your data trail</h1><p>Before an AI can influence you, it needs data. Here you find out what is collected, how websites follow you around, and the difference between what you share and what is guessed about you.</p></div></div>
 
 <section class="block first" id="trail"><div class="wrap">
   <div class="sec-head">
@@ -772,7 +773,7 @@ footer p + p{margin-top:8px}
 
 <!-- ============ PART 2 ============ -->
 <div class="view" data-title="Part 2 · How AI learns you">
-<div class="part" id="p2"><div class="wrap"><span class="num">PART 2 OF 6</span><h1>How AI learns you</h1><p>Recommendation systems are AI that decide what you see next. They learn from your behaviour and from people who behave like you. Here you see the loop from the inside.</p></div></div>
+<div class="part" id="p2"><div class="wrap"><span class="num">PART 2 OF 7</span><h1>How AI learns you</h1><p>Recommendation systems are AI that decide what you see next. They learn from your behaviour and from people who behave like you. Here you see the loop from the inside.</p></div></div>
 
 <section class="block first" id="loop"><div class="wrap">
   <div class="sec-head">
@@ -1042,7 +1043,7 @@ footer p + p{margin-top:8px}
 
 <!-- ============ PART 3 ============ -->
 <div class="view" data-title="Part 3 · How systems steer you">
-<div class="part" id="p3"><div class="wrap"><span class="num">PART 3 OF 6</span><h1>How systems steer you</h1><p>Predictions become powerful when a system acts on them: changing what you see, what price you pay, or when an offer appears. Some of these nudges are helpful. Some are designed to trick you.</p></div></div>
+<div class="part" id="p3"><div class="wrap"><span class="num">PART 3 OF 7</span><h1>How systems steer you</h1><p>Predictions become powerful when a system acts on them: changing what you see, what price you pay, or when an offer appears. Some of these nudges are helpful. Some are designed to trick you.</p></div></div>
 
 <section class="block first" id="scenarios"><div class="wrap">
   <div class="sec-head">
@@ -1124,7 +1125,7 @@ footer p + p{margin-top:8px}
 
 <!-- ============ PART 4 ============ -->
 <div class="view" data-title="Part 4 · When AI gets it wrong">
-<div class="part" id="p4"><div class="wrap"><span class="num">PART 4 OF 6</span><h1>When AI gets it wrong: bias</h1><p>An AI is only as fair as the data it learns from. If the past was unfair, a system trained on the past can repeat that unfairness automatically, at huge scale, while looking neutral.</p></div></div>
+<div class="part" id="p4"><div class="wrap"><span class="num">PART 4 OF 7</span><h1>When AI gets it wrong: bias</h1><p>An AI is only as fair as the data it learns from. If the past was unfair, a system trained on the past can repeat that unfairness automatically, at huge scale, while looking neutral.</p></div></div>
 
 <section class="block first" id="train"><div class="wrap">
   <div class="sec-head">
@@ -1219,7 +1220,7 @@ footer p + p{margin-top:8px}
     <h3>Your results table</h3>
     <div class="tablewrap"><table class="restab"><thead><tr><th>Training setup</th><th>Training acc.</th><th>South</th><th>North</th><th>Scotland</th><th>Wrong actions</th></tr></thead><tbody id="vRes"></tbody></table></div>
   </div>
-  <div class="task"><b>Compare all three bots:</b> For CV-Bot, GradeBot and VoiceBot, which fix worked best, and why? Complete this sentence: “More data only helps when…”. Link VoiceBot to accessibility in Part 5: who is let down when voice technology doesn’t understand them?</div>
+  <div class="task"><b>Compare all three bots:</b> For CV-Bot, GradeBot and VoiceBot, which fix worked best, and why? Complete this sentence: “More data only helps when…”. Link VoiceBot to accessibility in Part 6: who is let down when voice technology doesn’t understand them?</div>
 </div></section>
 
 <section class="block" id="poison"><div class="wrap">
@@ -1252,9 +1253,20 @@ footer p + p{margin-top:8px}
   <div class="task"><b>Link it to CV-Bot:</b> Imagine someone secretly added 20 fake “hired” CVs that all mention one rival’s club. What would CV-Bot learn? How could TechCo check its training data has not been poisoned? <br><span class="small">Creating fake accounts or fake engagement breaks platform rules and can be illegal. Only explore this in simulations like this one.</span></div>
 </div></section>
 
-<section class="block" id="mllab"><div class="wrap">
+<nav class="partend" aria-label="End of Part 4"><div class="wrap">
+  <p class="pe-title">End of Part 4</p>
+  <p class="pe-stop">This is a good place to stop. Next time, carry on with Part 5.</p>
+  <div class="pe-links"><a class="pe-link" href="#p3"><span>Back</span>Part 3 · How systems steer you</a><a class="pe-link next" href="#p5"><span>Next</span>Part 5 · Train a machine learning model</a></div>
+</div></nav>
+</div>
+
+<!-- ============ PART 5 ============ -->
+<div class="view" data-title="Part 5 · Train a machine learning model">
+<div class="part" id="p5"><div class="wrap"><span class="num">PART 5 OF 7</span><h1>Train a machine learning model</h1><p>You have seen how training data can make an AI unfair. Now train real models yourself. Every data set here has a hidden problem: find it, fix it, and prove your fix worked.</p></div></div>
+
+<section class="block first" id="mllab"><div class="wrap">
   <div class="sec-head">
-    <span class="mission">4.5 · HANDS-ON LAB</span>
+    <span class="mission">5.1 · HANDS-ON LAB</span>
     <h2>Train your own: find the flaw</h2>
     <p class="lede">Now use a real machine learning tool. Each case below comes with training data that has a hidden problem. Train a model in <a href="https://machinelearningforkids.co.uk/" target="_blank" rel="noopener">Machine Learning for Kids</a>, test it, work out what is wrong with the data, then fix it and train again.</p>
   </div>
@@ -1283,20 +1295,20 @@ footer p + p{margin-top:8px}
   <div class="task"><b>Compare your cases:</b> Which flaw was hardest to spot? Which would cause the most harm in a real system, and to whom? For each case, was the fix to add data, correct data, or replace the data completely?</div>
 </div></section>
 
-<nav class="partend" aria-label="End of Part 4"><div class="wrap">
-  <p class="pe-title">End of Part 4</p>
-  <p class="pe-stop">This is a good place to stop. Next time, carry on with Part 5.</p>
-  <div class="pe-links"><a class="pe-link" href="#p3"><span>Back</span>Part 3 · How systems steer you</a><a class="pe-link next" href="#p5"><span>Next</span>Part 5 · Case files</a></div>
+<nav class="partend" aria-label="End of Part 5"><div class="wrap">
+  <p class="pe-title">End of Part 5</p>
+  <p class="pe-stop">This is a good place to stop. Next time, carry on with Part 6.</p>
+  <div class="pe-links"><a class="pe-link" href="#p4"><span>Back</span>Part 4 · When AI gets it wrong</a><a class="pe-link next" href="#p6"><span>Next</span>Part 6 · Case files</a></div>
 </div></nav>
 </div>
 
-<!-- ============ PART 5 ============ -->
-<div class="view" data-title="Part 5 · Case files">
-<div class="part" id="p5"><div class="wrap"><span class="num">PART 5 OF 6</span><h1>Case files: it really happened</h1><p>Nine real news stories: five where things went wrong and four where data and AI did real good. Switch between them with the tabs. Use the same four questions on each one. Groups can become experts on one case and teach the others.</p></div></div>
+<!-- ============ PART 6 ============ -->
+<div class="view" data-title="Part 6 · Case files">
+<div class="part" id="p6"><div class="wrap"><span class="num">PART 6 OF 7</span><h1>Case files: it really happened</h1><p>Nine real news stories: five where things went wrong and four where data and AI did real good. Switch between them with the tabs. Use the same four questions on each one. Groups can become experts on one case and teach the others.</p></div></div>
 
 <section class="block first" id="cases"><div class="wrap">
   <div class="sec-head">
-    <span class="mission">5.1 · CASE FILES</span>
+    <span class="mission">6.1 · CASE FILES</span>
     <h2>Nine stories to investigate</h2>
     <p class="lede">For each case, answer these four questions.</p>
   </div>
@@ -1316,7 +1328,7 @@ footer p + p{margin-top:8px}
 
 <section class="block" id="bigger"><div class="wrap">
   <div class="sec-head">
-    <span class="mission">5.2 · THE BIGGER PICTURE</span>
+    <span class="mission">6.2 · THE BIGGER PICTURE</span>
     <h2>Who does AI work for, and what does it cost?</h2>
     <p class="lede">The same data and AI that target adverts can also make technology work better for more people. But it all runs in data centres that need energy and water. Both sides matter when you judge a system.</p>
   </div>
@@ -1356,20 +1368,20 @@ footer p + p{margin-top:8px}
   <div class="task"><b>Discuss:</b> Is it worth using energy so an app can personalise your feed? What about personalised captions or reading support? Should AI that helps accessibility be treated differently from AI that sells adverts?</div>
 </div></section>
 
-<nav class="partend" aria-label="End of Part 5"><div class="wrap">
-  <p class="pe-title">End of Part 5</p>
-  <p class="pe-stop">This is a good place to stop. Next time, carry on with Part 6.</p>
-  <div class="pe-links"><a class="pe-link" href="#p4"><span>Back</span>Part 4 · When AI gets it wrong</a><a class="pe-link next" href="#p6"><span>Next</span>Part 6 · Your rights and your choices</a></div>
+<nav class="partend" aria-label="End of Part 6"><div class="wrap">
+  <p class="pe-title">End of Part 6</p>
+  <p class="pe-stop">This is a good place to stop. Next time, carry on with Part 7.</p>
+  <div class="pe-links"><a class="pe-link" href="#p5"><span>Back</span>Part 5 · Train a machine learning model</a><a class="pe-link next" href="#p7"><span>Next</span>Part 7 · Your rights and your choices</a></div>
 </div></nav>
 </div>
 
-<!-- ============ PART 6 ============ -->
-<div class="view" data-title="Part 6 · Your rights and your choices">
-<div class="part" id="p6"><div class="wrap"><span class="num">PART 6 OF 6</span><h1>Your rights and your choices</h1><p>In the UK, the law gives you real rights over your data, with extra protections for children. Knowing them turns you from a data source into someone who can push back.</p></div></div>
+<!-- ============ PART 7 ============ -->
+<div class="view" data-title="Part 7 · Your rights and your choices">
+<div class="part" id="p7"><div class="wrap"><span class="num">PART 7 OF 7</span><h1>Your rights and your choices</h1><p>In the UK, the law gives you real rights over your data, with extra protections for children. Knowing them turns you from a data source into someone who can push back.</p></div></div>
 
 <section class="block first" id="rights"><div class="wrap">
   <div class="sec-head">
-    <span class="mission">6.1 · KNOW YOUR RIGHTS</span>
+    <span class="mission">7.1 · KNOW YOUR RIGHTS</span>
     <h2>What the law says</h2>
     <p class="lede">These come mainly from UK GDPR and the ICO’s Children’s Code (Age Appropriate Design Code). The Online Safety Act adds duties on platforms to protect under-18s from harmful content.</p>
   </div>
@@ -1389,7 +1401,7 @@ footer p + p{margin-top:8px}
 
 <section class="block" id="sar"><div class="wrap">
   <div class="sec-head">
-    <span class="mission">6.2 · USE YOUR RIGHTS</span>
+    <span class="mission">7.2 · USE YOUR RIGHTS</span>
     <h2>Write a data request</h2>
     <p class="lede">A subject access request asks a company for a copy of everything it holds about you.</p>
   </div>
@@ -1418,7 +1430,7 @@ footer p + p{margin-top:8px}
 
 <section class="block" id="control"><div class="wrap">
   <div class="sec-head">
-    <span class="mission">6.3 · TAKE CONTROL</span>
+    <span class="mission">7.3 · TAKE CONTROL</span>
     <h2>Shorten your trail</h2>
     <p class="lede">You can’t switch the data trail off, but you can make it shorter. Tick the ones you already do. Pick one new one to try this week.</p>
   </div>
@@ -1428,17 +1440,17 @@ footer p + p{margin-top:8px}
 
 <section class="block" id="quiz"><div class="wrap">
   <div class="sec-head">
-    <span class="mission">6.4 · END-OF-UNIT QUIZ</span>
+    <span class="mission">7.4 · END-OF-UNIT QUIZ</span>
     <h2>Check your understanding</h2>
-    <p class="lede">Twenty-four questions covering all six parts, one at a time. Score 18 or more before starting the project.</p>
+    <p class="lede">Twenty-four questions on the unit, one at a time. Score 18 or more before starting the project.</p>
   </div>
   <div class="quiz" id="quizBox"></div>
 </div></section>
 
-<nav class="partend" aria-label="End of Part 6"><div class="wrap">
-  <p class="pe-title">End of Part 6</p>
-  <p class="pe-stop">That’s all six parts. Next, practise your investigation skills on three made-up apps.</p>
-  <div class="pe-links"><a class="pe-link" href="#p5"><span>Back</span>Part 5 · Case files</a><a class="pe-link next" href="#audit"><span>Next</span>Practice audit</a></div>
+<nav class="partend" aria-label="End of Part 7"><div class="wrap">
+  <p class="pe-title">End of Part 7</p>
+  <p class="pe-stop">That’s all seven parts. Next, practise your investigation skills on three made-up apps.</p>
+  <div class="pe-links"><a class="pe-link" href="#p6"><span>Back</span>Part 6 · Case files</a><a class="pe-link next" href="#audit"><span>Next</span>Practice audit</a></div>
 </div></nav>
 </div>
 
@@ -1498,7 +1510,7 @@ footer p + p{margin-top:8px}
         <li>Draw a <b>before and after</b> for each screen, on paper or digitally (slides, a drawing app or a Scratch mock-up).</li>
         <li>Label every change and say which problem it fixes.</li>
         <li>Keep it realistic: the app still needs to make money. Say what the company would lose and what it could gain, such as trust or fewer complaints.</li>
-        <li>Check your design against the Children’s Code ideas from Part 6: high privacy by default, clear information, no harmful nudges.</li>
+        <li>Check your design against the Children’s Code ideas from Part 7: high privacy by default, clear information, no harmful nudges.</li>
       </ul>
     </div>
     <div>
@@ -1521,7 +1533,7 @@ footer p + p{margin-top:8px}
 <nav class="partend" aria-label="End of the practice audit"><div class="wrap">
   <p class="pe-title">End of the practice audit</p>
   <p class="pe-stop">Next, use the same skills on a real app in the final project.</p>
-  <div class="pe-links"><a class="pe-link" href="#p6"><span>Back</span>Part 6 · Your rights and your choices</a><a class="pe-link next" href="#project"><span>Next</span>Final project · The Algorithm Audit</a></div>
+  <div class="pe-links"><a class="pe-link" href="#p7"><span>Back</span>Part 7 · Your rights and your choices</a><a class="pe-link next" href="#project"><span>Next</span>Final project · The Algorithm Audit</a></div>
 </div></nav>
 </div>
 
@@ -1552,7 +1564,7 @@ footer p + p{margin-top:8px}
   </div>
   <div class="timeline">
     <div class="stage"><div class="when"><b>Stage 1</b></div><div><h3>Choose and plan</h3><ul><li>Choose an app or website popular with your age group that you are old enough to use under its rules.</li><li>Agree team roles (below) and write a research question, for example: “How does [app] use data to keep 13–15 year olds using it, and is it fair?”</li><li>Fill in the project planner at the bottom of this page.</li></ul><span class="out">Output: completed planner and research question</span></div></div>
-    <div class="stage"><div class="when"><b>Stage 2</b></div><div><h3>Investigate and collect evidence</h3><ul><li><b>Data:</b> read the app’s privacy policy or data notice. List what is volunteered, captured and inferred (Part 1).</li><li><b>Loop:</b> on an account you already have, use “Why am I seeing this?” features and ad settings. Don’t create new accounts. Draw the app’s engagement loop (Part 2).</li><li><b>Steering:</b> screenshot at least two nudges or dark patterns (Part 3). Remove names and faces.</li><li><b>Context:</b> find one news story or report about this app or a similar one (Part 5). Record the source.</li><li>Pathway A: build and train your recommender, then test it on new users. Pathway B: survey younger pupils about what they already know.</li></ul><span class="out">Output: evidence log with at least 8 pieces of evidence and sources</span></div></div>
+    <div class="stage"><div class="when"><b>Stage 2</b></div><div><h3>Investigate and collect evidence</h3><ul><li><b>Data:</b> read the app’s privacy policy or data notice. List what is volunteered, captured and inferred (Part 1).</li><li><b>Loop:</b> on an account you already have, use “Why am I seeing this?” features and ad settings. Don’t create new accounts. Draw the app’s engagement loop (Part 2).</li><li><b>Steering:</b> screenshot at least two nudges or dark patterns (Part 3). Remove names and faces.</li><li><b>Context:</b> find one news story or report about this app or a similar one (Part 6). Record the source.</li><li>Pathway A: build and train your recommender, then test it on new users. Pathway B: survey younger pupils about what they already know.</li></ul><span class="out">Output: evidence log with at least 8 pieces of evidence and sources</span></div></div>
     <div class="stage"><div class="when"><b>Stage 3</b></div><div><h3>Judge fairness</h3><ul><li>Score the app against five Children’s Code ideas: high privacy by default, clear information, no harmful nudges, location off, profiling off by default.</li><li>Identify who benefits from the design (users, the company, advertisers) and who could be harmed.</li><li>Consider the other side: what would the company say in its defence?</li><li><b>Scotland lens:</b> who in Scotland is affected by this app or AI system, and how? Use the prompts in Step 4 below.</li></ul><span class="out">Output: fairness scorecard with reasons</span></div></div>
     <div class="stage"><div class="when"><b>Stage 4</b></div><div><h3>Propose a better design</h3><ul><li>Pathway A: change your training data or algorithm to reduce bias, and show the before-and-after results.</li><li>Pathway B: finish and test your campaign resource. Improve it based on feedback.</li><li>Both pathways: use what you learned in the practice audit to suggest at least one change the real app should make.</li></ul><span class="out">Output: improved program or tested resource</span></div></div>
     <div class="stage"><div class="when"><b>Stage 5</b></div><div><h3>Present to the panel</h3><ul><li>Five-minute presentation to the “Youth Digital Panel” (teacher and classmates acting as the regulator).</li><li>Panel asks at least two questions. Every team member speaks.</li><li>Include at least one slide on how your app or AI system affects people living or working in Scotland.</li><li>Finish with one recommendation for the company and one for the Scottish or UK Government.</li><li>Individually complete the self-assessment and reflection.</li></ul><span class="out">Output: presentation, recommendations, individual reflection</span></div></div>
@@ -2609,7 +2621,7 @@ const PQ=[["An AI that spots illness in medical scans","If its training scans we
 $("#poisonQ").innerHTML=PQ.map((q,i)=>"<button data-i='"+i+"'>"+esc(q[0])+"</button>").join("");
 $("#poisonQ").addEventListener("click",e=>{const b=e.target.closest("button"); if(!b) return; $("#poisonQ").querySelectorAll("button").forEach(x=>x.classList.remove("right")); b.classList.add("right"); const fb=$("#poisonQFb"); fb.hidden=false; fb.textContent=PQ[+b.dataset.i][1]; announce(PQ[+b.dataset.i][1]);});
 
-/* ---------- 5.2 ACCESSIBILITY ---------- */
+/* ---------- 6.2 ACCESSIBILITY ---------- */
 const AX=[["Ruaridh","is blind and uses a screen reader","AI could describe images and videos in the feed out loud.","It needs the images themselves, plus training data with good human-written descriptions.","Descriptions can be wrong or miss what matters, and Ruaridh can’t easily check them."],["Mia","is dyslexic","AI could read posts aloud, simplify long text or change fonts and spacing for her.","It needs to know she prefers these settings, which is personal data about her.","If that preference is shared with advertisers, it reveals something sensitive about her."],["Tomasz","is learning English","AI could translate posts and captions into Polish.","It needs the text and audio from posts.","Translation can be wrong, especially for slang or Scottish phrases."],["Kerry","is Deaf","AI could add automatic captions to every video.","It needs the audio, and training data that includes many different voices and accents.","Captions are often less accurate for strong accents, fast speech or background noise."]];
 let axSel=0;
 function renderAX(){
@@ -2681,7 +2693,7 @@ function caseRender(f){ $("#caseList").innerHTML=CASES.map((c,i)=>[c,i]).filter(
 caseRender("all");
 $("#caseTabs").addEventListener("click",e=>{ const b=e.target.closest("button[data-f]"); if(!b) return; $("#caseTabs").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b))); caseRender(b.dataset.f); announce("Showing "+document.querySelectorAll("#caseList .case").length+" case files."); });
 
-/* ---------- 6.2 SAR LETTER ---------- */
+/* ---------- 7.2 SAR LETTER ---------- */
 function renderSAR(){
   const co=$("#sarCo").value||"[company]",nm=$("#sarName").value||"[your name]",us=$("#sarUser").value||"[username]",ask=$("#sarAsk").value;
   $("#sarOut").textContent="To: Data Protection Officer, "+co+"\n\nSubject: Subject access request\n\nDear Data Protection Officer,\n\nI am making a subject access request under Article 15 of the UK GDPR.\n\nMy account details are:\nName: "+nm+"\nUsername / email: "+us+"\n\nPlease send me:\n1. A copy of all personal data you hold about me.\n2. The purposes you use it for.\n3. Who you have shared it with.\n4. Where you got any data that I did not give you directly.\n5. Whether you use automated decision-making or profiling on my data, and how it works.\n\nIn particular, I would like to know "+ask+".\n\nI understand you should normally respond within one month.\n\nThank you,\n"+nm;
@@ -2691,13 +2703,13 @@ $("#sarAsk").addEventListener("change",renderSAR);
 $("#sarCopy").onclick=()=>copyText($("#sarOut").textContent,$("#sarMsg"));
 renderSAR();
 
-/* ---------- 6.3 CONTROL ---------- */
+/* ---------- 7.3 CONTROL ---------- */
 const CTRL=["Check “Why am I seeing this?” on an ad or post","Reject non-essential cookies on websites","Turn off ad personalisation in app settings","Clear or pause watch/search history","Switch location to “only while using the app”","On an iPhone, choose “Ask App Not to Track” when an app asks to track you","On an Android phone, delete or reset your advertising ID in privacy settings","Check app permissions (contacts, location, camera, microphone) and turn off any an app doesn’t need","Don’t log in to quizzes or games with a social account","Use “Not interested” to reset your feed","Turn off autoplay where you can","Download your data from one app and look at it"];
 $("#ctrl").innerHTML=CTRL.map((c,i)=>"<label><input type='checkbox' id='c"+i+"'><span>"+esc(c)+"</span></label>").join("");
 const upd=()=>{const n=[...document.querySelectorAll("#ctrl input")].filter(x=>x.checked).length; $("#ctrlScore").textContent=n+" of "+CTRL.length+" ticked."+(n?" Pick one you haven’t ticked to try this week.":"");};
 $("#ctrl").addEventListener("change",upd); upd();
 
-/* ---------- 6.4 QUIZ ---------- */
+/* ---------- 7.4 QUIZ ---------- */
 const QUIZ=[
  ["A tracker from an ad company appears on four different websites. What can it do that a single website can’t?",["Make the pages load faster","Join your visits into one profile across sites","Delete your cookies","Read your private messages"],1,"Third-party trackers link your activity across every site they’re embedded in."],
  ["An app predicts you are about to move house from your searches. What type of data is that prediction?",["Volunteered","Captured","Inferred","Encrypted"],2,"You never said it; the AI predicted it, so it is inferred."],
@@ -2724,7 +2736,7 @@ const QUIZ=[
  ["Thousands of fake accounts like a scam post so the app’s AI learns it is popular. This is…",["Encryption","Data poisoning","Volunteered data","A filter bubble"],1,"Data poisoning deliberately feeds false data to a system so it learns the wrong thing."],
  ["Which UK right lets you ask a company for a copy of your data?",["Right to erasure","Right of access (subject access request)","Right to object","Freedom of information"],1,"A subject access request uses your right of access, usually answered within one month."]
 ];
-const QREF=[["track","1.2 Follow the trackers"],["sort","1.4 Volunteered, captured or inferred?"],["feed","2.3 Be the user"],["similar","2.6 People like you also watched"],["feed","2.3 Be the user"],["dark","3.3 Dark patterns"],["train","4.1 CV-Bot"],["train","4.1 CV-Bot"],["train","4.1 CV-Bot"],["cases","5.1 Case files"],["cases","5.1 Case files"],["news","2.4 Be the reader"],["pricing","3.2 Same trainers. Different price."],["recipe","2.2 Write the recipe"],["fingerprint","1.3 Your device fingerprint"],["retrain","2.5 Retrain your feed"],["trade","1.5 Worth the trade?"],["recipe","2.2 Write the recipe"],["news","2.4 Be the reader"],["cases","5.1 Case files"],["train","4.1 CV-Bot"],["rules","2.7 Rules or data?"],["poison","4.4 Poisoning the data"],["sar","6.2 Write a data request"]];
+const QREF=[["track","1.2 Follow the trackers"],["sort","1.4 Volunteered, captured or inferred?"],["feed","2.3 Be the user"],["similar","2.6 People like you also watched"],["feed","2.3 Be the user"],["dark","3.3 Dark patterns"],["train","4.1 CV-Bot"],["train","4.1 CV-Bot"],["train","4.1 CV-Bot"],["cases","6.1 Case files"],["cases","6.1 Case files"],["news","2.4 Be the reader"],["pricing","3.2 Same trainers. Different price."],["recipe","2.2 Write the recipe"],["fingerprint","1.3 Your device fingerprint"],["retrain","2.5 Retrain your feed"],["trade","1.5 Worth the trade?"],["recipe","2.2 Write the recipe"],["news","2.4 Be the reader"],["cases","6.1 Case files"],["train","4.1 CV-Bot"],["rules","2.7 Rules or data?"],["poison","4.4 Poisoning the data"],["sar","7.2 Write a data request"]];
 let qAns=0,qRight=0; const qOk=new Set();
 $("#quizBox").innerHTML=QUIZ.map((q,i)=>"<div class='q' id='q"+i+"'><p class='qt'>"+(i+1)+". "+esc(q[0])+"</p><div class='choices'>"+q[1].map((o,j)=>"<button data-q='"+i+"' data-j='"+j+"'>"+esc(o)+"</button>").join("")+"</div><div class='fbbox' hidden></div></div>").join("")+"<div class='qscore' id='qscore'>Score 0 / "+QUIZ.length+"</div>";
 $("#quizBox").addEventListener("click",e=>{
@@ -2737,7 +2749,7 @@ $("#quizBox").addEventListener("click",e=>{
   $("#qscore").textContent="Score "+qRight+" / "+QUIZ.length+(qAns===QUIZ.length?(qRight>=18?" · Ready for the project":" · Revisit the parts you missed"):"");
 });
 
-/* ---------- 6.4 QUIZ PAGING ---------- */
+/* ---------- 7.4 QUIZ PAGING ---------- */
 {
 const qb=document.getElementById("quizBox"), cards=[...qb.querySelectorAll(".q")]; let qi=0;
 const end=document.createElement("div"); end.className="q"; end.id="qEnd"; end.hidden=true;
@@ -2840,7 +2852,7 @@ strip.addEventListener("scroll",fade,{passive:true}); window.addEventListener("r
 show(true);
 })();
 
-/* 4.5 ML FOR KIDS LAB */
+/* 5.1 ML FOR KIDS LAB */
 (function(){
 const $=s=>document.querySelector(s);
 const LAB=[{"slug": "scam-checker", "title": "Scam checker", "brief": "Glenbrae Academy wants an AI that warns pupils about dodgy messages. It sorts texts and emails into three labels: possible scams, adverts and safe messages.", "hints": ["Read the Possible_scam file. What kinds of scam are in it? Are they the kinds of scam people get today?", "Look at the test messages the AI got wrong. Is there anything like them in the training data? Which file do they look most like?"], "flaw": "<b>Out-of-date data.</b> Every scam in the training data is an old-style scam: lottery wins, princes, “Dear customer”. Today’s scams, like fake parcel fees, “Hi Mum, this is my new number” and QR codes, are not in the data at all, so the AI has never seen them. Some of them even look like the safe parcel and family messages.", "fix": "Add <b>extra-possible_scam.txt</b> to the Possible_scam label with <b>Add file</b>. Train again, then retest.", "think": "Scams change all the time. How often would this AI need new training data, and who should collect it? After the fix, did it start calling any real parcel messages scams? Why might that happen?", "labels": ["Possible_scam", "Advert", "Safe"], "files": [{"f": "possible_scam.txt", "kind": "train", "label": "Possible_scam", "n": 15}, {"f": "advert.txt", "kind": "train", "label": "Advert", "n": 15}, {"f": "safe.txt", "kind": "train", "label": "Safe", "n": 16}, {"f": "test.txt", "kind": "test", "n": 10}], "fixfiles": [{"f": "extra-possible_scam.txt", "n": 14}], "test": [{"t": "Your parcel could not be delivered. Pay the £1.45 redelivery fee using this link", "exp": "Possible_scam"}, {"t": "Hi Mum, I've broken my phone and this is my new number. Can you send me £200 for a new one", "exp": "Possible_scam"}, {"t": "Railcard refund: you are owed £27.40. Enter your card details to receive it", "exp": "Possible_scam"}, {"t": "Scan the QR code on the sign to pay your parking fine today", "exp": "Possible_scam"}, {"t": "A new device has signed in to your account. If this wasn't you, call this number now", "exp": "Possible_scam"}, {"t": "Your gaming account will be deleted in 24 hours unless you verify your login here", "exp": "Possible_scam"}, {"t": "Congratulations, you have won a prize in our lottery draw. Reply to claim", "exp": "Possible_scam"}, {"t": "Bargo: 30% off hoodies until Sunday", "exp": "Advert"}, {"t": "Football training is cancelled tonight because of the rain", "exp": "Safe"}, {"t": "Your parcel was left with your neighbour at number 12", "exp": "Safe"}]}, {"slug": "clickbait-detector", "title": "Clickbait detector", "brief": "A news app wants an AI that warns you when a headline is clickbait: written to make you click, not to tell you what happened.", "hints": ["Read both files. What are the clickbait headlines <i>about</i>? What are the fair headlines about?", "Look at the test headlines about pop stars, actors and games. What did the AI say? Now look at the clickbait about science and weather."], "flaw": "<b>Shortcut learning.</b> Every clickbait example is about celebrities, influencers or games. Every fair headline is about science, weather or local news. The AI learned the <i>topic</i> instead of the <i>writing style</i>, so an honest headline about a pop star looks like clickbait, and clickbait about science looks fair.", "fix": "Add <b>extra-clickbait.txt</b> (clickbait about science and local news) to Clickbait, and <b>extra-fair_headline.txt</b> (honest headlines about celebrities and games) to Fair_headline. Train again, then retest.", "think": "What really makes a headline clickbait? List three clues a person would look for. Why didn’t the AI learn those clues the first time?", "labels": ["Clickbait", "Fair_headline"], "files": [{"f": "clickbait.txt", "kind": "train", "label": "Clickbait", "n": 16}, {"f": "fair_headline.txt", "kind": "train", "label": "Fair_headline", "n": 16}, {"f": "test.txt", "kind": "test", "n": 10}], "fixfiles": [{"f": "extra-clickbait.txt", "n": 12}, {"f": "extra-fair_headline.txt", "n": 12}], "test": [{"t": "Pop star announces new concert dates in Glasgow", "exp": "Fair_headline"}, {"t": "Fans queue for new game release at midnight", "exp": "Fair_headline"}, {"t": "Actor joins cast of new TV show", "exp": "Fair_headline"}, {"t": "Influencer launches a reading club for teenagers", "exp": "Fair_headline"}, {"t": "Scientists found something in the loch and nobody can explain it", "exp": "Clickbait"}, {"t": "Researchers measured the sea ice and what they found is shocking", "exp": "Clickbait"}, {"t": "Heavy rain is coming to Scotland and this map shows why you should worry", "exp": "Clickbait"}, {"t": "School nights will never be the same after this sleep study", "exp": "Clickbait"}, {"t": "You won't believe what this celebrity posted today", "exp": "Clickbait"}, {"t": "Heavy snow expected in the Highlands this weekend", "exp": "Fair_headline"}]}, {"slug": "feed-sorter", "title": "Feed topic sorter", "brief": "A video app sorts every new post into a topic. It then uses the topics to choose what to show each person next.", "hints": ["Count the lines in each file. What do you notice?", "Which label did the AI choose most often in your tests? What words do those test posts share with the football posts?"], "flaw": "<b>Imbalanced data.</b> There are 40 football examples and only 6 for each other topic. The AI has seen so much football that it picks Football whenever it isn’t sure, especially for posts with common words like “watch”, “new”, “best” and “win”. In a real app this would push everyone’s feed towards football: a filter bubble caused by bad data.", "fix": "Add <b>extra-music.txt</b>, <b>extra-gaming.txt</b> and <b>extra-science.txt</b> to their labels so every topic has a similar number of examples. Train again, then retest.", "think": "Link it to 2.3 and 2.5: what would this sorter do to someone’s recommendations? To balance the data, you could add more of the small topics or remove some football. What are the pros and cons of each?", "labels": ["Football", "Music", "Gaming", "Science"], "files": [{"f": "football.txt", "kind": "train", "label": "Football", "n": 40}, {"f": "music.txt", "kind": "train", "label": "Music", "n": 6}, {"f": "gaming.txt", "kind": "train", "label": "Gaming", "n": 6}, {"f": "science.txt", "kind": "train", "label": "Science", "n": 6}, {"f": "test.txt", "kind": "test", "n": 12}], "fixfiles": [{"f": "extra-music.txt", "n": 30}, {"f": "extra-gaming.txt", "n": 30}, {"f": "extra-science.txt", "n": 30}], "test": [{"t": "Watch the new music video live tonight", "exp": "Music"}, {"t": "The best new game of the year", "exp": "Gaming"}, {"t": "Live stream: watch the rocket launch tonight", "exp": "Science"}, {"t": "Band wins best new artist award", "exp": "Music"}, {"t": "Top ten tips to win at the new game", "exp": "Gaming"}, {"t": "New planet found by the space team", "exp": "Science"}, {"t": "Singer's world tour starts next week", "exp": "Music"}, {"t": "Watch the best gaming highlights of the week", "exp": "Gaming"}, {"t": "Scientists record the biggest wave ever", "exp": "Science"}, {"t": "Who will win the music awards this year", "exp": "Music"}, {"t": "Our team's new formation explained", "exp": "Football"}, {"t": "Match report: a big win at home", "exp": "Football"}]}, {"slug": "club-sign-up", "title": "Club sign-up sorter", "brief": "Thistle Park Youth Basketball Club gets lots of sign-ups. It trained an AI on 28 past decisions made by its old selection panel. The club’s rule is: <b>trials are for people who already play regularly; beginners are offered the beginners’ session instead.</b>", "hints": ["Compare the two files. Can you find two messages that say almost the same thing but got different decisions?", "Look at the place names. Where do the invited people live? Where do the others live?"], "flaw": "<b>Biased labels.</b> The old panel invited everyone from Glenbrae and Westmuir and turned down everyone from Eastfield and Riverside, whatever their experience. The AI learned that the area name decides the answer. Like GradeBot in 4.2, where you live has become a stand-in for who you are.", "fix": "More of the same data won’t help, because the labels themselves are unfair. Start a <b>new project</b> with the same two labels and add <b>fair-invite_to_trial.txt</b> and <b>fair-not_this_time.txt</b>. These were labelled using the club’s real rule, with people from every area in both labels. Train, then retest.", "think": "Would deleting the area names from the old data have fixed it? (Think it through: what would the two files look like?) Who should check training labels before an AI makes real decisions about people?", "labels": ["Invite_to_trial", "Not_this_time"], "files": [{"f": "invite_to_trial.txt", "kind": "train", "label": "Invite_to_trial", "n": 14}, {"f": "not_this_time.txt", "kind": "train", "label": "Not_this_time", "n": 14}, {"f": "test.txt", "kind": "test", "n": 8}], "fixfiles": [{"f": "fair-invite_to_trial.txt", "n": 14}, {"f": "fair-not_this_time.txt", "n": 14}], "test": [{"t": "I'm 14 and live in Glenbrae. I've never played basketball but I'd like to try", "exp": "Not_this_time"}, {"t": "I'm 14 and live in Eastfield. I've never played basketball but I'd like to try", "exp": "Not_this_time"}, {"t": "I'm 15 from Riverside. I play for my school team and practise every day", "exp": "Invite_to_trial"}, {"t": "I'm 15 from Westmuir. I play for my school team and practise every day", "exp": "Invite_to_trial"}, {"t": "I live in Eastfield and I've played basketball for three years", "exp": "Invite_to_trial"}, {"t": "I live in Glenbrae and I'm a complete beginner", "exp": "Not_this_time"}, {"t": "I train every day and I play for a local club", "exp": "Invite_to_trial"}, {"t": "Hi, I'm from Riverside. I've never played but I'm fast", "exp": "Not_this_time"}]}, {"slug": "library-sorter", "title": "Library book sorter", "brief": "The school library wants an AI to sort the blurbs of new books into genres, so each book goes on the right shelf.", "hints": ["Read each file line by line. Does every blurb really belong in that genre?", "Pick a test blurb the AI got wrong. Search the training files for its key words, such as “wizard”, “robot” or “inspector”. Which file are they in?"], "flaw": "<b>Mislabelled data.</b> 12 of the 54 blurbs (4 in each file) are in the wrong genre. That could be a mistake, or someone could have done it on purpose: data poisoning, like in 4.4. The AI copies the errors.", "fix": "Find the wrong blurbs. In Machine Learning for Kids, delete each one from its label and type it into the right label. (Or correct the .txt files and add them to a new project.) Train again, then retest.", "think": "How many wrong blurbs did you find? Checking and correcting data before training is called <b>data cleaning</b>. How could the library stop this happening again?", "labels": ["Fantasy", "Mystery", "Sci_fi"], "files": [{"f": "fantasy.txt", "kind": "train", "label": "Fantasy", "n": 18}, {"f": "mystery.txt", "kind": "train", "label": "Mystery", "n": 18}, {"f": "sci_fi.txt", "kind": "train", "label": "Sci_fi", "n": 18}, {"f": "test.txt", "kind": "test", "n": 10}], "fixfiles": [], "test": [{"t": "A knight must defeat the dragon to save the village", "exp": "Fantasy"}, {"t": "The magic ring makes its wearer invisible", "exp": "Fantasy"}, {"t": "A wizard school opens its doors to new pupils", "exp": "Fantasy"}, {"t": "The detective finds a secret passage behind the bookcase", "exp": "Mystery"}, {"t": "Who took the trophy from the school hall", "exp": "Mystery"}, {"t": "The inspector follows a trail of muddy footprints", "exp": "Mystery"}, {"t": "A robot crew explores a distant planet", "exp": "Sci_fi"}, {"t": "Aliens send a message from another galaxy", "exp": "Sci_fi"}, {"t": "A time machine breaks down in the year 2500", "exp": "Sci_fi"}, {"t": "The spaceship's computer refuses to open the doors", "exp": "Sci_fi"}]}];
