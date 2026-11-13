@@ -1,6 +1,418 @@
 {
-  "updated": "2026-11-12",
+  "updated": "2026-11-13",
   "stories": [
+    {
+      "body": [
+        "Gladys West, a Black American mathematician whose calculations helped make GPS accurate, died in January 2026 at the age of 95. GPS is the system that lets phones, sat navs and smartwatches work out exactly where they are on Earth.",
+        "She was born in 1930 on a farm in Virginia, USA. At that time, the law there split children into separate schools by race, and she went to a small one-room school. She worked hard, won a scholarship to college and studied maths, then became a teacher.",
+        "In 1956, she started work at a US Navy base in Dahlgren, Virginia, and stayed there for 42 years. She wrote programs for huge early computers that filled whole rooms and read their instructions from punched cards.",
+        "From the 1970s, she used algorithms to build a detailed model of the Earth's shape. The Earth is not a perfect ball, because gravity and tides make it slightly lumpy. Her team also processed data from a satellite called GeoSat, which measured the height of the sea from space. Knowing the Earth's true shape helps work out exactly where satellites travel, and GPS depends on that.",
+        "For most of her life, few people knew about her work. That changed in 2018, when she was added to a US Air Force hall of fame for space pioneers. She was also the first woman to win the Prince Philip Medal from the UK's Royal Academy of Engineering. Even so, she said she still preferred using a map to GPS!"
+      ],
+      "connections": {
+        "groups": [
+          {
+            "explain": "All of these can contain a GPS receiver to work out where they are.",
+            "name": "Things that can use GPS",
+            "words": [
+              "Sat nav",
+              "Smartwatch",
+              "Phone",
+              "Drone"
+            ]
+          },
+          {
+            "explain": "These all send data into a computer, just as a GPS chip takes in satellite signals.",
+            "name": "Input devices",
+            "words": [
+              "Keyboard",
+              "Mouse",
+              "Microphone",
+              "Webcam"
+            ]
+          },
+          {
+            "explain": "All of these travel around the Earth. Satellite might seem to fit the last group too ('satellite map'), but Star can't go here, because stars don't orbit the Earth.",
+            "name": "Things that orbit the Earth",
+            "words": [
+              "Moon",
+              "Satellite",
+              "Space station",
+              "Space junk"
+            ]
+          },
+          {
+            "explain": "Road map, treasure map, mind map and star map. Star is the red herring: it sounds like a space object, but it doesn't orbit the Earth.",
+            "name": "Words that come before 'map'",
+            "words": [
+              "Road",
+              "Treasure",
+              "Mind",
+              "Star"
+            ]
+          }
+        ],
+        "title": "Finding your way"
+      },
+      "date": "2026-11-13",
+      "discussion": [
+        "Gladys West's work was little known for most of her life, even though millions of people now use it every day. Why do you think some people's important work gets overlooked, and what could schools, companies or the news do to make sure everyone gets the credit they deserve?",
+        "She said she preferred a map to GPS. When might a paper map be better than a phone app, and when is the app better?",
+        "GPS needs a very accurate model of the Earth's shape. Why might a tiny mistake in a model cause a big problem later?",
+        "Which everyday jobs and services would struggle if GPS stopped working for a whole day?",
+        "Design challenge: GPS signals are weak inside buildings. Plan an app to help new pupils find their way around your school. What inputs could it use instead, and what would it show as output?"
+      ],
+      "extras": [
+        {
+          "answer": 2,
+          "bug": 7,
+          "explain": "'count > 4' needs 5 strong signals, so exactly 4 fails; '>= 4' accepts 4 or more. 'IF count >= 5' is tempting because it looks tidy, but it is the same mistake as the bug, still needing 5.",
+          "fixes": [
+            "IF count >= 5 THEN",
+            "IF count < 4 THEN",
+            "IF count >= 4 THEN",
+            "IF signal >= 4 THEN"
+          ],
+          "lines": [
+            {
+              "code": "SET count TO 0",
+              "indent": 0
+            },
+            {
+              "code": "REPEAT 5 TIMES",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE signal FROM SENSOR",
+              "indent": 1
+            },
+            {
+              "code": "IF signal >= 20 THEN",
+              "indent": 1
+            },
+            {
+              "code": "SET count TO count + 1",
+              "indent": 2
+            },
+            {
+              "code": "END IF",
+              "indent": 1
+            },
+            {
+              "code": "END REPEAT",
+              "indent": 0
+            },
+            {
+              "code": "IF count > 4 THEN",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Position found\" TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "ELSE",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Searching\" TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "END IF",
+              "indent": 0
+            }
+          ],
+          "strand": "Designing, building and testing computing solutions",
+          "task": "This receiver checks 5 satellites and counts the ones with a signal strength of 20 or more. It needs at least 4 strong signals to find its position. In testing, it kept saying 'Searching' even with exactly 4 strong signals. Find the faulty line and pick the fix.",
+          "tests": [
+            {
+              "expect": [
+                "Position found"
+              ],
+              "inputs": [
+                30,
+                25,
+                10,
+                40,
+                22
+              ]
+            },
+            {
+              "expect": [
+                "Searching"
+              ],
+              "inputs": [
+                30,
+                5,
+                10,
+                40,
+                8
+              ]
+            }
+          ],
+          "title": "Lost with four satellites",
+          "type": "bug",
+          "why": "A GPS receiver can only fix its position when it hears enough satellites, which is a count and a check."
+        },
+        {
+          "answer": 1,
+          "explain": "Only 3 and 5 are greater than 0, so bumps is 2, and the biggest reading is 5. '3 bumps' is tempting if you count 0 as a bump, but 0 > 0 is false.",
+          "inputs": [
+            3,
+            -2,
+            5,
+            0
+          ],
+          "lines": [
+            {
+              "code": "SET bumps TO 0",
+              "indent": 0
+            },
+            {
+              "code": "SET highest TO 0",
+              "indent": 0
+            },
+            {
+              "code": "REPEAT 4 TIMES",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE height FROM SENSOR",
+              "indent": 1
+            },
+            {
+              "code": "IF height > 0 THEN",
+              "indent": 1
+            },
+            {
+              "code": "SET bumps TO bumps + 1",
+              "indent": 2
+            },
+            {
+              "code": "END IF",
+              "indent": 1
+            },
+            {
+              "code": "IF height > highest THEN",
+              "indent": 1
+            },
+            {
+              "code": "SET highest TO height",
+              "indent": 2
+            },
+            {
+              "code": "END IF",
+              "indent": 1
+            },
+            {
+              "code": "END REPEAT",
+              "indent": 0
+            },
+            {
+              "code": "SEND bumps & \" bumps, highest \" & highest TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "options": [
+            "3 bumps, highest 5",
+            "2 bumps, highest 5",
+            "4 bumps, highest 5",
+            "2 bumps, highest 3"
+          ],
+          "question": "What will be displayed?",
+          "strand": "Understanding the world through computational thinking",
+          "task": "A satellite sends 4 sea-height readings in metres above (+) or below (−) average: 3, -2, 5, 0. Trace the program to see what it displays.",
+          "title": "Counting the bumps",
+          "trace": {
+            "cols": [
+              "Step",
+              "height",
+              "bumps",
+              "highest"
+            ],
+            "rows": [
+              [
+                "Start",
+                "-",
+                0,
+                0
+              ],
+              [
+                "Loop 1",
+                3,
+                1,
+                3
+              ],
+              [
+                "Loop 2",
+                -2,
+                1,
+                3
+              ],
+              [
+                "Loop 3",
+                5,
+                2,
+                5
+              ],
+              [
+                "Loop 4",
+                0,
+                2,
+                5
+              ]
+            ]
+          },
+          "type": "predict",
+          "why": "GeoSat measured how far the sea surface was above or below average, and counting the high spots is how a program starts to map the Earth's lumps."
+        },
+        {
+          "bits": 8,
+          "explain": "42 = 32 + 8 + 2, so in binary it's 00101010. 00101100 is a tempting slip, but that is 32 + 8 + 4 = 44.",
+          "strand": "Understanding and analysing computing technology",
+          "target": 42,
+          "task": "Switch bits on to make 42, the number of years Gladys West worked at the Navy base.",
+          "title": "42 years in binary",
+          "type": "binary",
+          "why": "Gladys West worked at Dahlgren for 42 years, a real number from the story to convert."
+        },
+        {
+          "explain": "The phone can't measure a distance until it knows each signal's travel time, and it can't calculate a position until it has the distances. Showing the dot early is tempting, but the app has nothing to show until the calculation is done.",
+          "steps": [
+            "Satellites send out signals saying exactly when each signal left.",
+            "The phone's GPS chip receives signals from several satellites.",
+            "It works out how long each signal took to arrive.",
+            "It turns each travel time into a distance from that satellite.",
+            "Using at least 4 distances and the satellites' known positions, it calculates where it is.",
+            "The map app shows your position as a dot."
+          ],
+          "strand": "Understanding and analysing computing technology",
+          "task": "Put the steps a phone follows to find its position into the correct order.",
+          "title": "How GPS finds you",
+          "type": "order",
+          "why": "Her work fed into the step-by-step process a GPS receiver follows to find you."
+        }
+      ],
+      "headline": "Remembering the maths whizz who helped GPS find you",
+      "id": "2026-11-13-gladys-west-gps",
+      "illustration": "data",
+      "imageAlt": "Illustration of a slightly lumpy Earth with a dashed perfect circle around it for comparison. Four satellites on an orbit send signals to a map pin, and a stack of punched cards sits on the left.",
+      "keywords": [
+        {
+          "meaning": "Global Positioning System: satellites send signals that let a device work out where it is.",
+          "term": "GPS"
+        },
+        {
+          "meaning": "A machine that travels around the Earth in space, for example to send signals or take measurements.",
+          "term": "Satellite"
+        },
+        {
+          "meaning": "A set of precise steps for solving a problem, which a computer can follow.",
+          "term": "Algorithm"
+        },
+        {
+          "meaning": "A simplified version of something real, used by a computer to make calculations or predictions.",
+          "term": "Model"
+        }
+      ],
+      "newsDate": "29 January 2026",
+      "quiz": [
+        {
+          "answer": 1,
+          "explain": "Her model of the Earth's shape helped work out exactly where satellites travel, which GPS needs. 'Maps of the seabed' is tempting because GeoSat measured the sea, but it measured the height of the sea surface to help model the Earth's shape.",
+          "options": [
+            "Weather forecasts made by computers",
+            "GPS position-finding",
+            "Phone calls sent through satellites",
+            "Maps of the seabed"
+          ],
+          "q": "What did Gladys West's calculations help make more accurate?",
+          "strand": "The news"
+        },
+        {
+          "answer": 1,
+          "explain": "Gravity and tides make the Earth slightly lumpy, so a simple ball shape isn't accurate enough. 'The Earth is a perfect ball' is a common belief, but if that were true there would be nothing to model.",
+          "options": [
+            "The Earth is a perfect ball, so it was easy to check",
+            "The Earth is slightly lumpy because of gravity and tides",
+            "The Earth's size changes every year",
+            "The satellites needed to know where the oceans were"
+          ],
+          "q": "Why did Gladys West need to model the Earth's shape so carefully?",
+          "strand": "The news"
+        },
+        {
+          "answer": 2,
+          "explain": "Signals coming into a device are input, which the processor then uses to work out a position. 'Output' is tempting because the satellite sends the signal out, but for the phone it is arriving, so it is input.",
+          "options": [
+            "output",
+            "stored data",
+            "input",
+            "a processor"
+          ],
+          "q": "A phone's GPS chip picks up signals from satellites. For the phone, these signals are…",
+          "strand": "Understanding and analysing computing technology"
+        },
+        {
+          "answer": 3,
+          "explain": "It needs at least 4: three distances pin down the position and a fourth corrects the small error in the receiver's own clock. 3 is tempting because we live in three dimensions, but without the fourth signal the timing error makes the answer wrong.",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "q": "A GPS receiver usually needs signals from at least how many satellites to work out its position?",
+          "strand": "Understanding and analysing computing technology"
+        },
+        {
+          "answer": 1,
+          "explain": "Apps can have out-of-date maps or a weak signal, so checking another source is safest. Restarting the app is tempting, but it may give the same wrong route, so you still need to check.",
+          "options": [
+            "Follow the app, because GPS is never wrong",
+            "Check signs or a map and use your own judgement",
+            "Restart the app and do whatever it says next",
+            "Turn off location so the app stops guiding you"
+          ],
+          "q": "Your map app tells you to walk through a field where you can see there is no path. What is the most sensible thing to do?",
+          "strand": "Using digital products and services in a variety of contexts to achieve a purposeful outcome"
+        },
+        {
+          "answer": 1,
+          "explain": "Distance = speed × time = 300,000 × 0.07 = 21,000 km. 2,100 km is tempting if you slip one place value when multiplying by 0.07; 4,286 comes from dividing instead of multiplying.",
+          "options": [
+            "2,100 km",
+            "21,000 km",
+            "210,000 km",
+            "4,286 km"
+          ],
+          "q": "Challenge: A satellite signal travels about 300,000 km every second. If it takes 0.07 seconds to reach your phone, about how far away is the satellite?",
+          "strand": "Understanding the world through computational thinking"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Remembering Gladys West, Who Helped Develop GPS (News for Kids, 29 January 2026)",
+          "url": "https://newsforkids.net/articles/2026/01/29/remembering-gladys-west-who-helped-develop-gps/"
+        },
+        {
+          "title": "Gladys West, mathematician whose work paved the way for GPS, dies at 95 (NPR, 23 January 2026)",
+          "url": "https://www.npr.org/2026/01/23/nx-s1-5685027/gladys-west-gps-mathematician"
+        }
+      ],
+      "standfirst": "Gladys West, a mathematician whose sums about the shape of the Earth helped make GPS accurate, has died aged 95. Her story shows how maths and computers work together behind the apps we use every day.",
+      "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect x=\"0\" y=\"0\" width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><circle cx=\"40\" cy=\"30\" r=\"2\" fill=\"var(--ill-2)\"/><circle cx=\"120\" cy=\"70\" r=\"2\" fill=\"var(--ill-2)\"/><circle cx=\"600\" cy=\"40\" r=\"2\" fill=\"var(--ill-2)\"/><circle cx=\"560\" cy=\"300\" r=\"2\" fill=\"var(--ill-2)\"/><circle cx=\"30\" cy=\"320\" r=\"2\" fill=\"var(--ill-2)\"/><circle cx=\"250\" cy=\"25\" r=\"2\" fill=\"var(--ill-2)\"/><circle cx=\"470\" cy=\"20\" r=\"2\" fill=\"var(--ill-2)\"/><circle cx=\"610\" cy=\"180\" r=\"2\" fill=\"var(--ill-2)\"/><polygon points=\"498.8,200.0 498.3,211.9 495.2,223.5 490.5,234.5 484.9,245.1 478.6,255.5 470.9,265.2 461.3,273.5 449.9,279.4 437.0,282.2 423.9,281.9 411.4,279.7 400.0,277.1 389.2,275.5 378.0,275.4 365.7,276.2 352.1,276.4 338.1,274.3 325.3,268.7 315.4,259.7 309.3,248.2 306.8,235.5 306.7,223.0 307.7,211.2 308.8,200.0 309.9,189.1 311.7,178.2 315.0,167.6 320.4,157.7 327.8,149.0 336.5,141.6 345.7,134.9 354.9,128.1 364.3,120.7 374.7,113.1 386.6,106.4 400.0,102.3 414.0,102.2 427.2,106.5 438.4,114.7 447.1,125.0 453.7,135.6 459.7,145.1 466.2,153.3 473.9,160.8 482.3,168.6 490.3,177.7 496.1,188.4\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><path d=\"M360 150 q20 -25 45 -5 q15 20 -10 30 q-25 5 -35 -25z\" fill=\"var(--ill-2)\"/><path d=\"M410 230 q30 -10 40 15 q-5 25 -30 20 q-20 -10 -10 -35z\" fill=\"var(--ill-2)\"/><circle cx=\"400\" cy=\"200\" r=\"95\" fill=\"none\" stroke=\"var(--card)\" stroke-width=\"2\" stroke-dasharray=\"6 6\"/><ellipse cx=\"400\" cy=\"200\" rx=\"200\" ry=\"140\" fill=\"none\" stroke=\"var(--ink)\" stroke-width=\"2\" stroke-dasharray=\"3 7\"/><rect x=\"391\" y=\"51\" width=\"18\" height=\"18\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><rect x=\"367\" y=\"54\" width=\"20\" height=\"12\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"1.5\"/><rect x=\"413\" y=\"54\" width=\"20\" height=\"12\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"1.5\"/><rect x=\"551\" y=\"111\" width=\"18\" height=\"18\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><rect x=\"527\" y=\"114\" width=\"20\" height=\"12\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"1.5\"/><rect x=\"573\" y=\"114\" width=\"20\" height=\"12\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"1.5\"/><rect x=\"566\" y=\"271\" width=\"18\" height=\"18\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><rect x=\"542\" y=\"274\" width=\"20\" height=\"12\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"1.5\"/><rect x=\"588\" y=\"274\" width=\"20\" height=\"12\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"1.5\"/><rect x=\"241\" y=\"101\" width=\"18\" height=\"18\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><rect x=\"217\" y=\"104\" width=\"20\" height=\"12\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"1.5\"/><rect x=\"263\" y=\"104\" width=\"20\" height=\"12\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"1.5\"/><line x1=\"400\" y1=\"60\" x2=\"430\" y2=\"175\" stroke=\"var(--hot)\" stroke-width=\"2\" stroke-dasharray=\"2 5\"/><line x1=\"560\" y1=\"120\" x2=\"430\" y2=\"175\" stroke=\"var(--hot)\" stroke-width=\"2\" stroke-dasharray=\"2 5\"/><line x1=\"575\" y1=\"280\" x2=\"430\" y2=\"175\" stroke=\"var(--hot)\" stroke-width=\"2\" stroke-dasharray=\"2 5\"/><line x1=\"250\" y1=\"110\" x2=\"430\" y2=\"175\" stroke=\"var(--hot)\" stroke-width=\"2\" stroke-dasharray=\"2 5\"/><path d=\"M430 175 l-12 -20 a14 14 0 1 1 24 0z\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"430\" cy=\"150\" r=\"5\" fill=\"var(--card)\"/><path d=\"M40 212 l12 -12 h118 v80 h-130z\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><path d=\"M48 204 l12 -12 h118 v80 h-130z\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><path d=\"M56 196 l12 -12 h118 v80 h-130z\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><rect x=\"81\" y=\"198\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"96\" y=\"198\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"111\" y=\"198\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"141\" y=\"198\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"156\" y=\"198\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"66\" y=\"214\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"96\" y=\"214\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"111\" y=\"214\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"126\" y=\"214\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"156\" y=\"214\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"66\" y=\"230\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"81\" y=\"230\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"111\" y=\"230\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"126\" y=\"230\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"141\" y=\"230\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"66\" y=\"246\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"81\" y=\"246\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"96\" y=\"246\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"126\" y=\"246\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"141\" y=\"246\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/><rect x=\"156\" y=\"246\" width=\"6\" height=\"9\" fill=\"var(--ink)\"/></svg>",
+      "tags": [
+        "Space",
+        "Careers",
+        "Data",
+        "Algorithms",
+        "Input & output"
+      ],
+      "theme": "space",
+      "whyItMatters": "Every time a map app shows where you are, it relies on careful maths and huge amounts of data processed by computers. Gladys West's story shows that people behind the scenes, often unnoticed for years, make that possible. It also shows that a computer is only as accurate as the model and data it is given."
+    },
     {
       "body": [
         "NASA's Voyager 1 space probe is about to reach a new milestone. On 18 November 2026, it is expected to be one light-day from Earth. That means a radio signal, which travels at the speed of light, takes a whole day to get there.",
