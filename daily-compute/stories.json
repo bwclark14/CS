@@ -1,6 +1,443 @@
 {
-  "updated": "2026-11-13",
+  "updated": "2026-11-14",
   "stories": [
+    {
+      "body": [
+        "Quantum computers are a new kind of computer that scientists are still building. Instead of ordinary bits, which are always 0 or 1, they use qubits. Scientists hope they will one day help with very hard problems, such as designing new medicines. But the machines are still small, so every program needs to be as cheap to run as possible.",
+        "A team at Google DeepMind and Google Quantum AI tried something new. They asked AI agents, which are AI programs that work through a task step by step, to design quantum programs for five scientific problems. People chose the problems and wrote down exactly what each program had to do and how its cost would be measured.",
+        "There was a catch. Every program the AI suggested had to come with a mathematical proof that it gave the right answer and stayed within its cost. The proofs were checked by a very strict tool called Lean. If a proof failed, the AI read the error message and tried again. A separate check made sure the AI hadn't quietly changed the task to make it easier.",
+        "On paper, the results were impressive. One maths routine became more than 290 times cheaper. A program for studying nuclear fusion became about 11 times cheaper and needed 4,374 qubits instead of 5,650. A program about how the body breaks down medicines became about 2.5 times cheaper.",
+        "These numbers are estimates, not runs on a real quantum computer. The research is a preprint, which means other scientists have not yet reviewed it, and the programs are still far too big for the first quantum computers. The team plans to share its checking tools so other researchers can use them."
+      ],
+      "connections": {
+        "groups": [
+          {
+            "explain": "These all measure how much data something holds, from small to large.",
+            "name": "Units of data size",
+            "words": [
+              "Byte",
+              "Kilobyte",
+              "Megabyte",
+              "Gigabyte"
+            ]
+          },
+          {
+            "explain": "Each of these is a way to find out whether a program does what it should; the researchers used proofs.",
+            "name": "Ways to check a program",
+            "words": [
+              "Testing",
+              "Tracing",
+              "Proof",
+              "Dry run"
+            ]
+          },
+          {
+            "explain": "Syntax error, logic error, runtime error and rounding error are all kinds of mistake a program can have.",
+            "name": "___ error",
+            "words": [
+              "Syntax",
+              "Logic",
+              "Runtime",
+              "Rounding"
+            ]
+          },
+          {
+            "explain": "Bit rate, frame rate, heart rate and error rate. Bit is a red herring because it looks like a data size, and Error looks as if it belongs with the kinds of error.",
+            "name": "Words before 'rate'",
+            "words": [
+              "Bit",
+              "Frame",
+              "Heart",
+              "Error"
+            ]
+          }
+        ],
+        "title": "Check your work"
+      },
+      "date": "2026-11-14",
+      "discussion": [
+        "Why do you think the scientists didn't just trust the AI's programs, even when the AI said they worked?",
+        "People chose the problems and the AI did the designing. Do you think this is a good way to share work between people and AI? Which jobs should always stay with people, and why?",
+        "Some scientists are excited that AI could speed up discoveries. Others worry that people might rely on AI too much and stop understanding the work themselves. What do you think?",
+        "When you write a program in class, how do you check that it works? How is testing a few examples different from proving it works for every possible input?",
+        "Design challenge: write a clear specification for a simple program, such as one that finds the biggest of three numbers. What must it do, what inputs will it get, and how would you check it?"
+      ],
+      "extras": [
+        {
+          "alternatives": [
+            [
+              1,
+              0,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            [
+              0,
+              1,
+              2,
+              4,
+              3,
+              5,
+              6
+            ],
+            [
+              1,
+              0,
+              2,
+              4,
+              3,
+              5,
+              6
+            ]
+          ],
+          "distractors": [
+            {
+              "code": "WHILE result = \"pass\" DO",
+              "indent": 0
+            }
+          ],
+          "explain": "The loop must repeat WHILE the result is 'fail', reading a new result and adding 1 to tries each time. 'WHILE result = \"pass\" DO' is tempting because passing is the goal, but the loop would never start, because result begins as 'fail'.",
+          "lines": [
+            {
+              "code": "SET tries TO 0",
+              "indent": 0
+            },
+            {
+              "code": "SET result TO \"fail\"",
+              "indent": 0
+            },
+            {
+              "code": "WHILE result = \"fail\" DO",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE result FROM KEYBOARD",
+              "indent": 1
+            },
+            {
+              "code": "SET tries TO tries + 1",
+              "indent": 1
+            },
+            {
+              "code": "END WHILE",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Proof accepted after \" & tries & \" tries\" TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "strand": "Designing, building and testing computing solutions",
+          "task": "Put the lines in order so the program keeps reading the proof checker's result ('fail' or 'pass'), counts the tries, and stops when the proof passes. For fail, fail, pass it should show 'Proof accepted after 3 tries'. One line doesn't belong.",
+          "tests": [
+            {
+              "expect": [
+                "Proof accepted after 3 tries"
+              ],
+              "inputs": [
+                "fail",
+                "fail",
+                "pass"
+              ]
+            },
+            {
+              "expect": [
+                "Proof accepted after 2 tries"
+              ],
+              "inputs": [
+                "fail",
+                "pass"
+              ]
+            }
+          ],
+          "title": "Try until the proof passes",
+          "type": "parsons",
+          "why": "The AI kept retrying until the proof checker accepted its work, which is a loop with a condition."
+        },
+        {
+          "answer": 1,
+          "explain": "oldCost is 20 × 600 = 12,000 and newCost is 30 × 100 = 3,000, so 12,000 ÷ 3,000 = 4. '6 times' is tempting because 600 ÷ 100 = 6, but that only compares the steps and forgets the new design uses more qubits.",
+          "lines": [
+            {
+              "code": "SET qubits TO 20",
+              "indent": 0
+            },
+            {
+              "code": "SET steps TO 600",
+              "indent": 0
+            },
+            {
+              "code": "SET oldCost TO qubits * steps",
+              "indent": 0
+            },
+            {
+              "code": "SET qubits TO 30",
+              "indent": 0
+            },
+            {
+              "code": "SET steps TO 100",
+              "indent": 0
+            },
+            {
+              "code": "SET newCost TO qubits * steps",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"New design is \" & oldCost / newCost & \" times cheaper\" TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "options": [
+            "New design is 6 times cheaper",
+            "New design is 4 times cheaper",
+            "New design is 0.25 times cheaper",
+            "New design is 9000 times cheaper"
+          ],
+          "question": "What does the program display?",
+          "strand": "Understanding the world through computational thinking",
+          "task": "Trace the program, which works out the cost of an old design and a new design and compares them. Watch out: the variables qubits and steps are changed halfway through.",
+          "title": "Which design is cheaper?",
+          "trace": {
+            "cols": [
+              "Step",
+              "qubits",
+              "steps",
+              "oldCost",
+              "newCost"
+            ],
+            "rows": [
+              [
+                "1",
+                "20",
+                "",
+                "",
+                ""
+              ],
+              [
+                "2",
+                "20",
+                "600",
+                "",
+                ""
+              ],
+              [
+                "3",
+                "20",
+                "600",
+                "12000",
+                ""
+              ],
+              [
+                "4",
+                "30",
+                "600",
+                "12000",
+                ""
+              ],
+              [
+                "5",
+                "30",
+                "100",
+                "12000",
+                ""
+              ],
+              [
+                "6",
+                "30",
+                "100",
+                "12000",
+                "3000"
+              ],
+              [
+                "7",
+                "30",
+                "100",
+                "12000",
+                "3000"
+              ]
+            ]
+          },
+          "type": "predict",
+          "why": "The researchers measured each program's cost by multiplying qubits by steps, then compared old and new designs."
+        },
+        {
+          "buckets": [
+            "People",
+            "AI agents",
+            "Proof checker"
+          ],
+          "explain": "People set the goals and judged the results, the AI agents designed and proved, and the proof checker checked. Putting 'Write a proof' with the proof checker is tempting, but the checker only checks proofs; the AI had to write them.",
+          "items": [
+            {
+              "bucket": 0,
+              "explain": "People chose the problems for the AI to work on.",
+              "text": "Choose which science problems to work on"
+            },
+            {
+              "bucket": 0,
+              "explain": "People wrote the specifications before the AI started.",
+              "text": "Write down exactly what each program must do"
+            },
+            {
+              "bucket": 1,
+              "explain": "The AI agents proposed the program designs.",
+              "text": "Suggest a new design for a quantum program"
+            },
+            {
+              "bucket": 1,
+              "explain": "The AI agents had to write proofs to go with every design.",
+              "text": "Write a proof that the design is correct"
+            },
+            {
+              "bucket": 1,
+              "explain": "When a proof failed, the AI used the error message to improve its work.",
+              "text": "Read the error message and try again"
+            },
+            {
+              "bucket": 2,
+              "explain": "Lean, the proof checker, checks every step of the proof.",
+              "text": "Say whether each proof is really correct"
+            },
+            {
+              "bucket": 2,
+              "explain": "A separate check confirmed each solution still met the original task.",
+              "text": "Make sure the task wasn't secretly changed"
+            },
+            {
+              "bucket": 0,
+              "explain": "People interpreted the results; the AI did not decide what they meant.",
+              "text": "Decide what the results mean"
+            }
+          ],
+          "strand": "Understanding and analysing computing technology",
+          "task": "Sort each job into the group that did it in the Google research: People, AI agents or the Proof checker.",
+          "title": "Who does which job?",
+          "type": "sort",
+          "why": "The story is about sharing a job between people, AI agents and a proof checker, and each did a different part."
+        }
+      ],
+      "headline": "AI designs quantum programs, then has to prove they work",
+      "id": "2026-11-14-ai-quantum-proofs",
+      "illustration": "frontier",
+      "imageAlt": "Illustration of a quantum program drawn as four lines with coloured gate boxes on a card. An arrow points to a page of proof lines under a magnifying glass, which shows a large tick.",
+      "keywords": [
+        {
+          "meaning": "The basic unit of a quantum computer. Unlike a normal bit, it can be in a mix of 0 and 1 until it is measured.",
+          "term": "Qubit"
+        },
+        {
+          "meaning": "An AI program that can work through a task step by step, try ideas and use feedback to improve them.",
+          "term": "AI agent"
+        },
+        {
+          "meaning": "A program that checks, step by step, whether a mathematical proof is completely correct. Lean is one example.",
+          "term": "Proof checker"
+        },
+        {
+          "meaning": "An exact description of what a program must do, written before the program is made, so it can be checked.",
+          "term": "Specification"
+        }
+      ],
+      "newsDate": "10 November 2026",
+      "quiz": [
+        {
+          "answer": 1,
+          "explain": "Each program needed a maths proof, checked by Lean, that it was correct and within its cost. A test run on a real quantum computer is tempting, but today's machines are too small to run these programs, so the results are estimates.",
+          "options": [
+            "A test run on a real quantum computer",
+            "A proof that it was correct and within its cost",
+            "A review by a panel of other AI agents",
+            "A shorter copy written out in binary"
+          ],
+          "q": "What did every program designed by the AI have to come with?",
+          "strand": "The news"
+        },
+        {
+          "answer": 3,
+          "explain": "5,650 − 4,374 = 1,276. 1,376 is tempting, but it comes from forgetting to borrow when subtracting the hundreds.",
+          "options": [
+            "1,376",
+            "1,286",
+            "1,374",
+            "1,276"
+          ],
+          "q": "The fusion program needed 5,650 qubits before and 4,374 after. How many fewer qubits is that?",
+          "strand": "The news"
+        },
+        {
+          "answer": 0,
+          "explain": "A normal bit is always 0 or 1, but a qubit can be in a mix of both until it is measured. Saying a qubit stores eight bits is tempting, but that describes a byte, which is a group of normal bits.",
+          "options": [
+            "A qubit can be a mix of 0 and 1 until it is measured",
+            "A qubit always stores eight bits, just like a byte",
+            "A qubit is a normal bit kept in much faster memory",
+            "A qubit can only ever be 0, which saves more power"
+          ],
+          "q": "What is the main difference between a normal bit and a qubit?",
+          "strand": "Understanding and analysing computing technology"
+        },
+        {
+          "answer": 2,
+          "explain": "Tests only show that the program works for the inputs you tried; another input could still go wrong. That is why the researchers used proofs as well. 'It will work for every possible input' is tempting, but only a proof can show that.",
+          "options": [
+            "It will work correctly for every possible input",
+            "It has been proven correct, just like Lean would",
+            "It works for those 3 inputs, but others might fail",
+            "It has no bugs left in it anywhere in the code"
+          ],
+          "q": "A program passes 3 tests. What does this show?",
+          "strand": "Designing, building and testing computing solutions"
+        },
+        {
+          "answer": 1,
+          "explain": "A specification says exactly what the program must do, so the proof checker had something precise to check against. 'So each program would need fewer qubits' is tempting, but the specification sets the goal; it doesn't make the program cheaper by itself.",
+          "options": [
+            "So the AI could run faster on the computer",
+            "So there was a precise goal to check each program against",
+            "So each program would need fewer qubits",
+            "So the AI could pick which problems to solve"
+          ],
+          "q": "Why did the people write an exact specification before the AI started work?",
+          "strand": "Understanding the world through computational thinking"
+        },
+        {
+          "answer": 3,
+          "explain": "A costs 10 × 300 = 3,000 and B costs 15 × 100 = 1,500, so B is 3,000 ÷ 1,500 = 2 times cheaper. 3 times is tempting because B has a third of the steps, but it also uses more qubits.",
+          "options": [
+            "3 times",
+            "1.5 times",
+            "5 times",
+            "2 times"
+          ],
+          "q": "Challenge: The cost of a design is qubits × steps. Design A uses 10 qubits and 300 steps. Design B uses 15 qubits and 100 steps. How many times cheaper is design B?",
+          "strand": "Understanding the world through computational thinking"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Google Researchers Use AI And Mathematical Proofs to Cut Quantum Computing Requirements (The Quantum Insider)",
+          "url": "https://thequantuminsider.com/2026/11/10/google-researchers-use-ai-and-mathematical-proofs-to-cut-quantum-computing-requirements"
+        },
+        {
+          "title": "Google Quantum AI: Discovering Quantum Programs with AI, verified by mathematical proof (Quantum Zeitgeist)",
+          "url": "https://quantumzeitgeist.com/google-quantum-ai-designs-quantum-verified/"
+        }
+      ],
+      "standfirst": "Researchers at Google asked AI helpers to design programs for future quantum computers. Every idea had to come with a maths proof, and a strict computer checked each one before anyone trusted it.",
+      "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><rect x=\"30\" y=\"50\" width=\"330\" height=\"240\" rx=\"16\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><line x1=\"60\" y1=\"100\" x2=\"330\" y2=\"100\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"60\" cy=\"100\" r=\"9\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><line x1=\"60\" y1=\"150\" x2=\"330\" y2=\"150\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"60\" cy=\"150\" r=\"9\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><line x1=\"60\" y1=\"200\" x2=\"330\" y2=\"200\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"60\" cy=\"200\" r=\"9\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><line x1=\"60\" y1=\"250\" x2=\"330\" y2=\"250\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"60\" cy=\"250\" r=\"9\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"94\" y=\"84\" width=\"32\" height=\"32\" rx=\"4\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"154\" y=\"134\" width=\"32\" height=\"32\" rx=\"4\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"214\" y=\"84\" width=\"32\" height=\"32\" rx=\"4\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"94\" y=\"184\" width=\"32\" height=\"32\" rx=\"4\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"244\" y=\"234\" width=\"32\" height=\"32\" rx=\"4\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"184\" y=\"234\" width=\"32\" height=\"32\" rx=\"4\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><line x1=\"290\" y1=\"100\" x2=\"290\" y2=\"200\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"290\" cy=\"100\" r=\"7\" fill=\"var(--ink)\"/><circle cx=\"290\" cy=\"200\" r=\"13\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><line x1=\"277\" y1=\"200\" x2=\"303\" y2=\"200\" stroke=\"var(--ink)\" stroke-width=\"3\"/><line x1=\"290\" y1=\"187\" x2=\"290\" y2=\"213\" stroke=\"var(--ink)\" stroke-width=\"3\"/><path d=\"M372 170 L420 170\" stroke=\"var(--hot)\" stroke-width=\"8\" stroke-linecap=\"round\"/><path d=\"M412 152 L438 170 L412 188 Z\" fill=\"var(--hot)\"/><rect x=\"455\" y=\"70\" width=\"140\" height=\"190\" rx=\"10\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><line x1=\"475\" y1=\"100\" x2=\"545\" y2=\"100\" stroke=\"var(--ill-2)\" stroke-width=\"6\" stroke-linecap=\"round\"/><line x1=\"475\" y1=\"125\" x2=\"575\" y2=\"125\" stroke=\"var(--ill-2)\" stroke-width=\"6\" stroke-linecap=\"round\"/><line x1=\"475\" y1=\"150\" x2=\"545\" y2=\"150\" stroke=\"var(--ill-2)\" stroke-width=\"6\" stroke-linecap=\"round\"/><line x1=\"475\" y1=\"175\" x2=\"575\" y2=\"175\" stroke=\"var(--ill-2)\" stroke-width=\"6\" stroke-linecap=\"round\"/><circle cx=\"545\" cy=\"215\" r=\"42\" fill=\"var(--ill-bg)\" stroke=\"var(--ink)\" stroke-width=\"6\"/><path d=\"M524 215 L539 231 L567 198\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><line x1=\"575\" y1=\"246\" x2=\"612\" y2=\"290\" stroke=\"var(--ink)\" stroke-width=\"12\" stroke-linecap=\"round\"/><path d=\"M420 70 L423 77 L430 80 L423 83 L420 90 L417 83 L410 80 L417 77 Z\" fill=\"var(--ill-2)\"/><path d=\"M400 260 L403 267 L410 270 L403 273 L400 280 L397 273 L390 270 L397 267 Z\" fill=\"var(--ill-2)\"/><path d=\"M610 50 L613 57 L620 60 L613 63 L610 70 L607 63 L600 60 L607 57 Z\" fill=\"var(--ill-2)\"/><text x=\"60\" y=\"80\" font-size=\"18\" font-family=\"sans-serif\" fill=\"var(--ink)\">|0⟩</text></svg>",
+      "tags": [
+        "Quantum",
+        "AI",
+        "Frontier tech",
+        "Algorithms",
+        "Testing"
+      ],
+      "theme": "quantum",
+      "whyItMatters": "AI can give answers that look right but are wrong, so checking its work matters. This research shows one way to trust an AI's ideas: make it prove them, and let a strict computer check every proof. It also shows that quantum programs are being designed now, before the machines that will run them are ready."
+    },
     {
       "body": [
         "Gladys West, a Black American mathematician whose calculations helped make GPS accurate, died in January 2026 at the age of 95. GPS is the system that lets phones, sat navs and smartwatches work out exactly where they are on Earth.",
