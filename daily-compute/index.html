@@ -451,7 +451,39 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
 
 .pr-blk.pr-hide{visibility:hidden}
 .pr-foot .pr-rev{font-size:16px}
-.pr-foot .pr-rev[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}</style>
+.pr-foot .pr-rev[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+/* Phones: an app-like layout. One slim row of controls, activities at their normal size and scrolled,
+   the story as one scrolling article, and the launchpad as a list. */
+body.pm-phone .pmbar{flex-wrap:nowrap;justify-content:space-between;gap:6px;min-height:0;padding:8px max(10px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px));border-top-width:2px}
+body.pm-phone .pm-grp{gap:6px}
+body.pm-phone .pmb{min-height:48px;min-width:48px;padding:4px 10px;border-radius:12px;border-width:2px}
+body.pm-phone .pmb.tick{min-width:76px;font-size:18px}
+body.pm-phone [data-pmb="smaller"],body.pm-phone [data-pmb="bigger"],body.pm-phone [data-pmb="full"]{display:none}
+body.pm-phone .pm-menu{grid-template-columns:repeat(2,minmax(0,1fr))}
+body.pm-phone #main{padding-top:12px}
+body.pm-phone .talk.one li{font-size:23px;grid-template-columns:40px minmax(0,1fr);gap:12px}
+body.pm-phone .talk.one li::before{height:38px;font-size:18px}
+body.pm-phone .pm-launch{overflow-y:auto;padding:max(14px,env(safe-area-inset-top,0px)) max(14px,env(safe-area-inset-right,0px)) 14px max(14px,env(safe-area-inset-left,0px))}
+body.pm-phone .pm-lhead{gap:6px;margin-bottom:14px}
+body.pm-phone .pm-brand{font-size:15px;white-space:normal}
+body.pm-phone .pm-eyebrow{font-size:12px}
+body.pm-phone .pm-hlbtn{font-size:23px}
+body.pm-phone .pm-storylist{max-height:65vh}
+body.pm-phone .pm-storylist button{grid-template-columns:4.5em minmax(0,1fr);gap:10px;padding:10px}
+body.pm-phone .pm-tiles{flex:none;grid-template-columns:minmax(0,1fr);grid-auto-rows:auto;gap:8px}
+body.pm-phone .pm-tile{min-height:0;height:auto;padding:12px;border-width:2px;border-radius:16px;gap:2px 12px;align-items:center}
+body.pm-phone .pm-ico{width:44px;border-radius:12px}
+body.pm-phone .pm-tile b{font-size:18px}
+body.pm-phone .pm-tile span.d{font-size:14px;-webkit-line-clamp:2}
+body.pm-phone .pm-lnote{display:none}
+body.pm-phone[data-pm="story"]{padding-bottom:calc(var(--pmbar-h,84px) + 24px)}
+body.pm-phone .pmread{font-size:20px}
+body.pm-phone .pr-hl{white-space:normal;font-size:1.4em!important;text-wrap:balance;margin-top:.15em}
+body.pm-phone .pr-body{overflow:visible}
+body.pm-phone .pr-grid{display:flex;flex-direction:column}
+body.pm-phone .pr-fig{order:-1;margin:0 0 .8em;width:100%;max-width:420px}
+body.pm-phone .pr-foot .pr-dots,body.pm-phone .pr-foot .pr-n,body.pm-phone .pr-foot .pr-rev,body.pm-phone .pr-foot [data-pr="-1"]{display:none}
+body.pm-phone .pr-foot .btn{flex:1}</style>
 
 <header class="mast">
   <div class="wrap mast-row">
@@ -1261,7 +1293,7 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
     if (!st) return [];
     const L = [];
     if ((st.keywords||[]).length) L.push({k:"words", name:"Key words", d:`${st.keywords.length} words to know before reading.`, ico:"words"});
-    L.push({k:"story", name:"Read the story", d:"The article in large print, one screen at a time.", ico:"story"});
+    L.push({k:"story", name:"Read the story", d:pmPhone() ? "The whole article to read and scroll." : "The article in large print, one screen at a time.", ico:"story"});
     if ((st.discussion||[]).length) L.push({k:"talk", name:"Let's discuss", d:`${st.discussion.length} questions, shown one at a time.`, ico:"talk", cls:"talk"});
     if ((st.quiz||[]).length) L.push({k:"quiz", name:"Quick quiz", d:`${st.quiz.length} questions to answer together.`, ico:"quiz", cls:"game"});
     if (st.connections && st.connections.groups && st.connections.groups.length === 4) L.push({k:"links", name:"Four Links", d:"Find four groups of four words.", ico:"links", cls:"game"});
@@ -1271,7 +1303,9 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
   }
   // Everything in classroom mode fits the screen: the story is split into pages,
   // every other activity is zoomed to the largest size that fits above the control bar.
-  const sentences = t => (String(t).match(/[^.!?]+(?:[.!?]+["'’”)\]]*|$)\s*/g) || [String(t)]).map(x => x.trim()).filter(Boolean);
+  // On a phone nothing is shrunk to fit: the page scrolls like an app instead
+  const pmPhone = () => matchMedia("(max-width:700px),(max-height:500px)").matches;
+  const sentences = t =>(String(t).match(/[^.!?]+(?:[.!?]+["'’”)\]]*|$)\s*/g) || [String(t)]).map(x => x.trim()).filter(Boolean);
   function pmUnits(st){
     const U = [];
     if (st.standfirst) U.push({k:"sf", t:st.standfirst});
@@ -1290,12 +1324,21 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
   function pmRead(){
     const st = current, R = $("#pmRead"); if (!R || !st) return;
     const bar = $("#pmBar"), barH = bar && !bar.hidden ? bar.offsetHeight : 84;
+    const phone = pmPhone();
     const fs = Math.round(Math.max(20, Math.min(52, (window.innerHeight - barH) * 0.04, window.innerWidth * 0.03)) * pm.scale);
     R.style.setProperty("--pr-fs", fs + "px");
     R.innerHTML = `<header class="pr-head"><div class="chiprow"><span class="chip">${esc(THEMES[st.theme]||st.theme)}</span><span class="when">${st.date===todayISO?"Today's story":esc(pretty(st.date))} · in the news ${esc(st.newsDate||"")}</span></div>
         <h2 class="pr-hl"><span>${esc(st.headline)}</span></h2></header>
       <div class="pr-body" id="prBody"></div>
       <div class="pr-foot"><button class="btn line" type="button" data-pr="-1">‹ Back</button><span class="pr-dots" aria-hidden="true"></span><span class="pr-n"></span><button class="btn line pr-rev" type="button" data-prrev aria-pressed="${pm.reveal}">${pm.reveal ? "One paragraph at a time: on" : "One paragraph at a time: off"}</button><button class="btn" type="button" data-pr="1">Next page ›</button></div>`;
+    if (phone){
+      // the whole story as one article that scrolls
+      R.style.height = "";
+      pm.pages = [[0, pmUnits(st).length]];
+      pmShowPage();
+      R.querySelector('[data-pr="1"]').addEventListener("click", () => pmStep(1));
+      return;
+    }
     const top = R.getBoundingClientRect().top;
     R.style.height = Math.max(240, window.innerHeight - barH - top - 18) + "px";
     // headline on one line: the largest size that fits the width
@@ -1330,7 +1373,7 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
     const [a, b] = pm.pages[pm.page];
     $("#prBody").innerHTML = pmPageHTML(pmUnits(current), a, b, pm.page === 0, current);
     const blks = [...R.querySelectorAll(".pr-blk")], nb = blks.length;
-    if (!pm.reveal) pm.shown = nb; pm.shown = Math.max(1, Math.min(nb, pm.shown));
+    if (!pm.reveal || pmPhone()) pm.shown = nb; pm.shown = Math.max(1, Math.min(nb, pm.shown));
     blks.forEach((el, k) => el.classList.toggle("pr-hide", k >= pm.shown));
     pm.more = pm.shown < nb;
     R.querySelector(".pr-n").textContent = `Page ${pm.page + 1} of ${n}`;
@@ -1346,7 +1389,7 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
     const secs = pmSections(current), i = secs.findIndex(s => s.k === pm.view);
     if (pm.view === "story"){
       if (d > 0 && pm.more){ pm.shown++; pmShowPage(); return; }
-      if (d < 0 && pm.reveal && pm.shown > 1){ pm.shown--; pmShowPage(); return; }
+      if (d < 0 && pm.reveal && !pmPhone() && pm.shown > 1){ pm.shown--; pmShowPage(); return; }
       if (pm.page + d >= 0 && pm.page + d < pm.pages.length){ pm.page += d; pm.shown = d > 0 ? 1 : 1e9; pmShowPage(); return; }
     }
     const j = i + d;
@@ -1356,6 +1399,7 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
   let pmFitting = false;
   function pmFit(){
     const main = $("#main"), root = document.documentElement;
+    if (pmPhone()){ main.style.zoom = ""; root.classList.remove("pm-lock"); return; }
     pmFitting = true;
     root.classList.add("pm-lock");
     const fits = z => { main.style.zoom = z; return root.scrollHeight <= window.innerHeight + 1 && root.scrollWidth <= window.innerWidth + 1; };
@@ -1380,11 +1424,12 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
   }
   function pmLayout(){
     const bar = $("#pmBar"), main = $("#main"), root = document.documentElement;
+    document.body.classList.toggle("pm-phone", pm.on && pmPhone());
     if (bar && !bar.hidden) root.style.setProperty("--pmbar-h", bar.offsetHeight + "px");
     const L = $("#pmLaunch");
     if (L && !L.hidden){ const n = pmSections(current).length, w = window.innerWidth; L.style.setProperty("--pm-cols", Math.min(n, w >= 1100 ? 4 : w >= 700 ? 3 : 2)); }
     if (!pm.on || pm.view === "launch"){ main.style.zoom = ""; root.classList.toggle("pm-lock", pm.on); return; }
-    if (pm.view === "story"){ main.style.zoom = ""; root.classList.add("pm-lock"); pmRead(); return; }
+    if (pm.view === "story"){ main.style.zoom = ""; root.classList.toggle("pm-lock", !pmPhone()); pmRead(); return; }
     pmFit();
   }
   function pmEnter(view){
@@ -1396,7 +1441,7 @@ body.pm-on #main:has(.pmread.pm-show){max-width:1600px}
   }
   function pmExit(){
     pm.on = false; pm.t.menu = false;
-    document.body.classList.remove("pm-on"); document.body.removeAttribute("data-pm");
+    document.body.classList.remove("pm-on", "pm-phone"); document.body.removeAttribute("data-pm");
     $("#pmLaunch").hidden = true; $("#pmBar").hidden = true;
     document.querySelectorAll(".pm-show").forEach(n => n.classList.remove("pm-show"));
     $("#main").style.zoom = ""; document.documentElement.classList.remove("pm-lock");
