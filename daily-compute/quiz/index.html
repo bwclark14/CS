@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Group quiz · The Daily Compute</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Silkscreen:wght@400;700&display=swap">
+<style>
+/* The Daily Compute group quiz. Same look as the main page: pixel display type, Atkinson Hyperlegible body, ink/paper/accent/hot.
+   Teacher screens are sized for a projector; pupil screens for phones, iPads and Chromebooks. */
+:root{
+  --paper:#F2F5FB; --card:#FFFFFF; --ink:#16213F; --muted:#56607A; --line:#D5DCEA;
+  --accent:#2B55E6; --accent-soft:#E2E9FF; --hot:#F2701D; --hot-soft:#FFE9DA;
+  --good:#1C8A4E; --good-soft:#DDF3E6; --bad:#C53A3A; --bad-soft:#FBE3E3; --str:#A3450C;
+  --a0:#C53A3A; --a1:#2B55E6; --a2:#F2B33D; --a3:#1C8A4E; --a0-ink:#fff; --a1-ink:#fff; --a2-ink:#14182A; --a3-ink:#fff;
+  --f-display:"Silkscreen", "Courier New", monospace;
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "Menlo", monospace;
+  --r:12px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#0E1426; --card:#161F37; --ink:#E7ECF8; --muted:#9AA5C2; --line:#2A3657;
+  --accent:#7F9BFF; --accent-soft:#1F2C55; --hot:#FF9550; --hot-soft:#3A2618;
+  --good:#5BD08F; --good-soft:#163526; --bad:#FF7C7C; --bad-soft:#3D1C1F; --str:#FFB27A; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#0E1426; --card:#161F37; --ink:#E7ECF8; --muted:#9AA5C2; --line:#2A3657;
+  --accent:#7F9BFF; --accent-soft:#1F2C55; --hot:#FF9550; --hot-soft:#3A2618;
+  --good:#5BD08F; --good-soft:#163526; --bad:#FF7C7C; --bad-soft:#3D1C1F; --str:#FFB27A; color-scheme:dark }
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:18px;line-height:1.5;min-height:100vh;min-height:100dvh}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:4px solid var(--hot);outline-offset:3px}
+[hidden]{display:none!important}
+.wrap{max-width:1180px;margin:0 auto;padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+.logo{font-family:var(--f-display);font-weight:700;font-size:clamp(22px,4vw,34px);line-height:1;margin:0}
+.logo span{color:var(--hot)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.eyebrow{font-family:var(--f-display);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0}
+h1,h2{line-height:1.15}
+.card{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:clamp(18px,3vw,32px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:10px 22px;border-radius:12px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);font-weight:700;font-size:18px;cursor:pointer;touch-action:manipulation;text-decoration:none}
+.btn:hover:not([disabled]){background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.line{background:transparent;color:var(--ink)}
+.btn.line:hover:not([disabled]){background:var(--accent-soft);color:var(--ink);border-color:var(--accent)}
+.btn.hot{background:var(--hot);border-color:var(--hot);color:#1A1205}
+.btn.big{min-height:64px;font-size:22px;padding:12px 30px}
+.btn[disabled]{opacity:.45;cursor:default}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.note{color:var(--muted);font-size:16px}
+.notice{border-left:6px solid var(--hot);background:var(--hot-soft);padding:14px 18px;border-radius:10px;margin:16px 0}
+.notice.bad{border-color:var(--bad);background:var(--bad-soft)}
+
+/* Home */
+.home{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:820px){ .home{grid-template-columns:1fr} }
+.join h2{font-family:var(--f-display);font-size:clamp(22px,3vw,30px);margin:0 0 6px}
+.codebox{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.codebox label{flex-basis:100%;font-weight:700}
+.codein{flex:1 1 220px;min-width:0;font-family:var(--f-mono);font-size:clamp(28px,6vw,40px);letter-spacing:.25em;text-transform:uppercase;text-align:center;padding:8px 10px;border:3px solid var(--line);border-radius:12px;background:var(--paper)}
+.codein:focus{border-color:var(--accent)}
+@media (max-width:560px){ .codein{flex-basis:100%;width:100%} .codebox .btn{flex:1 1 100%} }
+.err{color:var(--bad);font-weight:700;margin:10px 0 0;min-height:1.5em}
+
+/* Teacher setup */
+.field{display:grid;gap:6px;margin:16px 0}
+.field label,.field legend{font-weight:700}
+select{min-height:52px;border:2px solid var(--line);border-radius:10px;background:var(--paper);padding:8px 12px;font-size:18px;max-width:100%}
+
+/* Teacher lobby */
+.lobby{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:24px;align-items:start}
+@media (max-width:900px){ .lobby{grid-template-columns:1fr} }
+.bigcode{font-family:var(--f-mono);font-weight:500;font-size:clamp(48px,7.2vw,104px);letter-spacing:.08em;white-space:nowrap;line-height:1;margin:6px 0 12px;color:var(--ink)}
+.joinurl{font-size:clamp(18px,1.8vw,24px);font-weight:700;overflow-wrap:anywhere}
+.qr{background:#fff;border-radius:12px;padding:10px;width:clamp(170px,20vw,260px);aspect-ratio:1;margin-top:14px}
+.qr svg{display:block;width:100%;height:100%}
+.settings{display:grid;gap:4px;margin:0;border:0;padding:0}
+.settings fieldset{border:0;margin:0 0 14px;padding:0}
+.settings legend{font-family:var(--f-display);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg label{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:6px 14px;border:2px solid var(--line);border-radius:10px;cursor:pointer;background:var(--paper)}
+.seg input{width:20px;height:20px;accent-color:var(--accent)}
+.seg label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.players{margin-top:18px}
+.players h2{font-size:clamp(20px,2vw,26px);margin:0 0 10px}
+.names{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.name{min-height:44px;padding:6px 14px;border-radius:999px;border:2px solid var(--line);background:var(--card);font-weight:700;font-size:clamp(16px,1.4vw,20px);cursor:pointer}
+.name:hover{border-color:var(--bad);background:var(--bad-soft)}
+.name.away{opacity:.5;border-style:dashed}
+@media (prefers-reduced-motion:no-preference){ .name.new{animation:pop .25s ease-out} @keyframes pop{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}} }
+
+/* Dialog (in-page confirm) */
+.dlg{position:fixed;inset:0;background:#0009;display:grid;place-items:center;z-index:20;padding:16px}
+.dlg .card{max-width:520px;width:100%}
+.dlg h2{margin:0 0 8px;font-size:24px}
+
+/* Questions */
+.qhead{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.qmeta{font-family:var(--f-display);font-size:clamp(13px,1.2vw,16px);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.qtext{font-size:clamp(24px,2.9vw,42px);font-weight:700;line-height:1.25;margin:0 0 16px;text-wrap:balance}
+.clock{font-family:var(--f-mono);font-weight:500;font-size:clamp(30px,3.6vw,52px);min-width:3.2ch;text-align:center;border:4px solid var(--ink);border-radius:999px;padding:2px 18px;line-height:1.3}
+.clock.low{border-color:var(--hot);color:var(--hot)}
+.count{font-size:clamp(18px,1.7vw,24px);font-weight:700}
+.code{font-family:var(--f-mono);font-size:clamp(15px,1.6vw,24px);line-height:1.55;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 0;margin:0 0 18px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.code ol{list-style:none;margin:0;padding:0;counter-reset:ln;min-width:max-content}
+.code li{counter-increment:ln;white-space:pre;padding:0 18px 0 0;display:flex}
+.code li::before{content:counter(ln);display:inline-block;width:3ch;margin-right:14px;text-align:right;color:var(--muted);flex:none;padding-left:8px}
+.code .kw{color:var(--accent);font-weight:500}
+.code .st{color:var(--str)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;list-style:none;margin:0;padding:0}
+.opt{display:flex;align-items:center;gap:14px;min-height:72px;padding:12px 18px;border-radius:12px;font-size:clamp(18px,2vw,30px);font-weight:700;line-height:1.25;border:0;text-align:left;width:100%}
+.opt .sh{font-size:1.1em;flex:none;width:1.4em;text-align:center}
+.o0{background:var(--a0);color:var(--a0-ink)} .o1{background:var(--a1);color:var(--a1-ink)} .o2{background:var(--a2);color:var(--a2-ink)} .o3{background:var(--a3);color:var(--a3-ink)}
+.tbar{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.qbody.withcode{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
+.qbody.withcode .code{margin:0}
+.qbody.withcode .opts,.qbody.withcode .bars{grid-template-columns:1fr}
+.qbody.withcode .opt{min-height:60px}
+@media (max-width:900px){ .qbody.withcode{display:block} .qbody.withcode .code{margin-bottom:18px} }
+
+/* Reveal */
+.bars{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.bar{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px;font-size:clamp(17px,1.8vw,26px);font-weight:700}
+.bar .lbl{position:relative;border-radius:10px;padding:12px 16px;background:var(--card);border:2px solid var(--line);overflow:hidden;display:flex;gap:12px;align-items:center}
+.bar .fill{position:absolute;inset:0 auto 0 0;opacity:.28}
+.bar .lbl > :not(.fill){position:relative}
+.bar.right .lbl{border:4px solid var(--good);background:var(--good-soft)}
+.bar.dim{opacity:.6}
+.bar .n{font-family:var(--f-mono);min-width:3ch;text-align:right}
+.tick{color:var(--good);font-size:1.1em}
+.explain{margin-top:18px;padding:16px 20px;border-radius:12px;background:var(--accent-soft);font-size:clamp(18px,1.9vw,26px)}
+.explain b{font-family:var(--f-display);font-weight:400;font-size:.7em;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:4px}
+.board{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:b}
+.board li{display:grid;grid-template-columns:4.5ch minmax(0,1fr) auto;gap:16px;align-items:center;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:12px 18px;font-size:clamp(20px,2.4vw,34px);font-weight:700}
+.board .pl{font-family:var(--f-display);color:var(--hot)}
+.board .sc{font-family:var(--f-mono);font-weight:500}
+.podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:end;max-width:900px;margin:18px auto}
+.step{text-align:center;font-weight:700}
+.step .nm{font-size:clamp(18px,2.2vw,30px);margin-bottom:8px;overflow-wrap:anywhere}
+.step .blk{border-radius:12px 12px 0 0;display:grid;place-items:center;font-family:var(--f-display);font-size:clamp(28px,4vw,56px);color:#fff}
+.step.p1 .blk{height:clamp(150px,22vh,240px);background:var(--hot);color:#1A1205}
+.step.p2 .blk{height:clamp(110px,16vh,180px);background:var(--accent)}
+.step.p3 .blk{height:clamp(80px,12vh,130px);background:var(--good)}
+.step .sc{font-family:var(--f-mono);font-weight:500;color:var(--muted)}
+.welldone{text-align:center;font-size:clamp(22px,2.6vw,36px);font-weight:700;margin:20px 0 6px}
+
+/* Pupil */
+.pupil{max-width:760px;margin:0 auto}
+.me{text-align:center;padding:26px 16px}
+.me .you{font-family:var(--f-display);font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.me .nm{font-size:clamp(36px,10vw,64px);font-weight:700;line-height:1.1;margin:8px 0 16px;overflow-wrap:anywhere}
+.waiting{font-size:22px;font-weight:700;text-align:center}
+@media (prefers-reduced-motion:no-preference){ .dots::after{content:"";animation:dots 1.5s steps(4) infinite} @keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}} }
+.pq .qtext{font-size:clamp(20px,5vw,30px)}
+.pq .code{font-size:clamp(14px,3.6vw,18px)}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px;list-style:none;margin:0;padding:0}
+.answers.two .opt{min-height:120px;font-size:clamp(24px,6vw,36px);justify-content:center}
+.answers .opt{min-height:88px;cursor:pointer;font-size:clamp(17px,4.4vw,24px)}
+.answers .opt:hover{filter:brightness(1.08)}
+.answers .opt:active{transform:scale(.98)}
+@media (max-width:420px){ .answers:not(.two){grid-template-columns:1fr} .answers .opt{min-height:64px} }
+.timeline{height:10px;border-radius:999px;background:var(--line);overflow:hidden;margin:0 0 14px}
+.timeline i{display:block;height:100%;background:var(--hot);width:100%}
+.locked{text-align:center;padding:30px 16px}
+.locked .big{font-size:clamp(30px,8vw,48px);font-weight:700;margin:10px 0}
+.result{text-align:center;padding:24px 16px;border-radius:16px;margin-bottom:14px}
+.result.good{background:var(--good-soft);border:3px solid var(--good)}
+.result.bad{background:var(--bad-soft);border:3px solid var(--bad)}
+.result.neutral{background:var(--accent-soft);border:3px solid var(--accent)}
+.result h2{font-size:clamp(30px,8vw,48px);margin:0}
+.result .pts{font-family:var(--f-mono);font-size:clamp(24px,6vw,36px);font-weight:500;margin:6px 0 0}
+.place{text-align:center;font-size:clamp(20px,5vw,28px);font-weight:700;margin:14px 0}
+.banner{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--ink);color:var(--paper);padding:12px max(16px,env(safe-area-inset-left)) calc(12px + env(safe-area-inset-bottom));text-align:center;font-weight:700;font-size:17px}
+.banner.bad{background:var(--bad);color:#fff}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
+</style>
+</head>
+<body>
+<main class="wrap" id="app" aria-live="polite"></main>
+<div class="banner" id="banner" role="status" hidden></div>
+<div class="dlg" id="dlg" hidden><div class="card" role="dialog" aria-modal="true" aria-labelledby="dlgTitle"><h2 id="dlgTitle"></h2><p id="dlgText"></p><div class="row" id="dlgBtns"></div></div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+<script>
+// ===== Set this after deploying the game server (see cloudflare/group-quiz/README.md) =====
+// Paste the Worker's address, e.g. "https://daily-compute-group-quiz.your-name.workers.dev"
+const WORKER_URL = "";
+// ===========================================================================================
+const QUIZ_URL = "https://bwclark14.github.io/CS/daily-compute/quiz/";
+
+(() => {
+  "use strict";
+  const $ = s => document.querySelector(s);
+  const app = $("#app");
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const store = {
+    get(k){ try { return JSON.parse(sessionStorage.getItem(k)); } catch(e){ return null; } },
+    set(k, v){ try { v === null ? sessionStorage.removeItem(k) : sessionStorage.setItem(k, JSON.stringify(v)); } catch(e){} },
+  };
+  const params = new URLSearchParams(location.search);
+  const local = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  // For testing on your own computer only: ?server=http://localhost:8787
+  const SERVER = (local && params.get("server")) || WORKER_URL;
+  const testServer = local && params.get("server") ? "&server=" + encodeURIComponent(params.get("server")) : "";
+  const CODE_RE = /^[CDFGHJKMNPQRTVWXY34679]{6}$/;
+  const SHAPES = ["▲", "◆", "●", "■"], SHAPE_NAMES = ["triangle", "diamond", "circle", "square"];
+  const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const ord = n => n + (n % 100 >= 11 && n % 100 <= 13 ? "th" : ["th","st","nd","rd"][n % 10] || "th");
+  const KW = /\b(SET|TO|RECEIVE|FROM|KEYBOARD|SEND|DISPLAY|IF|THEN|ELSE|END|WHILE|DO|REPEAT|TIMES|UNTIL|AND|OR|NOT|TRUE|FALSE)\b/g;
+  const hl = c => esc(c).split(/(&quot;.*?&quot;)/g).map((p, i) => i % 2 ? `<span class="st">${p}</span>` : p.replace(KW, '<span class="kw">$1</span>')).join("");
+  const codeHTML = (lines, label) => lines && lines.length ? `<div class="code" role="region" tabindex="0" aria-label="${esc(label || "Code")}"><ol>${lines.map(l => `<li><span>${" ".repeat(2 * (l.indent || 0))}${hl(l.code)}</span></li>`).join("")}</ol></div>` : "";
+  const logo = `<p class="logo">The Daily <span>Compute</span></p>`;
+
+  // ---------- banner and in-page confirm ----------
+  function banner(text, bad){ const b = $("#banner"); b.hidden = !text; b.textContent = text || ""; b.classList.toggle("bad", !!bad); }
+  function confirmBox(title, text, yes, no, onYes){
+    const d = $("#dlg"), back = document.activeElement;
+    $("#dlgTitle").textContent = title; $("#dlgText").textContent = text;
+    $("#dlgBtns").innerHTML = `<button class="btn hot" type="button" data-y>${esc(yes)}</button><button class="btn line" type="button" data-n>${esc(no)}</button>`;
+    d.hidden = false;
+    const close = () => { d.hidden = true; document.removeEventListener("keydown", key); if (back && back.isConnected) back.focus(); };
+    const key = e => { if (e.key === "Escape") close(); };
+    document.addEventListener("keydown", key);
+    $("#dlgBtns [data-y]").onclick = () => { close(); onYes(); };
+    $("#dlgBtns [data-n]").onclick = close;
+    $("#dlgBtns [data-n]").focus();
+  }
+
+  // ---------- connection with automatic reconnect ----------
+  // onMsg gets every message; onFatal gets errors that mean "don't reconnect" (wrong code, removed, ended...)
+  function connect(path, onMsg, onFatal){
+    let ws = null, tries = 0, stopped = false, timer = null, pinger = null;
+    const open = () => {
+      const url = SERVER.replace(/^http/, "ws").replace(/\/$/, "") + path();
+      try { ws = new WebSocket(url); } catch(e){ return retry(); }
+      ws.onopen = () => { tries = 0; banner(""); clearInterval(pinger); pinger = setInterval(() => send({ t: "ping" }), 25000); };
+      ws.onmessage = e => { let m; try { m = JSON.parse(e.data); } catch(_){ return; }
+        if (m.t === "error" || m.t === "ended"){ stopped = true; banner(""); onFatal(m); return; }
+        onMsg(m); };
+      ws.onclose = () => { clearInterval(pinger); if (!stopped) retry(); };
+    };
+    const retry = () => {
+      tries++;
+      const wait = Math.min(15000, 1000 * 2 ** Math.min(tries - 1, 4)) + Math.random() * 500;
+      banner(tries > 3 ? "Still can't reach the game. Check your Wi-Fi, and if it keeps happening, tell your teacher." : "Connection lost. Reconnecting…", tries > 3);
+      clearTimeout(timer); timer = setTimeout(open, wait);
+    };
+    const send = m => { if (ws && ws.readyState === 1) ws.send(JSON.stringify(m)); };
+    open();
+    return { send, stop(){ stopped = true; clearTimeout(timer); clearInterval(pinger); try { ws.close(); } catch(e){} banner(""); } };
+  }
+
+  // Countdown shown on both screens. The server decides when time is up; this is just the display.
+  let tick = null;
+  function countdown(endsInMs, durationMs, onTick){
+    clearInterval(tick);
+    const end = performance.now() + endsInMs;
+    const f = () => { const left = Math.max(0, end - performance.now()); onTick(Math.ceil(left / 1000), durationMs ? left / durationMs : 0); if (left <= 0) clearInterval(tick); };
+    f(); tick = setInterval(f, 200);
+  }
+
+  // ---------- home ----------
+  function home(msg){
+    clearInterval(tick);
+    const code = (params.get("code") || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 6);
+    app.innerHTML = `<div class="top">${logo}<p class="eyebrow">Group quiz</p></div>
+      ${SERVER ? "" : `<div class="notice"><b>The group quiz isn't set up yet.</b> The game server needs to be switched on before anyone can play. If you're a pupil, tell your teacher. Teachers: see the set-up steps in <code>cloudflare/group-quiz/README.md</code>.</div>`}
+      <div class="home">
+        <form class="card join" id="joinForm" novalidate>
+          <h2>Join a game</h2>
+          <p class="note">Type the code on the board.</p>
+          <div class="codebox"><label for="code">Game code</label>
+            <input class="codein" id="code" name="code" value="${esc(code)}" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" aria-describedby="joinErr">
+            <button class="btn big" type="submit" ${SERVER ? "" : "disabled"}>Join</button></div>
+          <p class="err" id="joinErr" role="alert">${esc(msg || "")}</p>
+        </form>
+        <div class="card">
+          <h2 style="margin:0 0 6px;font-size:22px">Teachers</h2>
+          <p class="note">Run a live quiz on today's story. Pupils join on their own devices with a code. No accounts, and nothing is kept after the game.</p>
+          <button class="btn line" type="button" id="teach" ${SERVER ? "" : "disabled"}>Start a group quiz</button>
+        </div>
+      </div>`;
+    const inp = $("#code");
+    inp.addEventListener("input", () => { inp.value = inp.value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 6); $("#joinErr").textContent = ""; });
+    $("#joinForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const c = inp.value;
+      if (!CODE_RE.test(c)){ $("#joinErr").textContent = c.length < 6 ? "The code has 6 letters and numbers." : "That isn't a game code. Check the code on the board."; inp.focus(); return; }
+      pupil(c);
+    });
+    $("#teach").addEventListener("click", teacherSetup);
+    if (!code) inp.focus();
+  }
+
+  // ---------- teacher: choose a story ----------
+  const londonToday = () => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+  const pretty = d => new Date(d + "T12:00:00Z").toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
+  let STORIES = null;
+  async function teacherSetup(){
+    app.innerHTML = `<div class="top">${logo}<p class="eyebrow">Group quiz · Teacher</p></div><div class="card"><p>Loading stories…</p></div>`;
+    try {
+      if (!STORIES){
+        const r = await fetch("../stories.json", { cache: "no-store" }); if (!r.ok) throw new Error(r.status);
+        const today = londonToday();
+        STORIES = (await r.json()).stories.filter(s => s.date <= today).sort((a, b) => b.date.localeCompare(a.date));
+      }
+    } catch(e){ app.querySelector(".card").innerHTML = `<p class="notice bad">Couldn't load the stories. Check your internet connection and refresh the page.</p>`; return; }
+    if (!STORIES.length){ app.querySelector(".card").innerHTML = `<p>There are no stories yet.</p>`; return; }
+    app.innerHTML = `<div class="top">${logo}<p class="eyebrow">Group quiz · Teacher</p></div>
+      <div class="card">
+        <h1 style="margin:0 0 4px;font-size:clamp(26px,3vw,36px)">Start a group quiz</h1>
+        <p class="note">Questions about reading code and computational thinking, themed on the story.</p>
+        <div class="field"><label for="story">Story</label>
+          <select id="story">${STORIES.slice(0, 60).map((s, i) => `<option value="${esc(s.id)}">${i === 0 ? "Today: " : esc(pretty(s.date)) + ": "}${esc(s.headline)}</option>`).join("")}</select></div>
+        <div id="setInfo" aria-live="polite"></div>
+        <div class="row" style="margin-top:12px"><button class="btn big" type="button" id="create" disabled>Create game</button><button class="btn line" type="button" id="back">Back</button></div>
+      </div>`;
+    let quiz = null;
+    const sel = $("#story"), info = $("#setInfo"), create = $("#create");
+    const load = async () => {
+      quiz = null; create.disabled = true;
+      const st = STORIES.find(s => s.id === sel.value);
+      info.innerHTML = `<p class="note">Loading questions…</p>`;
+      try {
+        const r = await fetch(`../group-quiz/${encodeURIComponent(st.id)}.json`, { cache: "no-store" });
+        if (r.status === 404){ info.innerHTML = `<p class="notice">There isn't a group quiz for “${esc(st.headline)}” yet. Choose an earlier story from the list above.</p>`; return; }
+        if (!r.ok) throw new Error(r.status);
+        quiz = await r.json();
+        if (sel.value !== st.id) return;
+        const n = quiz.rounds.reduce((a, r) => a + r.questions.length, 0);
+        info.innerHTML = `<p><b>${n} questions</b> in ${quiz.rounds.length} rounds: ${quiz.rounds.map(r => esc(r.name)).join(", ")}. You can choose rounds and the timer in the next step.</p>`;
+        create.disabled = false;
+      } catch(e){ info.innerHTML = `<p class="notice bad">Couldn't load the questions for this story. Check your connection and try again.</p>`; }
+    };
+    sel.addEventListener("change", load);
+    $("#back").addEventListener("click", () => home());
+    create.addEventListener("click", async () => {
+      create.disabled = true; create.textContent = "Creating…";
+      try {
+        const r = await fetch(SERVER.replace(/\/$/, "") + "/games", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ quiz, settings: {} }) });
+        const d = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(d.error || "The game server said no (" + r.status + ").");
+        store.set("dc-gq-teacher", { code: d.code, key: d.key });
+        teacher(d.code, d.key);
+      } catch(e){
+        info.innerHTML = `<p class="notice bad">Couldn't create the game. ${esc(e.message === "Failed to fetch" ? "The game server can't be reached: check the school network allows it." : e.message)}</p>`;
+        create.disabled = false; create.textContent = "Create game";
+      }
+    });
+    load();
+  }
+
+  // ---------- teacher: the game ----------
+  function teacher(code, key){
+    let S = null, lastPhase = null, lastIndex = null, seen = new Set();
+    const conn = connect(() => `/games/${code}/ws?role=teacher&key=${encodeURIComponent(key)}`, m => {
+      if (m.t === "state"){ S = m; draw(); }
+    }, m => {
+      store.set("dc-gq-teacher", null);
+      clearInterval(tick);
+      if (m.t === "ended") return finished(S);
+      app.innerHTML = `<div class="top">${logo}</div><div class="card"><p class="notice bad">${esc(m.msg || "The game isn't available any more.")}</p><button class="btn" type="button" id="again">Start a new quiz</button></div>`;
+      $("#again").onclick = teacherSetup;
+    });
+    const send = conn.send;
+    const endBtn = `<button class="btn line" type="button" data-act="end">End game</button>`;
+    function wire(){
+      app.querySelectorAll("[data-act]").forEach(b => b.addEventListener("click", () => {
+        const a = b.dataset.act;
+        if (a === "end") return confirmBox("End the game?", "Everyone's game will stop, and the names and scores are deleted straight away.", "End game", "Keep playing", () => send({ t: "end" }));
+        send({ t: a });
+      }));
+    }
+    function finished(last){
+      const pod = last && last.podium;
+      app.innerHTML = `<div class="top">${logo}<p class="eyebrow">Group quiz</p></div><div class="card">
+        <h1 style="margin:0 0 8px">Game closed</h1><p>All the game's names, answers and scores have been deleted from the server.</p>
+        ${pod && pod.length ? `<p class="note">Top of the class: ${pod.map(p => esc(p.name)).join(", ")}.</p>` : ""}
+        <div class="row"><button class="btn" type="button" id="again">Start another quiz</button></div></div>`;
+      $("#again").onclick = teacherSetup;
+    }
+    function draw(){
+      const s = S, changed = s.phase !== lastPhase || s.index !== lastIndex;
+      lastPhase = s.phase; lastIndex = s.index;
+      const head = `<div class="top">${logo}<p class="eyebrow">${esc(s.title)}</p></div>`;
+      if (s.phase === "lobby") return lobby(s, head, changed);
+      if (s.phase === "question"){
+        if (!changed){   // just the answered count changed: don't redraw (keeps the clock steady)
+          const c = $("#answered"); if (c){ c.textContent = `Answered ${s.answered} / ${s.expected}`; return; }
+        }
+        const q = s.question;
+        app.innerHTML = `${head}<div class="qhead"><span class="qmeta">${esc(q.round)} · Question ${q.n} of ${q.total}${q.poll ? " · Poll" : ""}</span>
+            <span class="row"><span class="count" id="answered" aria-live="off">Answered ${s.answered} / ${s.expected}</span><span class="clock" id="clock" role="timer" aria-label="Seconds left">–</span></span></div>
+          <h1 class="qtext">${esc(q.q)}</h1><div class="qbody${q.code ? " withcode" : ""}">${codeHTML(q.code, "Code for this question")}
+          <ul class="opts">${q.options.map((o, i) => `<li class="opt o${i}"><span class="sh" aria-hidden="true">${SHAPES[i]}</span><span><span class="sr">${SHAPE_NAMES[i]}: </span>${esc(o)}</span></li>`).join("")}</ul></div>
+          <div class="tbar"><button class="btn hot big" type="button" data-act="reveal">Show answer</button>${endBtn}</div>`;
+        countdown(s.endsInMs, s.durationMs, n => { const c = $("#clock"); if (c){ c.textContent = n; c.classList.toggle("low", n <= 5); } });
+        return wire();
+      }
+      clearInterval(tick);
+      if (s.phase === "reveal"){
+        const q = s.question, r = s.reveal, max = Math.max(1, ...r.counts), total = r.counts.reduce((a, b) => a + b, 0);
+        const last = q.n >= q.total;
+        const nextLabel = last ? "Final results" : s.settings.leaderboard ? "Leaderboard" : "Next question";
+        app.innerHTML = `${head}<div class="qhead"><span class="qmeta">${esc(q.round)} · Question ${q.n} of ${q.total}${q.poll ? " · Poll: the class split" : ""}</span><span class="count">${total} answered</span></div>
+          <h1 class="qtext" style="font-size:clamp(22px,2.4vw,34px)">${esc(q.q)}</h1><div class="qbody${q.code ? " withcode" : ""}">${q.code ? codeHTML(q.code, "Code for this question") : ""}
+          <ul class="bars">${q.options.map((o, i) => { const right = !q.poll && i === r.answer;
+            return `<li class="bar${right ? " right" : !q.poll ? " dim" : ""}"><span class="lbl"><span class="fill o${i}" style="width:${(r.counts[i] / max) * 100}%"></span><span class="sh" aria-hidden="true">${SHAPES[i]}</span><span>${esc(o)}</span>${right ? '<span class="tick" aria-label="correct answer">✓</span>' : ""}</span><span class="n" aria-label="${r.counts[i]} pupils">${r.counts[i]}</span></li>`; }).join("")}</ul></div>
+          ${r.explain ? `<div class="explain"><b>${q.poll ? "Talk about it" : "Why"}</b>${esc(r.explain.replace(/^Talk about it:\s*/i, ""))}</div>` : ""}
+          <div class="tbar"><button class="btn big" type="button" data-act="next">${nextLabel} ›</button>${endBtn}</div>`;
+        return wire();
+      }
+      if (s.phase === "board"){
+        app.innerHTML = `${head}<h1 class="qtext">Leaderboard</h1><p class="note">Top 5 after question ${s.index + 1} of ${s.total}</p>
+          <ol class="board">${s.leaderboard.map(p => `<li><span class="pl">${ord(p.place)}</span><span>${esc(p.name)}</span><span class="sc">${p.score}</span></li>`).join("")}</ol>
+          <div class="tbar"><button class="btn big" type="button" data-act="next">Next question ›</button>${endBtn}</div>`;
+        return wire();
+      }
+      if (s.phase === "final"){
+        const p = s.podium, at = i => p[i] ? `<div class="step p${i + 1}"><div class="nm">${esc(p[i].name)}</div><div class="sc">${p[i].score} points</div><div class="blk">${ord(p[i].place)}</div></div>` : `<div></div>`;
+        app.innerHTML = `${head}<h1 class="qtext" style="text-align:center">Final results</h1>
+          <div class="podium">${at(1)}${at(0)}${at(2)}</div>
+          <p class="welldone">Everyone who took part: well done!</p><p class="note" style="text-align:center">${s.players} ${s.players === 1 ? "pupil" : "pupils"} played ${s.total} questions.</p>
+          <div class="tbar" style="justify-content:center"><button class="btn big" type="button" data-act="finish">Finish and delete the game</button></div>`;
+        app.querySelector('[data-act="finish"]').addEventListener("click", () => send({ t: "end" }));
+        return;
+      }
+    }
+    function lobby(s, head, full){
+      const url = QUIZ_URL + "?code=" + code;
+      const names = s.list.map(p => `<li><button class="name${p.connected ? "" : " away"}${seen.has(p.id) ? "" : " new"}" type="button" data-kick="${esc(p.id)}" data-name="${esc(p.name)}" title="Remove ${esc(p.name)}">${esc(p.name)}</button></li>`).join("");
+      setTimeout(() => s.list.forEach(p => seen.add(p.id)));
+      if (!full && $("#names")){   // only the list or settings changed
+        $("#names").innerHTML = names;
+        $("#pcount").textContent = s.list.length;
+        $("#start").disabled = !s.list.length;
+        $("#qcount").textContent = s.questionCount;
+        return wireNames();
+      }
+      app.innerHTML = `${head}<div class="lobby">
+        <section class="card" aria-label="How to join">
+          <p class="eyebrow">Game code</p><p class="bigcode" aria-label="Game code ${code.split("").join(" ")}">${code}</p>
+          <p class="note" style="margin:0">Go to</p><p class="joinurl" style="margin:0">${esc(QUIZ_URL.replace(/^https:\/\//, ""))}</p>
+          <p class="note" style="margin:6px 0 0">or scan:</p>
+          <div class="qr" id="qr" role="img" aria-label="QR code that opens the quiz with the code filled in"></div>
+        </section>
+        <section class="card">
+          <form class="settings" id="settings">
+            <fieldset><legend>Timer</legend><div class="seg">${[10, 20, 30].map(t => `<label><input type="radio" name="timer" value="${t}" ${s.settings.timer === t ? "checked" : ""}>${t} s</label>`).join("")}</div>
+              <p class="note" style="margin:6px 0 0">Code questions get 10 s more.</p></fieldset>
+            <fieldset><legend>Rounds</legend><div class="seg">${s.rounds.map((r, i) => `<label><input type="checkbox" name="round" value="${i}" ${s.settings.rounds.includes(i) ? "checked" : ""}>${esc(r.name)} (${r.count})</label>`).join("")}</div></fieldset>
+            <fieldset><legend>Leaderboard</legend><div class="seg"><label><input type="checkbox" name="lb" ${s.settings.leaderboard ? "checked" : ""}>Show the top 5 after each question</label></div></fieldset>
+          </form>
+          <div class="row"><button class="btn hot big" type="button" id="start" ${s.list.length ? "" : "disabled"}><span>Start (<span id="qcount">${s.questionCount}</span> questions)</span></button>${endBtn}</div>
+          <div class="players"><h2><span id="pcount">${s.list.length}</span> joined</h2>
+            <p class="note" style="margin:0 0 8px">Click a name to remove that player.</p>
+            <ul class="names" id="names">${names}</ul></div>
+        </section></div>`;
+      try {
+        if (window.qrcode){ const qr = qrcode(0, "M"); qr.addData(url); qr.make(); $("#qr").innerHTML = qr.createSvgTag({ cellSize: 6, margin: 2, scalable: true }); }
+        else $("#qr").hidden = true;
+      } catch(e){ $("#qr").hidden = true; }
+      $("#settings").addEventListener("change", e => {
+        const f = e.currentTarget;
+        let rounds = [...f.querySelectorAll('[name="round"]:checked')].map(x => +x.value);
+        if (!rounds.length){ e.target.checked = true; rounds = [+e.target.value]; }   // at least one round
+        send({ t: "settings", timer: +f.querySelector('[name="timer"]:checked').value, rounds, leaderboard: f.querySelector('[name="lb"]').checked });
+      });
+      $("#start").addEventListener("click", () => send({ t: "start" }));
+      wire(); wireNames();
+    }
+    function wireNames(){
+      app.querySelectorAll("[data-kick]").forEach(b => b.addEventListener("click", () =>
+        confirmBox(`Remove ${b.dataset.name}?`, "They'll leave the game and can't rejoin with this name.", "Remove", "Keep", () => send({ t: "kick", id: b.dataset.kick }))));
+    }
+    // the QR library loads with defer: redraw the lobby once it's there
+    if (!window.qrcode) addEventListener("load", () => { if (S && S.phase === "lobby"){ lastPhase = null; draw(); } }, { once: true });
+  }
+
+  // ---------- pupil ----------
+  function pupil(code){
+    const saved = store.get("dc-gq-pupil");
+    let token = saved && saved.code === code ? saved.token : null, name = saved && saved.code === code ? saved.name : "", S = null, lastKey = "";
+    try { history.replaceState(null, "", location.pathname + "?code=" + code + testServer); } catch(e){}
+    app.innerHTML = `<div class="pupil"><div class="top">${logo}<p class="eyebrow">Game ${esc(code)}</p></div><div class="card"><p class="waiting">Joining<span class="dots"></span></p></div></div>`;
+    const conn = connect(() => `/games/${code}/ws?role=pupil` + (token ? "&token=" + encodeURIComponent(token) : ""), m => {
+      if (m.t === "welcome"){ token = m.token; name = m.name; store.set("dc-gq-pupil", { code, token, name }); if (S) draw(true); return; }
+      if (m.t === "state"){ S = m; draw(); }
+    }, m => {
+      clearInterval(tick);
+      if (m.code !== "replaced") store.set("dc-gq-pupil", null);
+      if (m.code === "no_game" && !S) return home(m.msg);
+      const last = S && (S.phase === "final" || m.t === "ended") && S.place ? `<p class="place">You finished ${ord(S.place)} of ${S.of} with ${S.score} points.</p>` : "";
+      app.innerHTML = `<div class="pupil"><div class="top">${logo}</div><div class="card" style="text-align:center">
+        <h1 style="font-size:clamp(26px,6vw,36px)">${m.t === "ended" ? "Game over" : m.code === "removed" ? "Removed from the game" : "Can't join"}</h1>
+        <p style="font-size:20px">${esc(m.msg)}</p>${last}<button class="btn" type="button" id="again">${m.code === "replaced" ? "Use this tab instead" : "Join another game"}</button></div></div>`;
+      $("#again").onclick = () => m.code === "replaced" ? pupil(code) : (history.replaceState(null, "", location.pathname + (testServer ? "?" + testServer.slice(1) : "")), home());
+    });
+    const shell = inner => `<div class="pupil"><div class="top">${logo}<p class="eyebrow">${esc(name)}</p></div>${inner}</div>`;
+    function draw(force){
+      const s = S;
+      const key = [s.phase, s.index, s.answered, s.late, name].join("|");
+      if (key === lastKey && !force && s.phase !== "lobby") return;   // e.g. the player count changed: nothing to redraw
+      lastKey = key;
+      if (s.phase === "lobby"){
+        clearInterval(tick);
+        app.innerHTML = shell(`<div class="card me"><p class="you">You are</p><p class="nm">${esc(name)}</p>
+          <button class="btn line" type="button" id="reroll">Get a different name</button></div>
+          <p class="waiting" style="margin-top:24px">You're in! Waiting for your teacher<span class="dots"></span></p>`);
+        $("#reroll").onclick = () => conn.send({ t: "reroll" });
+        return;
+      }
+      if (s.phase === "question"){
+        const q = s.question;
+        if (s.late){ clearInterval(tick); app.innerHTML = shell(`<div class="card locked"><p class="big">Get ready!</p><p>You joined part-way through a question. You'll be in from the next one.</p></div>`); return; }
+        if (s.answered){
+          clearInterval(tick);
+          app.innerHTML = shell(`<div class="card locked"><p class="eyebrow">Question ${q.n} of ${q.total}</p><p class="big">Answer locked in</p>
+            ${s.choice !== null ? `<p class="opt o${s.choice}" style="justify-content:center;max-width:420px;margin:10px auto"><span class="sh" aria-hidden="true">${SHAPES[s.choice]}</span>${esc(q.options[s.choice])}</p>` : ""}
+            <p class="waiting">Waiting for everyone else<span class="dots"></span></p></div>`);
+          return;
+        }
+        const two = q.options.length === 2;
+        app.innerHTML = shell(`<div class="pq"><div class="timeline" aria-hidden="true"><i id="tl"></i></div>
+          <p class="qmeta">${esc(q.round)} · Question ${q.n} of ${q.total} · <span id="secs" role="timer"></span></p>
+          <h1 class="qtext">${esc(q.q)}</h1>${codeHTML(q.code, "Code for this question. Scroll sideways if it doesn't fit.")}
+          <ul class="answers${two ? " two" : ""}">${q.options.map((o, i) => `<li><button class="opt o${i}" type="button" data-a="${i}"><span class="sh" aria-hidden="true">${SHAPES[i]}</span><span><span class="sr">${SHAPE_NAMES[i]}: </span>${esc(o)}</span></button></li>`).join("")}</ul></div>`);
+        app.querySelectorAll("[data-a]").forEach(b => b.addEventListener("click", () => {
+          app.querySelectorAll("[data-a]").forEach(x => x.disabled = true);
+          conn.send({ t: "answer", q: s.index, a: +b.dataset.a });
+        }));
+        countdown(s.endsInMs, s.durationMs, (n, frac) => { const t = $("#tl"), c = $("#secs"); if (t) t.style.width = (frac * 100) + "%"; if (c) c.textContent = n + " s left"; });
+        return;
+      }
+      clearInterval(tick);
+      const place = s.place ? `<p class="place">You're ${ord(s.place)} of ${s.of} · ${s.score} points</p>` : "";
+      if (s.phase === "reveal"){
+        const q = s.question, r = s.result;
+        if (!r){ app.innerHTML = shell(`<div class="card locked"><p class="big">Get ready!</p><p>You'll be in from the next question.</p></div>`); return; }
+        const right = r.answer !== null ? `<p class="opt o${r.answer}" style="justify-content:center;max-width:460px;margin:12px auto 0"><span class="sh" aria-hidden="true">${SHAPES[r.answer]}</span>${esc(q.options[r.answer])}</p>` : "";
+        const box = r.poll ? `<div class="result neutral"><h2>Thanks for voting!</h2></div>`
+          : r.correct ? `<div class="result good"><h2>Correct!</h2><p class="pts">+${r.points} points</p></div>`
+          : `<div class="result bad"><h2>${r.answered ? "Not this time" : "No answer this time"}</h2><p style="margin:6px 0 0">The answer was:</p>${right}</div>`;
+        app.innerHTML = shell(`${box}${r.explain ? `<div class="explain"><b>${r.poll ? "Talk about it" : "Why"}</b>${esc(r.explain.replace(/^Talk about it:\s*/i, ""))}</div>` : ""}${place}`);
+        return;
+      }
+      if (s.phase === "board"){ app.innerHTML = shell(`<div class="card locked"><p class="big">Leaderboard time</p>${place}<p class="waiting">Next question soon<span class="dots"></span></p></div>`); return; }
+      if (s.phase === "final"){ app.innerHTML = shell(`<div class="result neutral"><h2>Well done!</h2><p class="pts">${s.score} points</p></div><p class="place">You came ${ord(s.place)} of ${s.of}.</p><p class="waiting">Thanks for taking part.</p>`); return; }
+    }
+  }
+
+  // ---------- start ----------
+  const t = store.get("dc-gq-teacher"), p = store.get("dc-gq-pupil");
+  const want = (params.get("code") || "").toUpperCase();
+  if (!SERVER) home();
+  else if (t && t.code && t.key && (!want || want === t.code)) teacher(t.code, t.key);     // a refreshed teacher tab takes control again
+  else if (p && p.code && p.token && (!want || want === p.code)) pupil(p.code);            // a refreshed pupil tab rejoins with the same name
+  else home();
+})();
+</script>
+</body>
+</html>

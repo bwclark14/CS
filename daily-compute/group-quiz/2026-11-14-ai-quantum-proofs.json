@@ -1,0 +1,192 @@
+{
+  "storyId": "2026-11-14-ai-quantum-proofs",
+  "title": "AI designs quantum programs, then has to prove they work",
+  "rounds": [
+    {
+      "name": "Read the code",
+      "questions": [
+        {
+          "type": "identify",
+          "q": "Which of these are the variables in this program?",
+          "code": [
+            {"code": "SET qubits TO 12", "indent": 0},
+            {"code": "SET steps TO 50", "indent": 0},
+            {"code": "SET cost TO qubits * steps", "indent": 0},
+            {"code": "SEND \"Cost: \" & cost TO DISPLAY", "indent": 0}
+          ],
+          "options": ["qubits and steps only", "qubits, steps and cost", "qubits, steps, cost and Cost", "SET and SEND"],
+          "answer": 1,
+          "explain": "qubits, steps and cost all store values, and cost counts even though it is worked out from the others, while \"Cost: \" in quotes is just text."
+        },
+        {
+          "type": "trace",
+          "q": "A new design is 4 times cheaper. What does the program display?",
+          "code": [
+            {"code": "SET qubits TO 12", "indent": 0},
+            {"code": "SET steps TO 50", "indent": 0},
+            {"code": "SET cost TO qubits * steps", "indent": 0},
+            {"code": "SET cost TO cost / 4", "indent": 0},
+            {"code": "SEND \"Cost: \" & cost TO DISPLAY", "indent": 0}
+          ],
+          "options": ["Cost: 600", "Cost: 150", "Cost: 2400", "Cost: 146"],
+          "answer": 1,
+          "explain": "12 × 50 is 600 and line 4 divides it by 4 to make 150, so it isn't 600 because cost is changed again before it is displayed."
+        },
+        {
+          "type": "identify",
+          "q": "Which line is output?",
+          "code": [
+            {"code": "SET result TO \"fail\"", "indent": 0},
+            {"code": "RECEIVE result FROM KEYBOARD", "indent": 0},
+            {"code": "IF result = \"pass\" THEN", "indent": 0},
+            {"code": "SEND \"Trust it\" TO DISPLAY", "indent": 1},
+            {"code": "ELSE", "indent": 0},
+            {"code": "SEND \"Try again\" TO DISPLAY", "indent": 1},
+            {"code": "END IF", "indent": 0}
+          ],
+          "inputs": ["fail"],
+          "options": ["Line 1", "Line 2", "Line 3", "Line 4"],
+          "answer": 3,
+          "explain": "SEND ... TO DISPLAY on line 4 shows something on the screen, while line 2 is input because it takes in what the user types."
+        },
+        {
+          "type": "trace",
+          "q": "The proof checker types fail. What does the program display?",
+          "code": [
+            {"code": "SET result TO \"fail\"", "indent": 0},
+            {"code": "RECEIVE result FROM KEYBOARD", "indent": 0},
+            {"code": "IF result = \"pass\" THEN", "indent": 0},
+            {"code": "SEND \"Trust it\" TO DISPLAY", "indent": 1},
+            {"code": "ELSE", "indent": 0},
+            {"code": "SEND \"Try again\" TO DISPLAY", "indent": 1},
+            {"code": "END IF", "indent": 0}
+          ],
+          "inputs": ["fail"],
+          "options": ["Trust it", "Try again", "Trust it / Try again", "Nothing"],
+          "answer": 1,
+          "explain": "fail is not \"pass\", so only the ELSE branch runs, and it never shows both because IF ... ELSE picks just one path."
+        },
+        {
+          "type": "identify",
+          "q": "What data type is stored in saving?",
+          "code": [
+            {"code": "SET saving TO 2.5", "indent": 0}
+          ],
+          "options": ["Integer", "String", "Boolean", "Real"],
+          "answer": 3,
+          "explain": "2.5 has a decimal part, so it is a real number, and it isn't an integer because integers have no decimal part."
+        }
+      ]
+    },
+    {
+      "name": "Loops",
+      "questions": [
+        {
+          "type": "count",
+          "q": "How many times is \"Checking proof\" displayed?",
+          "code": [
+            {"code": "SET tries TO 5", "indent": 0},
+            {"code": "REPEAT", "indent": 0},
+            {"code": "SEND \"Checking proof\" TO DISPLAY", "indent": 1},
+            {"code": "SET tries TO tries + 1", "indent": 1},
+            {"code": "UNTIL tries > 0", "indent": 0}
+          ],
+          "match": "Checking proof",
+          "options": ["0", "1", "5", "6"],
+          "answer": 1,
+          "explain": "REPEAT ... UNTIL always runs once before it checks the condition, so it displays once, not 0 times, even though tries > 0 is already TRUE."
+        },
+        {
+          "type": "count",
+          "q": "How many times is \"Proof checked\" displayed?",
+          "code": [
+            {"code": "SET problems TO 0", "indent": 0},
+            {"code": "WHILE problems < 5 DO", "indent": 0},
+            {"code": "SET problems TO problems + 1", "indent": 1},
+            {"code": "IF problems > 2 THEN", "indent": 1},
+            {"code": "SEND \"Proof checked\" TO DISPLAY", "indent": 2},
+            {"code": "END IF", "indent": 1},
+            {"code": "END WHILE", "indent": 0}
+          ],
+          "match": "Proof checked",
+          "options": ["5", "2", "4", "3"],
+          "answer": 3,
+          "explain": "problems goes 1, 2, 3, 4, 5 and only 3, 4 and 5 are more than 2, so it is 3 times, not 5, because the IF skips the first two."
+        }
+      ]
+    },
+    {
+      "name": "True or false?",
+      "questions": [
+        {
+          "type": "truefalse",
+          "q": "Should we accept this design? Is proof = \"pass\" AND cost <= 100 TRUE or FALSE?",
+          "code": [
+            {"code": "SET proof TO \"pass\"", "indent": 0},
+            {"code": "SET cost TO 90", "indent": 0}
+          ],
+          "condition": "proof = \"pass\" AND cost <= 100",
+          "options": ["TRUE", "FALSE"],
+          "answer": 0,
+          "explain": "The proof passed and 90 is less than or equal to 100, so both sides are TRUE and AND gives TRUE."
+        },
+        {
+          "type": "truefalse",
+          "q": "Is NOT (errors = 0) TRUE or FALSE?",
+          "code": [
+            {"code": "SET errors TO 0", "indent": 0}
+          ],
+          "condition": "NOT (errors = 0)",
+          "options": ["TRUE", "FALSE"],
+          "answer": 1,
+          "explain": "errors = 0 is TRUE, and NOT flips TRUE into FALSE."
+        },
+        {
+          "type": "truefalse",
+          "q": "Is qubits < 1000 OR qubits > 5000 TRUE or FALSE?",
+          "code": [
+            {"code": "SET qubits TO 4374", "indent": 0}
+          ],
+          "condition": "qubits < 1000 OR qubits > 5000",
+          "options": ["TRUE", "FALSE"],
+          "answer": 1,
+          "explain": "4374 is not below 1000 and not above 5000, so both sides are FALSE and OR gives FALSE."
+        }
+      ]
+    },
+    {
+      "name": "Thinking skills",
+      "questions": [
+        {
+          "type": "ct",
+          "q": "The AI suggests a program and a proof, and Lean says the proof fails. What is the next step in the algorithm?",
+          "options": ["Trust the program anyway", "Read the error and try again", "Make the task easier", "Start a new problem"],
+          "answer": 1,
+          "explain": "The AI read the error and tried again until the proof passed, and quietly making the task easier was exactly what the separate check was there to stop."
+        },
+        {
+          "type": "ct",
+          "q": "The team split the job into: choose a problem, write what the program must do, design it, prove it, check the proof. Which skill is that?",
+          "options": ["Abstraction", "Pattern recognition", "Decomposition", "Evaluation"],
+          "answer": 2,
+          "explain": "Breaking one big job into smaller steps is decomposition, while abstraction would mean leaving out details that don't matter."
+        },
+        {
+          "type": "testdata",
+          "q": "A design's cost must be from 1 to 1000. You test it with 500. What kind of test data is that?",
+          "range": [1, 1000],
+          "value": 500,
+          "options": ["Normal", "Boundary", "Exceptional"],
+          "answer": 0,
+          "explain": "500 is safely inside the range, so it is normal data, while boundary data would be right at the edge, like 1 or 1000."
+        },
+        {
+          "type": "poll",
+          "q": "Would you trust a program more if a strict computer had checked its proof?",
+          "options": ["Yes, a proof is better than tests", "Only if people checked it too", "No, I'd want to see it run", "Not sure yet"],
+          "explain": "Talk about it: what can a proof show that 3 passing tests can't, and what could still go wrong?"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "storyId": "2026-11-15-bacteria-biocomputer",
+  "title": "A living computer uses bacteria to solve a maths puzzle",
+  "rounds": [
+    {
+      "name": "Inside the maze",
+      "questions": [
+        {
+          "type": "identify",
+          "q": "At each junction the program asks whether to use the number 4. Which line takes in input?",
+          "code": [
+            {"code": "SET total TO 0", "indent": 0},
+            {"code": "SET number TO 4", "indent": 0},
+            {"code": "RECEIVE choice FROM KEYBOARD", "indent": 0},
+            {"code": "IF choice = \"use\" THEN", "indent": 0},
+            {"code": "SET total TO total + number", "indent": 1},
+            {"code": "ELSE", "indent": 0},
+            {"code": "SEND \"Skipped\" TO DISPLAY", "indent": 1},
+            {"code": "END IF", "indent": 0},
+            {"code": "SEND \"Total: \" & total TO DISPLAY", "indent": 0}
+          ],
+          "inputs": ["skip"],
+          "options": ["Line 2", "Line 3", "Line 4", "Line 9"],
+          "answer": 1,
+          "explain": "RECEIVE ... FROM KEYBOARD on line 3 is the input, while line 2 just sets a value inside the program without asking anyone."
+        },
+        {
+          "type": "trace",
+          "q": "The user types skip. What does the program display?",
+          "code": [
+            {"code": "SET total TO 0", "indent": 0},
+            {"code": "SET number TO 4", "indent": 0},
+            {"code": "RECEIVE choice FROM KEYBOARD", "indent": 0},
+            {"code": "IF choice = \"use\" THEN", "indent": 0},
+            {"code": "SET total TO total + number", "indent": 1},
+            {"code": "ELSE", "indent": 0},
+            {"code": "SEND \"Skipped\" TO DISPLAY", "indent": 1},
+            {"code": "END IF", "indent": 0},
+            {"code": "SEND \"Total: \" & total TO DISPLAY", "indent": 0}
+          ],
+          "inputs": ["skip"],
+          "options": ["Skipped / Total: 0", "Total: 4", "Skipped / Total: 4", "Skipped"],
+          "answer": 0,
+          "explain": "skip is not \"use\", so the ELSE part displays Skipped and total stays 0, and the last line still runs because it is after END IF."
+        },
+        {
+          "type": "identify",
+          "q": "What data type is stored in temperature?",
+          "code": [
+            {"code": "SET temperature TO 31.5", "indent": 0}
+          ],
+          "options": ["Integer", "Real", "String", "Boolean"],
+          "answer": 1,
+          "explain": "31.5 has a decimal part, so it is a real number, and it isn't an integer because integers are whole numbers only."
+        }
+      ]
+    },
+    {
+      "name": "Doubling",
+      "questions": [
+        {
+          "type": "trace",
+          "q": "One bacterium splits in two again and again. What is the value of bacteria at the end?",
+          "code": [
+            {"code": "SET bacteria TO 1", "indent": 0},
+            {"code": "REPEAT 5 TIMES", "indent": 0},
+            {"code": "SET bacteria TO bacteria * 2", "indent": 1},
+            {"code": "END REPEAT", "indent": 0}
+          ],
+          "variable": "bacteria",
+          "options": ["10", "16", "32", "64"],
+          "answer": 2,
+          "explain": "Doubling 5 times goes 2, 4, 8, 16, 32, and it isn't 10 because the loop multiplies by 2 rather than adding 2."
+        },
+        {
+          "type": "count",
+          "q": "How many times is \"Split!\" displayed?",
+          "code": [
+            {"code": "SET explorers TO 1", "indent": 0},
+            {"code": "WHILE explorers < 20 DO", "indent": 0},
+            {"code": "SEND \"Split!\" TO DISPLAY", "indent": 1},
+            {"code": "SET explorers TO explorers * 2", "indent": 1},
+            {"code": "END WHILE", "indent": 0}
+          ],
+          "match": "Split!",
+          "options": ["4", "5", "6", "20"],
+          "answer": 1,
+          "explain": "It displays for 1, 2, 4, 8 and 16, then stops when explorers reaches 32, so it is 5 times and not 4 because the first pass happens at 1."
+        },
+        {
+          "type": "count",
+          "q": "How many times is \"Crowded!\" displayed?",
+          "code": [
+            {"code": "SET routes TO 1", "indent": 0},
+            {"code": "REPEAT 4 TIMES", "indent": 0},
+            {"code": "SET routes TO routes * 2", "indent": 1},
+            {"code": "IF routes > 4 THEN", "indent": 1},
+            {"code": "SEND \"Crowded!\" TO DISPLAY", "indent": 2},
+            {"code": "END IF", "indent": 1},
+            {"code": "END REPEAT", "indent": 0}
+          ],
+          "match": "Crowded!",
+          "options": ["4", "3", "2", "1"],
+          "answer": 2,
+          "explain": "routes becomes 2, 4, 8 and 16, and only 8 and 16 are more than 4, so it is 2 times and not 3 because 4 > 4 is FALSE."
+        },
+        {
+          "type": "identify",
+          "q": "What kind of loop is this?",
+          "code": [
+            {"code": "SET bacteria TO 1", "indent": 0},
+            {"code": "REPEAT", "indent": 0},
+            {"code": "SET bacteria TO bacteria * 2", "indent": 1},
+            {"code": "UNTIL bacteria > 100", "indent": 0},
+            {"code": "SEND bacteria TO DISPLAY", "indent": 0}
+          ],
+          "options": ["A fixed loop", "Selection, not a loop", "A conditional loop", "A nested loop"],
+          "answer": 2,
+          "explain": "REPEAT ... UNTIL stops when its condition becomes TRUE, so it is conditional, and it isn't fixed because no number of times is given."
+        }
+      ]
+    },
+    {
+      "name": "True or false?",
+      "questions": [
+        {
+          "type": "truefalse",
+          "q": "The numbers 2 and 8 are picked. Is total = target AND total > 5 TRUE or FALSE?",
+          "code": [
+            {"code": "SET total TO 2 + 8", "indent": 0},
+            {"code": "SET target TO 10", "indent": 0}
+          ],
+          "condition": "total = target AND total > 5",
+          "options": ["TRUE", "FALSE"],
+          "answer": 0,
+          "explain": "total is 10, which equals the target and is more than 5, so both sides are TRUE and AND gives TRUE."
+        },
+        {
+          "type": "truefalse",
+          "q": "Is the maze too cold or too hot? Is temperature < 25 OR temperature > 35 TRUE or FALSE?",
+          "code": [
+            {"code": "SET temperature TO 30", "indent": 0}
+          ],
+          "condition": "temperature < 25 OR temperature > 35",
+          "options": ["TRUE", "FALSE"],
+          "answer": 1,
+          "explain": "30 is not below 25 and not above 35, so both sides are FALSE, and OR needs at least one TRUE side."
+        }
+      ]
+    },
+    {
+      "name": "Thinking skills",
+      "questions": [
+        {
+          "type": "ct",
+          "q": "Checking one route takes 1 minute. There are 8 routes and 4 explorers work in parallel, each checking 2 routes. How long does it take?",
+          "options": ["8 minutes", "4 minutes", "2 minutes", "32 minutes"],
+          "answer": 2,
+          "explain": "Each explorer checks 2 routes at the same time as the others, so it takes 2 minutes, not 8, which is how long one explorer alone would take."
+        },
+        {
+          "type": "ct",
+          "q": "Abstraction: which detail does the maze NOT need to solve the puzzle?",
+          "options": ["The target number", "The colour of the bacteria", "Which numbers can be used", "A use-or-skip choice at each junction"],
+          "answer": 1,
+          "explain": "The bacteria's colour changes nothing about which numbers add up to the target, while the target and the choices are the puzzle itself."
+        },
+        {
+          "type": "testdata",
+          "q": "A program checks the maze temperature is from 20 to 37 degrees. Someone types hot. What kind of test data is that?",
+          "range": [20, 37],
+          "value": "hot",
+          "options": ["Normal", "Boundary", "Exceptional"],
+          "answer": 2,
+          "explain": "hot is not a number at all, so it is exceptional data that the program should reject, not boundary data, which sits right at the edge of the range."
+        },
+        {
+          "type": "poll",
+          "q": "Would you trust a living computer made of bacteria to solve a hard problem?",
+          "options": ["Yes, if the answer is checked", "Only for science experiments", "No, I'd use a normal computer", "Not sure yet"],
+          "explain": "Talk about it: bacteria sometimes take a wrong turn, so how could scientists be sure an answer is right?"
+        }
+      ]
+    }
+  ]
+}

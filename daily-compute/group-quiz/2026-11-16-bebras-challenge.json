@@ -1,0 +1,231 @@
+{
+  "storyId": "2026-11-16-bebras-challenge",
+  "title": "Half a million UK pupils tackle puzzle challenge",
+  "rounds": [
+    {
+      "name": "Read the code",
+      "questions": [
+        {
+          "type": "identify",
+          "q": "This program marks 3 practice puzzles. Which line makes a decision (selection)?",
+          "code": [
+            {"code": "SET score TO 0", "indent": 0},
+            {"code": "SET puzzles TO 0", "indent": 0},
+            {"code": "REPEAT 3 TIMES", "indent": 0},
+            {"code": "RECEIVE answer FROM KEYBOARD", "indent": 1},
+            {"code": "SET puzzles TO puzzles + 1", "indent": 1},
+            {"code": "IF answer = \"right\" THEN", "indent": 1},
+            {"code": "SET score TO score + 3", "indent": 2},
+            {"code": "END IF", "indent": 1},
+            {"code": "END REPEAT", "indent": 0},
+            {"code": "SEND \"Score: \" & score TO DISPLAY", "indent": 0}
+          ],
+          "inputs": ["right", "wrong", "right"],
+          "options": ["Line 3", "Line 4", "Line 6", "Line 10"],
+          "answer": 2,
+          "explain": "Line 6 is selection because the IF chooses whether to add 3 points, while line 3 repeats code rather than choosing between paths."
+        },
+        {
+          "type": "identify",
+          "q": "Which of these are the variables in the program?",
+          "code": [
+            {"code": "SET score TO 0", "indent": 0},
+            {"code": "SET puzzles TO 0", "indent": 0},
+            {"code": "REPEAT 3 TIMES", "indent": 0},
+            {"code": "RECEIVE answer FROM KEYBOARD", "indent": 1},
+            {"code": "SET puzzles TO puzzles + 1", "indent": 1},
+            {"code": "IF answer = \"right\" THEN", "indent": 1},
+            {"code": "SET score TO score + 3", "indent": 2},
+            {"code": "END IF", "indent": 1},
+            {"code": "END REPEAT", "indent": 0},
+            {"code": "SEND \"Score: \" & score TO DISPLAY", "indent": 0}
+          ],
+          "inputs": ["right", "wrong", "right"],
+          "options": ["score and puzzles only", "score, puzzles and answer", "score, puzzles, answer and right", "REPEAT, IF and SEND"],
+          "answer": 1,
+          "explain": "score, puzzles and answer all store values that can change, and answer counts too because RECEIVE stores what is typed in it, while \"right\" is just a piece of text."
+        },
+        {
+          "type": "identify",
+          "q": "Which line takes in input from the user?",
+          "code": [
+            {"code": "SET score TO 0", "indent": 0},
+            {"code": "SET puzzles TO 0", "indent": 0},
+            {"code": "REPEAT 3 TIMES", "indent": 0},
+            {"code": "RECEIVE answer FROM KEYBOARD", "indent": 1},
+            {"code": "SET puzzles TO puzzles + 1", "indent": 1},
+            {"code": "IF answer = \"right\" THEN", "indent": 1},
+            {"code": "SET score TO score + 3", "indent": 2},
+            {"code": "END IF", "indent": 1},
+            {"code": "END REPEAT", "indent": 0},
+            {"code": "SEND \"Score: \" & score TO DISPLAY", "indent": 0}
+          ],
+          "inputs": ["right", "wrong", "right"],
+          "options": ["Line 1", "Line 4", "Line 6", "Line 10"],
+          "answer": 1,
+          "explain": "RECEIVE ... FROM KEYBOARD on line 4 is the input, while line 10 is output because SEND ... TO DISPLAY shows something on the screen."
+        },
+        {
+          "type": "trace",
+          "q": "The pupil types right, wrong, right. What does the program display?",
+          "code": [
+            {"code": "SET score TO 0", "indent": 0},
+            {"code": "SET puzzles TO 0", "indent": 0},
+            {"code": "REPEAT 3 TIMES", "indent": 0},
+            {"code": "RECEIVE answer FROM KEYBOARD", "indent": 1},
+            {"code": "SET puzzles TO puzzles + 1", "indent": 1},
+            {"code": "IF answer = \"right\" THEN", "indent": 1},
+            {"code": "SET score TO score + 3", "indent": 2},
+            {"code": "END IF", "indent": 1},
+            {"code": "END REPEAT", "indent": 0},
+            {"code": "SEND \"Score: \" & score TO DISPLAY", "indent": 0}
+          ],
+          "inputs": ["right", "wrong", "right"],
+          "options": ["Score: 9", "Score: 6", "Score: 5", "Score: 3"],
+          "answer": 1,
+          "explain": "Only the two right answers add 3 each, making 6, and it isn't 5 because this program never takes a point away for a wrong answer."
+        },
+        {
+          "type": "identify",
+          "q": "What data type is stored in finished?",
+          "code": [
+            {"code": "SET finished TO FALSE", "indent": 0}
+          ],
+          "options": ["String", "Integer", "Boolean", "Real"],
+          "answer": 2,
+          "explain": "FALSE is a Boolean value that can only be TRUE or FALSE, and it isn't a string because it has no quotation marks around it."
+        }
+      ]
+    },
+    {
+      "name": "Loops",
+      "questions": [
+        {
+          "type": "count",
+          "q": "How many times is \"Keep going!\" displayed?",
+          "code": [
+            {"code": "SET minutes TO 45", "indent": 0},
+            {"code": "WHILE minutes > 30 DO", "indent": 0},
+            {"code": "SEND \"Keep going!\" TO DISPLAY", "indent": 1},
+            {"code": "SET minutes TO minutes - 5", "indent": 1},
+            {"code": "END WHILE", "indent": 0},
+            {"code": "SEND \"Time to finish\" TO DISPLAY", "indent": 0}
+          ],
+          "match": "Keep going!",
+          "options": ["2", "3", "4", "9"],
+          "answer": 1,
+          "explain": "It runs when minutes is 45, 40 and 35, then stops at 30 because 30 > 30 is FALSE, so it is 3 times and not 4."
+        },
+        {
+          "type": "identify",
+          "q": "What kind of loop is this?",
+          "code": [
+            {"code": "SET minutes TO 45", "indent": 0},
+            {"code": "WHILE minutes > 30 DO", "indent": 0},
+            {"code": "SEND \"Keep going!\" TO DISPLAY", "indent": 1},
+            {"code": "SET minutes TO minutes - 5", "indent": 1},
+            {"code": "END WHILE", "indent": 0},
+            {"code": "SEND \"Time to finish\" TO DISPLAY", "indent": 0}
+          ],
+          "options": ["A fixed loop", "A conditional loop", "A nested loop", "Selection, not a loop"],
+          "answer": 1,
+          "explain": "WHILE keeps going until a condition stops it, so it is conditional, and it isn't fixed because the code never says a set number of times."
+        },
+        {
+          "type": "count",
+          "q": "How many times is \"Next puzzle\" displayed?",
+          "code": [
+            {"code": "REPEAT 4 TIMES", "indent": 0},
+            {"code": "REPEAT 2 TIMES", "indent": 1},
+            {"code": "SEND \"Next puzzle\" TO DISPLAY", "indent": 2},
+            {"code": "END REPEAT", "indent": 1},
+            {"code": "END REPEAT", "indent": 0}
+          ],
+          "match": "Next puzzle",
+          "options": ["6", "2", "8", "4"],
+          "answer": 2,
+          "explain": "The inner loop runs 2 times for each of the 4 outer loops, so it is 4 × 2 = 8 and not 4 + 2 = 6."
+        }
+      ]
+    },
+    {
+      "name": "True or false?",
+      "questions": [
+        {
+          "type": "truefalse",
+          "q": "Can this pupil enter? Is age >= 6 AND age <= 19 TRUE or FALSE?",
+          "code": [
+            {"code": "SET age TO 12", "indent": 0}
+          ],
+          "condition": "age >= 6 AND age <= 19",
+          "options": ["TRUE", "FALSE"],
+          "answer": 0,
+          "explain": "12 is at least 6 and at most 19, so both sides are TRUE and AND gives TRUE."
+        },
+        {
+          "type": "truefalse",
+          "q": "Is age < 6 OR age > 19 TRUE or FALSE?",
+          "code": [
+            {"code": "SET age TO 20", "indent": 0}
+          ],
+          "condition": "age < 6 OR age > 19",
+          "options": ["TRUE", "FALSE"],
+          "answer": 0,
+          "explain": "20 > 19 is TRUE, and OR only needs one side to be TRUE, even though age < 6 is FALSE."
+        },
+        {
+          "type": "truefalse",
+          "q": "Is NOT (score > 10) TRUE or FALSE?",
+          "code": [
+            {"code": "SET score TO 10", "indent": 0}
+          ],
+          "condition": "NOT (score > 10)",
+          "options": ["TRUE", "FALSE"],
+          "answer": 0,
+          "explain": "10 > 10 is FALSE because 10 is not bigger than itself, and NOT turns FALSE into TRUE."
+        }
+      ]
+    },
+    {
+      "name": "Think like a tester",
+      "questions": [
+        {
+          "type": "trace",
+          "q": "This code tries to swap two puzzle scores. What does it display?",
+          "code": [
+            {"code": "SET a TO 3", "indent": 0},
+            {"code": "SET b TO 7", "indent": 0},
+            {"code": "SET a TO b", "indent": 0},
+            {"code": "SET b TO a", "indent": 0},
+            {"code": "SEND a & \" \" & b TO DISPLAY", "indent": 0}
+          ],
+          "options": ["7 3", "7 7", "3 7", "3 3"],
+          "answer": 1,
+          "explain": "Line 3 puts 7 into a, so line 4 copies that 7 back into b, and it isn't 7 3 because the old 3 was overwritten before it could be saved."
+        },
+        {
+          "type": "testdata",
+          "q": "A program accepts ages from 6 to 19. Which of these is boundary test data?",
+          "range": [6, 19],
+          "kind": "Boundary",
+          "options": ["12", "19", "25", "ten"],
+          "answer": 1,
+          "explain": "19 is right on the edge of the allowed range, while 12 is normal data because it is safely in the middle."
+        },
+        {
+          "type": "ct",
+          "q": "Pattern spotting: level 1 of a puzzle has 1 tile, level 2 has 3, level 3 has 6 and level 4 has 10. How many tiles will level 5 have?",
+          "options": ["14", "15", "20", "13"],
+          "answer": 1,
+          "explain": "The gap grows by one each time (+2, +3, +4), so the next jump is +5 to make 15, not +4 again to make 14."
+        },
+        {
+          "type": "poll",
+          "q": "In Bebras a wrong answer can lose points. What would you do with a puzzle you're not sure about?",
+          "options": ["Skip it and move on", "Have a careful guess", "Work through it again", "Come back to it at the end"],
+          "explain": "Talk about it: when is skipping smarter than guessing, and how could you check your answer?"
+        }
+      ]
+    }
+  ]
+}
