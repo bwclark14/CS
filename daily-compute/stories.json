@@ -1,6 +1,456 @@
 {
- "updated": "2026-11-15",
+ "updated": "2026-11-16",
  "stories": [
+  {
+   "body": [
+    "Pupils across the UK are solving puzzles right now in the Bebras Challenge. It is a free online contest for ages 6 to 19. It is open until Friday 20 November 2026.",
+    "The Raspberry Pi Foundation, a computing charity, runs it in the UK. Last year, more than half a million UK pupils took part. Over 4 million pupils in more than 80 countries joined in.",
+    "Each pupil gets 45 minutes on a computer, which marks the answers. You don't need to know any coding. The puzzles test computational thinking. That means breaking problems into parts and spotting patterns. It also means ignoring details that don't matter and planning clear steps.",
+    "Here's the twist: a wrong answer can lose points, so guessing is risky. Pupils can skip a puzzle instead. Everyone gets a certificate, and top scorers can earn gold ones. A teacher has to sign the school up. Find out more at bebras.uk."
+   ],
+   "connections": {
+    "groups": [
+     {
+      "explain": "These are all everyday puzzles. Chess looks like it fits here too, but it is needed in the last group.",
+      "name": "Puzzles you might do at home",
+      "words": [
+       "Sudoku",
+       "Crossword",
+       "Jigsaw",
+       "Word search"
+      ]
+     },
+     {
+      "explain": "You use these to put information into a computer, like clicking and typing Bebras answers.",
+      "name": "Input devices",
+      "words": [
+       "Keyboard",
+       "Mouse",
+       "Microphone",
+       "Webcam"
+      ]
+     },
+     {
+      "explain": "These are the thinking skills that Bebras puzzles test.",
+      "name": "Computational thinking skills",
+      "words": [
+       "Algorithm",
+       "Pattern",
+       "Abstract",
+       "Decompose"
+      ]
+     },
+     {
+      "explain": "Chessboard, skateboard, cardboard and dashboard. Chess is the red herring because it looks like a home puzzle. Keyboard already ends in 'board', but it is an input device.",
+      "name": "Add 'board' to the end",
+      "words": [
+       "Chess",
+       "Skate",
+       "Card",
+       "Dash"
+      ]
+     }
+    ],
+    "title": "Puzzle time"
+   },
+   "date": "2026-11-16",
+   "discussion": [
+    "Bebras puzzles need no coding. Why do you think the organisers chose puzzles instead of coding tasks?",
+    "Wrong answers can lose points, but skipped puzzles don't. When would you skip a puzzle? When would you take a guess?",
+    "Think of a puzzle you like, such as a maze or a sudoku. Which thinking skill does it use most: breaking it down, spotting patterns, ignoring details or planning steps?",
+    "Some people say contests help you find a hidden talent. Others worry that scores can make pupils feel 'bad at computing'. What do you think? How could a school make it feel fair for everyone?",
+    "Design challenge: invent a Bebras-style puzzle about your school, like the lunch queue or the bell times. Test it on a partner and improve it if they get stuck."
+   ],
+   "extras": [
+    {
+     "answer": 1,
+     "bug": 7,
+     "explain": "Line 8 adds 1 for a wrong answer when it should take 1 away, so 'SET score TO score - 1' is the fix. 'SET score TO score - 3' is tempting because a right answer is worth 3, but the penalty is only 1 point, so right, wrong, skip, right would give 3 instead of 5.",
+     "fixes": [
+      "SET score TO score - 3",
+      "SET score TO score - 1",
+      "SET score TO 0 - 1",
+      "SET result TO score - 1"
+     ],
+     "lines": [
+      {
+       "code": "SET score TO 0",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT 4 TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE result FROM KEYBOARD",
+       "indent": 1
+      },
+      {
+       "code": "IF result = \"right\" THEN",
+       "indent": 1
+      },
+      {
+       "code": "SET score TO score + 3",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "IF result = \"wrong\" THEN",
+       "indent": 1
+      },
+      {
+       "code": "SET score TO score + 1",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Score: \" & score TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "strand": "Designing, building and testing computing solutions",
+     "task": "This made-up scoring program receives 4 results: \"right\", \"wrong\" or \"skip\". A right answer scores 3 points and a wrong answer loses 1 point. When tested with right, wrong, skip, right it shows 'Score: 7' instead of 'Score: 5'. Find the faulty line and choose the fix.",
+     "tests": [
+      {
+       "expect": [
+        "Score: 5"
+       ],
+       "inputs": [
+        "right",
+        "wrong",
+        "skip",
+        "right"
+       ]
+      },
+      {
+       "expect": [
+        "Score: 1"
+       ],
+       "inputs": [
+        "wrong",
+        "wrong",
+        "right",
+        "skip"
+       ]
+      },
+      {
+       "expect": [
+        "Score: 8"
+       ],
+       "inputs": [
+        "right",
+        "right",
+        "right",
+        "wrong"
+       ]
+      }
+     ],
+     "title": "Fix the score counter",
+     "type": "bug",
+     "why": "In the real challenge a wrong answer can lose points, so a scoring program must take marks away correctly."
+    },
+    {
+     "answer": 1,
+     "explain": "The loop runs while at least 6 minutes are left, so it stops after 7 puzzles with 3 minutes spare. '8 puzzles, -3 minutes spare' is tempting if you forget the check happens before each puzzle, so the loop never starts an eighth one.",
+     "lines": [
+      {
+       "code": "SET minutes TO 45",
+       "indent": 0
+      },
+      {
+       "code": "SET puzzles TO 0",
+       "indent": 0
+      },
+      {
+       "code": "WHILE minutes >= 6 DO",
+       "indent": 0
+      },
+      {
+       "code": "SET minutes TO minutes - 6",
+       "indent": 1
+      },
+      {
+       "code": "SET puzzles TO puzzles + 1",
+       "indent": 1
+      },
+      {
+       "code": "END WHILE",
+       "indent": 0
+      },
+      {
+       "code": "SEND puzzles & \" puzzles, \" & minutes & \" minutes spare\" TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "options": [
+      "8 puzzles, -3 minutes spare",
+      "7 puzzles, 3 minutes spare",
+      "6 puzzles, 9 minutes spare",
+      "7 puzzles, 45 minutes spare"
+     ],
+     "question": "What does the program display?",
+     "strand": "Understanding the world through computational thinking",
+     "task": "A pupil plans to spend 6 minutes on each puzzle. The program counts how many puzzles fit into 45 minutes. What does it display?",
+     "title": "How many puzzles fit?",
+     "trace": {
+      "cols": [
+       "Step",
+       "minutes",
+       "puzzles"
+      ],
+      "rows": [
+       [
+        "Start",
+        45,
+        0
+       ],
+       [
+        "Loop 1",
+        39,
+        1
+       ],
+       [
+        "Loop 2",
+        33,
+        2
+       ],
+       [
+        "Loop 3",
+        27,
+        3
+       ],
+       [
+        "Loop 4",
+        21,
+        4
+       ],
+       [
+        "Loop 5",
+        15,
+        5
+       ],
+       [
+        "Loop 6",
+        9,
+        6
+       ],
+       [
+        "Loop 7",
+        3,
+        7
+       ],
+       [
+        "3 >= 6 is false, so stop",
+        3,
+        7
+       ]
+      ]
+     },
+     "type": "predict",
+     "why": "Pupils have 45 minutes and must plan how many puzzles they can fit in, which is a job for a loop."
+    },
+    {
+     "bits": 8,
+     "explain": "45 = 32 + 8 + 4 + 1, so the switches for 32, 8, 4 and 1 are on: 00101101. A common slip is switching on 16 as well, but 32 + 16 is already 48, which is more than 45.",
+     "strand": "Understanding and analysing computing technology",
+     "target": 45,
+     "task": "Each pupil gets 45 minutes for the challenge. Turn the 8 switches on or off to make 45 in binary.",
+     "title": "45 minutes in binary",
+     "type": "binary",
+     "why": "The 45-minute time limit is a real number from the story that fits neatly in 8 bits."
+    },
+    {
+     "distractors": [
+      {
+       "code": "IF sure = \"yes\" THEN",
+       "indent": 1
+      }
+     ],
+     "explain": "The count starts at 0 before the loop, then for each puzzle the program receives an answer and adds 1 only when it is \"no\". The tempting wrong line is IF sure = \"yes\", but that would count the puzzles the pupil tries, not the ones they skip.",
+     "lines": [
+      {
+       "code": "SET skipped TO 0",
+       "indent": 0
+      },
+      {
+       "code": "REPEAT 5 TIMES",
+       "indent": 0
+      },
+      {
+       "code": "RECEIVE sure FROM KEYBOARD",
+       "indent": 1
+      },
+      {
+       "code": "IF sure = \"no\" THEN",
+       "indent": 1
+      },
+      {
+       "code": "SET skipped TO skipped + 1",
+       "indent": 2
+      },
+      {
+       "code": "END IF",
+       "indent": 1
+      },
+      {
+       "code": "END REPEAT",
+       "indent": 0
+      },
+      {
+       "code": "SEND \"Puzzles skipped: \" & skipped TO DISPLAY",
+       "indent": 0
+      }
+     ],
+     "strand": "Designing, building and testing computing solutions",
+     "task": "This made-up program asks a pupil 'Are you sure?' for each of 5 puzzles. They type \"yes\" or \"no\", and it counts how many puzzles they skip (every \"no\"). Put the lines in order. One line doesn't belong.",
+     "tests": [
+      {
+       "expect": [
+        "Puzzles skipped: 3"
+       ],
+       "inputs": [
+        "yes",
+        "no",
+        "no",
+        "yes",
+        "no"
+       ]
+      },
+      {
+       "expect": [
+        "Puzzles skipped: 0"
+       ],
+       "inputs": [
+        "yes",
+        "yes",
+        "yes",
+        "yes",
+        "yes"
+       ]
+      }
+     ],
+     "title": "Count the skipped puzzles",
+     "type": "parsons",
+     "why": "In the real challenge pupils decide which puzzles to skip, because a wrong answer can lose points."
+    }
+   ],
+   "headline": "Half a million UK pupils tackle puzzle challenge",
+   "id": "2026-11-16-bebras-challenge",
+   "illustration": "data",
+   "imageAlt": "Illustration of a laptop showing a grid puzzle with a path winding past blocked squares, a stopwatch marked 45, a certificate with a star and scattered puzzle tiles.",
+   "keywords": [
+    {
+     "meaning": "Solving problems in ways a computer could help with: breaking them down, spotting patterns, ignoring details and planning steps.",
+     "term": "Computational thinking"
+    },
+    {
+     "meaning": "Breaking a big problem into smaller parts that are easier to solve.",
+     "term": "Decomposition"
+    },
+    {
+     "meaning": "Ignoring details that don't matter, so you can focus on what is important.",
+     "term": "Abstraction"
+    },
+    {
+     "meaning": "A clear set of steps, in order, for doing a task.",
+     "term": "Algorithm"
+    }
+   ],
+   "newsDate": "15 November 2026",
+   "quiz": [
+    {
+     "answer": 1,
+     "explain": "Each pupil has 45 minutes. 60 minutes is tempting because many lessons last about an hour, but the challenge is shorter.",
+     "options": [
+      "30 minutes",
+      "45 minutes",
+      "60 minutes",
+      "90 minutes"
+     ],
+     "q": "How long does each pupil get for the Bebras Challenge?",
+     "strand": "The news"
+    },
+    {
+     "answer": 3,
+     "explain": "Losing points for wrong answers makes guessing risky. Gold certificates are tempting, but they depend on top scores, not on the penalty rule.",
+     "options": [
+      "To make the hardest C puzzles a little easier",
+      "To share gold certificates among more pupils",
+      "To make the whole challenge finish more quickly",
+      "To stop people guessing answers at random"
+     ],
+     "q": "Why can a wrong answer lose points in the challenge?",
+     "strand": "The news"
+    },
+    {
+     "answer": 0,
+     "explain": "Splitting a problem into smaller parts is decomposition. Abstraction is tempting because it also makes problems simpler, but it means ignoring details, not splitting the problem up.",
+     "options": [
+      "Decomposition",
+      "Abstraction",
+      "Pattern recognition",
+      "Repetition"
+     ],
+     "q": "A pupil splits a tricky puzzle into three smaller problems and solves each one. Which skill is this?",
+     "strand": "Understanding the world through computational thinking"
+    },
+    {
+     "answer": 2,
+     "explain": "Leaving out details that don't matter is abstraction. Sequence is tempting because the stops are in order, but the key idea is what the map leaves out.",
+     "options": [
+      "Selection",
+      "Decomposition",
+      "Abstraction",
+      "Sequence"
+     ],
+     "q": "A bus map shows the stops in order but leaves out every street, shop and tree. Which idea does the map use?",
+     "strand": "Understanding the world through computational thinking"
+    },
+    {
+     "answer": 3,
+     "explain": "6 right is 6 x 3 = 18 points, then 2 wrong answers take away 2, giving 16. 18 is tempting if you forget the penalty, and 14 comes from taking away 2 points for each wrong answer instead of 1.",
+     "options": [
+      "18",
+      "14",
+      "20",
+      "16"
+     ],
+     "q": "Challenge: In a practice quiz, a right answer scores 3 points and a wrong answer loses 1 point. Ana gets 6 right, 2 wrong and skips 2. What is her score?",
+     "strand": "Understanding the world through computational thinking"
+    }
+   ],
+   "sources": [
+    {
+     "title": "UK Bebras Challenge website (bebras.uk)",
+     "url": "https://bebras.uk/"
+    },
+    {
+     "title": "Join the UK Bebras Challenge 2026 (Raspberry Pi Foundation)",
+     "url": "https://www.raspberrypi.org/blog/join-the-uk-bebras-challenge-2026/"
+    }
+   ],
+   "standfirst": "The UK Bebras Challenge is a free set of online puzzles that tests how you think, not how you code.",
+   "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><rect x=\"0\" y=\"300\" width=\"640\" height=\"60\" fill=\"var(--ill-2)\" opacity=\"0.5\"/><rect x=\"150\" y=\"60\" width=\"300\" height=\"200\" rx=\"12\" fill=\"var(--ink)\"/><rect x=\"164\" y=\"74\" width=\"272\" height=\"172\" rx=\"4\" fill=\"var(--card)\"/><path d=\"M120 262 H480 L500 290 H100 Z\" fill=\"var(--ink)\"/><rect x=\"270\" y=\"270\" width=\"60\" height=\"8\" rx=\"3\" fill=\"var(--ill-2)\"/><rect x=\"184\" y=\"86\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"224\" y=\"86\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"264\" y=\"86\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"304\" y=\"86\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"344\" y=\"86\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"384\" y=\"86\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"184\" y=\"124\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"224\" y=\"124\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"264\" y=\"124\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"304\" y=\"124\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"344\" y=\"124\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"384\" y=\"124\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"184\" y=\"162\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"224\" y=\"162\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"264\" y=\"162\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"304\" y=\"162\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"344\" y=\"162\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"384\" y=\"162\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"184\" y=\"200\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"224\" y=\"200\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"264\" y=\"200\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"304\" y=\"200\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"344\" y=\"200\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><rect x=\"384\" y=\"200\" width=\"34\" height=\"32\" rx=\"4\" fill=\"var(--ill-bg)\" stroke=\"var(--ill-2)\" stroke-width=\"2\"/><path d=\"M201 102 L241 102 L241 140 L281 140 L321 140 L321 178 L361 178 L401 178 L401 216\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"201\" cy=\"102\" r=\"10\" fill=\"var(--hot)\"/><rect x=\"388\" y=\"204\" width=\"24\" height=\"24\" rx=\"4\" fill=\"var(--hot)\"/><rect x=\"270\" y=\"92\" width=\"22\" height=\"20\" rx=\"3\" fill=\"var(--ink)\"/><rect x=\"190\" y=\"168\" width=\"22\" height=\"20\" rx=\"3\" fill=\"var(--ink)\"/><rect x=\"270\" y=\"206\" width=\"22\" height=\"20\" rx=\"3\" fill=\"var(--ink)\"/><rect x=\"350\" y=\"130\" width=\"22\" height=\"20\" rx=\"3\" fill=\"var(--ink)\"/><circle cx=\"545\" cy=\"110\" r=\"52\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"6\"/><rect x=\"537\" y=\"46\" width=\"16\" height=\"12\" rx=\"3\" fill=\"var(--ink)\"/><path d=\"M545 110 L545 66 A44 44 0 1 1 503 123 Z\" fill=\"var(--accent)\" opacity=\"0.85\"/><circle cx=\"545\" cy=\"110\" r=\"5\" fill=\"var(--ink)\"/><text x=\"545\" y=\"190\" font-size=\"22\" font-family=\"sans-serif\" font-weight=\"700\" text-anchor=\"middle\" fill=\"var(--ink)\">45</text><rect x=\"490\" y=\"215\" width=\"120\" height=\"86\" rx=\"6\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\" transform=\"rotate(-6 550 258)\"/><path d=\"M550 232 L557 248 L574 249 L561 260 L565 277 L550 268 L535 277 L539 260 L526 249 L543 248 Z\" fill=\"var(--hot)\" transform=\"rotate(-6 550 258)\"/><rect x=\"38\" y=\"140\" width=\"64\" height=\"64\" rx=\"8\" fill=\"var(--accent)\" transform=\"rotate(-12 70 172)\"/><circle cx=\"70\" cy=\"172\" r=\"12\" fill=\"var(--card)\"/><rect x=\"40\" y=\"226\" width=\"56\" height=\"56\" rx=\"8\" fill=\"var(--hot)\" transform=\"rotate(10 68 254)\"/><path d=\"M56 254 L68 242 L80 254 L68 266 Z\" fill=\"var(--card)\"/><rect x=\"52\" y=\"62\" width=\"48\" height=\"48\" rx=\"8\" fill=\"var(--ill-2)\" transform=\"rotate(8 76 86)\"/><path d=\"M64 86 H88 M76 74 V98\" stroke=\"var(--card)\" stroke-width=\"5\"/></svg>",
+   "tags": [
+    "Careers",
+    "Algorithms",
+    "Selection",
+    "Loops",
+    "Testing"
+   ],
+   "theme": "coding",
+   "whyItMatters": "Computational thinking helps in every subject, not just computing. Bebras shows you can be good at computing before you write any code, and it might even spark a future career."
+  },
   {
    "body": [
     "Most computers use chips made of silicon. A team led by McGill University in Canada has tried something very different: a computer that uses living bacteria. Bacteria are tiny living things, far too small to see without a microscope.",
