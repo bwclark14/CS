@@ -1,6 +1,420 @@
 {
-  "updated": "2026-11-17",
+  "updated": "2026-11-18",
   "stories": [
+    {
+      "body": [
+        "On Thursday 12 November, at about 4pm UK time, Microsoft's online services started to go wrong. Outlook, its email service, was hit hardest. Many people could not open their inboxes. Parts of Teams and Copilot had problems too.",
+        "The problem spread fast. Downdetector, a website that collects problem reports, got reports from more than 70 countries. By Friday morning there were at least 43,000 about Outlook alone. Schools, businesses and governments were all affected.",
+        "Microsoft says an earlier network upgrade left a hidden problem behind. A later change made it show up, and many servers stopped working properly. Servers are powerful computers that store and send email. Microsoft says it was not a cyberattack, and AI was not to blame.",
+        "Engineers rolled back the change, which means they undid it. Then they switched services back on in stages, checking each step. This was slower but safer. Some servers failed again on Friday morning, so for some people the outage lasted over 12 hours. Desktop Outlook users could still read emails already saved on their computers. Microsoft has said sorry and will publish a full report."
+      ],
+      "connections": {
+        "groups": [
+          {
+            "explain": "These are everyday online services, like the ones affected by the outage.",
+            "name": "Things people do online for work and school",
+            "words": [
+              "Email",
+              "Video call",
+              "Chat",
+              "Calendar"
+            ]
+          },
+          {
+            "explain": "These are pieces of hardware that carry or store data on a network. Switch is a red herring: it sounds like an action engineers might take to fix things, but here it is a network device.",
+            "name": "Parts of a computer network",
+            "words": [
+              "Server",
+              "Router",
+              "Cable",
+              "Switch"
+            ]
+          },
+          {
+            "explain": "Engineers undo changes, send traffic another way, restart machines and patch (repair) software to fix problems.",
+            "name": "Ways engineers fix a broken system",
+            "words": [
+              "Roll back",
+              "Reroute",
+              "Restart",
+              "Patch"
+            ]
+          },
+          {
+            "explain": "Software, hardware, malware and firmware are all kinds of computer 'ware'.",
+            "name": "Words that come before 'ware'",
+            "words": [
+              "Soft",
+              "Hard",
+              "Mal",
+              "Firm"
+            ]
+          }
+        ],
+        "title": "When email breaks"
+      },
+      "date": "2026-11-18",
+      "discussion": [
+        "Why do you think Microsoft switched services back on step by step, even though it was slower?",
+        "Lots of schools and businesses use the same few big companies for email. Some people say this is sensible because these companies are experts. Others say it puts too many eggs in one basket. What do you think, and why?",
+        "If your school email stopped working for a whole day, how would you and your teachers keep in touch?",
+        "Microsoft has promised to publish a report about what went wrong. Why might it help to share mistakes in public?",
+        "Design challenge: you are about to change a network that millions of people use. Plan how you would test the change, spot problems and undo it quickly."
+      ],
+      "extras": [
+        {
+          "answer": 2,
+          "explain": "At stage 2 online goes up to 60 then drops to 40, so it takes 4 stages to reach exactly 100. 'Stage 4: 120% online' is the tempting wrong answer: it is what you get if you forget the drop at stage 2 and count 30, 60, 90, 120.",
+          "lines": [
+            {
+              "code": "SET online TO 0",
+              "indent": 0
+            },
+            {
+              "code": "SET stage TO 0",
+              "indent": 0
+            },
+            {
+              "code": "WHILE online < 100 DO",
+              "indent": 0
+            },
+            {
+              "code": "SET stage TO stage + 1",
+              "indent": 1
+            },
+            {
+              "code": "SET online TO online + 30",
+              "indent": 1
+            },
+            {
+              "code": "IF stage = 2 THEN",
+              "indent": 1
+            },
+            {
+              "code": "SET online TO online - 20",
+              "indent": 2
+            },
+            {
+              "code": "END IF",
+              "indent": 1
+            },
+            {
+              "code": "END WHILE",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Stage \" & stage & \": \" & online & \"% online\" TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "options": [
+            "Stage 4: 120% online",
+            "Stage 3: 90% online",
+            "Stage 4: 100% online",
+            "Stage 5: 130% online"
+          ],
+          "question": "What does the program display?",
+          "strand": "Understanding the world through computational thinking",
+          "task": "This program models engineers bringing servers back online. Each stage adds 30% more servers, but at stage 2 some fail again and 20% drop out. Trace the program and choose what it displays.",
+          "title": "Back online, step by step",
+          "trace": {
+            "cols": [
+              "Step",
+              "stage",
+              "online",
+              "online < 100?"
+            ],
+            "rows": [
+              [
+                "Start",
+                0,
+                0,
+                "Yes"
+              ],
+              [
+                "Pass 1",
+                1,
+                30,
+                "Yes"
+              ],
+              [
+                "Pass 2",
+                2,
+                40,
+                "Yes"
+              ],
+              [
+                "Pass 3",
+                3,
+                70,
+                "Yes"
+              ],
+              [
+                "Pass 4",
+                4,
+                100,
+                "No, stop"
+              ]
+            ]
+          },
+          "type": "predict",
+          "why": "Microsoft brought servers back in stages and some failed again, which a loop with a check can model."
+        },
+        {
+          "alternatives": [
+            [
+              1,
+              0,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          ],
+          "distractors": [
+            {
+              "code": "IF errors < limit THEN",
+              "indent": 0
+            }
+          ],
+          "explain": "The limit and the error count must be set before the IF can compare them, and the two warning messages go inside the IF in the order asked for. The line 'IF errors < limit THEN' is the one that doesn't belong: it would roll back the change when there are only a few errors and keep it when there are lots.",
+          "lines": [
+            {
+              "code": "SET limit TO 100",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE errors FROM KEYBOARD",
+              "indent": 0
+            },
+            {
+              "code": "IF errors > limit THEN",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Too many errors\" TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "SEND \"Roll back the change\" TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "ELSE",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Keep the change\" TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "END IF",
+              "indent": 0
+            }
+          ],
+          "strand": "Designing, building and testing computing solutions",
+          "task": "Put the lines in order to make a program that reads how many errors appear after a network change. If there are more than 100, it should display 'Too many errors' then 'Roll back the change'. Otherwise it displays 'Keep the change'. One line doesn't belong.",
+          "tests": [
+            {
+              "expect": [
+                "Too many errors",
+                "Roll back the change"
+              ],
+              "inputs": [
+                250
+              ]
+            },
+            {
+              "expect": [
+                "Keep the change"
+              ],
+              "inputs": [
+                20
+              ]
+            }
+          ],
+          "title": "Should we roll it back?",
+          "type": "parsons",
+          "why": "The outage was fixed by rolling back a network change, and a program can decide when a change should be undone."
+        },
+        {
+          "explain": "A problem has to happen and be noticed before it can be investigated, fixed and finally reviewed. It is tempting to put 'find which servers are failing' first, but engineers only start looking once users report problems.",
+          "steps": [
+            "Engineers make a change to the network",
+            "Users report that they cannot open their email",
+            "Engineers find which servers are failing",
+            "They roll back the change to undo it",
+            "They switch services back on in stages, checking each one",
+            "They write a report on what went wrong and how to prevent it"
+          ],
+          "strand": "Designing, building and testing computing solutions",
+          "task": "Put these steps in the order they happen when engineers deal with an outage like Microsoft's.",
+          "title": "From outage to report",
+          "type": "order",
+          "why": "The story describes how a problem was spotted, fixed and reviewed, which is a process engineers follow."
+        },
+        {
+          "explain": "Facts can be checked against evidence, like a number or something a company said. Opinions use words like 'should', 'best' or 'disaster'. The trickiest one is 'Microsoft said it was not a cyberattack': it is a fact that Microsoft said it, even though we are trusting Microsoft's own check.",
+          "statements": [
+            {
+              "explain": "This number was reported and can be checked.",
+              "fact": true,
+              "text": "Downdetector got problem reports from more than 70 countries."
+            },
+            {
+              "explain": "'Should' shows this is what someone thinks. People disagree about it.",
+              "fact": false,
+              "text": "Schools should stop using big companies for their email."
+            },
+            {
+              "explain": "You can check that Microsoft said this, even if you can't check inside its network yourself.",
+              "fact": true,
+              "text": "Microsoft said the outage was not caused by a cyberattack."
+            },
+            {
+              "explain": "'Best' is a judgement. Some people might have preferred a quicker fix.",
+              "fact": false,
+              "text": "Switching services back on in stages was the best choice."
+            },
+            {
+              "explain": "This describes what happened, and news reports confirm it.",
+              "fact": true,
+              "text": "Engineers rolled back the network change to fix the problem."
+            },
+            {
+              "explain": "'Disaster' is a feeling about how bad it was. Some businesses coped fine.",
+              "fact": false,
+              "text": "Half a day without email is a disaster for a business."
+            }
+          ],
+          "strand": "Searching, processing and managing information responsibly",
+          "task": "Is each statement a fact (it can be checked) or an opinion (what someone thinks)?",
+          "title": "Outage: fact or opinion?",
+          "type": "factop",
+          "why": "The discussion asks whether relying on a few big companies is sensible, so separating facts from opinions helps learners argue fairly."
+        }
+      ],
+      "headline": "Why Microsoft's email stopped working for hours",
+      "id": "2026-11-18-microsoft-outage-cause",
+      "illustration": "internet",
+      "imageAlt": "Illustration of a globe linked by dotted lines to three server racks. Two units in the middle rack glow red under a warning triangle. Beside them are a curved 'undo' arrow and an envelope with a clock, showing delayed email.",
+      "keywords": [
+        {
+          "meaning": "A time when a service, like email or a website, stops working.",
+          "term": "Outage"
+        },
+        {
+          "meaning": "A powerful computer that stores data and gives a service, like email, to other computers.",
+          "term": "Server"
+        },
+        {
+          "meaning": "To undo a change and go back to the last version that worked.",
+          "term": "Roll back"
+        },
+        {
+          "meaning": "One part that stops the whole system working if it breaks.",
+          "term": "Single point of failure"
+        }
+      ],
+      "newsDate": "13 November 2026",
+      "quiz": [
+        {
+          "answer": 1,
+          "explain": "Microsoft said a hidden problem from an earlier network upgrade showed up after a later change. 'Hackers' is tempting because outages are sometimes caused by attacks, but Microsoft said this was not a cyberattack.",
+          "options": [
+            "Hackers who broke into its email servers",
+            "A hidden problem from an earlier network upgrade",
+            "An AI tool that changed the settings by mistake",
+            "Far more people than usual logging in at once"
+          ],
+          "q": "What did Microsoft say caused the outage?",
+          "strand": "The news"
+        },
+        {
+          "answer": 0,
+          "explain": "The desktop app keeps copies of emails it has already downloaded, so people could read them without reaching the servers. A 'backup internet connection' sounds sensible, but the internet was fine: Microsoft's servers had the problem.",
+          "options": [
+            "Copies of those emails were already saved on their computers",
+            "The desktop app used a backup internet connection",
+            "Teams forwarded the emails to their desktop app",
+            "The desktop app had its own servers in their school"
+          ],
+          "q": "Why could some people using desktop Outlook still read older emails?",
+          "strand": "The news"
+        },
+        {
+          "answer": 2,
+          "explain": "A single point of failure is one part the whole system depends on, so if it fails everything stops. 'A part tested only once' is tempting because poor testing causes failures, but it describes how something was checked, not how the system depends on it.",
+          "options": [
+            "The first server to be switched on each day",
+            "A part that is only tested once before release",
+            "One part that stops the whole system if it breaks",
+            "The place in a network where every cable starts"
+          ],
+          "q": "What is a 'single point of failure'?",
+          "strand": "Understanding and analysing computing technology"
+        },
+        {
+          "answer": 3,
+          "explain": "Rolling back means undoing a change and returning to the last working version. Restarting and trying again is tempting, but the change itself would still be there, so the problem would probably come back.",
+          "options": [
+            "They restarted every computer and tried the change again",
+            "They made the same change on even more servers",
+            "They deleted all the data on the broken servers",
+            "They undid the change and went back to what worked"
+          ],
+          "q": "Engineers 'rolled back' the network change. What does that mean?",
+          "strand": "Designing, building and testing computing solutions"
+        },
+        {
+          "answer": 0,
+          "explain": "If it is broken for everyone, the problem is probably the service, so checking the official status page or asking a teacher is best. Changing your password is a sensible habit if you think you were hacked, but it won't fix an outage, and links promising quick fixes can be scams.",
+          "options": [
+            "Check the service's official status page or ask a teacher",
+            "Change your password straight away in case you were hacked",
+            "Click a link in a message offering to fix your email fast",
+            "Delete the email app and reinstall it a few times"
+          ],
+          "q": "Your school email suddenly stops working for everyone. What is the best first thing to do?",
+          "strand": "Cyber resilience and internet safety"
+        },
+        {
+          "answer": 1,
+          "explain": "Working in stages means only a small part is affected if something fails, and the cause is easier to find. It is tempting to think stages are quicker, but the story says this way was slower; it was chosen because it was safer.",
+          "options": [
+            "It is always quicker to restore services in small stages",
+            "If something fails, only a small part is affected and it is easier to find",
+            "It means the engineers no longer need to test anything",
+            "It uses less electricity, so the servers do not overheat"
+          ],
+          "q": "Challenge: Microsoft brought services back in stages, checking each one was stable. Why is that better than switching everything on at once?",
+          "strand": "Understanding the world through computational thinking"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Microsoft hit by global outages: What happened and why? (Al Jazeera)",
+          "url": "https://aljazeera.com/news/2026/11/13/microsoft-hit-by-global-outages-what-happened-and-why"
+        },
+        {
+          "title": "Microsoft 'deeply' apologizes for global service outage, says no AI or hackers are to blame (PC Gamer)",
+          "url": "https://pcgamer.com/software/microsoft-deeply-apologizes-for-global-service-outage-says-no-ai-or-hackers-are-to-blame"
+        }
+      ],
+      "standfirst": "Millions of people could not use Outlook email last week, and Microsoft says a hidden network problem was to blame.",
+      "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect x=\"0\" y=\"0\" width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><circle cx=\"120\" cy=\"150\" r=\"78\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><ellipse cx=\"120\" cy=\"150\" rx=\"34\" ry=\"78\" fill=\"none\" stroke=\"var(--ink)\" stroke-width=\"3\"/><line x1=\"42\" y1=\"150\" x2=\"198\" y2=\"150\" stroke=\"var(--ink)\" stroke-width=\"3\"/><path d=\"M52 112 Q120 98 188 112 M52 188 Q120 202 188 188\" fill=\"none\" stroke=\"var(--ink)\" stroke-width=\"3\"/><circle cx=\"78\" cy=\"102\" r=\"7\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"160\" cy=\"128\" r=\"7\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"96\" cy=\"196\" r=\"7\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"150\" cy=\"186\" r=\"7\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><path d=\"M198 150 C240 150 250 120 290 120\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"4\" stroke-dasharray=\"10 7\"/><path d=\"M190 190 C240 210 250 240 290 240\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"4\" stroke-dasharray=\"4 8\"/><rect x=\"290\" y=\"70\" width=\"64\" height=\"210\" rx=\"8\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"300\" y=\"88\" width=\"44\" height=\"24\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"336\" cy=\"100\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"300\" y=\"126\" width=\"44\" height=\"24\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"336\" cy=\"138\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"300\" y=\"164\" width=\"44\" height=\"24\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"336\" cy=\"176\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"300\" y=\"202\" width=\"44\" height=\"24\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"336\" cy=\"214\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"300\" y=\"240\" width=\"44\" height=\"24\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"336\" cy=\"252\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"370\" y=\"70\" width=\"64\" height=\"210\" rx=\"8\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"380\" y=\"88\" width=\"44\" height=\"24\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"416\" cy=\"100\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"380\" y=\"126\" width=\"44\" height=\"24\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"416\" cy=\"138\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"380\" y=\"164\" width=\"44\" height=\"24\" rx=\"4\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"416\" cy=\"176\" r=\"4\" fill=\"var(--card)\"/><rect x=\"380\" y=\"202\" width=\"44\" height=\"24\" rx=\"4\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"416\" cy=\"214\" r=\"4\" fill=\"var(--card)\"/><rect x=\"380\" y=\"240\" width=\"44\" height=\"24\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"416\" cy=\"252\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"450\" y=\"70\" width=\"64\" height=\"210\" rx=\"8\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"460\" y=\"88\" width=\"44\" height=\"24\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"496\" cy=\"100\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"460\" y=\"126\" width=\"44\" height=\"24\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"496\" cy=\"138\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"460\" y=\"164\" width=\"44\" height=\"24\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"496\" cy=\"176\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"460\" y=\"202\" width=\"44\" height=\"24\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"496\" cy=\"214\" r=\"4\" fill=\"var(--accent)\"/><rect x=\"460\" y=\"240\" width=\"44\" height=\"24\" rx=\"4\" fill=\"var(--ill-2)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"496\" cy=\"252\" r=\"4\" fill=\"var(--accent)\"/><polygon points=\"402,22 430,62 374,62\" fill=\"var(--hot)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"399\" y=\"34\" width=\"6\" height=\"14\" fill=\"var(--card)\"/><circle cx=\"402\" cy=\"54\" r=\"3\" fill=\"var(--card)\"/><rect x=\"540\" y=\"200\" width=\"80\" height=\"56\" rx=\"6\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><polyline points=\"540,202 580,234 620,202\" fill=\"none\" stroke=\"var(--ink)\" stroke-width=\"4\"/><circle cx=\"604\" cy=\"196\" r=\"20\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><line x1=\"604\" y1=\"196\" x2=\"604\" y2=\"184\" stroke=\"var(--ink)\" stroke-width=\"3\"/><line x1=\"604\" y1=\"196\" x2=\"613\" y2=\"200\" stroke=\"var(--ink)\" stroke-width=\"3\"/><path d=\"M560 120 A34 34 0 1 1 590 150\" fill=\"none\" stroke=\"var(--ink)\" stroke-width=\"6\" stroke-linecap=\"round\"/><polygon points=\"548,104 572,112 554,132\" fill=\"var(--ink)\"/><rect x=\"270\" y=\"290\" width=\"270\" height=\"10\" rx=\"5\" fill=\"var(--ink)\"/></svg>",
+      "tags": [
+        "Internet",
+        "Networks",
+        "Testing",
+        "Selection",
+        "Loops"
+      ],
+      "theme": "internet",
+      "whyItMatters": "Millions of people rely on a few big online services, so one bad change can affect many countries at once. Testing changes carefully, and having a quick way to undo them, keeps these services running."
+    },
     {
       "body": [
         "How much time do young people spend on screens, and what do they actually do? A US charity called Common Sense Media runs a big survey to find out. Its latest report, published on 27 October, asked young people aged 9 to 17 about their free time, not counting school or homework.",
