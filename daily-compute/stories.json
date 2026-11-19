@@ -1,6 +1,414 @@
 {
-  "updated": "2026-11-18",
+  "updated": "2026-11-19",
   "stories": [
+    {
+      "body": [
+        "The news agency Reuters spoke to 15 groups that work to protect nature and the environment. Many of them now use artificial intelligence (AI) in their work. Many of them are also worried about AI's own effect on the planet.",
+        "One example comes from Save the Elephants in Kenya. In 2017, a survey flight over Kenya's largest protected area took about 200,000 photos. Nine people spent nine months checking them by hand. Today, AI can do a similar job in a few hours. The group's work also showed that counts made by people had missed about a third of the elephants and about three-quarters of the oryx, a type of antelope.",
+        "Other groups are speeding up their work too. The Jane Goodall Institute is turning decades of handwritten notes about chimpanzees in Tanzania into digital records. The job was expected to take 13 to 15 years, but with AI it should take about two. In Cambodia, Conservation International uses AI to check hotspots spotted by satellites and send wildfire warnings to local forest patrols.",
+        "The worry is the data centres that run AI. These huge buildings full of computers use lots of electricity, and often water for cooling. The International Energy Agency expects data centres to use about 945 terawatt-hours of electricity a year by 2030. That is about double today, and roughly what the whole of Japan uses in a year. Greenpeace uses some AI tools that come built into its software, but says it would prefer to avoid AI and questions whether giant new data centres are needed at all.",
+        "Some groups are trying to use AI more carefully. The Nature Conservancy puts AI cameras on fishing boats that study the video on board, instead of sending it all to faraway data centres. The World Resources Institute avoids making AI pictures and videos, and saves answers so that the same question isn't worked out twice."
+      ],
+      "connections": {
+        "groups": [
+          {
+            "explain": "These are all animals counted in the aerial survey that Save the Elephants studied.",
+            "name": "Animals in the Kenya survey",
+            "words": [
+              "Elephant",
+              "Zebra",
+              "Giraffe",
+              "Oryx"
+            ]
+          },
+          {
+            "explain": "Each of these sends data into a computer.",
+            "name": "Input devices",
+            "words": [
+              "Keyboard",
+              "Microphone",
+              "Sensor",
+              "Scanner"
+            ]
+          },
+          {
+            "explain": "Each of these cuts the energy a computer uses; Cache can look like plain computer vocabulary, but reusing saved answers saves energy.",
+            "name": "Ways to save energy",
+            "words": [
+              "Switch off",
+              "Sleep mode",
+              "Cache",
+              "Dim screen"
+            ]
+          },
+          {
+            "explain": "Camera trap, mouse trap, sand trap and speed trap. Camera and Mouse are red herrings because they look like input devices, and Mouse looks like an animal too.",
+            "name": "Words before 'trap'",
+            "words": [
+              "Camera",
+              "Mouse",
+              "Sand",
+              "Speed"
+            ]
+          }
+        ],
+        "title": "Wild computing"
+      },
+      "date": "2026-11-19",
+      "discussion": [
+        "Save the Elephants says AI makes nature easier to measure. Greenpeace would prefer to avoid AI because of its effect on the environment. Which point of view do you agree with more, and why? Could both groups be partly right?",
+        "Is counting elephants a better use of AI's energy than making funny pictures? How would you decide whether a use of AI is worth its cost?",
+        "AI can now check photos in hours instead of months. Should people still check some of the AI's counts? What could go wrong if nobody did?",
+        "What could your school or home do to use computers and online services in a greener way?",
+        "Design challenge: plan a wildlife camera that only saves or sends a photo when it detects an animal. What would its inputs, processes and outputs be, and how would it save energy?"
+      ],
+      "extras": [
+        {
+          "answer": 2,
+          "bug": 3,
+          "explain": "'score > 80' leaves out photos scoring exactly 80, so it must be 'score >= 80'. 'IF score = 80 THEN' is tempting because it catches the two 80s, but then the 95 is not counted.",
+          "fixes": [
+            "IF score = 80 THEN",
+            "IF score < 80 THEN",
+            "IF score >= 80 THEN",
+            "IF score >= 8 THEN"
+          ],
+          "lines": [
+            {
+              "code": "SET elephants TO 0",
+              "indent": 0
+            },
+            {
+              "code": "REPEAT 4 TIMES",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE score FROM KEYBOARD",
+              "indent": 1
+            },
+            {
+              "code": "IF score > 80 THEN",
+              "indent": 1
+            },
+            {
+              "code": "SET elephants TO elephants + 1",
+              "indent": 2
+            },
+            {
+              "code": "END IF",
+              "indent": 1
+            },
+            {
+              "code": "END REPEAT",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Elephants found: \" & elephants TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "strand": "Designing, building and testing computing solutions",
+          "task": "An AI gives 4 photos a score out of 100 for how sure it is that each one shows an elephant. Photos scoring 80 or more should count. When tested with 80, 95, 40, 80 the program shows 'Elephants found: 1' instead of 3. Find the faulty line and choose the fix.",
+          "tests": [
+            {
+              "expect": [
+                "Elephants found: 3"
+              ],
+              "inputs": [
+                80,
+                95,
+                40,
+                80
+              ]
+            },
+            {
+              "expect": [
+                "Elephants found: 2"
+              ],
+              "inputs": [
+                79,
+                100,
+                81,
+                50
+              ]
+            }
+          ],
+          "title": "The missing elephants",
+          "type": "bug",
+          "why": "AI tools give each photo a score for how sure they are, and a program has to decide which scores count as an elephant."
+        },
+        {
+          "blanks": [
+            {
+              "answer": 1,
+              "options": [
+                "<>",
+                "=",
+                "<=",
+                ">"
+              ]
+            },
+            {
+              "answer": 2,
+              "options": [
+                "- 1",
+                "* 2",
+                "+ 1",
+                "+ 2"
+              ]
+            },
+            {
+              "answer": 1,
+              "options": [
+                "lastQuestion",
+                "question",
+                "jobs",
+                "\"\""
+              ]
+            }
+          ],
+          "explain": "The saved answer is reused only when the question equals the last one (=); each new job adds 1; and the new question must be remembered (SET lastQuestion TO question). 'SET lastQuestion TO lastQuestion' is tempting because the names match, but then nothing new is ever remembered, so no answer is ever reused.",
+          "lines": [
+            {
+              "code": "SET lastQuestion TO \"\"",
+              "indent": 0
+            },
+            {
+              "code": "SET jobs TO 0",
+              "indent": 0
+            },
+            {
+              "code": "REPEAT 3 TIMES",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE question FROM KEYBOARD",
+              "indent": 1
+            },
+            {
+              "code": "IF question {0} lastQuestion THEN",
+              "indent": 1
+            },
+            {
+              "code": "SEND \"Saved answer\" TO DISPLAY",
+              "indent": 2
+            },
+            {
+              "code": "ELSE",
+              "indent": 1
+            },
+            {
+              "code": "SET jobs TO jobs {1}",
+              "indent": 2
+            },
+            {
+              "code": "SET lastQuestion TO {2}",
+              "indent": 2
+            },
+            {
+              "code": "END IF",
+              "indent": 1
+            },
+            {
+              "code": "END REPEAT",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"New answers worked out: \" & jobs TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "strand": "Understanding the world through computational thinking",
+          "task": "This program remembers the last question it was asked. If the same question comes again it reuses the saved answer; otherwise it works out a new one. For elephants, elephants, zebras it should show 'Saved answer' and then 'New answers worked out: 2'. Fill the gaps.",
+          "tests": [
+            {
+              "expect": [
+                "Saved answer",
+                "New answers worked out: 2"
+              ],
+              "inputs": [
+                "elephants",
+                "elephants",
+                "zebras"
+              ]
+            },
+            {
+              "expect": [
+                "Saved answer",
+                "New answers worked out: 2"
+              ],
+              "inputs": [
+                "oryx",
+                "giraffe",
+                "giraffe"
+              ]
+            }
+          ],
+          "title": "Don't work it out twice",
+          "type": "complete",
+          "why": "The World Resources Institute saves answers so the same question isn't worked out twice, which is a simple cache."
+        },
+        {
+          "explain": "Facts can be checked against evidence, while opinions say what someone thinks or what should happen. The IEA statement is tempting to call an opinion because it is about the future, but it is a fact that the agency made that estimate.",
+          "statements": [
+            {
+              "explain": "This is a fact reported in the story, and it can be checked.",
+              "fact": true,
+              "text": "Nine people took nine months to check the 2017 survey photos by hand."
+            },
+            {
+              "explain": "This is an opinion. Some conservation groups agree, but others, such as Greenpeace, would prefer to avoid AI.",
+              "fact": false,
+              "text": "Using AI to count animals is worth the energy it uses."
+            },
+            {
+              "explain": "This is a fact about what the agency estimated, even though the future amount itself is a prediction.",
+              "fact": true,
+              "text": "The International Energy Agency expects data centres to use about twice as much electricity by 2030."
+            },
+            {
+              "explain": "This is an opinion about what people should do; the word 'should' is a clue.",
+              "fact": false,
+              "text": "Nature groups should stop using AI until data centres are greener."
+            },
+            {
+              "explain": "This is a fact about how the Nature Conservancy's cameras work.",
+              "fact": true,
+              "text": "Studying video on the boat means less data has to be sent to data centres."
+            },
+            {
+              "explain": "This is an opinion. People judge differently what is worth the energy.",
+              "fact": false,
+              "text": "Making AI pictures for fun is a waste of energy."
+            }
+          ],
+          "strand": "Searching, processing and managing information responsibly",
+          "task": "Decide whether each statement is a fact that could be checked, or an opinion that people might disagree with.",
+          "title": "Fact or opinion?",
+          "type": "factop",
+          "why": "The story mixes facts and numbers with strong opinions about whether AI is worth its environmental cost."
+        }
+      ],
+      "headline": "Nature groups use AI, but worry about its energy",
+      "id": "2026-11-19-nature-groups-ai",
+      "illustration": "environment",
+      "imageAlt": "Illustration of an aerial photo of grassland seen from above, with four elephants each inside a dashed detection box and a small plane flying overhead. An arrow leads to a warm server rack with heat waves rising from it and a green leaf beside it.",
+      "keywords": [
+        {
+          "meaning": "A way of making AI where the computer learns patterns from lots of examples, such as photos where people have already marked the animals, instead of following rules a person wrote.",
+          "term": "Machine learning"
+        },
+        {
+          "meaning": "A large building full of computers that store data and run online services and AI. They need electricity to run and cooling to stop them overheating.",
+          "term": "Data centre"
+        },
+        {
+          "meaning": "A store of saved results, so a computer can reuse an answer instead of working it out again. This saves time and energy.",
+          "term": "Cache"
+        },
+        {
+          "meaning": "Counting or mapping things on the ground by taking photos from a plane, drone or satellite.",
+          "term": "Aerial survey"
+        }
+      ],
+      "newsDate": "7 November 2026",
+      "quiz": [
+        {
+          "answer": 2,
+          "explain": "Nine people spent nine months checking the 2017 photos; AI can now do a similar job in hours. '13 to 15 years' is tempting because it is in the story, but that was the old estimate for the chimpanzee notes project.",
+          "options": [
+            "Nine days",
+            "About two years",
+            "Nine months",
+            "13 to 15 years"
+          ],
+          "q": "How long did it take nine people to check the 200,000 survey photos by hand?",
+          "strand": "The news"
+        },
+        {
+          "answer": 0,
+          "explain": "Processing the video on the boat means far less data is sent away and processed in data centres, which saves energy. 'So the crew could watch live' sounds sensible, but the story says the aim was to avoid sending video to faraway data centres.",
+          "options": [
+            "To use less energy by not sending all the video to data centres",
+            "So the crew could watch the video live on their phones",
+            "Because data centres are not allowed to store video",
+            "So the cameras could take photos from a satellite"
+          ],
+          "q": "Why did the Nature Conservancy fit fishing boats with AI cameras that study the video on board?",
+          "strand": "The news"
+        },
+        {
+          "answer": 3,
+          "explain": "Machine learning finds patterns in lots of labelled examples. Writing an IF for every photo is tempting because programs use selection, but there are far too many possible photos to write a rule for each one.",
+          "options": [
+            "A programmer writes an IF statement for every possible elephant photo",
+            "It is given the rules of elephant biology to read",
+            "It looks up each photo in a list of every elephant",
+            "It is trained on many photos where people have already marked elephants"
+          ],
+          "q": "How does a machine learning model learn to spot elephants in photos?",
+          "strand": "Understanding the world through computational thinking"
+        },
+        {
+          "answer": 1,
+          "explain": "A cache keeps results so they can be reused quickly. Backing up is tempting because it also saves a copy, but a backup is kept in case data is lost, not to avoid repeating work.",
+          "options": [
+            "Backing up",
+            "Caching",
+            "Compressing",
+            "Encrypting"
+          ],
+          "q": "The World Resources Institute saves AI answers so a repeated question isn't worked out again. What is this called?",
+          "strand": "Searching, processing and managing information responsibly"
+        },
+        {
+          "answer": 2,
+          "explain": "Processors give off heat as they use electricity, and too much heat can damage them. 'Data in memory is wiped if it gets warm' is tempting, but memory loses data when the power goes off, not when it gets warm.",
+          "options": [
+            "Data in memory is wiped if the room gets warm",
+            "Cold air makes data travel faster along network cables",
+            "Their processors turn electricity into heat while they work",
+            "The hard drives freeze if the room is not kept cool"
+          ],
+          "q": "Why do data centres need cooling?",
+          "strand": "Understanding and analysing computing technology"
+        },
+        {
+          "answer": 3,
+          "explain": "200,000 ÷ 2,500 = 80 minutes. 800 is tempting, but it comes from a place-value slip when dividing by 2,500.",
+          "options": [
+            "8 minutes",
+            "800 minutes",
+            "500 minutes",
+            "80 minutes"
+          ],
+          "q": "Challenge: Imagine an AI checks 2,500 survey photos every minute. How many minutes would it take to check 200,000 photos?",
+          "strand": "Understanding the world through computational thinking"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Environmental groups embrace AI, even as they warn of data center impacts (Reuters, via The Star)",
+          "url": "https://www.thestar.com.my/tech/tech-news/2026/11/07/environmental-groups-embrace-ai-even-as-they-warn-of-data-center-impacts"
+        },
+        {
+          "title": "Environmental groups embrace AI even as they warn of data center impacts (The Express Tribune)",
+          "url": "https://tribune.com.pk/story/2639160/environmental-groups-embrace-ai-even-as-they-warn-of-data-center-impacts"
+        }
+      ],
+      "standfirst": "Conservation groups say AI is helping them count elephants, spot wildfires and read old notes much faster. But many also worry about the electricity and water used by the computers that run it.",
+      "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect x=\"0\" y=\"0\" width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><rect x=\"40\" y=\"70\" width=\"330\" height=\"240\" rx=\"10\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"56\" y=\"86\" width=\"298\" height=\"208\" rx=\"6\" fill=\"var(--ill-2)\"/><circle cx=\"90\" cy=\"120\" r=\"16\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"320\" cy=\"260\" r=\"20\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"300\" cy=\"120\" r=\"12\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><circle cx=\"110\" cy=\"260\" r=\"14\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><g transform=\"translate(170 170) rotate(-20)\"><ellipse cx=\"0\" cy=\"0\" rx=\"20\" ry=\"13\" fill=\"var(--ink)\"/><circle cx=\"22\" cy=\"0\" r=\"8\" fill=\"var(--ink)\"/><ellipse cx=\"20\" cy=\"-10\" rx=\"6\" ry=\"4\" fill=\"var(--ink)\"/><ellipse cx=\"20\" cy=\"10\" rx=\"6\" ry=\"4\" fill=\"var(--ink)\"/></g><rect x=\"140\" y=\"146\" width=\"66\" height=\"48\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"3\" stroke-dasharray=\"6 4\"/><g transform=\"translate(230 200) rotate(10)\"><ellipse cx=\"0\" cy=\"0\" rx=\"20\" ry=\"13\" fill=\"var(--ink)\"/><circle cx=\"22\" cy=\"0\" r=\"8\" fill=\"var(--ink)\"/><ellipse cx=\"20\" cy=\"-10\" rx=\"6\" ry=\"4\" fill=\"var(--ink)\"/><ellipse cx=\"20\" cy=\"10\" rx=\"6\" ry=\"4\" fill=\"var(--ink)\"/></g><rect x=\"200\" y=\"176\" width=\"66\" height=\"48\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"3\" stroke-dasharray=\"6 4\"/><g transform=\"translate(200 245) rotate(-5)\"><ellipse cx=\"0\" cy=\"0\" rx=\"20\" ry=\"13\" fill=\"var(--ink)\"/><circle cx=\"22\" cy=\"0\" r=\"8\" fill=\"var(--ink)\"/><ellipse cx=\"20\" cy=\"-10\" rx=\"6\" ry=\"4\" fill=\"var(--ink)\"/><ellipse cx=\"20\" cy=\"10\" rx=\"6\" ry=\"4\" fill=\"var(--ink)\"/></g><rect x=\"170\" y=\"221\" width=\"66\" height=\"48\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"3\" stroke-dasharray=\"6 4\"/><g transform=\"translate(265 150) rotate(25)\"><ellipse cx=\"0\" cy=\"0\" rx=\"20\" ry=\"13\" fill=\"var(--ink)\"/><circle cx=\"22\" cy=\"0\" r=\"8\" fill=\"var(--ink)\"/><ellipse cx=\"20\" cy=\"-10\" rx=\"6\" ry=\"4\" fill=\"var(--ink)\"/><ellipse cx=\"20\" cy=\"10\" rx=\"6\" ry=\"4\" fill=\"var(--ink)\"/></g><rect x=\"235\" y=\"126\" width=\"66\" height=\"48\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"3\" stroke-dasharray=\"6 4\"/><g transform=\"translate(205 40)\"><rect x=\"-40\" y=\"-5\" width=\"80\" height=\"10\" rx=\"5\" fill=\"var(--accent)\"/><rect x=\"-6\" y=\"-28\" width=\"12\" height=\"56\" rx=\"5\" fill=\"var(--accent)\"/><rect x=\"-16\" y=\"22\" width=\"32\" height=\"6\" rx=\"3\" fill=\"var(--ink)\"/></g><path d=\"M385 190 L440 190\" stroke=\"var(--ink)\" stroke-width=\"6\" stroke-linecap=\"round\"/><path d=\"M432 176 L452 190 L432 204 Z\" fill=\"var(--ink)\"/><rect x=\"470\" y=\"90\" width=\"120\" height=\"200\" rx=\"10\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"486\" y=\"108\" width=\"88\" height=\"30\" rx=\"4\" fill=\"var(--ill-2)\"/><circle cx=\"560\" cy=\"123\" r=\"5\" fill=\"var(--accent)\"/><rect x=\"486\" y=\"152\" width=\"88\" height=\"30\" rx=\"4\" fill=\"var(--ill-2)\"/><circle cx=\"560\" cy=\"167\" r=\"5\" fill=\"var(--accent)\"/><rect x=\"486\" y=\"196\" width=\"88\" height=\"30\" rx=\"4\" fill=\"var(--ill-2)\"/><circle cx=\"560\" cy=\"211\" r=\"5\" fill=\"var(--accent)\"/><rect x=\"486\" y=\"240\" width=\"88\" height=\"30\" rx=\"4\" fill=\"var(--ill-2)\"/><circle cx=\"560\" cy=\"255\" r=\"5\" fill=\"var(--accent)\"/><path d=\"M530 300 C 560 300 600 320 600 350 C 570 350 530 335 530 300 Z\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"2\"/><path d=\"M490 78 q8 -12 0 -24 q-8 -12 0 -24\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"4\" stroke-linecap=\"round\"/><path d=\"M526 78 q8 -12 0 -24 q-8 -12 0 -24\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"4\" stroke-linecap=\"round\"/><path d=\"M562 78 q8 -12 0 -24 q-8 -12 0 -24\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"4\" stroke-linecap=\"round\"/></svg>",
+      "tags": [
+        "Environment",
+        "Ethics",
+        "AI",
+        "Machine learning",
+        "Selection",
+        "Loops"
+      ],
+      "theme": "environment",
+      "whyItMatters": "AI can help people protect wildlife much faster than before, but running it has an environmental cost too. Deciding when AI is worth that cost is a choice that people, schools and organisations all have to make. Knowing how computers use energy helps you make that choice wisely."
+    },
     {
       "body": [
         "On Thursday 12 November, at about 4pm UK time, Microsoft's online services started to go wrong. Outlook, its email service, was hit hardest. Many people could not open their inboxes. Parts of Teams and Copilot had problems too.",
