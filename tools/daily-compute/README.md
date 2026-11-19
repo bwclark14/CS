@@ -13,3 +13,14 @@ with `pseudo.py`, so a wrong answer key or a "wrong" option that actually works 
 
 Extra challenge types: `parsons`, `bug`, `predict`, `complete` (code), and `binary`, `sort`, `order`, `factop`.
 Each story has 3 or 4 extras, at most one of each type, and at least 2 code activities where the story allows.
+
+## Group quiz checker
+
+```
+python3 tools/daily-compute/validate_group_quiz.py daily-compute/group-quiz/<story-id>.json
+python3 tools/daily-compute/validate_group_quiz.py --all
+```
+
+Checks a group quiz question file: the format, 10-16 questions, options and answer indices, and no
+repeats of the story's own quiz or activities. Every code question is run with `pseudo.py` to check the
+answer key (counts, traced output, TRUE/FALSE conditions). See `cloudflare/group-quiz/README.md`.

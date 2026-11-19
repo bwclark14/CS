@@ -11,6 +11,14 @@ One real computing story a day for learners aged 10–14, with discussion points
 
 New stories are drafted each evening, approved by a teacher, then published here each morning by a scheduled task. Please don't edit `stories.json` by hand while a publish might be running.
 
+### Group quiz
+
+A live, Kahoot-style quiz on the day's story: the teacher shows a game code, pupils join on their own devices with random, kind names, and answer questions about reading code and computational thinking. It isn't linked from the site.
+
+- Page: https://bwclark14.github.io/CS/daily-compute/quiz/ (`daily-compute/quiz/index.html`)
+- `daily-compute/group-quiz/<story-id>.json`: the questions for each story, checked by `tools/daily-compute/validate_group_quiz.py`
+- `cloudflare/group-quiz/`: the game server (Cloudflare Worker + Durable Objects). See [its README](cloudflare/group-quiz/README.md) for how it works, how to deploy and test it, and what data exists during a game.
+
 ## The Data Trail
 
 An interactive unit for learners aged 13–15 on how AI uses data from social media, web browsing and online shopping to influence behaviour. Six parts with simulations, video clips, real news case files and a quiz, ending with a team project, The Algorithm Audit.

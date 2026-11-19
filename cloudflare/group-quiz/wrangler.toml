@@ -1,0 +1,20 @@
+# The Daily Compute group quiz: game server.
+# No account IDs, API tokens or other secrets belong in this file: `npx wrangler login` handles that.
+name = "daily-compute-group-quiz"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+# No logs or traces are kept: the game holds pupils' answers and random names only in memory.
+[observability]
+enabled = false
+
+[[durable_objects.bindings]]
+name = "GAMES"
+class_name = "Game"
+
+# SQLite-backed Durable Objects are the kind available on the Workers free plan.
+# Nothing is written to storage except the timer (alarm) that ends each game.
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Game"]
