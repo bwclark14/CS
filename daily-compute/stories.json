@@ -1,6 +1,402 @@
 {
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "stories": [
+    {
+      "body": [
+        "On 2 November, about 90 teams brought robots to Mount Tai in Shandong province, eastern China. The mountain is a UNESCO World Heritage site, and for centuries people have climbed it as a special journey. This time the climbers were machines.",
+        "The course was 3.9 kilometres long, with more than 3,000 stone steps and a climb of over 600 metres. Some robots walked on two legs like people. Others had four legs, like dogs. Teams could choose to race to the top as fast as possible, or to carry fragile loads such as fresh eggs and watermelons.",
+        "The fastest four-legged robot reached the top in 43 minutes and 41 seconds. The fastest two-legged robot took 27 minutes and 26 seconds, but it raced on a shorter course. China's state TV channel said most visitors need at least two hours for the climb.",
+        "Not every robot made it smoothly. One two-legged robot collapsed on the bumpy path and engineers rushed to fix it. Another tumbled down a flight of stairs. Reports did not say whether the robots were steering themselves or being guided by people with remote controls.",
+        "The race was run by China's state broadcaster, which called the mountain a natural extreme testing ground. Uneven stone steps, slopes and fragile loads are much harder than a flat lab floor. Tests like this show engineers what still goes wrong before robots are used in the real world."
+      ],
+      "connections": {
+        "groups": [
+          {
+            "explain": "Motors move it, the battery powers it, joints let it bend and the frame holds it together.",
+            "name": "Parts of a robot",
+            "words": [
+              "Motor",
+              "Battery",
+              "Joint",
+              "Frame"
+            ]
+          },
+          {
+            "explain": "Each one sends information into a computer. The camera might seem like a robot part, but here it is grouped as an input device.",
+            "name": "Input devices",
+            "words": [
+              "Camera",
+              "Microphone",
+              "Keyboard",
+              "Tilt sensor"
+            ]
+          },
+          {
+            "explain": "Programmers test with normal values, values at the limits (extreme or boundary) and invalid values that should be rejected. Extreme is a red herring because the organisers called the mountain an extreme testing ground.",
+            "name": "Kinds of test data",
+            "words": [
+              "Normal",
+              "Extreme",
+              "Boundary",
+              "Invalid"
+            ]
+          },
+          {
+            "explain": "Doorstep, footstep, sidestep and quickstep. Foot is a red herring because it sounds like a robot part, but here it makes 'footstep'.",
+            "name": "Words before 'step'",
+            "words": [
+              "Door",
+              "Foot",
+              "Side",
+              "Quick"
+            ]
+          }
+        ],
+        "title": "Robot climbers"
+      },
+      "date": "2026-11-20",
+      "discussion": [
+        "Why do you think the organisers asked some robots to carry eggs and watermelons instead of just racing?",
+        "Would it be fairer to compare robots that steer themselves with robots guided by remote control? Why might it matter which kind won?",
+        "Some people think races like this are a great way to test robots and inspire young engineers. Others say robots should be tested on useful jobs, not competitions. What do you think?",
+        "What sensors would a robot need to climb stone steps safely without dropping an egg? What would each one measure?",
+        "Design challenge: plan a test course for a robot in your school. What obstacles would you include, what would count as success, and how would you record the results?"
+      ],
+      "extras": [
+        {
+          "distractors": [
+            {
+              "code": "SET wobbles TO wobbles + tilt",
+              "indent": 2
+            }
+          ],
+          "explain": "The count starts at 0 before the loop, and for each step the program reads the sensor and adds 1 only when the tilt is over 15. The tempting wrong line adds the tilt itself, which would give 50 for the test instead of counting 2 wobbles.",
+          "lines": [
+            {
+              "code": "SET wobbles TO 0",
+              "indent": 0
+            },
+            {
+              "code": "REPEAT 4 TIMES",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE tilt FROM SENSOR",
+              "indent": 1
+            },
+            {
+              "code": "IF tilt > 15 THEN",
+              "indent": 1
+            },
+            {
+              "code": "SET wobbles TO wobbles + 1",
+              "indent": 2
+            },
+            {
+              "code": "END IF",
+              "indent": 1
+            },
+            {
+              "code": "END REPEAT",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Wobbles: \" & wobbles TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "strand": "Designing, building and testing computing solutions",
+          "task": "This made-up program checks a robot's tilt sensor on 4 steps and counts a 'wobble' each time the tilt is more than 15 degrees. Test: 5, 20, 30, 10 should show 'Wobbles: 2'. Put the lines in order. One line doesn't belong.",
+          "tests": [
+            {
+              "expect": [
+                "Wobbles: 2"
+              ],
+              "inputs": [
+                5,
+                20,
+                30,
+                10
+              ]
+            },
+            {
+              "expect": [
+                "Wobbles: 0"
+              ],
+              "inputs": [
+                1,
+                2,
+                3,
+                4
+              ]
+            }
+          ],
+          "title": "Count the wobbles",
+          "type": "parsons",
+          "why": "Robots carrying eggs need to keep checking how much they wobble, which is a loop with a decision inside."
+        },
+        {
+          "answer": 3,
+          "bug": 2,
+          "explain": "Each minute is 60 seconds, so multiply the minutes by 60 and then add the seconds: 43 × 60 + 41 = 2621. 'minutes * 100 + seconds' is tempting because 43:41 looks like the number 4341, but a minute has 60 seconds, not 100.",
+          "fixes": [
+            "SET total TO minutes * 100 + seconds",
+            "SET total TO minutes + seconds",
+            "SET total TO (minutes + seconds) * 60",
+            "SET total TO minutes * 60 + seconds"
+          ],
+          "lines": [
+            {
+              "code": "RECEIVE minutes FROM KEYBOARD",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE seconds FROM KEYBOARD",
+              "indent": 0
+            },
+            {
+              "code": "SET total TO minutes + seconds * 60",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Time in seconds: \" & total TO DISPLAY",
+              "indent": 0
+            },
+            {
+              "code": "IF total < 7200 THEN",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Faster than most visitors\" TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "ELSE",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Slower than most visitors\" TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "END IF",
+              "indent": 0
+            }
+          ],
+          "strand": "Designing, building and testing computing solutions",
+          "task": "This program turns a race time into seconds and compares it with the two hours (7,200 seconds) most visitors need. In testing, 43 minutes and 41 seconds should show 'Time in seconds: 2621', but it shows 2503. Find the faulty line and choose the fix.",
+          "tests": [
+            {
+              "expect": [
+                "Time in seconds: 2621",
+                "Faster than most visitors"
+              ],
+              "inputs": [
+                43,
+                41
+              ]
+            },
+            {
+              "expect": [
+                "Time in seconds: 1646",
+                "Faster than most visitors"
+              ],
+              "inputs": [
+                27,
+                26
+              ]
+            },
+            {
+              "expect": [
+                "Time in seconds: 7800",
+                "Slower than most visitors"
+              ],
+              "inputs": [
+                130,
+                0
+              ]
+            }
+          ],
+          "title": "The race time that went wrong",
+          "type": "bug",
+          "why": "Race times are given in minutes and seconds, and converting them is a common place for mistakes."
+        },
+        {
+          "explain": "Inputs bring information in, processing makes calculations and decisions, and outputs act on the world. 'Decide whether to slow down' is the trickiest: it is processing, because deciding happens inside the computer before the motors do anything.",
+          "items": [
+            {
+              "bucket": 0,
+              "explain": "The camera collects information about the world, so it is an input.",
+              "text": "Camera spots the edge of the next step"
+            },
+            {
+              "bucket": 0,
+              "explain": "The sensor measures the robot's angle and sends it in, so it is an input.",
+              "text": "Tilt sensor feels the robot leaning"
+            },
+            {
+              "bucket": 1,
+              "explain": "Calculating a foot position is the computer processing the data.",
+              "text": "Work out where to place each foot"
+            },
+            {
+              "bucket": 1,
+              "explain": "Making a decision from the sensor data is processing. It is tempting to call it output, but nothing has moved yet.",
+              "text": "Decide whether to slow down"
+            },
+            {
+              "bucket": 2,
+              "explain": "The motors carry out the decision, so they are an output.",
+              "text": "Motors move the legs"
+            },
+            {
+              "bucket": 2,
+              "explain": "The light gives information back to people, so it is an output.",
+              "text": "Warning light flashes when the battery is low"
+            }
+          ],
+          "strand": "Understanding and analysing computing technology",
+          "task": "Sort each job of a stair-climbing robot into input, process or output.",
+          "title": "Input, process or output?",
+          "type": "sort",
+          "why": "A climbing robot is a computer system that takes in information, makes decisions and then moves."
+        },
+        {
+          "explain": "Engineers test somewhere safe and simple first, then somewhere harder, and they must record what went wrong before they can fix it. A common slip is putting the fix before recording the problems, but you can't fix a problem you haven't spotted yet.",
+          "steps": [
+            "Design the robot and write its program.",
+            "Test it on a flat floor in the lab.",
+            "Take it to a hard real course, like mountain steps.",
+            "Watch and record what goes wrong, such as wobbles or falls.",
+            "Change the design or the program to fix the problems.",
+            "Test it on the hard course again to check the fix works."
+          ],
+          "strand": "Designing, building and testing computing solutions",
+          "task": "Put these steps in order to show how engineers might test and improve a stair-climbing robot.",
+          "title": "Test, fix, test again",
+          "type": "order",
+          "why": "The mountain race was a tough test, and engineers improve robots by following a clear cycle of testing and fixing."
+        }
+      ],
+      "headline": "Robots race up 3,000 mountain steps carrying eggs",
+      "id": "2026-11-20-robots-climb-mountain",
+      "illustration": "drone",
+      "imageAlt": "Illustration of a steep mountain with a zigzag staircase and a flag at the top. A four-legged robot carries an egg on its back up the stairs, while a two-legged robot holds a round watermelon.",
+      "keywords": [
+        {
+          "meaning": "A part that measures something, such as tilt, distance or light, and sends it to a computer as input.",
+          "term": "Sensor"
+        },
+        {
+          "meaning": "A robot built in a human-like shape, usually with two legs and two arms.",
+          "term": "Humanoid robot"
+        },
+        {
+          "meaning": "Trying out a product or program to find mistakes so they can be fixed.",
+          "term": "Testing"
+        },
+        {
+          "meaning": "Able to make its own decisions and move without a person controlling it.",
+          "term": "Autonomous"
+        }
+      ],
+      "newsDate": "2 November 2026",
+      "quiz": [
+        {
+          "answer": 2,
+          "explain": "The course had more than 3,000 steps. 'Exactly 600' is tempting because 600 appears in the story, but that is the height climbed in metres, not the number of steps.",
+          "options": [
+            "More than 300",
+            "Exactly 600",
+            "More than 3,000",
+            "More than 30,000"
+          ],
+          "q": "About how many steps did the robots have to climb on Mount Tai?",
+          "strand": "The news"
+        },
+        {
+          "answer": 1,
+          "explain": "The fastest four-legged robot took 43 minutes and 41 seconds. 27 minutes 26 seconds is tempting, but that was the fastest two-legged robot on a shorter course.",
+          "options": [
+            "27 minutes 26 seconds",
+            "43 minutes 41 seconds",
+            "At least two hours",
+            "3 minutes 9 seconds"
+          ],
+          "q": "How long did the fastest four-legged robot take to reach the top?",
+          "strand": "The news"
+        },
+        {
+          "answer": 1,
+          "explain": "The sensor sends information into the robot's computer, so it is an input device. 'An output device' is tempting because the robot then moves, but the moving is done by the motors, which are outputs.",
+          "options": [
+            "An output device",
+            "An input device",
+            "A storage device",
+            "A processor"
+          ],
+          "q": "A tilt sensor tells a robot that it is leaning too far. In computing terms, what is the tilt sensor?",
+          "strand": "Understanding and analysing computing technology"
+        },
+        {
+          "answer": 2,
+          "explain": "The robot chooses what to do depending on a condition, which is selection. Repetition is tempting because the robot checks every step, but the IF part itself is a decision, not a loop.",
+          "options": [
+            "Sequence",
+            "Repetition",
+            "Selection",
+            "Storage"
+          ],
+          "q": "A robot's program says: IF the step is wet THEN slow down. Which programming idea is this?",
+          "strand": "Understanding the world through computational thinking"
+        },
+        {
+          "answer": 0,
+          "explain": "A loop repeats the same instructions many times, so the program doesn't need 3,000 copies. 'Sequence only' is tempting because the movements happen in order, but without a loop you would have to write them out thousands of times.",
+          "options": [
+            "Repetition (a loop)",
+            "Selection (an IF)",
+            "Sequence only",
+            "Input only"
+          ],
+          "q": "Climbing 3,000 steps means doing the same set of movements again and again. Which programming idea fits best?",
+          "strand": "Understanding the world through computational thinking"
+        },
+        {
+          "answer": 3,
+          "explain": "Extreme test data sits right at the edge of what should work, like 20 cm. 'Exceptional' is tempting, but exceptional data is outside the allowed range, such as a 50 cm step, which the robot should not attempt.",
+          "options": [
+            "Normal",
+            "Exceptional",
+            "Random",
+            "Extreme"
+          ],
+          "q": "Challenge: A robot is designed to climb steps from 10 cm up to 20 cm tall. Engineers test it on a step exactly 20 cm tall. What kind of test data is this?",
+          "strand": "Designing, building and testing computing solutions"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Robots race up China's mountain carrying eggs and watermelons (CBS News)",
+          "url": "https://cbsnews.com/news/robots-race-china-mountain-eggs-watermelons/"
+        },
+        {
+          "title": "Robots race up China's sacred Mount Tai carrying eggs and watermelons (Malay Mail / AFP)",
+          "url": "https://malaymail.com/news/tech-gadgets/2026/11/02/robots-race-up-chinas-sacred-mount-tai-carrying-eggs-and-watermelons/241706"
+        }
+      ],
+      "standfirst": "Dozens of robots took on a tough race up a famous mountain in China. Some had to carry eggs and watermelons to the top without breaking them.",
+      "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect x=\"0\" y=\"0\" width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><circle cx=\"560\" cy=\"60\" r=\"32\" fill=\"var(--hot)\"/><path d=\"M0 360 L250 60 L400 200 L470 140 L640 330 L640 360 Z\" fill=\"var(--ill-2)\"/><path d=\"M220 96 L250 60 L280 96 L262 90 L250 100 L236 90 Z\" fill=\"var(--card)\"/><path d=\"M60 340 L60 324 L74 324 L74 308 L88 308 L88 292 L102 292 L102 276 L116 276 L116 260 L130 260 L130 244 L144 244 L144 228 L158 228 L158 212 L172 212 L172 196 L186 196 L186 180 L200 180 L200 164 L214 164 L214 148 L228 148 L228 132 L242 132 L242 116 L256 116\" fill=\"none\" stroke=\"var(--ink)\" stroke-width=\"4\"/><rect x=\"150\" y=\"200\" width=\"70\" height=\"26\" rx=\"8\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"214\" y=\"186\" width=\"26\" height=\"20\" rx=\"5\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><line x1=\"158\" y1=\"226\" x2=\"152\" y2=\"250\" stroke=\"var(--ink)\" stroke-width=\"5\" stroke-linecap=\"round\"/><line x1=\"176\" y1=\"226\" x2=\"170\" y2=\"250\" stroke=\"var(--ink)\" stroke-width=\"5\" stroke-linecap=\"round\"/><line x1=\"196\" y1=\"226\" x2=\"190\" y2=\"250\" stroke=\"var(--ink)\" stroke-width=\"5\" stroke-linecap=\"round\"/><line x1=\"212\" y1=\"226\" x2=\"206\" y2=\"250\" stroke=\"var(--ink)\" stroke-width=\"5\" stroke-linecap=\"round\"/><ellipse cx=\"185\" cy=\"190\" rx=\"12\" ry=\"15\" fill=\"var(--card)\" stroke=\"var(--accent)\" stroke-width=\"4\"/><circle cx=\"232\" cy=\"194\" r=\"3\" fill=\"var(--accent)\"/><rect x=\"330\" y=\"150\" width=\"34\" height=\"50\" rx=\"6\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"334\" y=\"122\" width=\"26\" height=\"24\" rx=\"6\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"338\" y=\"130\" width=\"18\" height=\"6\" rx=\"3\" fill=\"var(--accent)\"/><line x1=\"338\" y1=\"200\" x2=\"330\" y2=\"232\" stroke=\"var(--ink)\" stroke-width=\"6\" stroke-linecap=\"round\"/><line x1=\"356\" y1=\"200\" x2=\"366\" y2=\"226\" stroke=\"var(--ink)\" stroke-width=\"6\" stroke-linecap=\"round\"/><line x1=\"330\" y1=\"160\" x2=\"312\" y2=\"186\" stroke=\"var(--ink)\" stroke-width=\"5\" stroke-linecap=\"round\"/><line x1=\"364\" y1=\"160\" x2=\"384\" y2=\"176\" stroke=\"var(--ink)\" stroke-width=\"5\" stroke-linecap=\"round\"/><circle cx=\"396\" cy=\"172\" r=\"16\" fill=\"var(--accent)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><path d=\"M384 166 Q396 160 408 166\" fill=\"none\" stroke=\"var(--card)\" stroke-width=\"2\"/><line x1=\"250\" y1=\"60\" x2=\"250\" y2=\"20\" stroke=\"var(--ink)\" stroke-width=\"3\"/><path d=\"M250 20 L280 30 L250 40 Z\" fill=\"var(--hot)\"/></svg>",
+      "tags": [
+        "Robots",
+        "Sensors",
+        "Testing",
+        "Loops",
+        "Selection"
+      ],
+      "theme": "robots",
+      "whyItMatters": "Robots that work well in a lab can struggle on real, uneven ground. Testing in tough conditions helps engineers find problems and fix their designs and programs. One day, robots that can climb steps safely might carry supplies to places that are hard to reach."
+    },
     {
       "body": [
         "The news agency Reuters spoke to 15 groups that work to protect nature and the environment. Many of them now use artificial intelligence (AI) in their work. Many of them are also worried about AI's own effect on the planet.",
