@@ -101,6 +101,14 @@ button:disabled{opacity:.45;cursor:default}
 .check.warn .ic{background:var(--warn-soft);color:var(--warn)}
 .check.good .ic{background:var(--good-soft);color:var(--good)}
 
+/* Demo */
+.demobar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#FFF1EC;border-bottom:2px solid var(--accent);padding:6px 12px;font-size:13px}
+.demobar span{flex:1 1 240px}
+.demobar .ghost{color:var(--ink)}
+.mis.demo{background:#FFF1EC;border-color:var(--accent)}
+.mis.demo .num{background:var(--accent)}
+.helpbtns{display:flex;gap:8px;flex-wrap:wrap}
+
 /* Signals legend */
 .sigtoggle{font-size:13px;font-weight:700;display:flex;align-items:center;gap:4px;margin-right:6px;color:var(--muted)}
 .sigtoggle input{accent-color:var(--accent);width:16px;height:16px}

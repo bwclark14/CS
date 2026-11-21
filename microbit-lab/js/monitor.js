@@ -24,6 +24,9 @@ const Monitor = {
   out(pin) {
     const o = HW.pins[pin]; const key = o ? o.kind + o.v : '';
     if (this.lastOut[pin] === key) return;
+    // small steps of a servo or a dimmed LED would flood the log: only note big moves
+    const prev = this.lastOut[pin], step = o.kind === 's' ? 10 : o.kind === 'a' ? 64 : 0;
+    if (step && prev && prev[0] === o.kind && Math.abs(+prev.slice(1) - o.v) < step) return;
     this.lastOut[pin] = key;
     const parts = App.project.parts.filter(p => !PARTS[p.type].board && Object.entries(p.pins).some(([k, v]) => v === pin && PARTS[p.type].kind === 'out'));
     const val = o.kind === 's' ? o.v + '°' : o.v;
@@ -50,7 +53,7 @@ const Monitor = {
     HW.reads[pin] = { v, t: performance.now() };
     const last = this.lastRead[pin];
     const p = App.project.parts.find(q => Object.values(q.pins).includes(pin) && PARTS[q.type].kind === 'in');
-    const big = p && ['pot', 'ldr', 'moisture'].includes(p.type) ? 25 : p && p.type === 'sonar' ? 3 : 0.5;
+    const big = p && ['pot', 'ldr', 'moisture'].includes(p.type) ? 100 : p && p.type === 'sonar' ? 5 : 0.5;
     if (last !== undefined && Math.abs(last - v) < big) return;
     this.lastRead[pin] = v;
     this.note(p ? `Read ${pin} = ${fmtNum(v)} from the ${PARTS[p.type].name.toLowerCase()}: ${this.inMeaning(p, v)}` : `Read ${pin} = ${fmtNum(v)} (nothing is wired to it)`);
@@ -196,8 +199,10 @@ const Monitor = {
         const ready = running && RT.vars;
         const shown = ready ? fmtVal(val) : '—';
         const changed = ready && this.lastVars[v.name] !== undefined && this.lastVars[v.name] !== shown;
-        if (changed) { this.note(`Variable ${v.name} changed from ${this.lastVars[v.name]} to ${shown}`); this.changedAt[v.name] = performance.now(); }
-        if (ready) this.lastVars[v.name] = shown;
+        // the table always shows the latest value; the log notes a change at most once a second per variable
+        const due = performance.now() - (this.changedAt[v.name] || -1e9) > 1000;
+        if (changed && due) { this.note(`Variable ${v.name} changed from ${this.lastVars[v.name]} to ${shown}`); this.changedAt[v.name] = performance.now(); }
+        if (ready && (due || !changed)) this.lastVars[v.name] = shown;
         const fresh = running && performance.now() - (this.changedAt[v.name] || -1e9) < 1000;
         return `<tr${fresh ? ' class="flash"' : ''}><th scope="row">${esc(v.name)}</th><td class="mono">${esc(shown)}</td></tr>`;
       }).join('');

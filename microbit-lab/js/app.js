@@ -34,7 +34,7 @@ const App = {
     this.bindUi();
     Monitor.build(); Monitor.start();
     this.renderPalette(); this.renderAll(); this.renderMissions();
-    if (!saved) setTimeout(() => $('#help').showModal(), 300);
+    if (!saved) { Demo.load(false); setTimeout(() => $('#help').showModal(), 300); }
     let last = performance.now();
     const frame = now => { const dt = Math.min(0.05, (now - last) / 1000); last = now; this.tick(dt, now); requestAnimationFrame(frame); };
     requestAnimationFrame(frame);
@@ -253,6 +253,7 @@ const App = {
         case 'line': e.dot.setAttribute('fill', sensorValue(p) ? '#30D158' : '#300'); break;
       }
     });
+    Demo.tick(now);
     if (this.view === 'bench') Monitor.tickWires(now);
     if (this.view === 'arena') {
       Arena.step(dt); Arena.draw();
@@ -316,7 +317,8 @@ const App = {
 
   /* ---------- missions ---------- */
   renderMissions() {
-    $('#missionList').innerHTML = `<p class="hint">Missions set up the parts for you and check your program automatically.</p>` +
+    $('#missionList').innerHTML = `<button class="mis demo" data-demo><span class="num">▶</span><span><span class="t">New here? Play the demo</span><br><span class="lv">Watch a day-and-night light run on its own</span></span></button>
+      <p class="hint">Missions set up the parts for you and check your program automatically.</p>` +
       MISSIONS.map((m, i) => `<button class="mis${this.done[m.id] ? ' done' : ''}" data-mission="${m.id}"><span class="num">${this.done[m.id] ? '✓' : i + 1}</span><span><span class="t">${esc(m.title)}</span><br><span class="lv">${esc(m.level)}</span></span></button>`).join('');
     $('#missionCount').textContent = `${Object.keys(this.done).filter(k => MISSIONS.some(m => m.id === k)).length}/${MISSIONS.length}`;
   },
@@ -386,7 +388,10 @@ const App = {
   /* ---------- events ---------- */
   bindUi() {
     $('#btnRun').onclick = () => this.run();
-    $('#btnStop').onclick = () => { if (this.checking) this.checking.cancel = true; this.checking = null; this.stop(); };
+    $('#btnDemo').onclick = () => { $('.menu').open = false; Demo.load(true); };
+    $('#btnHelpDemo').onclick = () => { $('#help').close(); Demo.load(true); };
+    $('#btnDemoStop').onclick = () => { Demo.stop(); this.dock('inputs'); this.toast('Your turn: move the light sensor slider, or change the blocks.'); };
+    $('#btnStop').onclick = () => { Demo.stop(); if (this.checking) this.checking.cancel = true; this.checking = null; this.stop(); };
     $('#btnMute').onclick = e => { Audio.muted = !Audio.muted; e.currentTarget.textContent = Audio.muted ? '🔇 Muted' : '🔊 Sound'; e.currentTarget.setAttribute('aria-pressed', Audio.muted); Audio.set(HW.tone); };
     $('#btnHelp').onclick = () => $('#help').showModal();
     $('#btnClearSerial').onclick = () => { $('#serial').textContent = ''; };
@@ -424,6 +429,7 @@ const App = {
     });
 
     document.addEventListener('click', e => {
+      if (e.target.closest('[data-demo]')) { Demo.load(true); return; }
       const t = e.target.closest('[data-add],[data-tab],[data-view],[data-dock],[data-code],[data-del],[data-desel],[data-mission],[data-back],[data-setup],[data-check]');
       if (!t) return;
       const ds = t.dataset;
@@ -452,6 +458,7 @@ const App = {
     dockIn.addEventListener('input', e => {
       const k = e.target.dataset.inp; if (!k) return;
       const v = +e.target.value, o = $('#o-' + k);
+      if (Demo.active) Demo.stop();
       if (k === 'temp') HW.temp = v; else if (k === 'light') HW.light = v; else if (k === 'ax') HW.accel.x = v; else if (k === 'ay') HW.accel.y = v;
       else { const p = this.part(k); if (p) p.state.value = v; }
       if (o) o.textContent = v + (k === 'temp' ? ' °C' : (this.part(k) && this.part(k).type === 'sonar' ? ' cm' : ''));

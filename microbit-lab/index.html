@@ -28,6 +28,7 @@
     <details class="menu">
       <summary class="ghost">Project ▾</summary>
       <div class="menu-pop">
+        <button id="btnDemo">Play the demo</button>
         <button id="btnNew">New empty project</button>
         <button id="btnExport">Save project to a file</button>
         <label class="filebtn">Open a project file<input id="fileImport" type="file" accept=".json,application/json" hidden></label>
@@ -68,6 +69,10 @@
         <option value="maze">Maze</option>
       </select>
       <button id="btnRoverReset" class="ghost small" hidden>Put rover back</button>
+    </div>
+    <div id="demoBar" class="demobar" role="status" hidden>
+      <span><b>Demo</b> <span id="demoPhase">Daytime: bright</span>. The light level changes on its own. Watch the wires, the LED, the servo and the Monitor.</span>
+      <button id="btnDemoStop" class="ghost small">Let me take over</button>
     </div>
     <div class="view" id="view-bench">
       <svg id="bench" viewBox="0 0 980 600" role="img" aria-label="Workbench with a micro:bit and the parts you have added. The Monitor tab lists the same information as text."></svg>
@@ -123,7 +128,7 @@
       <li><b>Take it to real hardware.</b> The MicroPython tab shows the same program for a real micro:bit.</li>
     </ol>
     <p class="hint">Your work is saved in this browser. Use Project ▸ Save project to a file to keep a copy or hand it in.</p>
-    <button class="run">Got it</button>
+    <div class="helpbtns"><button type="button" class="run" id="btnHelpDemo">▶ Play the demo</button><button class="btn">Got it</button></div>
   </form>
 </dialog>
 
@@ -135,6 +140,7 @@
 <script src="js/monitor.js"></script>
 <script src="js/blocks.js"></script>
 <script src="js/missions.js"></script>
+<script src="js/demo.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
