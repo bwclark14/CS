@@ -1,6 +1,412 @@
 {
-  "updated": "2026-11-20",
+  "updated": "2026-11-21",
   "stories": [
+    {
+      "body": [
+        "Imagine telling a robot helper to watch out for a mug while it carries a hot coffee. Most robots would avoid that one mug, then happily swing the coffee over your laptop. Researchers at MIT and New York University in the USA have built a system called FLEX that helps a robot understand the wider idea behind a correction.",
+        "FLEX works in three steps. First, it adds the object you mentioned to a list of things to avoid. Next, it uses a large language model, a type of AI trained on huge amounts of text, to guess the wider group the object belongs to, such as fragile things or electronics. Finally, it uses computer vision to check what is really in the scene, and drops anything from the list that is no longer there.",
+        "The whole process takes about five seconds. The team tested it on a simulated robot arm, which is a computer model of a real arm, doing three jobs: serving coffee, moving a candle and carrying a bowling ball. In the coffee job, the robot also kept clear of a nearby phone, even though nobody had mentioned it.",
+        "Older methods only added the single object a person named. The team, led by Andreea Bobu at MIT, hopes this will lead to robots that can help in people's homes and learn from just a sentence or two. The work is being presented at a robot learning conference this month.",
+        "It is still early research. Most of the testing happened in simulation, and the team has not shared detailed success rates yet. The AI's common sense comes from text written on the internet, so it can guess wrongly, or might not match what one particular person wants."
+      ],
+      "connections": {
+        "groups": [
+          {
+            "explain": "All of these can break easily, just like the mug in the story. Lightbulb is a red herring: it contains the word 'light', but it doesn't come before 'light'.",
+            "name": "Fragile things to handle with care",
+            "words": [
+              "Glass",
+              "Egg",
+              "Vase",
+              "Lightbulb"
+            ]
+          },
+          {
+            "explain": "These all send data into a computer, just as FLEX takes in spoken or typed corrections and camera pictures.",
+            "name": "Input devices",
+            "words": [
+              "Microphone",
+              "Camera",
+              "Keyboard",
+              "Mouse"
+            ]
+          },
+          {
+            "explain": "These are words used when building and testing AI systems like FLEX.",
+            "name": "AI and machine learning words",
+            "words": [
+              "Training",
+              "Model",
+              "Dataset",
+              "Simulation"
+            ]
+          },
+          {
+            "explain": "Candlelight, spotlight, moonlight and traffic light. Candle is a red herring, because a candle was one of the objects the robot carried in the story.",
+            "name": "Words that come before 'light'",
+            "words": [
+              "Candle",
+              "Spot",
+              "Moon",
+              "Traffic"
+            ]
+          }
+        ],
+        "title": "Careful robots"
+      },
+      "date": "2026-11-21",
+      "discussion": [
+        "If a robot guessed what you meant and got it wrong, who should be responsible: the person, the robot's makers or the AI? Some people think robots should only ever do exactly what they are told, while others think careful guessing makes them more helpful. What do you think?",
+        "Why do you think the team tested the robot arm in a simulation before trying a real one?",
+        "The AI's common sense comes from text on the internet. How might that make its guesses different from yours or your family's?",
+        "Think of a time someone understood what you meant without you explaining every detail. What clues did they use, and could a robot use the same clues?",
+        "Design challenge: Plan a robot that tidies a classroom. Write three corrections a teacher might give it, and the wider rule the robot should learn from each one."
+      ],
+      "extras": [
+        {
+          "blanks": [
+            {
+              "answer": 1,
+              "options": [
+                "AND",
+                "OR",
+                "OR NOT",
+                "AND NOT"
+              ]
+            },
+            {
+              "answer": 2,
+              "options": [
+                "<",
+                "=",
+                ">",
+                "<="
+              ]
+            }
+          ],
+          "explain": "An object is fragile if it is a glass OR an egg, and the robot slows down if the count is greater than 0. AND is tempting, but one object can't be a glass and an egg at the same time, so the count would always stay 0.",
+          "lines": [
+            {
+              "code": "SET fragile TO 0",
+              "indent": 0
+            },
+            {
+              "code": "REPEAT 3 TIMES",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE item FROM KEYBOARD",
+              "indent": 1
+            },
+            {
+              "code": "IF item = \"glass\" {0} item = \"egg\" THEN",
+              "indent": 1
+            },
+            {
+              "code": "SET fragile TO fragile + 1",
+              "indent": 2
+            },
+            {
+              "code": "END IF",
+              "indent": 1
+            },
+            {
+              "code": "END REPEAT",
+              "indent": 0
+            },
+            {
+              "code": "IF fragile {1} 0 THEN",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Move slowly\" TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "ELSE",
+              "indent": 0
+            },
+            {
+              "code": "SEND \"Normal speed\" TO DISPLAY",
+              "indent": 1
+            },
+            {
+              "code": "END IF",
+              "indent": 0
+            }
+          ],
+          "strand": "Designing, building and testing computing solutions",
+          "task": "The robot checks 3 objects on the table. If any of them is a glass or an egg, it should show 'Move slowly'; otherwise 'Normal speed'. Fill the gaps. For example, egg, book, pen should give 'Move slowly'.",
+          "tests": [
+            {
+              "expect": [
+                "Move slowly"
+              ],
+              "inputs": [
+                "egg",
+                "book",
+                "pen"
+              ]
+            },
+            {
+              "expect": [
+                "Normal speed"
+              ],
+              "inputs": [
+                "book",
+                "pen",
+                "cup"
+              ]
+            },
+            {
+              "expect": [
+                "Move slowly"
+              ],
+              "inputs": [
+                "glass",
+                "cup",
+                "pen"
+              ]
+            }
+          ],
+          "title": "Spot the fragile things",
+          "type": "complete",
+          "why": "FLEX's big idea is spotting when an object belongs to a group, like fragile things, which a program does with selection."
+        },
+        {
+          "answer": 2,
+          "explain": "The list starts at 1, the phone and laptop add 1 each to make 3, and the 5 seconds are added on every loop, giving 15. '3 items, 10 seconds' is tempting if you only add time when something is added, but that line is outside the IF.",
+          "inputs": [
+            "phone",
+            "cup",
+            "laptop"
+          ],
+          "lines": [
+            {
+              "code": "SET avoid TO 1",
+              "indent": 0
+            },
+            {
+              "code": "SET seconds TO 0",
+              "indent": 0
+            },
+            {
+              "code": "REPEAT 3 TIMES",
+              "indent": 0
+            },
+            {
+              "code": "RECEIVE item FROM KEYBOARD",
+              "indent": 1
+            },
+            {
+              "code": "IF item = \"phone\" OR item = \"laptop\" THEN",
+              "indent": 1
+            },
+            {
+              "code": "SET avoid TO avoid + 1",
+              "indent": 2
+            },
+            {
+              "code": "END IF",
+              "indent": 1
+            },
+            {
+              "code": "SET seconds TO seconds + 5",
+              "indent": 1
+            },
+            {
+              "code": "END REPEAT",
+              "indent": 0
+            },
+            {
+              "code": "SEND avoid & \" items, \" & seconds & \" seconds\" TO DISPLAY",
+              "indent": 0
+            }
+          ],
+          "options": [
+            "2 items, 15 seconds",
+            "3 items, 10 seconds",
+            "3 items, 15 seconds",
+            "4 items, 15 seconds"
+          ],
+          "question": "What will be displayed?",
+          "strand": "Understanding the world through computational thinking",
+          "task": "The robot's avoid list already has 1 item (the mug). It looks at 3 more objects: phone, cup, laptop. Electronics get added to the list, and every check takes 5 seconds. Trace the program.",
+          "title": "Growing the avoid list",
+          "trace": {
+            "cols": [
+              "Step",
+              "item",
+              "avoid",
+              "seconds"
+            ],
+            "rows": [
+              [
+                "Start",
+                "-",
+                1,
+                0
+              ],
+              [
+                "Loop 1",
+                "phone",
+                2,
+                5
+              ],
+              [
+                "Loop 2",
+                "cup",
+                2,
+                10
+              ],
+              [
+                "Loop 3",
+                "laptop",
+                3,
+                15
+              ]
+            ]
+          },
+          "type": "predict",
+          "why": "FLEX adds objects to its avoid list and each update takes about five seconds, so tracing a count and a timer shows how the list grows."
+        },
+        {
+          "explain": "FLEX can't add or group anything until it hears the correction, and it tidies the list before the robot moves. Checking the scene first is tempting, but FLEX needs the wider group before it knows which objects to look for.",
+          "steps": [
+            "A person gives a correction, such as 'watch out for the mug'.",
+            "FLEX adds the mug to its list of things to avoid.",
+            "A large language model guesses the wider group, such as fragile things.",
+            "Computer vision checks which objects are really in the scene.",
+            "Objects that are no longer there are dropped from the list.",
+            "The robot moves while keeping clear of everything on the list."
+          ],
+          "strand": "Understanding and analysing computing technology",
+          "task": "Put the steps FLEX follows after a correction into the correct order.",
+          "title": "How FLEX learns",
+          "type": "order",
+          "why": "The story describes FLEX's step-by-step process, which is an algorithm."
+        }
+      ],
+      "headline": "Robots learn what you mean, not just what you say",
+      "id": "2026-11-21-robots-learn-what-you-mean",
+      "illustration": "ai",
+      "imageAlt": "Illustration of a robot arm on a table carrying a cup of coffee along a dotted path. A mug, a laptop and a phone on the table each have a dashed warning circle around them, and a speech bubble shows someone giving the robot a correction.",
+      "keywords": [
+        {
+          "meaning": "To take one example and work out a wider rule, such as learning that a mug is one of many fragile things.",
+          "term": "Generalise"
+        },
+        {
+          "meaning": "A type of AI trained on huge amounts of text, so it can predict and write words and make guesses about meaning.",
+          "term": "Large language model"
+        },
+        {
+          "meaning": "Technology that lets a computer use a camera to recognise the objects in a picture or scene.",
+          "term": "Computer vision"
+        },
+        {
+          "meaning": "A computer model of something real, used to test ideas safely before trying them for real.",
+          "term": "Simulation"
+        }
+      ],
+      "newsDate": "9 November 2026",
+      "quiz": [
+        {
+          "answer": 1,
+          "explain": "FLEX turns one correction, like 'avoid the mug', into a wider rule, like 'avoid fragile things'. 'Recognise faces' is tempting because FLEX uses computer vision, but it only uses it to check which objects are in the scene.",
+          "options": [
+            "Move faster around a busy kitchen",
+            "Understand the wider idea behind a correction",
+            "Charge its battery while it is working",
+            "Recognise the faces of people it meets"
+          ],
+          "q": "What does the FLEX system help a robot do?",
+          "strand": "The news"
+        },
+        {
+          "answer": 2,
+          "explain": "The robot kept away from a nearby phone that nobody had mentioned. A candle and a bowling ball were in the story too, but they were the objects in the robot's other two jobs.",
+          "options": [
+            "A laptop",
+            "A candle",
+            "A phone",
+            "A bowling ball"
+          ],
+          "q": "In the coffee test, what did the robot avoid without being told?",
+          "strand": "The news"
+        },
+        {
+          "answer": 1,
+          "explain": "Data coming into a computer from a person is input. 'Output' is tempting because the person sends the message out, but from the robot's point of view it is arriving, so it is input.",
+          "options": [
+            "output",
+            "input",
+            "storage",
+            "a process"
+          ],
+          "q": "A person types 'watch out for the mug' to the robot. For the robot's computer, this sentence is…",
+          "strand": "Understanding and analysing computing technology"
+        },
+        {
+          "answer": 0,
+          "explain": "A list full of things that aren't there any more would make the robot dodge empty space. 'To stop the robot needing its camera' is tempting, but the camera is exactly what FLEX uses to see which objects have gone.",
+          "options": [
+            "To keep the list accurate and up to date",
+            "To make the robot arm move more slowly",
+            "To delete the data the AI was trained on",
+            "To stop the robot needing its camera"
+          ],
+          "q": "Why does FLEX remove objects from its list when they are no longer in the scene?",
+          "strand": "Understanding the world through computational thinking"
+        },
+        {
+          "answer": 3,
+          "explain": "Simulation lets testers try lots of situations without breaking anything, then real tests check it works outside the computer. Testing once with one object is tempting because it is quick, but one test can't show how the robot copes with new things.",
+          "options": [
+            "Put it straight into a busy family kitchen",
+            "Test it once with one object, and if it works, it's ready",
+            "Only test it with the objects it already knows",
+            "Try it in a computer simulation first, then carefully in real life"
+          ],
+          "q": "Which is the safest way to test a new home robot?",
+          "strand": "Designing, building and testing computing solutions"
+        },
+        {
+          "answer": 2,
+          "explain": "12 corrections × 5 seconds = 60 seconds, or 1 minute. 17 seconds comes from adding 12 + 5 instead of multiplying, and 50 seconds from multiplying by 10 instead of 12.",
+          "options": [
+            "17 seconds",
+            "50 seconds",
+            "60 seconds",
+            "120 seconds"
+          ],
+          "q": "Challenge: FLEX takes about 5 seconds to update its list after each correction. If a teacher gives 12 corrections, one after another, about how long will the updates take in total?",
+          "strand": "Understanding the world through computational thinking"
+        }
+      ],
+      "sources": [
+        {
+          "title": "AI-assisted learning platform helps robots reason beyond literal commands (MIT News, 9 November 2026)",
+          "url": "https://news.mit.edu/2026/ai-assisted-learning-platform-helps-robots-reason-beyond-literal-commands-1109"
+        },
+        {
+          "title": "MIT, NYU researchers develop AI system that helps robots understand human instructions (Science Times, 9 November 2026)",
+          "url": "https://www.sciencetimes.com/articles/62866/20261109/mit-nyu-researchers-develop-ai-system-that-helps-robots-understand-human-instructions.htm"
+        }
+      ],
+      "standfirst": "Researchers have built a system that helps a robot arm work out the bigger idea behind a quick correction. Tell it to avoid a mug, and it may also learn to keep away from other things that could break.",
+      "svg": "<svg viewBox=\"0 0 640 360\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\"><rect width=\"640\" height=\"360\" fill=\"var(--ill-bg)\"/><rect x=\"40\" y=\"250\" width=\"560\" height=\"22\" rx=\"4\" fill=\"var(--ill-2)\"/><rect x=\"70\" y=\"272\" width=\"16\" height=\"70\" fill=\"var(--ill-2)\"/><rect x=\"554\" y=\"272\" width=\"16\" height=\"70\" fill=\"var(--ill-2)\"/><rect x=\"90\" y=\"215\" width=\"90\" height=\"35\" rx=\"6\" fill=\"var(--ink)\"/><circle cx=\"135\" cy=\"205\" r=\"16\" fill=\"var(--accent)\"/><line x1=\"135\" y1=\"205\" x2=\"230\" y2=\"110\" stroke=\"var(--ink)\" stroke-width=\"18\" stroke-linecap=\"round\"/><circle cx=\"230\" cy=\"110\" r=\"13\" fill=\"var(--accent)\"/><line x1=\"230\" y1=\"110\" x2=\"330\" y2=\"135\" stroke=\"var(--ink)\" stroke-width=\"14\" stroke-linecap=\"round\"/><path d=\"M330 135 l18 -12 M330 135 l18 12\" stroke=\"var(--ink)\" stroke-width=\"6\" stroke-linecap=\"round\"/><rect x=\"345\" y=\"122\" width=\"30\" height=\"34\" rx=\"4\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><path d=\"M352 116 q4 -10 0 -18 M364 116 q4 -10 0 -18\" stroke=\"var(--ill-2)\" stroke-width=\"3\" fill=\"none\"/><path d=\"M380 140 Q470 70 560 150\" stroke=\"var(--accent)\" stroke-width=\"4\" stroke-dasharray=\"8 8\" fill=\"none\"/><circle cx=\"300\" cy=\"228\" r=\"40\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"4\" stroke-dasharray=\"6 6\"/><rect x=\"285\" y=\"215\" width=\"28\" height=\"35\" rx=\"3\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><path d=\"M313 222 q12 6 0 16\" stroke=\"var(--ink)\" stroke-width=\"3\" fill=\"none\"/><circle cx=\"420\" cy=\"225\" r=\"46\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"4\" stroke-dasharray=\"6 6\"/><rect x=\"392\" y=\"200\" width=\"56\" height=\"38\" rx=\"3\" fill=\"var(--ink)\"/><rect x=\"398\" y=\"205\" width=\"44\" height=\"28\" fill=\"var(--ill-2)\"/><rect x=\"384\" y=\"238\" width=\"72\" height=\"8\" rx=\"2\" fill=\"var(--ink)\"/><circle cx=\"520\" cy=\"232\" r=\"30\" fill=\"none\" stroke=\"var(--hot)\" stroke-width=\"4\" stroke-dasharray=\"6 6\"/><rect x=\"510\" y=\"214\" width=\"20\" height=\"34\" rx=\"4\" fill=\"var(--ink)\"/><rect x=\"513\" y=\"219\" width=\"14\" height=\"22\" fill=\"var(--card)\"/><rect x=\"420\" y=\"30\" width=\"180\" height=\"56\" rx=\"14\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><path d=\"M450 86 l-10 22 l28 -22 z\" fill=\"var(--card)\" stroke=\"var(--ink)\" stroke-width=\"3\"/><rect x=\"440\" y=\"48\" width=\"100\" height=\"8\" rx=\"4\" fill=\"var(--ink)\"/><rect x=\"440\" y=\"64\" width=\"64\" height=\"8\" rx=\"4\" fill=\"var(--accent)\"/><circle cx=\"570\" cy=\"58\" r=\"12\" fill=\"var(--hot)\"/><path d=\"M564 58 h12\" stroke=\"var(--card)\" stroke-width=\"3\"/><rect x=\"105\" y=\"222\" width=\"22\" height=\"12\" rx=\"3\" fill=\"var(--card)\"/><circle cx=\"116\" cy=\"228\" r=\"4\" fill=\"var(--accent)\"/></svg>",
+      "tags": [
+        "Robots",
+        "AI",
+        "Frontier tech",
+        "Machine learning",
+        "Algorithms",
+        "Selection"
+      ],
+      "theme": "robots",
+      "whyItMatters": "Robots that follow instructions word for word can be frustrating, and can even cause accidents. Teaching a robot to generalise from one example is a step towards robots that can safely help people at home. It also shows why AI guesses must be tested carefully, because they can be wrong."
+    },
     {
       "body": [
         "On 2 November, about 90 teams brought robots to Mount Tai in Shandong province, eastern China. The mountain is a UNESCO World Heritage site, and for centuries people have climbed it as a special journey. This time the climbers were machines.",
