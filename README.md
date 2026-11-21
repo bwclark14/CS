@@ -51,3 +51,12 @@ A rebuilt Future Proof for learners aged 11–14 (S1–S3), laid out like The Da
 - `future-proof-2/index.html`: the pupils' unit. Each mission is its own page within the file (`index.html#m1` to `#m12`)
 - `future-proof-2/teacher.html`: teacher notes, KDU map (Third and Fourth Level), AI and safeguarding tiers, answer notes, a check-before-use list, and a tool to open a class's time capsules and export them as CSV. Not linked from the pupils' page
 - `future-proof-2/src/`: the source pieces; run `sh future-proof-2/src/build.sh` to rebuild both pages after editing them
+
+## Bit Bench
+
+A virtual micro:bit workbench for learners who don't have the hardware. Pupils add parts (LEDs, traffic lights, buzzer, NeoPixels, servos, DC motors, push buttons, potentiometer, light, moisture, motion, ultrasonic and line sensors, an edge breakout and a motor driver board), wire them to pins, code them with MakeCode-style blocks and run them in the simulator. A wiring check explains real-world problems: pins you can't reach without a breakout, two parts on one pin, pins shared with the display or buttons, and motors without a driver. A motor driver with two motors becomes a rover that drives in a top-down arena (obstacle room, line track, maze). Every program is also shown as MicroPython to copy to a real micro:bit. Fourteen missions set up the parts and check the program automatically. No logins; work is saved in the browser and can be saved to a file.
+
+- Site: https://bwclark14.github.io/CS/microbit-lab/
+- `microbit-lab/index.html` and `lab.css`: the page
+- `microbit-lab/js/`: `parts.js` (parts, bench drawing, wiring rules), `sim.js` (simulated micro:bit and runtime), `arena.js` (rover arena), `blocks.js` (blocks and the JavaScript/MicroPython generators), `missions.js` (missions and their checks), `app.js` (the interface)
+- Blockly 10.4.3 is loaded from unpkg

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bit Bench</title>
+<meta name="description" content="A virtual micro:bit workbench. Wire up LEDs, servos, motors, sensors and breakout boards, code them with blocks, watch them run, then copy the MicroPython to a real micro:bit.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%2316213F%22/%3E%3Cg fill=%22%23FF5A36%22%3E%3Crect x=%229%22 y=%229%22 width=%224%22 height=%224%22/%3E%3Crect x=%2219%22 y=%229%22 width=%224%22 height=%224%22/%3E%3Crect x=%2214%22 y=%2214%22 width=%224%22 height=%224%22/%3E%3Crect x=%229%22 y=%2219%22 width=%224%22 height=%224%22/%3E%3Crect x=%2219%22 y=%2219%22 width=%224%22 height=%224%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="lab.css">
+<script src="https://unpkg.com/blockly@10.4.3/blockly.min.js"></script>
+<script src="https://unpkg.com/blockly@10.4.3/python_compressed.js"></script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#" aria-label="Bit Bench home">
+    <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#16213F"/><g fill="#FF5A36"><rect x="9" y="9" width="4" height="4"/><rect x="19" y="9" width="4" height="4"/><rect x="14" y="14" width="4" height="4"/><rect x="9" y="19" width="4" height="4"/><rect x="19" y="19" width="4" height="4"/></g></svg>
+    <span><b>Bit Bench</b><small>virtual micro:bit workbench</small></span>
+  </a>
+  <div class="runbar" role="group" aria-label="Simulator controls">
+    <button id="btnRun" class="run" title="Run your program">▶ Run</button>
+    <button id="btnStop" class="stop" title="Stop the program" disabled>■ Stop</button>
+    <span id="runState" class="runstate" aria-live="polite">Stopped</span>
+  </div>
+  <div class="tools">
+    <button id="btnMute" class="ghost" title="Sound on or off" aria-pressed="false">🔊 Sound</button>
+    <details class="menu">
+      <summary class="ghost">Project ▾</summary>
+      <div class="menu-pop">
+        <button id="btnNew">New empty project</button>
+        <button id="btnExport">Save project to a file</button>
+        <label class="filebtn">Open a project file<input id="fileImport" type="file" accept=".json,application/json" hidden></label>
+      </div>
+    </details>
+    <button id="btnHelp" class="ghost">? Help</button>
+  </div>
+</header>
+
+<main class="app">
+  <!-- LEFT: parts, inspector, missions -->
+  <aside class="pane left" aria-label="Parts and missions">
+    <div class="tabs" role="tablist">
+      <button role="tab" class="tab on" data-tab="parts" aria-selected="true">Parts</button>
+      <button role="tab" class="tab" data-tab="missions" aria-selected="false">Missions <span id="missionCount" class="pill">0/0</span></button>
+    </div>
+    <div class="tabpanel" id="tab-parts">
+      <p class="hint">Click a part to add it to the bench. Drag it to move it. Click it to change its pins.</p>
+      <div id="palette"></div>
+      <div id="inspector" class="inspector" hidden></div>
+    </div>
+    <div class="tabpanel" id="tab-missions" hidden>
+      <div id="missionList"></div>
+      <div id="missionDetail" hidden></div>
+    </div>
+  </aside>
+
+  <!-- CENTRE: bench / rover arena -->
+  <section class="pane stage" aria-label="Workbench">
+    <div class="tabs" role="tablist">
+      <button role="tab" class="tab on" data-view="bench" aria-selected="true">Workbench</button>
+      <button role="tab" class="tab" data-view="arena" aria-selected="false">Rover arena</button>
+      <span class="spacer"></span>
+      <select id="arenaPick" aria-label="Arena" hidden>
+        <option value="room">Obstacle room</option>
+        <option value="line">Line track</option>
+        <option value="maze">Maze</option>
+      </select>
+      <button id="btnRoverReset" class="ghost small" hidden>Put rover back</button>
+    </div>
+    <div class="view" id="view-bench">
+      <svg id="bench" viewBox="0 0 980 600" role="img" aria-label="Workbench with a micro:bit and the parts you have added"></svg>
+    </div>
+    <div class="view" id="view-arena" hidden>
+      <canvas id="arena" width="1200" height="800" aria-label="Top-down rover arena"></canvas>
+      <div id="arenaInfo" class="arena-info"></div>
+    </div>
+    <div class="dock">
+      <div class="tabs small" role="tablist">
+        <button role="tab" class="tab on" data-dock="inputs" aria-selected="true">Inputs</button>
+        <button role="tab" class="tab" data-dock="checks" aria-selected="false">Wiring check <span id="checkCount" class="pill">0</span></button>
+        <button role="tab" class="tab" data-dock="serial" aria-selected="false">Serial</button>
+      </div>
+      <div class="dockpanel" id="dock-inputs"></div>
+      <div class="dockpanel" id="dock-checks" hidden></div>
+      <div class="dockpanel" id="dock-serial" hidden><pre id="serial" aria-live="polite"></pre><button id="btnClearSerial" class="ghost small">Clear</button></div>
+    </div>
+  </section>
+
+  <!-- RIGHT: code -->
+  <section class="pane code" aria-label="Code">
+    <div class="tabs" role="tablist">
+      <button role="tab" class="tab on" data-code="blocks" aria-selected="true">Blocks</button>
+      <button role="tab" class="tab" data-code="python" aria-selected="false">MicroPython</button>
+      <span class="spacer"></span>
+      <button id="btnCopyPy" class="ghost small" hidden>Copy</button>
+      <button id="btnDownloadPy" class="ghost small" hidden>Download .py</button>
+    </div>
+    <div class="view" id="code-blocks"><div id="blockly"></div></div>
+    <div class="view" id="code-python" hidden>
+      <p class="hint pyhint">This is your blocks program written as MicroPython. Paste it into <b>python.microbit.org</b> and flash it to a real micro:bit.</p>
+      <pre id="pycode"></pre>
+    </div>
+  </section>
+</main>
+
+<dialog id="help">
+  <form method="dialog">
+    <h2>How Bit Bench works</h2>
+    <ol>
+      <li><b>Build.</b> Add parts from the Parts list. Each part is wired to a micro:bit pin. Click a part to change which pin it uses.</li>
+      <li><b>Check the wiring.</b> The Wiring check tab spots real-world problems: pins you can't reach without a breakout board, two parts on one pin, pins the LED display or buttons already use, and motors without a driver board.</li>
+      <li><b>Code.</b> Snap blocks together. Pin blocks talk to your parts, just like MakeCode.</li>
+      <li><b>Run.</b> Press Run. Click buttons A and B and the gold logo on the micro:bit, press button parts, and move the sliders in the Inputs tab to change what the sensors read.</li>
+      <li><b>Drive.</b> Add a motor driver board and two motors (M1 left, M2 right) and your build becomes a rover. Open the Rover arena to drive it. Sonar and line sensors read the arena.</li>
+      <li><b>Take it to real hardware.</b> The MicroPython tab shows the same program for a real micro:bit.</li>
+    </ol>
+    <p class="hint">Your work is saved in this browser. Use Project ▸ Save project to a file to keep a copy or hand it in.</p>
+    <button class="run">Got it</button>
+  </form>
+</dialog>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/parts.js"></script>
+<script src="js/sim.js"></script>
+<script src="js/arena.js"></script>
+<script src="js/blocks.js"></script>
+<script src="js/missions.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
