@@ -166,10 +166,16 @@ Object.assign(JG.forBlock, {
   mb_serial: b => `mb.serial(${jv(b, 'V', "''")});\n`,
 });
 
+// every statement reports itself first, so the Monitor can show (and Slow mode can pace) what is running
+JG.STATEMENT_PREFIX = 'await mb.step(%1);\n';
 function toJS(ws) {
   JG.init(ws);
-  const parts = ws.getTopBlocks(true).filter(b => HATS.includes(b.type) && b.isEnabled()).map(b => JG.blockToCode(b));
-  return JG.finish(parts.join('\n'));
+  const hats = ws.getTopBlocks(true).filter(b => HATS.includes(b.type) && b.isEnabled());
+  hats.forEach(b => { b.suppressPrefixSuffix = true; });
+  const parts = hats.map(b => JG.blockToCode(b));
+  // getters let the Monitor read each variable while the program runs
+  const watch = ws.getAllVariables().map(v => `${JSON.stringify(v.name)}: () => ${JG.nameDB_.getName(v.getId(), Blockly.Names.NameType.VARIABLE)}`);
+  return JG.finish(parts.join('\n')) + `\nmb.watchVars({${watch.join(', ')}});\n`;
 }
 
 /* ---------- MicroPython (for real hardware) ---------- */

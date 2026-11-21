@@ -27,11 +27,12 @@ const App = {
     this.ws.addChangeListener(e => { if (e.isUiEvent) return; this.codeChanged(); });
 
     Arena.init($('#arena'));
-    RT.onState = on => this.paintRunState(on);
+    RT.onState = on => { this.paintRunState(on); Monitor.update(); Monitor.renderLog(); };
     RT.onError = msg => { this.serial('✗ ' + msg); this.toast(msg); this.dock('serial'); };
     RT.serial = line => this.serial(line);
 
     this.bindUi();
+    Monitor.build(); Monitor.start();
     this.renderPalette(); this.renderAll(); this.renderMissions();
     if (!saved) setTimeout(() => $('#help').showModal(), 300);
     let last = performance.now();
@@ -109,7 +110,7 @@ const App = {
   },
 
   renderAll() {
-    this.renderBench(); this.renderInspector(); this.renderInputs(); this.renderChecks();
+    this.renderBench(); this.renderInspector(); this.renderInputs(); this.renderChecks(); Monitor.update();
     if (this.codeTab === 'python') this.renderPython();
   },
 
@@ -138,6 +139,7 @@ const App = {
       if (g) g.querySelectorAll('[data-r]').forEach(e => { p._el[e.dataset.r] = e; });
     });
     this.leds = [...Array(25)].map((_, i) => $('#led' + i));
+    Monitor.bindWires();
   },
   wiresSvg() {
     const pr = this.project;
@@ -149,8 +151,13 @@ const App = {
         const a = pn === 'M' ? socketAnchor(pr, pin) : pinAnchor(pr, pin);
         const e = partPinAnchor(p, i);
         const col = pn === 'M' ? (pin === 'M1' ? '#FF5A36' : '#3AB8FF') : wireColour(pin);
+        const dir = d.kind === 'in' && pn !== 'TRIG' ? 'in' : 'out';
+        s += `<g class="sig" data-part="${p.id}" data-pn="${pn}" data-pin="${pin}" data-dir="${dir}">`;
         s += `<path class="wire${a.ok ? '' : ' badwire'}" d="${wirePath(a, e)}" stroke="${a.ok ? col : '#FF4D4D'}"/>`;
         s += `<circle cx="${a.x}" cy="${a.y}" r="4" fill="${a.ok ? col : '#FF4D4D'}"/>`;
+        s += `<circle class="dot" r="5" fill="#fff" stroke="${col}" stroke-width="2" opacity="0"/><circle class="dot2" r="5" fill="#fff" stroke="${col}" stroke-width="2" opacity="0"/>`;
+        s += `<g class="badge" opacity="0"><rect x="-20" y="-11" width="40" height="22" rx="11" fill="#16213F" stroke="${col}" stroke-width="2"/><text y="4.5" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="JetBrains Mono"></text></g>`;
+        s += `</g>`;
       });
     });
     return s;
@@ -246,6 +253,7 @@ const App = {
         case 'line': e.dot.setAttribute('fill', sensorValue(p) ? '#30D158' : '#300'); break;
       }
     });
+    if (this.view === 'bench') Monitor.tickWires(now);
     if (this.view === 'arena') {
       Arena.step(dt); Arena.draw();
       if (!this._ai || now - this._ai > 200) { $('#arenaInfo').textContent = Arena.info(); this._ai = now; }
@@ -291,7 +299,7 @@ const App = {
   },
   dock(k) {
     document.querySelectorAll('[data-dock]').forEach(b => { const on = b.dataset.dock === k; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
-    ['inputs', 'checks', 'serial'].forEach(x => { $('#dock-' + x).hidden = x !== k; });
+    ['monitor', 'inputs', 'checks', 'serial'].forEach(x => { $('#dock-' + x).hidden = x !== k; });
   },
   codeTab: 'blocks',
   setCode(k) {
@@ -353,6 +361,7 @@ const App = {
     out.innerHTML = `<div class="result wait">Checking… watch the ${m.arena ? 'arena' : 'bench'}. ${m.arena ? 'This takes up to a minute.' : ''}</div>`;
     const saved = this.project.parts.map(p => [p, Object.assign({}, p.state)]);
     if (m.arena) { Arena.setArena(m.arena); $('#arenaPick').value = m.arena; this.setView('arena'); }
+    const speed = RT.stepDelay; RT.stepDelay = 0; // checks always run at full speed
     this.run();
     let result;
     try {
@@ -362,6 +371,7 @@ const App = {
     } catch (e) {
       result = { ok: false, msg: e instanceof MissionFail ? e.message : 'Something went wrong while checking: ' + e.message };
     }
+    RT.stepDelay = speed;
     if (token.cancel) return;
     this.checking = null;
     RT.stop();
@@ -405,6 +415,13 @@ const App = {
     $('#btnDownloadPy').onclick = () => download('main.py', this.pySrc || '', 'text/x-python');
     $('#arenaPick').onchange = e => { Arena.setArena(e.target.value); };
     $('#btnRoverReset').onclick = () => Arena.reset();
+    $('#showSignals').onchange = e => { Monitor.showSignals = e.target.checked; $('#sigLegend').hidden = !e.target.checked; };
+    $('#btnDockSize').onclick = e => { const big = document.querySelector('.dock').classList.toggle('big'); e.currentTarget.setAttribute('aria-pressed', big); e.currentTarget.textContent = big ? 'Smaller' : 'Bigger'; };
+    $('#dock-monitor').addEventListener('change', e => {
+      if (e.target.name !== 'speed') return;
+      RT.stepDelay = +e.target.value;
+      this.toast(RT.stepDelay ? 'Slow motion: each block lights up as it runs.' : 'Normal speed.');
+    });
 
     document.addEventListener('click', e => {
       const t = e.target.closest('[data-add],[data-tab],[data-view],[data-dock],[data-code],[data-del],[data-desel],[data-mission],[data-back],[data-setup],[data-check]');
@@ -502,7 +519,7 @@ const App = {
       const p = drag.p;
       p.x = Math.max(0, Math.min(1400 - partW(p), s.x - drag.ox)); p.y = Math.max(0, Math.min(900 - PARTS[p.type].h, s.y - drag.oy));
       drag.g.setAttribute('transform', `translate(${p.x} ${p.y})`);
-      $('#wires').innerHTML = this.wiresSvg();
+      $('#wires').innerHTML = this.wiresSvg(); Monitor.bindWires();
     });
     const end = () => {
       if (!drag) return;

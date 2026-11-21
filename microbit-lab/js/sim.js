@@ -67,9 +67,9 @@ const Audio = {
 /* ---------- hardware state ---------- */
 const HW = {
   pins: {}, display: new Array(25).fill(0), buttons: { A: false, B: false }, logo: false,
-  temp: 21, light: 128, accel: { x: 0, y: 0, z: -1023 }, tone: 0, motors: { M1: 0, M2: 0 }, neo: {},
+  temp: 21, light: 128, accel: { x: 0, y: 0, z: -1023 }, tone: 0, motors: { M1: 0, M2: 0 }, neo: {}, activity: {}, reads: {},
   reset() {
-    this.pins = {}; this.display.fill(0); this.tone = 0; this.motors = { M1: 0, M2: 0 }; this.neo = {};
+    this.pins = {}; this.display.fill(0); this.tone = 0; this.motors = { M1: 0, M2: 0 }; this.neo = {}; this.activity = {}; this.reads = {};
     Audio.set(0);
   },
   out(pin) { return this.pins[pin]; },
@@ -117,7 +117,8 @@ function readAnalog(pin) {
 /* ---------- runtime ---------- */
 class StopSignal extends Error {}
 const RT = {
-  gen: 0, running: false, t0: 0, h: null, busy: new Set(), warned: new Set(),
+  gen: 0, running: false, t0: 0, h: null, busy: new Set(), warned: new Set(), steps: new Map(), stepDelay: 0, vars: null,
+  now() { return performance.now() - this.t0; },
   onState: () => {}, onError: () => {}, serial: () => {},
 
   start(code) {
@@ -125,7 +126,8 @@ const RT = {
     const gen = ++this.gen;
     this.h = { start: [], forever: [], button: { A: [], B: [], AB: [] }, shake: [], logo: [] };
     this.busy = new Set(); this.warned = new Set();
-    HW.reset(); this.t0 = performance.now(); this.running = true;
+    HW.reset(); this.t0 = performance.now(); this.running = true; this.steps = new Map(); this.vars = null;
+    Monitor.reset();
     const mb = makeApi(gen);
     let program;
     try { program = new Function('mb', '"use strict";\n' + code); }
@@ -153,6 +155,9 @@ const RT = {
     if (!this.running || !this.h) return;
     const list = key ? this.h[kind][key] : this.h[kind];
     const gen = this.gen;
+    const what = kind === 'button' ? `Button ${key === 'AB' ? 'A+B' : key} pressed` : kind === 'shake' ? 'micro:bit shaken' : 'Logo touched';
+    const hat = kind === 'button' ? `on button ${key === 'AB' ? 'A+B' : key} pressed` : kind === 'shake' ? 'on shake' : 'on logo pressed';
+    Monitor.event(list && list.length ? `${what}: the "${hat}" blocks run` : `${what}. No "${hat}" block is listening, so nothing happens.`);
     (list || []).forEach(fn => {
       if (this.busy.has(fn)) return;
       this.busy.add(fn);
@@ -178,6 +183,7 @@ function makeApi(gen) {
   const alive = () => { if (RT.gen !== gen) throw new StopSignal(); };
   const sleep = ms => new Promise((res, rej) => setTimeout(() => (RT.gen === gen ? res() : rej(new StopSignal())), ms));
   let ticks = 0;
+  const act = (pin, dir, val) => { HW.activity[pin] = { dir, val, t: performance.now() }; };
   const setImage = rows => { for (let r = 0; r < 5; r++) for (let c = 0; c < 5; c++) HW.display[r * 5 + c] = rows[r][c] === '#' ? 9 : 0; };
   const showStatic = ch => {
     HW.display.fill(0);
@@ -205,13 +211,15 @@ function makeApi(gen) {
     onStart(fn) { RT.h.start.push(fn); }, forever(fn) { RT.h.forever.push(fn); },
     onButton(b, fn) { RT.h.button[b].push(fn); }, onShake(fn) { RT.h.shake.push(fn); }, onLogo(fn) { RT.h.logo.push(fn); },
     async pause(ms) { alive(); await sleep(Math.max(0, Number(ms) || 0)); },
+    step(id) { alive(); RT.steps.set(id, performance.now()); if (RT.stepDelay) return sleep(RT.stepDelay); },
+    watchVars(getters) { RT.vars = getters; },
     async tick() { alive(); if (++ticks % 40 === 0) await sleep(0); },
     // display
-    showIcon(name) { alive(); setImage(ICONS[name] || ICONS.HEART); },
-    showLeds(rows) { alive(); setImage(rows); },
-    async showNumber(n) { alive(); const s = fmtNum(n); if (s.length === 1) showStatic(s); else await scroll(s); },
-    async showString(s) { alive(); s = String(s); if (s.length <= 1) showStatic(s || ' '); else await scroll(s); },
-    clear() { alive(); HW.display.fill(0); },
+    showIcon(name) { alive(); setImage(ICONS[name] || ICONS.HEART); Monitor.display(`shows the ${ICON_LABELS[name] || name} icon`); },
+    showLeds(rows) { alive(); setImage(rows); Monitor.display('shows your LED pattern'); },
+    async showNumber(n) { alive(); const s = fmtNum(n); Monitor.display(s.length === 1 ? `shows ${s}` : `scrolls ${s}`); if (s.length === 1) showStatic(s); else await scroll(s); },
+    async showString(s) { alive(); s = String(s); Monitor.display(s.length <= 1 ? `shows "${s}"` : `scrolls "${s}"`); if (s.length <= 1) showStatic(s || ' '); else await scroll(s); },
+    clear() { alive(); HW.display.fill(0); Monitor.display('cleared'); },
     plot(x, y) { alive(); x = Math.round(x); y = Math.round(y); if (x >= 0 && x < 5 && y >= 0 && y < 5) HW.display[y * 5 + x] = 9; },
     unplot(x, y) { alive(); x = Math.round(x); y = Math.round(y); if (x >= 0 && x < 5 && y >= 0 && y < 5) HW.display[y * 5 + x] = 0; },
     // input
@@ -222,21 +230,23 @@ function makeApi(gen) {
     acceleration(axis) { return Math.round(HW.accel[axis] || 0); },
     runningTime() { return Math.round(performance.now() - RT.t0); },
     // pins
-    digitalWrite(pin, v) { alive(); HW.pins[pin] = { kind: 'd', v: Number(v) ? 1 : 0 }; },
-    analogWrite(pin, v) { alive(); HW.pins[pin] = { kind: 'a', v: Math.max(0, Math.min(1023, Math.round(Number(v) || 0))) }; },
-    servoWrite(pin, a) { alive(); HW.pins[pin] = { kind: 's', v: Math.max(0, Math.min(180, Number(a) || 0)) }; },
-    digitalRead(pin) { return readDigital(pin); },
-    analogRead(pin) { return Math.round(readAnalog(pin)); },
+    digitalWrite(pin, v) { alive(); HW.pins[pin] = { kind: 'd', v: Number(v) ? 1 : 0 }; act(pin, 'out', HW.pins[pin].v); Monitor.out(pin); },
+    analogWrite(pin, v) { alive(); HW.pins[pin] = { kind: 'a', v: Math.max(0, Math.min(1023, Math.round(Number(v) || 0))) }; act(pin, 'out', HW.pins[pin].v); Monitor.out(pin); },
+    servoWrite(pin, a) { alive(); HW.pins[pin] = { kind: 's', v: Math.round(Math.max(0, Math.min(180, Number(a) || 0))) }; act(pin, 'out', HW.pins[pin].v); Monitor.out(pin); },
+    digitalRead(pin) { const v = readDigital(pin); act(pin, 'in', v); Monitor.read(pin, v); return v; },
+    analogRead(pin) { const v = Math.round(readAnalog(pin)); act(pin, 'in', v); Monitor.read(pin, v); return v; },
     map(v, a, b, c, d) { return b === a ? c : (Number(v) - a) * (d - c) / (b - a) + c; },
     // music
-    async playTone(freq, ms) { alive(); HW.tone = Number(freq) || 0; Audio.set(HW.tone); try { await sleep(Math.max(0, Number(ms) || 0)); } finally { HW.tone = 0; Audio.set(0); } await sleep(10); },
+    async playTone(freq, ms) { alive(); HW.tone = Number(freq) || 0; Audio.set(HW.tone); act('P0', 'out', HW.tone); Monitor.tone(HW.tone); try { await sleep(Math.max(0, Number(ms) || 0)); } finally { HW.tone = 0; Audio.set(0); } await sleep(10); },
     async playMelody(name) { for (const [f, ms] of MELODIES[name] || []) await api.playTone(f, ms); },
     stopMusic() { HW.tone = 0; Audio.set(0); },
     // sensors
     distance(trig, echo) {
       const p = App.project.parts.find(q => q.type === 'sonar' && q.pins.TRIG === trig && q.pins.ECHO === echo);
       if (!p) { RT.warnOnce('sonar' + trig + echo, `No ultrasonic sensor is wired with TRIG ${trig} and ECHO ${echo}, so it reads 0.`); return 0; }
-      return Math.round(sensorValue(p));
+      const v = Math.round(sensorValue(p));
+      act(trig, 'out', 1); act(echo, 'in', v); Monitor.read(echo, v);
+      return v;
     },
     // motors
     motor(m, speed) {
@@ -244,15 +254,15 @@ function makeApi(gen) {
       const b = boardPart(App.project);
       if (!b || b.type !== 'motordriver') RT.warnOnce('nodriver', 'Motor blocks need a motor driver board on the bench.');
       speed = Math.max(-100, Math.min(100, Number(speed) || 0));
-      HW.motors[m] = speed;
+      HW.motors[m] = speed; act(m, 'out', speed); Monitor.motor(m);
       const [a, c] = DRIVER_PINS[m], duty = Math.round(Math.abs(speed) * 10.23);
       HW.pins[a] = { kind: 'a', v: speed >= 0 ? duty : 0 }; HW.pins[c] = { kind: 'a', v: speed < 0 ? duty : 0 };
     },
     motorStop(m) { (m === 'both' ? ['M1', 'M2'] : [m]).forEach(k => api.motor(k, 0)); },
     // neopixel
-    neoShowColour(pin, col) { alive(); const a = neoArr(pin); a.fill(col); },
-    neoSetPixel(pin, i, col) { alive(); const a = neoArr(pin); i = Math.round(i); if (i >= 0 && i < a.length) a[i] = col; },
-    neoClear(pin) { alive(); neoArr(pin).fill('black'); },
+    neoShowColour(pin, col) { alive(); const a = neoArr(pin); a.fill(col); act(pin, 'out', col); Monitor.neo(pin); },
+    neoSetPixel(pin, i, col) { alive(); const a = neoArr(pin); i = Math.round(i); if (i >= 0 && i < a.length) a[i] = col; act(pin, 'out', col); Monitor.neo(pin); },
+    neoClear(pin) { alive(); neoArr(pin).fill('black'); act(pin, 'out', 'off'); Monitor.neo(pin); },
     // serial
     serial(v) { alive(); RT.serial(typeof v === 'number' ? fmtNum(v) : String(v)); },
   };

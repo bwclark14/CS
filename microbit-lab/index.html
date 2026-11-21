@@ -61,6 +61,7 @@
       <button role="tab" class="tab on" data-view="bench" aria-selected="true">Workbench</button>
       <button role="tab" class="tab" data-view="arena" aria-selected="false">Rover arena</button>
       <span class="spacer"></span>
+      <label class="sigtoggle"><input type="checkbox" id="showSignals" checked> Show signals</label>
       <select id="arenaPick" aria-label="Arena" hidden>
         <option value="room">Obstacle room</option>
         <option value="line">Line track</option>
@@ -69,7 +70,8 @@
       <button id="btnRoverReset" class="ghost small" hidden>Put rover back</button>
     </div>
     <div class="view" id="view-bench">
-      <svg id="bench" viewBox="0 0 980 600" role="img" aria-label="Workbench with a micro:bit and the parts you have added"></svg>
+      <svg id="bench" viewBox="0 0 980 600" role="img" aria-label="Workbench with a micro:bit and the parts you have added. The Monitor tab lists the same information as text."></svg>
+      <div id="sigLegend" class="legend" aria-hidden="true"><span><i class="lg-dot"></i> dots show which way a signal travels</span><span><b>→ 1</b> micro:bit sends (output)</span><span><b>← 512</b> part sends (input)</span></div>
     </div>
     <div class="view" id="view-arena" hidden>
       <canvas id="arena" width="1200" height="800" aria-label="Top-down rover arena"></canvas>
@@ -77,10 +79,14 @@
     </div>
     <div class="dock">
       <div class="tabs small" role="tablist">
+        <button role="tab" class="tab" data-dock="monitor" aria-selected="false">Monitor</button>
         <button role="tab" class="tab on" data-dock="inputs" aria-selected="true">Inputs</button>
         <button role="tab" class="tab" data-dock="checks" aria-selected="false">Wiring check <span id="checkCount" class="pill">0</span></button>
         <button role="tab" class="tab" data-dock="serial" aria-selected="false">Serial</button>
+        <span class="spacer"></span>
+        <button id="btnDockSize" class="ghost small" aria-pressed="false" title="Make this panel taller">Bigger</button>
       </div>
+      <div class="dockpanel" id="dock-monitor" hidden></div>
       <div class="dockpanel" id="dock-inputs"></div>
       <div class="dockpanel" id="dock-checks" hidden></div>
       <div class="dockpanel" id="dock-serial" hidden><pre id="serial" aria-live="polite"></pre><button id="btnClearSerial" class="ghost small">Clear</button></div>
@@ -113,6 +119,7 @@
       <li><b>Code.</b> Snap blocks together. Pin blocks talk to your parts, just like MakeCode.</li>
       <li><b>Run.</b> Press Run. Click buttons A and B and the gold logo on the micro:bit, press button parts, and move the sliders in the Inputs tab to change what the sensors read.</li>
       <li><b>Drive.</b> Add a motor driver board and two motors (M1 left, M2 right) and your build becomes a rover. Open the Rover arena to drive it. Sonar and line sensors read the arena.</li>
+      <li><b>Watch it work.</b> While your program runs, dots move along the wires to show which way each signal goes, and a label shows its value. The Monitor tab lists your variables, every pin and what it means, and a log of what just changed. Choose <b>Slow</b> to watch each block light up as it runs.</li>
       <li><b>Take it to real hardware.</b> The MicroPython tab shows the same program for a real micro:bit.</li>
     </ol>
     <p class="hint">Your work is saved in this browser. Use Project ▸ Save project to a file to keep a copy or hand it in.</p>
@@ -125,6 +132,7 @@
 <script src="js/parts.js"></script>
 <script src="js/sim.js"></script>
 <script src="js/arena.js"></script>
+<script src="js/monitor.js"></script>
 <script src="js/blocks.js"></script>
 <script src="js/missions.js"></script>
 <script src="js/app.js"></script>
