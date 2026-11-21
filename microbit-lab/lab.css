@@ -162,6 +162,7 @@ button:disabled{opacity:.45;cursor:default}
 #missionDetail summary{font-weight:700;cursor:pointer}
 #missionDetail .row{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
 .btn{border:1px solid var(--ink);background:var(--paper);border-radius:8px;padding:6px 12px;font-weight:700}
+.armed{background:var(--bad-soft)!important;color:var(--bad)!important;border-color:var(--bad)!important}
 .btn.primary{background:var(--ink);color:#fff}
 .back{background:none;border:0;color:var(--muted);padding:0;font-weight:700}
 .result{padding:8px 10px;border-radius:8px;margin-top:8px;font-size:14px}

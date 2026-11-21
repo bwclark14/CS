@@ -17,8 +17,8 @@ const App = {
     if (saved && saved.project) this.loadProject(saved.project, false);
     this.done = (saved && saved.done) || {};
     this.ws = Blockly.inject('blockly', {
-      toolbox: TOOLBOX, renderer: 'zelos', media: 'https://unpkg.com/blockly@10.4.3/media/', trashcan: true, sounds: false,
-      zoom: { controls: true, wheel: true, startScale: 0.8, maxScale: 2, minScale: 0.4 },
+      toolbox: TOOLBOX, renderer: 'zelos', media: 'https://unpkg.com/blockly@10.4.3/media/', trashcan: !window.BB_EMBED, sounds: false,
+      zoom: { controls: !window.BB_EMBED, wheel: true, startScale: 0.8, maxScale: 2, minScale: 0.4 },
       grid: { spacing: 24, length: 2, colour: '#e3e0d8', snap: true }, move: { scrollbars: true, drag: true, wheel: false },
     });
     this.ws.addChangeListener(Blockly.Events.disableOrphans);
@@ -335,10 +335,10 @@ const App = {
       <p class="real"><b>On real hardware:</b> ${esc(m.real)}</p>`;
     $('#missionList').hidden = true; $('#missionDetail').hidden = false;
   },
-  setupMission() {
+  setupMission(btn) {
     const m = this.mission;
     const hasParts = this.project.parts.length > 0;
-    if (hasParts && !confirm('Replace the parts on your bench with the parts for this mission? Your blocks stay as they are.')) return;
+    if (hasParts && btn && !armConfirm(btn, 'Click again to replace your parts')) return;
     RT.stop();
     this.project = { parts: [], nextId: 1 };
     m.parts.forEach(p => this.addPart(p.type, { pins: p.pins, props: p.props, quiet: true }));
@@ -391,7 +391,7 @@ const App = {
     $('#btnHelp').onclick = () => $('#help').showModal();
     $('#btnClearSerial').onclick = () => { $('#serial').textContent = ''; };
     $('#btnNew').onclick = () => {
-      if (!confirm('Start a new empty project? Your current parts and blocks will be cleared. Save them to a file first if you want to keep them.')) return;
+      if (!armConfirm($('#btnNew'), 'Click again: this clears your parts and blocks')) return;
       RT.stop(); this.project = { parts: [], nextId: 1 }; this.selected = null;
       this.ws.clear(); Blockly.serialization.workspaces.load(STARTER, this.ws); this.renderAll(); this.save();
       $('.menu').open = false;
@@ -436,7 +436,7 @@ const App = {
       else if ('desel' in ds) { this.selected = null; this.renderBench(); this.renderInspector(); }
       else if (ds.mission) this.openMission(ds.mission);
       else if ('back' in ds) { $('#missionList').hidden = false; $('#missionDetail').hidden = true; }
-      else if ('setup' in ds) this.setupMission();
+      else if ('setup' in ds) this.setupMission(t);
       else if ('check' in ds) this.checkMission();
     });
     $('#inspector').addEventListener('change', e => {
@@ -530,6 +530,14 @@ const App = {
     svg.addEventListener('pointerup', end); svg.addEventListener('pointercancel', end);
   },
 };
+
+// two-step confirm inside the page (browser confirm() pop-ups are blocked in some viewers)
+function armConfirm(btn, msg) {
+  if (btn._armed) { clearTimeout(btn._armed); btn._armed = null; btn.textContent = btn._label; btn.classList.remove('armed'); return true; }
+  btn._label = btn.textContent; btn.textContent = msg; btn.classList.add('armed');
+  btn._armed = setTimeout(() => { btn._armed = null; btn.textContent = btn._label; btn.classList.remove('armed'); }, 4000);
+  return false;
+}
 
 function download(name, text, type) {
   const a = document.createElement('a');
